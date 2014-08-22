@@ -11,7 +11,8 @@
                 <li><span class="heading-side">מיקום:</span><span class="info-side line_box_place">ביתה של רוחמה אברהם</span></li>
                 <li><span class="heading-side">תאריך:</span><span class="info-side line_box_date">2.3.14</span></li>
                 <li><span class="heading-side">שעה:</span><span class="info-side line_box_hour">20:30</span></li>
-                <li><span class="heading-side">מחיר כניסה:</span><span class="info-side line_box_entrance_fee">20</span></li>               
+                <li><span class="heading-side">מחיר כניסה:</span><span class="info-side line_box_entrance_fee">20</span></li>
+                               
                 
                 
             </ul>
