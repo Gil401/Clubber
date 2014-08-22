@@ -11,7 +11,7 @@
         
     	<div class='main-container'>  
     		<div id = "offer_summery">תיאור המכרז: </div>
-   		 	<form action="demo_form.asp">
+   		 	<form action="">
 			ההצעה שלי:<input type="text" name="usrname"><br>
 				<input type="submit" value="הצע!">
 			</form>

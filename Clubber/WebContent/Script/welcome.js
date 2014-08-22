@@ -62,7 +62,6 @@ function dateChange (date){
 
 function getMainLinesFromDB(fullDate) {
 	console.log('function approched');
-	alert (fullDate);
 	
 	console.log('Getting template from server');
 	
