@@ -45,6 +45,7 @@
 	
 								  	<div class="lable" id="businessStructureNumberLabel">מספר בית</div>
 								  	<input type="text" name="homeNumber" id="homeNumber">
+						
 								  	<br>
 	
 								  	<div class="lable" id="businessPhoneLabel">טלפון</div>

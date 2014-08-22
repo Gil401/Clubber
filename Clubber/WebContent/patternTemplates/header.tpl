@@ -78,7 +78,7 @@
 		{%>
         	<form action="Login" method="post">
         		Email: <input type="text" name="email" placeholder="Email">	Password: <input type="password" name="Password" placeholder="Password">
-				<input type="submit" value="Login">
+				<input type="submit" value="התחבר">
 			</form>
 			<%}
 			else{
@@ -91,4 +91,3 @@
             
         </div>
     </header> <!--/#navigation-->
-
