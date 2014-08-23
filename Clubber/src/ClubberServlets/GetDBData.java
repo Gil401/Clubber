@@ -16,6 +16,7 @@ import ClubberLogic.AuctionData;
 import ClubberLogic.BusinessData;
 import ClubberLogic.DAL;
 import ClubberLogic.LineData;
+import ClubberLogic.OfferData;
 import ClubberLogic.PR;
 import ClubberLogic.UserMessagesData;
 import ClubberLogic.UserReviews;
@@ -61,6 +62,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		String userEmail= SessionUtils.getUserEmail(request);
 		
 		ArrayList<AuctionData> auctionsList = new ArrayList<>();
+		
 		ArrayList<IdWithName> musicStyleList = new ArrayList<>();
 		ArrayList<UserMessagesData> joinLineRequestList = new ArrayList<>();
 		
@@ -179,7 +181,14 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             	joinLineRequestList = DAL.getJoinLineRequestData(userEmail);
             	json = gson.toJson(joinLineRequestList);
             	
-            }            
+            }
+            else if(requestType.equals(Constants.DB_DATA_NEW_OFFER))
+            {
+            	//ArrayList<OfferData> offerList = new ArrayList<>();
+            	data = DAL.getAllNewOfferData("7");
+            	json = gson.toJson(data);
+            	
+            }
             
             System.out.println(json);
             out.print(json);

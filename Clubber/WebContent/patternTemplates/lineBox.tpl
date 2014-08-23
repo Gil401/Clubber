@@ -2,7 +2,7 @@
     <div class="tab-image">
         <img class="img-responsive" src="images/latest-events/event1.jpg" alt="">
     </div>
-    <div class="tab-content event-details">
+    <div class="tab-content event-details" onclick = "openDetails()">
         <div class="tab-pane active date-tab1">
             <h3 class="media-heading line_box_name">שירה וחמין של בוקר אצל רוחמה</h3>
             <ul class="event-content">
@@ -12,9 +12,6 @@
                 <li><span class="heading-side">תאריך:</span><span class="info-side line_box_date">2.3.14</span></li>
                 <li><span class="heading-side">שעה:</span><span class="info-side line_box_hour">20:30</span></li>
                 <li><span class="heading-side">מחיר כניסה:</span><span class="info-side line_box_entrance_fee">20</span></li>
-                               
-                
-                
             </ul>
         </div>
                                             

@@ -4,6 +4,7 @@ public class Constants {
 	
 	 //DB-Data types:
 	 public static final String DB_DATA_NEW_AUCTION= "GetDBData-NewAuction";
+	 public static final String DB_DATA_NEW_OFFER= "GetDBData-NewOffer";
 	 public static final String DB_DATA_MY_AUCTIONS= "GetDBData-MyAuctions";
 	 public static final String DB_DATA_AUCTION_MANAGEMENT ="GetDBData-AuctionManagement";
 	 public static final String DB_DATA_OFFER_REVIEW= "GetDBData-OfferReview";
@@ -11,10 +12,10 @@ public class Constants {
 	 public static final String DB_DATA_ADD_MESSAGE="GetDBData-AddMessage";
 	 public static final String DB_DATA_MAIN_LINES = "GetDBData-WelcomeLines";
 	 public static final String DB_DATA_AUCTION_BY_ID = "GetDBData-GetAuctionById";
-	 public static String DB_DATA_ALL_BUSINESSES= "DBDataAllBusinesses";
-	 public static String DB_DATA_GET_BUSINESS_AREAS_DATA= "DBDataGetBusinessAreasData";
-	 public static String DB_DATA_GET_BUSINESS_CITIES_DATA= "DBDataGetBusinessCitiesData";
-	 public static String DB_DATA_GET_BUSINESSES_TYPE_DATA= "DBDataGetBusinessesTypeData";
+	 public static final String DB_DATA_ALL_BUSINESSES= "DBDataAllBusinesses";
+	 public static final String DB_DATA_GET_BUSINESS_AREAS_DATA= "DBDataGetBusinessAreasData";
+	 public static final String DB_DATA_GET_BUSINESS_CITIES_DATA= "DBDataGetBusinessCitiesData";
+	 public static final String DB_DATA_GET_BUSINESSES_TYPE_DATA= "DBDataGetBusinessesTypeData";
 	 public static final String DB_DATA_USER_PROFILE= "DBDataUserProfile";
 	 public static final String DB_DATA_PR_PROFILE_REVIEW = "DBDataPrProfileReview";
 	 public static final String DB_DATA_CLIENT_PROFILE_REVIEW = "DBDataClientProfileReview";

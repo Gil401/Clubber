@@ -22,6 +22,7 @@ import Utlis.AuctionManagementData;
 import Utlis.IdWithName;
 import Utlis.LineManagementData;
 import Utlis.NewAuctionData;
+import Utlis.NewOfferData;
 
 public class DAL {
 	private static Connection conn;
@@ -314,6 +315,26 @@ public class DAL {
 		disconnectFromDBServer();
 	
 		
+		return data;
+	}
+
+	public static NewOfferData getAllNewOfferData (String i_PRid)
+	{
+		connectToDBServer();
+		NewOfferData data= new NewOfferData();
+		String query;
+			
+		query = "Select * from line L where L.PR_id = '"+i_PRid+"'";
+		data.setLines(GetIdAndNameData(query));
+		
+		query = "Select * from treats;";
+		data.setTreats(GetIdAndNameData(query));
+		
+		query = "Select * from Sitts_Type;";
+		data.setSittsType(GetIdAndNameData(query));
+		
+		disconnectFromDBServer();
+	
 		return data;
 	}
 	
@@ -918,6 +939,7 @@ public class DAL {
 					lData.setEntranceFee(rs.getString("L.entrance_fee"));
 					lData.setMinAge(rs.getInt("L.Min_Age"));
 					lData.setStartDate(date);
+					lData.setId(rs.getInt("L.id"));
 					
 					bData.getM_Lines().add(lData);
 					

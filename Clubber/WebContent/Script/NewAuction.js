@@ -99,6 +99,12 @@
 		}
 	}
 	
+	function newAuctionClicked() {
+		if (mandatoryFieldsCheck() == true) {
+			ajaxNewAuctionCreation();
+		}
+	}
+	
 	function replaceAll(find, replace, str) 
 	{
 		  return str.replace(new RegExp(find, 'g'), replace);
