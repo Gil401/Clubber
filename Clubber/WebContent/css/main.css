@@ -2162,6 +2162,13 @@ ul.sub-menu{
 	color:black;
 	width:200px;
 }
+.combobox-offer-input{
+	height: 5em;
+	overflow: auto;
+	background-color: white;
+	color:black;
+	width:200px;
+}
 
 
 .error-label-hidden{
@@ -2192,6 +2199,14 @@ ul.sub-menu{
 }
 
 .combobox-auction-input{
+	height: 5em;
+	overflow: auto;
+	background-color: white;
+	color:black;
+	width:250px;
+}
+
+.combobox-offer-input{
 	height: 5em;
 	overflow: auto;
 	background-color: white;

@@ -15,51 +15,53 @@
 	        <div  class="large-text-label page-description">בחלק זה אתה מוזמן לתת הצעה לדורש </div>  
 	         <br /><br />
 	         
-	         סוף זמן לאישור הצעה: <input type="time" name="time" />
+	         סוף זמן לאישור הצעה: <input id ="closing-time" type="time" name="time" />
 	         <div id="event-date-error" class="error-label-hidden">יש למלא שעת סגירה</div>
-	         
 	         <br/><br/>
 	         
-	         
-	         <div class = "new-auction-field" class='new-auction-field' style="height:120px"> 
-	         	<label class='new-auction-field-title'> ליינים רלוונטיים</label>
-	        	<div class='new-auction-field-input combobox-auction-input' id= "Lines_to_offer" >
+	         <div class = "new-offer-field" class='new-offer-field' style="height:120px"> 
+	         	<label class='new-offer-field-title'> ליינים רלוונטיים</label>
+	        	<div class='new-offer-field-input combobox-offer-input' id= "Lines_to_offer" >
 	        	</div>
 			</div>
 			
-			<div class = "new-auction-field" class='new-auction-field' style="height:120px"> 
-	         	<label class='new-auction-field-title'> פינוקים</label>
-	        	<div class='new-auction-field-input combobox-auction-input' id= "treats_to_offer" >
+			<div class = "new-offer-field" class='new-offer-field' style="height:120px"> 
+	         	<label class='new-offer-field-title'> פינוקים</label>
+	        	<div class='new-offer-field-input combobox-offer-input' id= "treats_to_offer" >
 	        	</div>
 			</div>  
 			
 	         <br/>
-	         	<div class = "lable" class='new-auction-field'> 
-	         <label class='new-auction-field-title'> מושב מעשנים: </label>
-	         <select class='new-auction-field-input' id= "is-flexible-date" name="is-flexible-date">
+	         	<div class = "label" class='new-offer-field'> 
+	         <label class='new-offer-field-title'> מושב מעשנים: </label>
+	         <select class='new-offer-field-input' id= "is-flexible-date" name="is-flexible-date">
 	         <option value="false">לא</option>
 	         <option value="true">כן</option>
 	         </select>  </div>
 	         
-	         <div class='new-auction-field'>
-	         <label class='new-auction-field-title'> אשר כמות אורחים</label>
-	          <input type="text" class='new-auction-field-input' id="guests-quantity" name="guests-quantity" >
+	         <div class='new-offer-field'>
+	         <label class='new-offer-field-title'> אשר כמות אורחים</label>
+	          <input type="text" class='new-offer-field-input' id="guests-quantity" name="guests-quantity" >
 	          <div id="guests-quantity-error" class="error-label-hidden">הזן כמות האורחים</div>
 	         </div>
 	         
 	         <br /><br />
 	         
-	         <div class='new-auction-field' >
-	         <label class='new-auction-field-title'> תיאור כללי *</label>
-	         <textarea class='new-auction-field-input' id="general-description" name="general-description"  rows="4" cols="50" style= "width:500px;resize: none;"> </textarea>
+	         <div class='new-offer-field' >
+	         <label class='new-offer-field-title'> תיאור כללי *</label>
+	         <textarea class='new-offer-field-input' id="general-description" name="general-description"  rows="4" cols="50" style= "width:500px;resize: none;"> </textarea>
 	         <div id="general-description-error" class="error-label-hidden">הזן תיאור כללי על האירוע</div><br />
 	         <br/> <br />
 	          
 	         </div>
 	        
 	        <br>
-	        <div><input class='btn-primary' type="button" id="add-new-auction-button" name="add-new-auction-button"  value="הצע" onClick= "newAuctionClicked()"/></div>
+	        <div><input class='btn-primary' type="button" id="add-new-offer-button" name="add-new-offer-button"  value="הצע" onClick= "newOfferClicked()"/></div>
        </form>
+       
+       <div>
+       <button type="button" onclick="test()">Test!</button>
+       </div>
     </div>
                         </div>                                       
                     </div> 
