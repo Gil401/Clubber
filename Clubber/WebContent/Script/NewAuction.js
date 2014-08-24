@@ -1,13 +1,11 @@
 	$(function() {
-	
 		var date = new Date();
 		var currentMonth = date.getMonth();
 		var currentDate = date.getDate();
 		var currentYear = date.getFullYear();
-		$('#datepicker').datepicker({
+		$('#eventDatepicker').datepicker({
 			minDate: new Date(currentYear, currentMonth, currentDate)});
-		ajaxAuctionFormDBData();
-		
+		ajaxAuctionFormDBData();		
 	});
 	
 	function loadListDataFromDB(data, listName)
@@ -50,10 +48,10 @@
 
 	function mandatoryEventDateCheck() {
 		
-		if ($("#datepicker").datepicker("getDate") == null)
+		if ($("#eventDatepicker").datepicker("getDate") == null)
 		{
 			$("#event-date-error").removeClass().addClass('error-label-displayed');
-			$("#datepicker").focus();
+			$("#eventDatepicker").focus();
 			return false;
 		}
 		else
@@ -75,17 +73,17 @@
 	{
 		var res= new Boolean();
 		res= true;
-		res= mandatoryCheck("general-description", "general-description-error") && res;
-		res= mandatoryCheck("min-age" , "min-age-error") && res;
-		res= mandatoryCheck("guests-quantity","guests-quantity-error") && res;
 		res= mandatoryEventDateCheck() && res;
+		res= mandatoryCheck("guests-quantity","guests-quantity-error",res) && res;
+		res= mandatoryCheck("min-age" , "min-age-error",res) && res;
+		res= mandatoryCheck("general-description", "general-description-error", res) && res;
 		return res;
 	}
 	
 	
-	function mandatoryCheck(fieldName,errorLabelID)
+	function mandatoryCheck(fieldName,errorLabelID, res)
 	{
-		if (($("#" +fieldName).val() == null) || ($("#" +fieldName).val().trim() == ""))
+		if ((res==true) && (($("#" +fieldName).val() == null) || ($("#" +fieldName).val().trim() == "")))
 		{
 			$("#" +errorLabelID).removeClass().addClass('error-label-displayed');
 			$("#" +fieldName).focus();
@@ -99,12 +97,6 @@
 		}
 	}
 	
-	function newAuctionClicked() {
-		if (mandatoryFieldsCheck() == true) {
-			ajaxNewAuctionCreation();
-		}
-	}
-	
 	function replaceAll(find, replace, str) 
 	{
 		  return str.replace(new RegExp(find, 'g'), replace);
@@ -115,7 +107,6 @@
 		var musicStyles= $('#musicStyle').find('input').serialize();
 		var final= replaceAll("%23musicStyle=","",musicStyles);
 		var final2= replaceAll("%2F","",final); 
-		
 		var businessTypes= $('#business-type').find('input').serialize();
 		var final_businessType= replaceAll("%23business-type=","",businessTypes);
 		var final2_businessTypes= replaceAll("%2F","",final_businessType); 
@@ -125,7 +116,7 @@
 		var final2_sitsTypes= replaceAll("%2F","",final_sitsTypes); 
 		
 		var eventType=  $('#event-type')[0].value;
-		var date= $('#datepicker')[0].value;
+		var date= $('#eventDatepicker')[0].value;
 		var isDateFlexible= $('#is-flexible-date')[0].value;
 		var guestsQuantity=  $('#guests-quantity')[0].value;
 		var exceptionsDescription= $('#exceptions-description')[0].value;
@@ -143,8 +134,9 @@
 	        	GuestsQuantity:guestsQuantity, ExceptionsDescription: exceptionsDescription, MinAge: minAge,
 	        	Area: area, BusinessTypeList: final2_businessTypes, CertainBusiness:certainBusiness, Smoking: smoking, SitsTypeList:final2_sitsTypes, GeneralDescription:generalDescription},
 	        success: function(data){
-	        	console.log("Auction creation succedded");}
-	        });
-		
+	        	console.log("Auction creation succedded");
+	     },
+	        error: function(data){
+	            	console.log("error");}
+	    });
 	}
-	
