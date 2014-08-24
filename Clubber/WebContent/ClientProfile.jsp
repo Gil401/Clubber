@@ -40,8 +40,12 @@ input{
 <h2>פרטי משתמש</h2>
 					<div class="user-details">
 						<form class="user-details-form" id="userDetails"
-							name="userDetails" method="post" action="UpdateClientDetails">
+							name="userDetails" method="post" action="UpdateClientDetails" enctype="multipart/form-data">
 
+							<label id="firstnameLabel">תמונה</label> 
+							<input type="file" name="pic" id="pic" disabled > 
+							<br>
+							
 							<label id="firstnameLabel">שם פרטי</label> 
 							<input type="text" name="firstName" id="firstName" required disabled > 
 							<br>
@@ -76,7 +80,7 @@ input{
 							<br>
 
 							<button id="editUserDel" type="button">ערוך</button>
-							<button id="updateUserDel" type="submit" onclick="updateUserDetails()" disabled >שמור</button>
+							<button id="updateUserDel" type="submit"  disabled >שמור</button>
 						</form>
 						<br> 
 						
@@ -111,7 +115,7 @@ input{
 							<div class="star"></div>
 						</div>
 						<br>
-						<br> <label id="reliabilityLabel">אמינות</label> <br>
+						<br> <label id="reliabilityLabel">אמינות</label> description<br>
 						<div class="reliabilityStars">
 							<div class="star"></div>
 							<div class="star"></div>
@@ -181,6 +185,9 @@ input{
 	});
 
 	$("#editUserDel").click(function() {
+		
+		$('input').attr('disabled', false);
+		
 		$('#firstName').attr("disabled", false);
 		$('#lastName').attr("disabled", false);
 		$('input[name="gender"]').attr("disabled", false);
@@ -190,8 +197,9 @@ input{
 		$('#password').attr("disabled", false);
 		$('#verifyPassword').attr("disabled", false);
 		$("#updateUserDel").attr("disabled", false);
+		$('#pic').replaceWith('<input type="file" name="pic" id="pic">');
 	});
-
+	
 	function getUserProfile() {
 		$.ajax({
 			url : "GetDBData",
@@ -201,6 +209,7 @@ input{
 				RequestType : "DBDataUserProfile"
 			},
 			success : function(data) {
+				console.log(data);
 				$("#firstName").val(data.firstName);
 				$("#lastName").val(data.lastName);
 				$('input[name="gender"][value="' + data.gender + '"]').prop("checked", true);
@@ -208,6 +217,7 @@ input{
 				$("#phoneNumber").val(data.phoneNumber);
 				$("#email").val(data.email);
 				$("#password").val(data.password);
+				$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic">');
 			},
 			error : function(data) {
 				console.log("error");

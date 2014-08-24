@@ -56,6 +56,7 @@ public class SignUp extends HttpServlet {
         String firstNameParam = request.getParameter(Constants.FIRST_NAME);
         String lastNameParam = request.getParameter(Constants.LAST_NAME);
         String genderParam = request.getParameter(Constants.GENDER);
+        String url = request.getParameter(Constants.IMAGE);
         
 		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
 		Date date = new Date();
@@ -90,7 +91,7 @@ public class SignUp extends HttpServlet {
 	        if(whoAmIParam.equals("Client") == true)
 	        {
 	        	userType = UserType.Client;
-	        	Client client = new Client(lastNameParam, firstNameParam, genderParam, phoneNumberParam, emailParam, birthdateParam, passwordParam);
+	        	Client client = new Client(lastNameParam, firstNameParam, genderParam, phoneNumberParam, emailParam, birthdateParam, passwordParam,"temp");
 
 	        	if( sentMail(firstNameParam, passwordParam, emailParam) == true)
 	        	{
@@ -112,7 +113,7 @@ public class SignUp extends HttpServlet {
 	        else if(whoAmIParam.equals("PR") == true)
 	        {
 	        	userType = UserType.PR;
-	        	PR pr = new PR(lastNameParam, firstNameParam, genderParam, phoneNumberParam, emailParam, birthdateParam, passwordParam);
+	        	PR pr = new PR(lastNameParam, firstNameParam, genderParam, phoneNumberParam, emailParam, birthdateParam, passwordParam, url);
 
         		if(sentMail(firstNameParam, passwordParam, emailParam) == true)
         		{

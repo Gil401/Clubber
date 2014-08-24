@@ -67,6 +67,7 @@ public class Constants {
 	 public static final String PHONE_NUMBER= "phoneNumber";
 	 public static final String EMAIL= "email";
 	 public static String PASSWORD = "Password";
+	 public static String IMAGE = "User_Image";
 	 
 	 // Message Password fields
 	 public static final String MESSAGE_TEXT = "messageText";

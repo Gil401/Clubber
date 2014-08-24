@@ -28,15 +28,10 @@ function loadDataFromDB(data, areaName)
 				description= data[item].description;
 			}
 			
-			if(data[item].offerNumber > 0)
-				var bg = 'background: #FF2900';
-			else
-				var bg = '';
-			
-			$('  <div class="bg" style="padding-top: 0; cursor: hand; cursor: pointer;border-radius: 25px; '+bg+'"><div id=' +data[item].id+' class="my-auction-container" title="לחץ כאן כדי לראות את פרטי המכרז"  onclick="auctionClicked('+data[item].id + ')"> <div class="my-auction-title"><h2>'+data[item].eventType.Name+ '</h2> <div style="float: left">'+ formattedDate(data[item].eventDate) +'</div></div>'
+			$(' <div id=' +data[item].id+' class="my-auction-container" title="לחץ כאן כדי לראות את פרטי המכרז"  onclick="auctionClicked('+data[item].id + ')"> <div class="my-auction-title">'+data[item].eventType.Name+ ' - '+ formattedDate(data[item].eventDate) +'</div>'
 					+ '<div class="my-auction-description">'+description+'</div>'
-					+ '<div class="my-auction-offer-number"><strong>'+data[item].offerNumber+"&nbsp;&nbsp;"+counterDescription +'</strong></div>'
-					+'</div></div>').appendTo($(areaName)) ;
+					+ '<div class="my-auction-offer-number">'+data[item].offerNumber+counterDescription +'</div>'
+					+'</div>').appendTo($(areaName)) ;
 		}
 	}
 

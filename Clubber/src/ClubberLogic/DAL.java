@@ -37,7 +37,7 @@ public class DAL {
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubber_db?useUnicode=true&characterEncoding=UTF8", "root", "a");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubber_db?useUnicode=true&characterEncoding=UTF8", "root", "qwe123");
 			stmt= conn.createStatement();	
 		} 
 		catch (SQLException e) {
@@ -69,7 +69,7 @@ public class DAL {
 		try {
 			
 			ResultSet rs = stmt.executeQuery("select auc.*, event_type.Name as event_type_name, COALESCE(counter,0) as counter from event_type,"
-					+ " Auction auc left join (Select auction_id, count(id) as counter from  offers) offers1 on offers1.auction_id = auc.id where auc.Event_Type = event_type.id order by auc.Event_Date");
+					+ " auction auc left join (Select auction_id, count(id) as counter from  offers) offers1 on offers1.auction_id = auc.id where auc.Event_Type = event_type.id order by auc.Event_Date");
 			
 			while (rs.next())
 			{
@@ -99,7 +99,7 @@ public class DAL {
 			
 			/*load auction data*/
 			ResultSet rs = stmt.executeQuery("select auc.*, event_type.Name as event_type_name, auction_status.Name,businesses.Name, COALESCE(counter,0) as counter from event_type,"
-					+ " Auction auc left join (Select auction_id, count(id) as counter from  offers) offers1 on offers1.auction_id = auc.id where auc.Event_Type = event_type.id and "
+					+ " auction auc left join (Select auction_id, count(id) as counter from  offers) offers1 on offers1.auction_id = auc.id where auc.Event_Type = event_type.id and "
 					+"auction_status.id = auc.Auction_Status and auc.Certain_Business= businesses.id order by auc.Event_Date");
 			auction.setEventDate(rs.getDate("Event_Date"));				
 			auction.setDescription(rs.getString("Description"));
@@ -145,17 +145,17 @@ public class DAL {
 		try {
 			
 			/*load offer data*/
-			ResultSet rs = stmt.executeQuery("select * from offer_status, Line,Offers off, Users where off.Line_id = Line.id and Users.id= off.Pr_id and offer_status.id=off.Offer_Status and off.ID="+currOfferID);
+			ResultSet rs = stmt.executeQuery("select * from offer_status, line, offers off, users where off.Line_id = line.id and users.id= off.Pr_id and offer_status.id=off.Offer_Status and off.ID="+currOfferID);
 			while (rs.next())
 			{
-				offer.setOfferStatusId(new IdWithName(rs.getInt("offer_status.id"),rs.getString("Offer_Status.displayName")));
+				offer.setOfferStatusId(new IdWithName(rs.getInt("offer_status.id"),rs.getString("offer_Status.displayName")));
 				offer.setId(rs.getInt("off.id"));	
 				offer.setDescription(rs.getString("off.Description"));
 				offer.setExpirationDate(rs.getDate("off.Expiration_Date"));
 				offer.setAuctionId(currOfferID);
-				offer.setLineId(new IdWithName(rs.getInt("off.Line_id"), rs.getString("Line.Name")));
+				offer.setLineId(new IdWithName(rs.getInt("off.Line_id"), rs.getString("line.Name")));
 				offer.setMaxArrivalHour(rs.getTime("off.Max_Arrival_Hour"));
-				offer.setPrId(new IdWithName(rs.getInt("off.Pr_id"), rs.getString("Users.First_Name") + " " + rs.getString("Users.Last_Name")));
+				offer.setPrId(new IdWithName(rs.getInt("off.Pr_id"), rs.getString("users.First_Name") + " " + rs.getString("users.Last_Name")));
 				offer.setSubmitDate(rs.getDate("off.Created_On"));
 			}
 			
@@ -186,7 +186,7 @@ public class DAL {
 		try {
 			
 			/*load messages*/
-			ResultSet rs = stmt.executeQuery("select * from Messages where Messages.Auction_id="+currAuctionID);
+			ResultSet rs = stmt.executeQuery("select * from messages where Auction_id="+currAuctionID);
 			while (rs.next())
 			{
 				UserMessagesData message= new UserMessagesData();
@@ -222,7 +222,7 @@ public class DAL {
 			Timestamp currentTimestamp = new java.sql.Timestamp(calendar.getTime().getTime());
 			
 			//create new message in db:
-			String sqlMessageInsertion= String.format("insert into Messages values(%d,%d,%d,%d,'%s','%s')",
+			String sqlMessageInsertion= String.format("insert into messages values(%d,%d,%d,%d,'%s','%s')",
 					null,1,2,auctionId,currentTimestamp,description);
 			
 			stmt.executeUpdate(sqlMessageInsertion);
@@ -247,7 +247,7 @@ public class DAL {
 		
 		try {
 			
-			ResultSet rs = stmt.executeQuery("select * from Line,Offers off, Users where off.Line_id = Line.id and Users.id= off.Pr_id and off.Auction_ID="+currAuctionID + " order by off.id");
+			ResultSet rs = stmt.executeQuery("select * from line ,offers off, users where off.Line_id = line.id and users.id= off.Pr_id and off.Auction_ID="+currAuctionID + " order by off.id");
 			while (rs.next())
 			{
 				OfferData offer= new OfferData();
@@ -256,19 +256,19 @@ public class DAL {
 				offer.setDescription(rs.getString("off.Description"));
 				offer.setExpirationDate(rs.getDate("off.Expiration_Date"));
 				offer.setId(rs.getInt("off.id"));
-				offer.setLineId(new IdWithName(rs.getInt("off.Line_id"), rs.getString("Line.Name")));
+				offer.setLineId(new IdWithName(rs.getInt("off.Line_id"), rs.getString("line.Name")));
 				offer.setMaxArrivalHour(rs.getTime("off.Max_Arrival_Hour"));
-				offer.setPrId(new IdWithName(rs.getInt("off.Pr_id"), rs.getString("Users.First_Name") + " " + rs.getString("Users.Last_Name")));
+				offer.setPrId(new IdWithName(rs.getInt("off.Pr_id"), rs.getString("users.First_Name") + " " + rs.getString("users.Last_Name")));
 				offer.setSubmitDate(rs.getDate("off.Created_On"));
 				offers.add(offer);
 			}
 			
 
-			rs = stmt.executeQuery("select * from Auction auc ,Areas, event_type where auc.id=" +currAuctionID+ " and Areas.id= auc.area  and auc.Event_Type = event_type.id");
+			rs = stmt.executeQuery("select * from auction auc ,areas, event_type where auc.id=" +currAuctionID+ " and areas.id= auc.area  and auc.Event_Type = event_type.id");
 			while (rs.next())
 			{
 				auction.setId(currAuctionID);
-				auction.setArea(new IdWithName(rs.getInt("Areas.id"),rs.getString("Areas.Name")));
+				auction.setArea(new IdWithName(rs.getInt("areas.id"),rs.getString("areas.Name")));
 				auction.setAuctionStatus(new IdWithName (rs.getInt("Auction_Status"),null));
 				auction.setDateFlexible(rs.getBoolean("Is_Date_Flexible"));
 				auction.setDescription(rs.getString("auc.Description"));
@@ -300,13 +300,13 @@ public class DAL {
 		query = "Select * from Music_Style;";
 		data.setMusicStyles(GetIdAndNameData(query));
 		
-		query = "Select * from Areas;";
+		query = "Select * from areas;";
 		data.setArea(GetIdAndNameData(query));
 		
 		query = "Select * from Business_Type;";
 		data.setBusinessType(GetIdAndNameData(query));
 		
-		query = "Select * from Businesses;";
+		query = "Select * from businesses;";
 		data.setCertainBusiness(GetIdAndNameData(query));
 		
 		query = "Select * from Sitts_Type;";
@@ -369,7 +369,7 @@ public class DAL {
 		
 		try {
 			//create new auction in db:
-			String sqlAuctionInsertion= String.format("insert into Auction values(%d,%d,'%s','%s',%d,'%s','%s',%d,%d,'%s',%d,'%s',%d,%d, %s)",
+			String sqlAuctionInsertion= String.format("insert into auction values(%d,%d,'%s','%s',%d,'%s','%s',%d,%d,'%s',%d,'%s',%d,%d, %s)",
 					null,auction.getMinAge(),auction.getExceptionsDescription(),auction.getGuestesQuantiny(),getValidID(auction.getEventType()), 
 					sqlDate,auction.getIsDateFlexible(),getValidID( auction.getArea()),
 					getValidID(auction.getCertainBusiness()),auction.getDescription(),getValidID(auction.getDetailsToDisplay()),
@@ -437,7 +437,7 @@ public class DAL {
 		Date date2= df.parse(date);
 		java.sql.Date sqlDate = new java.sql.Date(date2.getTime());		
 		
-		String sql= "INSERT INTO USERS(User_Type, First_Name, Last_Name, Gender, Phone_Number, Email, Password, Birth_Date)"
+		String sql= "INSERT INTO users(User_Type, First_Name, Last_Name, Gender, Phone_Number, Email, Password, Birth_Date)"
 				+ " VALUES('"+userType+"','"+userData.getFirstName()+"','"+userData.getLastName()+"','"+userData.getGender()+"','"+userData.getPhoneNumber()+"','"+userData.getEmail()+"','"+userData.getPassword()+"','"+sqlDate+"')";
 		try {
 			stmt.executeUpdate(sql);
@@ -685,6 +685,7 @@ public class DAL {
 				pr.setEmail(rs.getString("Email"));
 				pr.setPassword(rs.getString("Password"));
 				pr.setBirthDate(rs.getDate("Birth_Date"));
+				pr.setImageUrl(rs.getString("User_Image"));
 			}
 			
 		} 
@@ -817,9 +818,9 @@ public class DAL {
 			
 			}
 			
-			reviews.setPunctuality(reviews.getPunctuality()/totalReviews.size());
-			reviews.setRealiability(reviews.getRealiability()/totalReviews.size());
-			reviews.setGeneral((reviews.getPunctuality() + reviews.getRealiability()) / 2);
+			//reviews.setPunctuality(reviews.getPunctuality()/totalReviews.size());
+			//reviews.setRealiability(reviews.getRealiability()/totalReviews.size());
+			//reviews.setGeneral((reviews.getPunctuality() + reviews.getRealiability()) / 2);
 		
 		} 
 		catch (SQLException e) {
@@ -900,16 +901,14 @@ public class DAL {
 		DateFormat sqlFormatter = new SimpleDateFormat(NEW_FORMAT);
 		parsedDate = sqlFormatter.format(date);
 				   
-		   ArrayList<BusinessData> data = new ArrayList<BusinessData>();
-		// access date fields
-			
-		   
+		 ArrayList<BusinessData> data = new ArrayList<BusinessData>();
+			// access date fields   
 			connectToDBServer();
 			
 			try 
 			{
 				ResultSet rs = stmt.executeQuery("select * "
-												+ "from line L, Businesses B, areas a, city c, streets s, business_type t "
+												+ "from line L, businesses B, areas a, city c, streets s, business_type t "
 												+ "where L.Business_id = B.id AND L.Line_End_Date >= '"+parsedDate+"' And"
 											    +" B.Area = a.id and "
 											    + "B.city = c.id and "
@@ -1008,7 +1007,7 @@ public class DAL {
 		try 
 		{
 			ResultSet rs = stmt.executeQuery("SELECT * "
-					   + "FROM Businesses B, areas A, city C, streets S, business_type T "
+					   + "FROM businesses B, areas A, city C, streets S, business_type T "
 					   + "WHERE B.id ='" + businessId + "' and "
 					   +" B.area = A.id and "
 					   + "B.city = C.id and "
@@ -1032,7 +1031,7 @@ public class DAL {
 			}
 			
 			ResultSet rs1 = stmt.executeQuery("SELECT * "
-					   + "FROM Businesses B, line L "
+					   + "FROM businesses B, line L "
 					   + "WHERE B.id ='" + businessId + "' and "
 					   + "B.id =  L.Business_id");
 			
@@ -1647,5 +1646,30 @@ public class DAL {
 		
 		
 		return firstName;
+	}
+
+	public static String getImageURL(String emailParam) {
+		String url =""; 
+		connectToDBServer();
+		try {
+			ResultSet rs = stmt.executeQuery("SELECT User_Image "
+										   + "FROM users U "
+										   + "WHERE "  
+										   + "U.Email ='" + emailParam + "'");
+			while (rs.next())
+			{				
+
+				url = rs.getString("User_Image");
+			}	
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally{
+			disconnectFromDBServer();
+		}
+		return url;
 	}	
+		
 }

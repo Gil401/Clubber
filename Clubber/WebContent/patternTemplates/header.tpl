@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@page  import="java.util.*" %>
 
+
 <!DOCTYPE html> 
 <head> 
     <meta charset="UTF-8">
@@ -42,10 +43,26 @@
         	<div class="container">
                 <div class="row">
                     <div class="col-sm-9">
+                    <% String name = (String)session.getAttribute("firstName"); %>
+                    <%	if(name != null) {   %>  
+	                    <div style="background-color: #fff; color: #000; padding: 5px; margin-top: 10px; float: left">
+	                            ברוך הבא <% out.println(name);%>
+	                            <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t1.0-1/c2.0.50.50/p50x50/10488208_10202936519068845_4721836202089464598_n.jpg" style="float: left; padding: 0 15px  0 0">
+	                            <br />
+	                            <a href="ClientProfile.jsp" style="font-size: 12px;">פרופיל</a>
+	                            <font style="padding-top:2px"> | </font> 
+	                            <a href="Logout" style="font-size: 12px;">התנתק</a>  
+						</div>
+                      <% } %>
+                       
+                       
                         <nav class="navbar-right collapse navbar-collapse">
-                            <ul class="nav navbar-nav">                                                                     
+                            <ul class="nav navbar-nav">  
+                            
+                            <%	if(name == null) {   %>                                                                 
                                 <li><a href="Login.jsp">התחברות</a></li>
                                 <li><a href="SignUp.jsp">הרשמה</a></li>
+                            <% } %>
                                 <li class="dropdown"><a href="#">לינק 2<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="about-us.html">לינק</a></li>
@@ -54,8 +71,12 @@
                                 </li>    
                                 <li><a href="index.jsp">בית</a></li>
                             </ul>
+							</div>
+							
                         </nav>
-                    </div>
+                         
+                       
+                    
                     
                     
                     <div class="col-sm-3">
@@ -71,23 +92,7 @@
                     </div>
                 </div> 
             </div>
-            <div class = "login"	>
-		<%
-		String name = (String)session.getAttribute("firstName");
-		if(name == null)
-		{%>
-        	<form action="Login" method="post">
-        		Email: <input type="text" name="email" placeholder="Email">	Password: <input type="password" name="Password" placeholder="Password">
-				<input type="submit" value="התחבר">
-			</form>
-			<%}
-			else{
-				out.println("ברוך הבא " + name);%>
-        		<form action="Logout" method="post">
-    			<input type="submit" value="Logout" />
-				</form>
-			<%}%>
-			</div>
+            
             
         </div>
     </header> <!--/#navigation-->

@@ -1,38 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Offer Review</title>
-        <link href="CSS/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="CSS/Main.css" rel="stylesheet" type="text/css">
-  		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-        <script src="Script/OfferReview.js"  type="text/javascript" charset="windows-1255" ></script>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@  include file="patternTemplates/header.tpl" %>
+
         
-    </head>
-    <body >
+    
     
     <div class= 'site-header'>
     <div class= 'upper-header'>
     	<div class='logo'></div>
     	<div class='advertisements'></div>
     </div>
-    <div class='nav-bar'> פרופיל | המכרזים שלי | התראות </div>
     <br>
     </div>
-    <div class='main-container'>  
-    <div class= "page-description">בדף זה ניתן לצפות בפרטי ההצעה שהתקבלה </div>
+    <div class="container">
+            <div class="event-inner">                
+                <div class="row">   
+    <div class='main-container bg '>  
        	<div class="offer-item-reviewed-container">
        		<div class='offer-item-reviewed-title'>
        			
        		</div>
        		<div class= "offer-item-reviewed-content">
-       			<div title="לחץ כאן כדי לראות את פרטי הליין" class="offer-reviewed-item-line-image-container" onclick="alert('')">
+       			<div title="לחץ כאן כדי לראות את פרטי הליין" class="offer-reviewed-item-line-image-container" onclick="alert('')" style="float:right">
        				<img src="/Clubber/images/line_Img.png" class="offer-item-line-image">
        			</div>
-       			<div class="offer-reviewed-item-description">
+       			<div class="offer-reviewed-item-description" style="float:right">
 		       		<div id="offer-description">
 						<label class="offer-title-label">תיאור</label>
 					</div>
@@ -52,7 +43,7 @@
 						<label class="offer-title-label"> סל פינוקים</label>
 					</div>
 				</div>
-				<input class='btn-primary' type="button" id="accept-offer-button" name="accept-offer-button"  value="קבל הצעה זו" onClick= "approveBtnClicked()"/>
+				<input class='btn-primary' type="button" id="accept-offer-button" name="accept-offer-button"  value="קבל הצעה זו" onClick= "approveBtnClicked()" style="float: left; margin-top: 300px;"/>
 			</div>
 		</div>
        <div class='all-messages-container'>
@@ -61,7 +52,19 @@
 	       	 <input type="text" id='outgoing-message-text' class='outgoing-message outgoing-message-empty' onblur='setNewMessageTextOnFocusOut();' onfocus='setNewMessageTextOnFocusIn();' name="new-message-input" value="השב...">        
 	    </div>
 	    <div class='recomended-lines-container'></div>        
-    </div>
-
+    </div></div></div></div>
+    <%@  include file="patternTemplates/footer.tpl" %>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+    <script type="text/javascript" src="js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="js/soundcloud.player.api.js"></script>
+    <script type="text/javascript" src="js/sc-player.js"></script> 
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/coundown-timer.js"></script>
+    <script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
+    <script type="text/javascript" src="js/switcher.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script src="Script/OfferReview.js"  type="text/javascript" charset="windows-1255" ></script>
     </body>
 </html>

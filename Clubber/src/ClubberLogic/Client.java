@@ -23,8 +23,8 @@ public class Client extends UserData{
 	 * 			* added set to filed password
 	 * 			* type of gender changed
 	 */		
-	public Client(String lastName, String firstName, String gender, String phoneNumber, String email, Date birthDate, String password) 
+	public Client(String lastName, String firstName, String gender, String phoneNumber, String email, Date birthDate, String password, String url) 
     {
-        super(lastName, firstName, gender, phoneNumber, email, birthDate, password);
+        super(lastName, firstName, gender, phoneNumber, email, birthDate, password, url);
     }
 }

@@ -65,7 +65,7 @@ public class UpdateClientDetails extends HttpServlet {
         client.setPhoneNumber(request.getParameter(Constants.PHONE_NUMBER));
         client.setEmail(request.getParameter(Constants.EMAIL));
         client.setPassword(request.getParameter(Constants.PASSWORD));
-                
+        client.setImageUrl(request.getParameter(Constants.IMAGE));
         boolean isSucceed = true;
         
 		try {

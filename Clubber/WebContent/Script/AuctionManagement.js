@@ -23,11 +23,11 @@ function loadOffersFromDB(data, areaName)
 			{
 				description= data[item].description;
 			}
-			$(' <div id=' +data[item].id+' class="offer-item-container"> <div class="offer-item-title"> <div class= "offer-item-right-title" >'+data[item].prId.Name+'</div> <div class="offer-item-left-title" >' +formattedDate(data[item].submitDate) +'</div> </div>'
+			$('<div id=' +data[item].id+' class="offer-item-container bg"><div  class="offer-item-line-image-container" id="'+data[item].lineId.id+'" onclick="alert(' + data[item].lineId.id + ')"><img src="/Clubber/images/line_Img.png" class="offer-item-line-image" style="float: right; max-width: 100px; max-height:100px;"></div>'
+					+ ' <div class="offer-item-title"> <div class= "offer-item-right-title" style="float: right" >'+data[item].prId.Name+'</div> <div class="offer-item-left-title" style="float: left">' +formattedDate(data[item].submitDate) +'</div> </div>'
 					+ '<div class="offer-item-content" >'
-					+ '<div title="לחץ כאן כדי לראות את פרטי הליין" class="offer-item-line-image-container" id="'+data[item].lineId.id+'" onclick="alert(' + data[item].lineId.id + ')"><img src="/Clubber/images/line_Img.png" class="offer-item-line-image"></div>'
-					+ '<div title="לחץ כאן כדי לראות את פרטי ההצעה" class="offer-item-description" onclick="offerClicked(' + data[item].id + ')">'+description+'</div>'
-					+'</div>'
+					+ '<div class="offer-item-description" onclick="offerClicked(' + data[item].id + ')">'+description+'</div>'
+					+'</div><br /><br /><div style="float: left; "><button style="background-color: red; border-radius: 20px; font-size:13px;">׳¡׳׳ ׳›׳׳ ׳¨׳׳•׳•׳ ׳˜׳™</button><button style="border-radius: 20px; font-size:13px;">׳₪׳¨׳˜׳™׳ ׳ ׳•׳¡׳₪׳™׳</button></div>'
 					+'</div>').appendTo($(areaName)) ; 
 		}
 	}
@@ -44,8 +44,8 @@ function loadOffersFromDB(data, areaName)
 		{
 			description= data.description;
 		}
-		$(' <div id=' +data.id+' class="my-auction-container" onclick="alert(' + data.id + ')" style="height:150px"> <div class="my-auction-title">'+data.eventType.Name+ ' - '+formattedDate(data.eventDate) +'</div>'
-				+ '<div class="my-auction-description" title="לחץ כאן כדי לראות את פרטי המכרז">'+description+'</div>'
+		$(' <div id=' +data.id+' class="my-auction-container" onclick="alert(' + data.id + ')" style="padding-top: 0; cursor: hand; cursor: pointer;border-radius: 25px; background: #6D1F10; padding:10px; margin-top: 10px;"> <div class="my-auction-title">'+data.eventType.Name+ ' <div style="float: left; margin-left: 15px;"> '+formattedDate(data.eventDate) +' </div></div>'
+				+ '<div class="my-auction-description">'+description+'</div>'
 				+'</div>').appendTo($(areaName)) ;
 	}
 

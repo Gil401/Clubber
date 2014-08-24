@@ -48,6 +48,8 @@ public class Login extends HttpServlet {
 		String firstName = request.getParameter(Constants.FIRST_NAME);
         String emailParam = request.getParameter(Constants.EMAIL);
         String passwordParam = request.getParameter(Constants.PASSWORD);
+        String userImageUrl ="";
+        
         UserType userType = UserType.Client;
         HttpSession session = request.getSession(true);
         
@@ -91,8 +93,10 @@ public class Login extends HttpServlet {
         	}
         	else
         	{
+        	 
         		userType = DAL.getUserType(emailParam);
         		firstName = DAL.getFirstName(emailParam);
+        		userImageUrl = DAL.getImageURL(emailParam);
         	}
         }
         
@@ -101,7 +105,11 @@ public class Login extends HttpServlet {
         	session.setAttribute(Constants.EMAIL, emailParam);
         	session.setAttribute(Constants.FIRST_NAME, firstName);
         	session.setAttribute(Constants.WHO_AM_I, userType);
-        	getServletContext().getRequestDispatcher("/ClientProfile.jsp").forward(request, response);
+        	session.setAttribute(Constants.IMAGE, userImageUrl);
+        	if(userType == UserType.Client)
+        		getServletContext().getRequestDispatcher("/ClientProfile.jsp").forward(request, response);
+        	else
+        		getServletContext().getRequestDispatcher("/PrProfile.jsp").forward(request, response);
         }
         else
         {
