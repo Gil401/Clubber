@@ -2144,58 +2144,14 @@ ul.sub-menu{
 	behavior:url("border-radius.htc");
 }
 
-#exceptions-description{
-	width:500px;
-	resize: none;
-}
-
-.note-label{
-	color:#FFFFCC;
-	float:right;
-	font-size: 13px;
-}
-
-.combobox-auction-input{
-	height: 5em;
-	overflow: auto;
-	background-color: white;
-	color:black;
-	width:200px;
-}
-.combobox-offer-input{
-	height: 5em;
-	overflow: auto;
-	background-color: white;
-	color:black;
-	width:200px;
-}
-
-
-.error-label-hidden{
-	margin-right: 10px;
-	color:red;
-	float:right;
-	font-size: 13px;
-	display:none;
-}
-
-.error-label-displayed{
-	margin-right: 10px;
-	color:red;
-	float:right;
-	font-size: 13px;
-}
-
+/***********************
+*******New Auction******
+***********************/
 
 #exceptions-description{
 	width:500px;
 	resize: none;
-}
-
-.note-label{
-	color:#FFFFCC;
 	float:right;
-	font-size: 13px;
 }
 
 .combobox-auction-input{
@@ -2206,6 +2162,47 @@ ul.sub-menu{
 	width:250px;
 }
 
+
+.error-label-hidden{
+	color:red;
+	float:right;
+	font-size: 13px;
+	display:none;
+}
+
+.error-label-displayed{
+	color:red;
+	float:right;
+	font-size: 13px;
+}
+
+#datepicker-wrapper{
+	margin-bottom:30px;		
+}
+
+.eventDatepicker{
+	float:right;
+}
+
+.new-auction-field{
+	margin-top: 15px;
+}
+
+.errors-container{
+	float:right;
+	width:100%;
+}
+
+.note-label{
+	color:#FFFFCC;
+	float:right;
+	font-size: 13px;
+}
+
+/***********************
+*******New Offer******
+***********************/
+
 .combobox-offer-input{
 	height: 5em;
 	overflow: auto;
@@ -2214,18 +2211,3 @@ ul.sub-menu{
 	width:250px;
 }
 
-
-.error-label-hidden{
-	margin-right: 10px;
-	color:red;
-	float:right;
-	font-size: 13px;
-	display:none;
-}
-
-.error-label-displayed{
-	margin-right: 10px;
-	color:red;
-	float:right;
-	font-size: 13px;
-}
