@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.catalina.connector.Request;
 
 import Utlis.AuctionManagementData;
 import Utlis.IdWithName;
@@ -1670,6 +1669,45 @@ public class DAL {
 			disconnectFromDBServer();
 		}
 		return url;
+	}
+
+	public static UserData getUserObject(String emailParam) {
+		
+		ClubberLogic.UserData userData = null;
+		String userType; 
+		
+		connectToDBServer();
+		
+		try {
+			ResultSet rs = stmt.executeQuery("SELECT * "
+										   + "FROM users U "
+										   + "WHERE "  
+										   + "U.Email ='" + emailParam + "'");
+			while (rs.next())
+			{				
+				userType = rs.getString("User_Type");
+				if(userType.equals("PR"))
+					 userData = new PR();
+				else
+					userData = new Client ();
+				
+				userData.setFirstName(rs.getString("first_Name"));
+				userData.setBirthDate(rs.getDate("Birth_Date"));
+				userData.setLastName(rs.getString("Last_Name"));
+				userData.setGender((rs.getString("Gender")));
+				userData.setUserType(rs.getString("User_Type"));
+				userData.setId(rs.getInt("id"));
+				userData.setImageUrl(rs.getString("User_Image"));
+			}	
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally{
+			disconnectFromDBServer();
+		}
+		return userData;
 	}	
 		
 }

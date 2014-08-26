@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ClubberLogic.Client;
 import ClubberLogic.DAL;
+import ClubberLogic.PR;
+import ClubberLogic.UserData;
 import ClubberLogic.UserType;
 import Utlis.Constants;
 
@@ -93,19 +96,19 @@ public class Login extends HttpServlet {
         	}
         	else
         	{
-        	 
-        		userType = DAL.getUserType(emailParam);
-        		firstName = DAL.getFirstName(emailParam);
-        		userImageUrl = DAL.getImageURL(emailParam);
+        		
         	}
         }
         
         if(isSucceed == true)
         {
+        	UserData sessionUserData = DAL.getUserObject(emailParam);
+        	
         	session.setAttribute(Constants.EMAIL, emailParam);
-        	session.setAttribute(Constants.FIRST_NAME, firstName);
-        	session.setAttribute(Constants.WHO_AM_I, userType);
-        	session.setAttribute(Constants.IMAGE, userImageUrl);
+        	session.setAttribute(Constants.FIRST_NAME, sessionUserData.getFirstName());
+        	session.setAttribute(Constants.WHO_AM_I, sessionUserData.getUserType());
+        	session.setAttribute(Constants.IMAGE, sessionUserData.getImageURL());
+        	session.setAttribute("User", sessionUserData);
         	if(userType == UserType.Client)
         		getServletContext().getRequestDispatcher("/ClientProfile.jsp").forward(request, response);
         	else

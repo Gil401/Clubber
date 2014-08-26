@@ -43,11 +43,15 @@
         	<div class="container">
                 <div class="row">
                     <div class="col-sm-9">
-                    <% String name = (String)session.getAttribute("firstName"); %>
+                    <% 
+                    String name = (String)session.getAttribute("firstName"); 
+                    String img = (String)session.getAttribute("User_Image");
+                    %>
+                    
                     <%	if(name != null) {   %>  
 	                    <div style="background-color: #fff; color: #000; padding: 5px; margin-top: 10px; float: left">
 	                            ברוך הבא <% out.println(name);%>
-	                            <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t1.0-1/c2.0.50.50/p50x50/10488208_10202936519068845_4721836202089464598_n.jpg" style="float: left; padding: 0 15px  0 0">
+	                            <img src="<% out.println(img);%>" style="float: left; padding: 0 15px  0 0">
 	                            <br />
 	                            <a href="ClientProfile.jsp" style="font-size: 12px;">פרופיל</a>
 	                            <font style="padding-top:2px"> | </font> 

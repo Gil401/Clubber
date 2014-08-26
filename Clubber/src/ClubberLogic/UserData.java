@@ -20,6 +20,7 @@ public abstract class UserData {
 	private String email;
 	private Date birthDate; 
 	private String imageUrl;
+	private UserType userType;
 	
 	
 	public UserData(){
@@ -46,13 +47,9 @@ public abstract class UserData {
 		this.setEmail(email);
 		this.setBirthDate(birthDate);	
 		this.setPassword(password);
-		imageUrl = url;
+		this.imageUrl = url;
     }
-
-	public Integer getId() {
-		return id;
-	}
-
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -109,11 +106,21 @@ public abstract class UserData {
 		this.firstName = firstName;
 	}
 	
+	public String getImageURL() {
+		return imageUrl;
+	}
+	
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public UserType getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType.equals(UserType.PR.toString())? UserType.PR : UserType.Client;
 	}	
 }

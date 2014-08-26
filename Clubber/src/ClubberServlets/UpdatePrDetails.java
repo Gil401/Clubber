@@ -87,6 +87,7 @@ public class UpdatePrDetails extends HttpServlet {
         }
         
         request.setAttribute(Constants.MESSAGE_TEXT, message);
+        request.setAttribute("User", pr);
         getServletContext().getRequestDispatcher("/PrProfile.jsp").forward(request, response);
 	}
 

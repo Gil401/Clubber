@@ -6,11 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import org.apache.commons.io.*;
 import Utlis.Constants;
 import ClubberLogic.Client;
 import ClubberLogic.DAL;
@@ -19,7 +20,12 @@ import ClubberLogic.DAL;
  * Servlet implementation class UpdateClientDetails
  */
 @WebServlet("/UpdateClientDetails")
+
+
 public class UpdateClientDetails extends HttpServlet {
+	
+	private static final String SAVE_DIR="WebContent/uploadedImages/users";
+	
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -47,6 +53,10 @@ public class UpdateClientDetails extends HttpServlet {
         
         String message = "";
         Client client = new Client();
+        
+        UploadServlet f = new UploadServlet();
+        
+       f.upload(request);
         
         client.setFirstName(request.getParameter(Constants.FIRST_NAME));
         client.setLastName(request.getParameter(Constants.LAST_NAME));
@@ -86,6 +96,7 @@ public class UpdateClientDetails extends HttpServlet {
         }
         
         request.setAttribute(Constants.MESSAGE_TEXT, message);
+        request.setAttribute("User", client);
         getServletContext().getRequestDispatcher("/ClientProfile.jsp").forward(request, response);
 	}
 
