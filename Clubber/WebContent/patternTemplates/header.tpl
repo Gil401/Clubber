@@ -44,8 +44,13 @@
                 <div class="row">
                     <div class="col-sm-9">
                     <% 
+                    
+                    String whoAmI = "none";
+                    
                     String name = (String)session.getAttribute("firstName"); 
                     String img = (String)session.getAttribute("User_Image");
+                    if(session.getAttribute("whoAmI") != null)
+                    	whoAmI = session.getAttribute("whoAmI").toString();
                     %>
                     
                     <%	if(name != null) {   %>  
@@ -53,7 +58,7 @@
 	                            ברוך הבא <% out.println(name);%>
 	                            <img src="<% out.println(img);%>" style="float: left; padding: 0 15px  0 0">
 	                            <br />
-	                            <a href="ClientProfile.jsp" style="font-size: 12px;">פרופיל</a>
+	                            <a href="<%if(whoAmI == "PR") {out.print ("PrProfile.jsp");} else { out.print("ClientProfile.jsp"); } %>" style="font-size: 12px;">פרופיל</a>
 	                            <font style="padding-top:2px"> | </font> 
 	                            <a href="Logout" style="font-size: 12px;">התנתק</a>  
 						</div>
@@ -67,13 +72,19 @@
                                 <li><a href="Login.jsp">התחברות</a></li>
                                 <li><a href="SignUp.jsp">הרשמה</a></li>
                             <% } %>
-                                <li class="dropdown"><a href="#">לינק 2<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="about-us.html">לינק</a></li>
-                                        <li><a href="#">לינק</a></li>
-                                    </ul>
-                                </li>    
-                                <li><a href="index.jsp">בית</a></li>
+                            <% if (whoAmI == "Client"){ %>
+                            <li><a href="ClientProfile.jsp">פרופיל לקוח</a></li>
+                            <li><a href="MyAuctions.jsp">המכרזים שלי</a></li>
+                            <% } 
+								if(whoAmI == "PR") { %>
+                            <li><a href="PrProfile.jsp">פרופיל יחצן</a></li>
+                            <li><a href="MyOffers.jsp">ההצעות שלי</a></li>
+                            <li><a href="MyLines.jsp">הליינים שלי</a></li>
+                            <li><a href="SearchAuctions.jsp">חפש מכרזים</a></li>
+                            <% } %>
+                            
+                                 
+                                <li><a href="index.jsp">ראשי</a></li>
                             </ul>
 							</div>
 							
