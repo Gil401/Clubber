@@ -2,46 +2,39 @@
 <%@page import="Utlis.Constants"%>
 <%@page import="ClubberLogic.PR"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@  include file="patternTemplates/header.tpl"%>
 <% String messageText = (String)request.getAttribute(Constants.MESSAGE_TEXT); %>
-    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>פרופיל</title>
-	    <link href="CSS/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-	    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-		<style>
+  
+<style>
+input{
+	margin: 10px;
+}
 		div.star {
 		   width:26px; 
 		   height:30px; 
 		   background-image:url('images/star.jpg');
-		   background-repeat:no-repeat;
+		   background-repeat:no-repeat; 
 		   float:right;
 		}
 
 		div.yellow-Star {
 		   width:26px;
-		   height:31px;
+		   height:30px;
 		   background-image:url('images/yellowStar.jpg');
 		   background-repeat:no-repeat;
 		   float:right;
 		}
-		</style>
-		
-	</head>
-<body dir="rtl">
-	<div class="pr-actions">
-		<!--  redirect to AddNewLine.jsp page  -->
-		<a href="AddNewLine.jsp">הוסף ליין חדש</a>
-		<!--  redirect to AddNewbusiness.jsp page  -->
-		<a href="AddNewbusiness.jsp">הוסף מקום בילוי חדש</a>
-		<!--  redirect to AddNewbusiness.jsp page  -->
-		<a href="SearchCustomers.jsp">חפש לקוחות</a>
-	</div>
+	
+</style>
+
+<div id="latest-events">
+	<div class="container">
+		<div class="event-inner">
+			<div class="row">
+				<div id="latest-event-content" class="col-sm-7 col-md-8">
+<div class="bg">
+
+<h2>פרטי משתמש</h2>
 	<div class="user-details">
 		<form class="user-details-form" id="userDetails" name="userDetails" method="post" action="UpdatePrDetails">
 		  	
@@ -132,6 +125,20 @@
 			<div class="star"></div>
 		</div>	
 	</div>		
+	<%@  include file="patternTemplates/footer.tpl" %>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="js/soundcloud.player.api.js"></script>
+<script type="text/javascript" src="js/sc-player.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/coundown-timer.js"></script>
+<script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
+<script type="text/javascript" src="js/switcher.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script src="js/datepicker-he.js"></script
 	<script>
 	
 		// Set error messages  
