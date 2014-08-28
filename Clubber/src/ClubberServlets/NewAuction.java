@@ -81,31 +81,38 @@ public class NewAuction extends HttpServlet {
         finally 
         {
             out.close();
-            response.sendRedirect("www.google.com");
+            //response.sendRedirect("");
         }
 	}
 	
 	public void addAllMusicStyles(HttpServletRequest request, AuctionData auction)
 	{
 		String musicStyles[]= request.getParameter(Constants.MUSIC_STYLE_LIST).split("&");
-		for (String item : musicStyles) {
-			auction.getMusicStyle().add(new IdWithName(Integer.parseInt(item), null));
+		if (musicStyles.length > 0 && !musicStyles[0].equals("")) {
+			for (String item : musicStyles) {
+				auction.getMusicStyle().add(new IdWithName(Integer.parseInt(item), null));
+			}
 		}
 	}
-	
+	 
 	public void addAllSittsTypes(HttpServletRequest request, AuctionData auction)
 	{
 		String sittsTypes[]= request.getParameter(Constants.SITS_TYPE_LIST).split("&");
-		for (String item : sittsTypes) {
-			auction.getSittsType().add(new IdWithName(Integer.parseInt(item), null));
+		
+		if (sittsTypes.length > 0 && !sittsTypes[0].equals("")) {
+			for (String item : sittsTypes) {
+				auction.getSittsType().add(new IdWithName(Integer.parseInt(item), null));
+			}
 		}
 	}
 	
 	public void addAllBusinessTypes(HttpServletRequest request, AuctionData auction)
 	{
 		String businessTypes[]= request.getParameter(Constants.BUSINESS_TYPE_LIST).split("&");
-		for (String item : businessTypes) {
-			auction.getBusinessType().add(new IdWithName(Integer.parseInt(item), null));
+		if (businessTypes.length > 0 && !businessTypes[0].equals("")) {
+			for (String item : businessTypes) {
+				auction.getBusinessType().add(new IdWithName(Integer.parseInt(item), null));
+			}
 		}
 	}
 

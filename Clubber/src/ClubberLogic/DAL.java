@@ -97,33 +97,37 @@ public class DAL {
 		try {
 			
 			/*load auction data*/
-			ResultSet rs = stmt.executeQuery("select auc.*, event_type.Name as event_type_name, auction_status.Name,businesses.Name, COALESCE(counter,0) as counter from event_type,"
-					+ " auction auc left join (Select auction_id, count(id) as counter from  offers) offers1 on offers1.auction_id = auc.id where auc.Event_Type = event_type.id and "
-					+"auction_status.id = auc.Auction_Status and auc.Certain_Business= businesses.id order by auc.Event_Date");
-			auction.setEventDate(rs.getDate("Event_Date"));				
-			auction.setDescription(rs.getString("Description"));
-			auction.setEventType(new IdWithName(rs.getInt("auc.Event_Type"),rs.getString("event_type_name") ));
-			auction.setId(rs.getInt("id"));
-			auction.setOfferNumber(rs.getInt("counter"));
-			auction.setAuctionStatus(new IdWithName(rs.getInt("auc.Auction_Status"),rs.getString("auction_status.Name")));
-			auction.setCertainBusiness(new IdWithName(rs.getInt("auc.Certain_Business"),rs.getString("businesses.Name")));
-			auction.setDateFlexible(rs.getBoolean("Is_Date_Flexible"));
-			auction.setExceptionsDescription(rs.getString("Exceptions_Description"));
-			auction.setGuestesQuantiny(rs.getInt("Guestes_Quantiny"));
-			auction.setSmoking(rs.getBoolean("Smoking"));
-			auction.setMinAge(rs.getInt("Minimum_Age"));
-
-			/*load auction areas*/
-			/*load auction music styles*/
-			/*load auction business types*/
-			/*load auction sitting types*/
-			rs = stmt.executeQuery("select * from areas, treats where treats.id= ot.treat_id and ot.Offer_id=");
-			
+			ResultSet rs = stmt.executeQuery("select auc.*, event_type.Name as event_type_name, auction_status.Name,areas.Name,businesses.Name " +
+											 "from auction auc LEFT JOIN businesses ON businesses.id = auc.Certain_Business " +
+											 "LEFT JOIN event_type ON event_type.id = auc.Event_Type " +
+											 "LEFT JOIN areas ON areas.id = auc.area " +
+											 "LEFT JOIN auction_status ON auction_status.id = auc.Auction_Status " +
+											 "where auc.id=" + currAuctionID + ";");
+			 			
 			while (rs.next())
 			{
+				auction.setEventDate(rs.getDate("Event_Date"));				
+				auction.setDescription(rs.getString("Description"));
+				auction.setEventType(new IdWithName(rs.getInt("auc.Event_Type"),rs.getString("event_type_name") ));
+				auction.setId(rs.getInt("id"));
+				auction.setAuctionStatus(new IdWithName(rs.getInt("auc.Auction_Status"),rs.getString("auction_status.Name")));
 				
-			}			
+				String certainBusiness = rs.getString("businesses.Name");
+				
+				if (certainBusiness != null) {
+					auction.setCertainBusiness(new IdWithName(rs.getInt("auc.Certain_Business"),certainBusiness));
+				}
+				auction.setDateFlexible(rs.getBoolean("Is_Date_Flexible"));
+				auction.setExceptionsDescription(rs.getString("Exceptions_Description"));
+				auction.setGuestesQuantiny(rs.getInt("Guestes_Quantiny"));
+				auction.setSmoking(rs.getBoolean("Smoking"));
+				auction.setMinAge(rs.getInt("Minimum_Age"));
+				auction.setArea(new IdWithName(rs.getInt("auc.area"),rs.getString("areas.Name")));
+			}
 			
+			auction.setMusicStyle(GetIdAndNameData("Select music_style.* from auction_music_style,music_style where auction_music_style.auction_id = " + currAuctionID + " and music_style.id = auction_music_style.music_style_id;"));
+			auction.setBusinessType(GetIdAndNameData("Select * from auction_business_type,business_type where auction_business_type.auction_id = " + currAuctionID + " and business_type.id = auction_business_type.business_type_id;"));
+			auction.setSittsType(GetIdAndNameData("Select sitts_type.* from auction_sits_type,sitts_type where auction_sits_type.auction_id = " + currAuctionID + "  and sitts_type.id = auction_sits_type.sits_id;"));
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -134,7 +138,6 @@ public class DAL {
 
 		return auction;
 	}
-	
 	
 	public static OfferData getReviewedOfferData(Integer currOfferID, Integer currAuctionID )
 	{
@@ -151,7 +154,7 @@ public class DAL {
 				offer.setId(rs.getInt("off.id"));	
 				offer.setDescription(rs.getString("off.Description"));
 				offer.setExpirationDate(rs.getDate("off.Expiration_Date"));
-				offer.setAuctionId(currOfferID);
+				offer.setAuctionId(currAuctionID);
 				offer.setLineId(new IdWithName(rs.getInt("off.Line_id"), rs.getString("line.Name")));
 				offer.setMaxArrivalHour(rs.getTime("off.Max_Arrival_Hour"));
 				offer.setPrId(new IdWithName(rs.getInt("off.Pr_id"), rs.getString("users.First_Name") + " " + rs.getString("users.Last_Name")));
@@ -1758,6 +1761,56 @@ public class DAL {
 			disconnectFromDBServer();
 		}
 		return url;
+	}	
+	
+	
+	public static LineData getLineProfileData(Integer lineID)
+	{
+		LineData line= new LineData();
+		connectToDBServer();
+		
+		try {
+			ResultSet rs = stmt.executeQuery("select * from line, businesses, users where line.id =" + lineID+ " and businesses.id= line.Business_id and users.Id= line.PR_id;");
+			while (rs.next()){
+				line.setId(lineID);
+				line.setBusiness(new IdWithName(rs.getInt("line.Business_id"), rs.getString("businesses.Name")));
+				line.setDescription(rs.getString("line.Description"));
+				line.setDj(rs.getString("line.DJ"));
+				line.setEndDate(rs.getDate("line.Line_End_Date"));
+				line.setStartDate(rs.getDate("line.Line_Start_Date"));
+				line.setEntranceFee(rs.getString("line.Entrance_Fee"));
+				line.setM_DayInWeek(rs.getInt("line.Day_In_Week"));
+				line.setM_LineName(rs.getString("line.Name"));
+				line.setOpeningHour(rs.getString("line.Opening_Hour"));
+				line.setMinAge(rs.getInt("line.Min_Age"));
+				line.setPr(new IdWithName(rs.getInt("line.PR_id"),rs.getString("users.First_Name")+" " +rs.getString("users.Last_Name")));
+			}
+				/*load music styles:*/
+				rs = stmt.executeQuery("select * from line_music_style lm, music_style where music_style.id= lm.Music_Style_Id and lm.Line_id=" +lineID);
+				
+				while (rs.next())
+				{
+					line.getMusicStylesIds().add(new IdWithName(rs.getInt("lm.Music_Style_Id"),rs.getString("music_style.Name")));
+				}
+				
+				/*load submitted prs:*/
+				rs = stmt.executeQuery("select * from line_prs lp, users where users.id= lp.Pr_id and lp.Line_id=" +lineID);
+				
+				while (rs.next())
+				{
+					line.getPrs().add(new IdWithName(rs.getInt("lp.Pr_id"),rs.getString("users.First_Name")+" " +rs.getString("users.Last_Name")));
+				}
+		} 
+		
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally{
+			disconnectFromDBServer();
+		}
+		
+		return line;
+		
 	}
 
 	public static UserData getUserObject(String emailParam) {
@@ -1797,6 +1850,69 @@ public class DAL {
 			disconnectFromDBServer();
 		}
 		return userData;
-	}	
+	}
+
+	public static boolean updateLineDetails(LineData line) throws ParseException {
+		// TODO Auto-generated method stub
 		
+		boolean isSucceed = true;
+		
+		connectToDBServer();
+		
+		//parse end date
+		DateFormat df = new SimpleDateFormat("dd-MMM-yy HH:mm:ss a");
+		String date= df.format(line.getEndDate());
+		Date date2= df.parse(date);
+		java.sql.Date endDate = new java.sql.Date(date2.getTime());
+		//parse start date
+		df = new SimpleDateFormat("dd-MMM-yy HH:mm:ss a");
+		date= df.format(line.getEndDate());
+		date2= df.parse(date);
+		java.sql.Date startDate = new java.sql.Date(date2.getTime());
+
+		String sql = "UPDATE clubber_db.line "
+				   + "SET Business_id = '" + line.getBusiness() + "'"
+				   + ", Name = '" + line.getM_LineName()+ "'"
+				   + ", Day_In_Week = '" +line.getM_DayInWeek() + "'"
+				   + ", Line_Start_Date = '" +startDate + "'"
+				   + ", Line_End_Date = '" +endDate + "'"
+				   + ", Min_Age = '" +line.getMinAge() + "'"
+				   + ", Description = '" +line.getDescription() + "'"
+				   + ", Entrance_Fee = '" +line.getEntranceFee() + "'"
+				   + ", DJ = '" +line.getDj() + "'"
+				   + ", Opening_Hour = '" +line.getOpeningHour() + "'"
+				   + " WHERE id ='" + line.getId() + "'";
+		
+		try {
+			stmt.executeUpdate(sql);	
+			
+			//remove all exists music style records
+			stmt.executeUpdate("DELETE FROM line_music_style WHERE Line_Id="+ line.getId());
+			
+			//add relevant records to line music style table:
+			for(IdWithName item: line.getMusicStylesIds())
+			{
+				String sqlMusicStyles= String.format("insert into Auction_Music_Style values(%d,%d,%d)", null,line.getId() , item.getId());
+				stmt.executeUpdate(sqlMusicStyles);
+			}
+			
+		} 
+		catch (SQLException e) {
+			isSucceed = false;
+			e.printStackTrace();
+			
+		}
+		finally{
+			disconnectFromDBServer();
+		}
+		
+		return isSucceed;
+	}
+	
+	public static LinkedList<IdWithName> getBusinessesNameAndID()
+	{
+		String query = "Select * from businesses;";
+		return GetIdAndNameData(query);		
+	}
+	
 }

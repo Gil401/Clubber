@@ -167,7 +167,7 @@
 	        url: "GetDBData",
 	        type: "post",
 	        dataType: 'json',
-	        data:{RequestType: "DBDataAllBusinesses"},
+	        data:{RequestType: "GetDBData-BusinessLst"},
 	        success: function(businessList) {
 	        	var businesses = $("#businessName");
 	        	

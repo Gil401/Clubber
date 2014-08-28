@@ -12,6 +12,7 @@ public class Constants {
 	 public static final String DB_DATA_ADD_MESSAGE="GetDBData-AddMessage";
 	 public static final String DB_DATA_MAIN_LINES = "GetDBData-WelcomeLines";
 	 public static final String DB_DATA_AUCTION_BY_ID = "GetDBData-GetAuctionById";
+	 public static final String DB_DATA_LINE_PROFILE= "GetDBData-LineProfile";
 	 public static final String DB_DATA_ALL_BUSINESSES= "DBDataAllBusinesses";
 	 public static final String DB_DATA_GET_BUSINESS_AREAS_DATA= "DBDataGetBusinessAreasData";
 	 public static final String DB_DATA_GET_BUSINESS_CITIES_DATA= "DBDataGetBusinessCitiesData";
@@ -23,7 +24,9 @@ public class Constants {
 	 public static final String DB_DATA_GET_BUSINESS_DATA = "DBDataGetBusinessData";
 	 public static final String DB_DATA_GET_MUSIC_STYLE_DATA = "DBDataGetMusicStyleData";
 	 public static final String DB_DATA_GET_JOIN_LINE_REQUEST_DATA = "DBDataGetJoinRequestData";
-
+	 public static final String DB_DATA_AUCTION_REVIEW = "GetDBData-AuctionReview";
+	 public static final String DB_DATA_BUSINESS_LST = "GetDBData-BusinessLst";
+	 
 	 // PrProfile fields
 	 public static final String USER_DATA= "userData";
 		 
@@ -108,7 +111,7 @@ public class Constants {
 	 public static String BUSINESS_PHOTO= "photo";
 	 //business photo
 
-	 //line fileds
+	 //line fields
 	 public static String LINE_ID= "id";
 	 public static String LINE_NAME= "name";
 	 public static String LINE_BUSINEES_ID= "businessId";
@@ -122,7 +125,23 @@ public class Constants {
 	 public static String LINE_ETRANCEFEE= "etranceFee";
 	 public static String LINE_DJ= "DJ";
 	 public static String LINE_PHOTO= "photo";
-
+	 
+	 //line update fields
+	 public static String MUSIC_STYLE_EDT= "MusicStyleList";
+	 public static String LINE_NAME_EDT="LineName";
+	 public static String BUSINESSS_ID_EDT="BusinessId";
+	 public static String START_DATE_EDT="StartDate";
+	 public static String END_DATE_EDT= "EndDate";
+	 public static String MIN_AGE_EDT="MinAge";
+	 public static String DESCRIPTION_EDT= "Description";
+	 public static String ENTRANCE_EDT= "EtranceFee";
+	 public static String DJ_EDT= "DJ";
+	 
+	 //accept Offer
+	 public static String ACCEPTED_OFFER_ID="AccptedOfferId";
+	
+	 //Offer Review
+	 public static String CURR_AUCTION_ID="currAuctionID";
 	 
 	 //images
 	 public static final String IMAGES_DIR = "images";

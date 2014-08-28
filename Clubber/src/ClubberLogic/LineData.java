@@ -18,13 +18,22 @@ public class LineData {
 	private String entranceFee;
 	private String dj;
 	private String openingHour;
-	private IdWithName pr;
+	private IdWithName pr; /*owner- created by*/
 	private IdWithName business;
-	private final LinkedList<Integer> musicStylesIds;
-
+	private final LinkedList<IdWithName> musicStylesIds;
+	private final LinkedList<IdWithName> prs;
+	
 	public LineData()
 	{
-		musicStylesIds= new LinkedList<Integer>();
+		musicStylesIds= new LinkedList<IdWithName>();
+		prs= new LinkedList<IdWithName>();
+		m_LineName="";
+		m_DayInWeek=1;
+		minAge=1;
+		description="";
+		entranceFee="";
+		dj="";
+		openingHour="";
 	}
 
 	public Integer getId() {
@@ -99,7 +108,7 @@ public class LineData {
 		this.entranceFee = entranceFee;
 	}
 
-	public LinkedList<Integer> getMusicStylesIds() {
+	public LinkedList<IdWithName> getMusicStylesIds() {
 		return musicStylesIds;
 	}
 
@@ -133,6 +142,10 @@ public class LineData {
 
 	public void setM_DayInWeek(Integer m_DayInWeek) {
 		this.m_DayInWeek = m_DayInWeek;
+	}
+
+	public LinkedList<IdWithName> getPrs() {
+		return prs;
 	}
 
 }

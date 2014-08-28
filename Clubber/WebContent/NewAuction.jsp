@@ -20,7 +20,7 @@
 	        <div  class="large-text-label page-description">צוות קלאבר מזמין אותך להזין את פרטי האירוע שלך, ולקבל הצעות אטרקטיביות מהמקומות הכי חמים! </div> 
 	         
 	         <div class='new-auction-field' id='datepicker-wrapper'>
-		         <input type="text" id='eventDatepicker' class='eventDatepicker' name="datepicker" placeholder="תאריך האירוע">
+		         <input type="text" id='eventDatepicker' class='eventDatepicker' name="datepicker"  readonly="true" placeholder="תאריך האירוע">
 	         </div>
 	         <br/>
 	         

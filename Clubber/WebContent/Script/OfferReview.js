@@ -1,4 +1,6 @@
 var currAucId;
+var currOffId;
+
 var refreshRate = 1000; //miliseconds
 
 function setNewMessageTextOnFocusOut()
@@ -27,7 +29,7 @@ function convert12to24(timeStr)
 	{
 	    var meridian = timeStr.substr(timeStr.length-2).toLowerCase();;
 	    var hours =  timeStr.substr(0, timeStr.indexOf(':'));
-	    var minutes = timeStr.substring(timeStr.indexOf(':')+1, timeStr.indexOf(' '));
+	    var minutes = timeStr.substring(timeStr.indexOf(':')+1, timeStr.lastIndexOf(':'));
 	    if (meridian=='pm')
 	    {
 	        if (hours!=12)
@@ -69,7 +71,7 @@ function convertTimeStampFormat(timestamp)
 
 function approveBtnClicked()
 {
-	
+	ajaxApproveCurrentOffer();
 }
 
 function loadOfferFromDB(data)
@@ -94,12 +96,70 @@ function loadOfferFromDB(data)
 		
 		for (var item in data.offerTreats) 
 		{
-			$("#offer-treats").append("</br> <img src='/Clubber/images/Check_Image.png' class='offer-item-treat-image'><label class='offer-multi-value-label'>"+data.offerTreats[item].Name+"</label>");
+			$("#offer-treats").append("<div class='offer-treat-div'><img src='/Clubber/images/Check_Image.png' class='offer-item-treat-image'><label class='offer-multi-value-label'>"+data.offerTreats[item].Name+"</label></div><br>");
 		}
 		
-	}	
+	}
 	
+	function loadAuctionFromDB(data){
+		console.log("adding current auction");
+		
+		$("#auction-event-date").append("<label class='offer-value-label'>"+formattedDate(data.eventDate)+"</label>");
+		$("#auction-event-type").append("<label class='offer-value-label'>"+data.eventType.Name+"</label>");
+		$("#auction-area").append("<label class='offer-value-label'>"+data.area.Name+"</label>");
+		$("#auction-guests-quantiny").append("<label class='offer-value-label'>"+data.guestesQuantiny+"</label>");
+		$("#auction-exceptions").append("<label class='offer-value-label'>"+data.exceptionsDescription+"</label>");
+		$("#auction-certain-business").append("<label class='offer-value-label'>"+(data.certainBusiness ? data.certainBusiness.Name : "")+"</label>");
+		
+		if (data.musicStyle.length > 0) {
+			var musicStyles = ""; 
+			for (var item in data.musicStyle) 
+			{
+				musicStyles += data.musicStyle[item].Name + " ,";
+			}
+			
+			if (musicStyles.length > 1) {
+				musicStyles = musicStyles.substring(0,musicStyles.length - 2);
+			}
+			
+			$("#auction-music-style").append("<label class='offer-value-label'>"+musicStyles+"</label>");
+		}
+		
+		if (data.businessType.length > 0) {
+			var businessesType = ""; 
+			for (var item in data.businessType) 
+			{
+				businessesType += data.businessType[item].Name + " ,";
+			}
+			
+			if (businessesType.length > 0) {
+				businessesType = businessesType.substring(0,businessesType.length - 2);
+			}
+			
+			$("#auction-business-type").append("<label class='offer-value-label'>"+businessesType+"</label>");
+		}
+		
+		if (data.sittsType.length > 0) {
+			var sittsType = ""; 
+			for (var item in data.sittsType) 
+			{
+				sittsType += data.sittsType[item].Name + " ,";
+			}
+			
+			if (sittsType.length > 0) {
+				sittsType = sittsType.substring(0,sittsType.length - 2);
+			}
+			
+			$("#auction-sitts-type").append("<label class='offer-value-label'>"+sittsType+"</label>");
+		}
+		
+		$("#auction-description").append("<label class='offer-value-label'>"+data.description+"</label>");
+		
+		
+	}
 	function ajaxOfferFormDBData() {
+		var now= new Date();
+		
 	    $.ajax({
 	        url: "GetDBData",
 	        type: "post",
@@ -107,36 +167,55 @@ function loadOfferFromDB(data)
 	        data:{RequestType: "GetDBData-OfferReview"},
 	        success: function(data) {
 	            if (data != null) {
-	                console.log("GetDBData-OfferReview");  
-	                currAucId= data.auctionId;
-	                loadOfferFromDB(data);
+	            	//if offer expired or already accepted or auction is closed -> remove accept btn:
+	            	if (data.expirationDate< now || data.offerStatusId.id == 1 )
+            		{
+	            		$("#accept-offer-button").remove();
+            		}
+	            	
+	            	console.log("GetDBData-OfferReview");  
+		            currAucId= data.auctionId;
+		            currOffId=data.id;
+		            loadOfferFromDB(data);
+		            
+		            ajaxAuctionFromDBData();
 	            }},
 	        error: function(data){
 	            	console.log("error- offer review");}	        
 	    });
 	}
-	
-	/*function ajaxApproveCurrentOffer() {
-	    $.ajax({
+	 
+	function ajaxAuctionFromDBData() {
+		$.ajax({
 	        url: "GetDBData",
 	        type: "post",
 	        dataType: 'json',
-	        data:{RequestType: "GetDBData-OfferReview"},
+	        data:{RequestType: "GetDBData-AuctionReview", currAuctionID : currAucId},
 	        success: function(data) {
-	           if (data != null) {
-	            	/*if offer pending to accept and expiration date not over and auction status is active then accept offer*/
-	            	/*if ((data.offerStatusId.id == 2) && (data.expirationDate< now)&& ())
-            		{
-	            		
-            		}
-	            		
-	                console.log("");  
-
+	            if (data != null) {
+	            	console.log("GetDBData-AuctionReview");
+		            loadAuctionFromDB(data);
+		            
+		            setInterval(ajaxMessagesFormDBData, refreshRate);
 	            }},
 	        error: function(data){
-	            	console.log("error- getting offer details");}	        
+	            	console.log("error- auction review");}	        
 	    });
-	}*/
+	}
+
+	function ajaxApproveCurrentOffer() {
+	    $.ajax({
+	        url: "AcceptOffer",
+	        type: "post",
+	        dataType: 'json',
+	        data:{AccptedOfferId:currOffId},
+	        success: function(data) {
+	        	console.log("offer accepted");  
+	        },
+	        error: function(data){
+	            console.log("error- getting offer details");}	        
+	    });
+	}
 	
 	
 	function ajaxSendMessage(){
@@ -159,7 +238,7 @@ function loadOfferFromDB(data)
 	{
 		 $(".old-messages").empty(); 
 		for (var i = 0; i < data.length; i++) {
-			$(".old-messages").append("<div class='incoming-message'> <label>"+data[i].description+"</label></br> <label class='message-date'>"+convertTimeStampFormat(data[i].createdOn)+"</label></div>");
+			$(".old-messages").append("<hr style='width:50%' align='right'><div class='incoming-message'> <label>"+data[i].description+"</label></br> <label class='message-date'>"+convertTimeStampFormat(data[i].createdOn)+"</label></div>");
 		}
 	}
 	
@@ -183,10 +262,7 @@ function loadOfferFromDB(data)
 
 	$(function() {
 		ajaxOfferFormDBData();
-		ajaxMessagesFormDBData();
 		$('#outgoing-message-text').keypress( function( e ) {
 			  if( e.keyCode == 13 ) { ajaxSendMessage(); }
 			} );
-		//The games list is refreshed automatically every second
-	    setInterval(ajaxMessagesFormDBData, refreshRate);
 	});

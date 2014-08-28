@@ -2199,6 +2199,15 @@ ul.sub-menu{
 	font-size: 13px;
 }
 
+.ui-datepicker-prev{
+	float: left;
+	cursor: pointer;
+}
+
+.ui-datepicker-next{
+	cursor: pointer;
+}
+
 /***********************
 *******New Offer******
 ***********************/
@@ -2211,3 +2220,39 @@ ul.sub-menu{
 	width:250px;
 }
 
+/***********************
+*******Offer Review******
+***********************/
+.offer-item-treat-image{
+	height:16px;
+	width:16px;
+}
+
+.offer-treat-div{
+	float:left;
+}
+
+.offer-item-left-title{
+	float:left;
+}
+.offer-item-right-title{
+	float:right;
+}
+
+.outgoing-message{
+	width:50%;
+	resize: none;
+}
+
+.outgoing-message-empty{
+	width:50%;
+	resize: none;	
+}
+
+.offer-reviewed-item-description {
+	border-left: solid white;
+	float: right;
+}
+.auction-item-description {
+	float: left;
+}

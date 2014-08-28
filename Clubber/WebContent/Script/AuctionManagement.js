@@ -26,8 +26,8 @@ function loadOffersFromDB(data, areaName)
 			$('<div id=' +data[item].id+' class="offer-item-container bg"><div  class="offer-item-line-image-container" id="'+data[item].lineId.id+'" onclick="alert(' + data[item].lineId.id + ')"><img src="/Clubber/images/line_Img.png" class="offer-item-line-image" style="float: right; max-width: 100px; max-height:100px;"></div>'
 					+ ' <div class="offer-item-title"> <div class= "offer-item-right-title" style="float: right" >'+data[item].prId.Name+'</div> <div class="offer-item-left-title" style="float: left">' +formattedDate(data[item].submitDate) +'</div> </div>'
 					+ '<div class="offer-item-content" >'
-					+ '<div class="offer-item-description" onclick="offerClicked(' + data[item].id + ')">'+description+'</div>'
-					+'</div><br /><br /><div style="float: left; "><button style="background-color: red; border-radius: 20px; font-size:13px;">סמן כלא רלוונטי</button><button style="border-radius: 20px; font-size:13px;">פרטים נוספים</button></div>'
+					+ '<div class="offer-item-description">'+description+'</div>'
+					+'</div><br /><br /><div style="float: left; "><button style="background-color: red; border-radius: 20px; font-size:13px;">סמן כלא רלוונטי</button><button onclick="offerClicked(' + data[item].id + ')" style="border-radius: 20px; font-size:13px;">פרטים נוספים</button></div>'
 					+'</div>').appendTo($(areaName)) ; 
 		}
 	}

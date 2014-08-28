@@ -189,6 +189,23 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             	json = gson.toJson(data);
             	
             }
+            else if (requestType.equals(Constants.DB_DATA_LINE_PROFILE))
+            {
+            	data= DAL.getLineProfileData(1);
+            	json = gson.toJson(data);
+            }
+            else if(requestType.equals(Constants.DB_DATA_AUCTION_REVIEW))
+            {
+            	String sessionAttribute= request.getParameter(Constants.CURR_AUCTION_ID);
+            	Integer reviewedAuc= ( (sessionAttribute != null) ? Integer.parseInt(sessionAttribute) : null );
+            	data = DAL.getReviewedAuctionData(reviewedAuc);
+            	json = gson.toJson(data);
+            }
+            else if (requestType.equals(Constants.DB_DATA_BUSINESS_LST))
+            {
+            	data = DAL.getBusinessesNameAndID();
+            	json = gson.toJson(data);
+            }
             
             System.out.println(json);
             out.print(json);

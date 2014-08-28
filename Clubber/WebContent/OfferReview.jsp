@@ -15,15 +15,16 @@
             <div class="event-inner">                
                 <div class="row">   
     <div class='main-container bg '>  
+       	<div class='offer-item-reviewed-title'>
+       	</div>
+       	<br>
+       	<br>
        	<div class="offer-item-reviewed-container">
-       		<div class='offer-item-reviewed-title'>
-       			
-       		</div>
        		<div class= "offer-item-reviewed-content">
        			<div title="לחץ כאן כדי לראות את פרטי הליין" class="offer-reviewed-item-line-image-container" onclick="alert('')" style="float:right">
        				<img src="/Clubber/images/line_Img.png" class="offer-item-line-image">
        			</div>
-       			<div class="offer-reviewed-item-description" style="float:right">
+       			<div class="offer-reviewed-item-description">
 		       		<div id="offer-description">
 						<label class="offer-title-label">תיאור</label>
 					</div>
@@ -43,14 +44,47 @@
 						<label class="offer-title-label"> סל פינוקים</label>
 					</div>
 				</div>
-				<input class='btn-primary' type="button" id="accept-offer-button" name="accept-offer-button"  value="קבל הצעה זו" onClick= "approveBtnClicked()" style="float: left; margin-top: 300px;"/>
+				<div class="auction-item-description">
+		       		<div id="auction-event-date">
+						<label class="offer-title-label">תאריך האירוע</label>
+					</div>
+					<div id="auction-event-type">
+						<label class="offer-title-label">סוג האירוע</label>
+					</div>
+					<div id="auction-music-style">
+						<label class="offer-title-label">סגנון המוזיקה</label>
+					</div>
+					<div id="auction-area">
+						<label class="offer-title-label">אזור</label>
+					</div>
+					<div id="auction-guests-quantiny">
+						<label class="offer-title-label">כמות האורחים</label>
+					</div>
+					<div id="auction-exceptions">
+						<label class="offer-title-label">תיאור חריגים</label>
+					</div>
+					<div id="auction-business-type">
+						<label class="offer-title-label">סוג בית עסק</label>
+					</div>
+					<div id="auction-certain-business">
+						<label class="offer-title-label">מקום בילוי מסויים</label>
+					</div>
+					<div id="auction-sitts-type">
+						<label class="offer-title-label">סוג מקומות ישיבה</label>
+					</div>
+					<div id="auction-description">
+						<label class="offer-title-label">תיאור כללי</label>
+					</div>
+				</div>
+				<input class='btn-primary' type="button" id="accept-offer-button" name="accept-offer-button"  value="קבל הצעה זו" onClick= "approveBtnClicked()"/>
 			</div>
 		</div>
        <div class='all-messages-container'>
 	       	<div class="old-messages"></div>
 	       	<div class="new-message"></div> 
-	       	 <input type="text" id='outgoing-message-text' class='outgoing-message outgoing-message-empty' onblur='setNewMessageTextOnFocusOut();' onfocus='setNewMessageTextOnFocusIn();' name="new-message-input" value="השב...">        
+	       	 <textarea id='outgoing-message-text' class='outgoing-message outgoing-message-empty' onblur='setNewMessageTextOnFocusOut();' onfocus='setNewMessageTextOnFocusIn();' name="new-message-input">השב...</textarea>        
 	    </div>
+
 	    <div class='recomended-lines-container'></div>        
     </div></div></div></div>
     <%@  include file="patternTemplates/footer.tpl" %>
