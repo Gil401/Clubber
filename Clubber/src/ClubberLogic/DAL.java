@@ -3,6 +3,7 @@ package ClubberLogic;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,7 +16,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
 
 import Utlis.AuctionManagementData;
 import Utlis.IdWithName;
@@ -703,6 +703,7 @@ public class DAL {
 		// TODO Auto-generated method stub
 		
 		boolean isSucceed = true;
+		PreparedStatement ps = null; 
 		
 		connectToDBServer();
 		
@@ -712,16 +713,28 @@ public class DAL {
 		java.sql.Date sqlDate = new java.sql.Date(date2.getTime());
 
 		String sql = "UPDATE clubber_db.users "
-				   + "SET First_Name = '" + userData.getFirstName() + "'"
-				   + ", Last_Name = '" + userData.getLastName() + "'"
-				   + ", Gender = '" + userData.getGender() + "'"
-				   + ", Phone_Number = '" + userData.getPhoneNumber() + "'"
-				   + ", Password = '" + userData.getPassword() + "'"
-				   + ", Birth_Date = '" + sqlDate + "'"
-				   + " WHERE Email ='" + userData.getEmail() + "'";
+				   + "SET First_Name = ? "
+				   + ", Last_Name = ? "
+				   + ", Gender = ? "
+				   + ", Phone_Number = ? "
+				   + ", Password = ? "
+				   + ", User_Image = ? "
+				   + ", Birth_Date = ? "
+				   + " WHERE Email = ? ";
 		
 		try {
-			stmt.executeUpdate(sql);	
+
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, userData.getFirstName());
+			ps.setString(2, userData.getLastName());
+			ps.setString(3, userData.getGender().toString());
+			ps.setString(4, userData.getPhoneNumber());
+			ps.setString(5, userData.getPassword());
+			ps.setString(6, userData.getImageURL());
+			ps.setDate(7, sqlDate);
+			ps.setString(8, userData.getEmail());
+			ps.executeUpdate();
 		} 
 		catch (SQLException e) {
 			isSucceed = false;
@@ -769,10 +782,12 @@ public class DAL {
 			
 			}
 			
-			reviews.setAvailability(reviews.getAvailability()/totalReviews.size());
-			reviews.setRealiability(reviews.getRealiability()/totalReviews.size());
-			reviews.setTreats(reviews.getTreats()/totalReviews.size());
-			reviews.setGeneral((reviews.getAvailability() + reviews.getRealiability() + reviews.getTreats()) / 3);
+			if(totalReviews.size() > 0){
+				reviews.setAvailability(reviews.getAvailability()/totalReviews.size());
+				reviews.setRealiability(reviews.getRealiability()/totalReviews.size());
+				reviews.setTreats(reviews.getTreats()/totalReviews.size());
+				reviews.setGeneral((reviews.getAvailability() + reviews.getRealiability() + reviews.getTreats()) / 3);
+			}
 		
 		} 
 		catch (SQLException e) {
@@ -817,9 +832,11 @@ public class DAL {
 			
 			}
 			
-			//reviews.setPunctuality(reviews.getPunctuality()/totalReviews.size());
-			//reviews.setRealiability(reviews.getRealiability()/totalReviews.size());
-			//reviews.setGeneral((reviews.getPunctuality() + reviews.getRealiability()) / 2);
+			//if(totalReviews.size() > 0){
+			//	reviews.setPunctuality(reviews.getPunctuality()/totalReviews.size());
+			//	reviews.setRealiability(reviews.getRealiability()/totalReviews.size());
+			//	reviews.setGeneral((reviews.getPunctuality() + reviews.getRealiability()) / 2);
+			//}
 		
 		} 
 		catch (SQLException e) {
@@ -1227,25 +1244,27 @@ public class DAL {
 	}
 
 	public static ArrayList<AuctionData> getAuctionsByPrLines(String email) {
-		email = "orelsharabi8@gmail.com";
+
+
 		ArrayList<AuctionData> auctionList = new ArrayList<>();
 		int createdById = 0;
 
+		email = "orelsharabi8@gmail.com";
 		connectToDBServer();
 		
 		try {
 			ResultSet rs = stmt.executeQuery("SELECT * "
-										   + "FROM auction A, line L, users U, businesses B, event_type ET, areas AR, details_to_display D, auction_status S "
+										   + "FROM auction A, line L, users U, businesses B, event_type ET, areas AR, auction_status S "
 										   + "WHERE L.PR_id =  U.id and "
 										   + "U.Email = '" + email + "' and "
 										   + "A.Minimum_Age > L.Min_Age and "
 										   + "B.id = L.Business_id and "
 										   + "B.Area = A.Area and "
-										   + "B.Business_Type = A.Business_Type and "
-										   + "A.Certain_Business = B.id and "
+
+
 										   + "A.Event_Type = ET.id and "
 										   + "A.Area = AR.id and "
-										   + "A.Details_To_Display = D.id and "
+
 										   + "A.Auction_Status = S.id and "
 										   + "S.id = 1 and "										   
 										   + "A.Event_Date BETWEEN L.Line_Start_Date AND L.Line_End_Date");
@@ -1261,12 +1280,12 @@ public class DAL {
 				auctionData.setEventDate(rs.getDate("A.Event_Date"));
 				auctionData.setDateFlexible(rs.getBoolean("A.Is_Date_Flexible"));
 				auctionData.setArea(new IdWithName(rs.getInt("AR.id"), rs.getString("AR.Name")));
-				auctionData.setCertainBusiness(new IdWithName(rs.getInt("B.id"), rs.getString("B.Name")));
+
 				auctionData.setDescription(rs.getString("A.Description"));
-				auctionData.setDetailsToDisplay(new IdWithName(rs.getInt("D.id"), rs.getString("D.Name")));
+
 				auctionData.setSmoking(rs.getBoolean("A.Smoking"));
 				auctionData.setAuctionStatus(new IdWithName(rs.getInt("S.id"), rs.getString("S.Name")));
-				createdById = rs.getInt("A.Created_By");
+
 				
 				auctionList.add(auctionData);
 			}
@@ -1340,6 +1359,34 @@ public class DAL {
 					auctionList.get(i).setCreatedBy(new IdWithName(createdById, rs4.getString("U.First_Name")));
 				}
 			}
+			
+			for (int i = 0; i < auctionList.size(); i++) {
+				
+				ResultSet rs5 = stmt.executeQuery("SELECT * "
+						   + "FROM auction A, details_to_display D "
+						   + "WHERE A.Details_To_Display = D.id and "
+				   		   + "A.id = "+ auctionList.get(i).getId());				
+				
+				while(rs5.next())
+				{
+					IdWithName detailsToDisplay = new IdWithName(rs5.getInt("D.id"), rs5.getString("D.Name"));
+					auctionList.get(i).setDetailsToDisplay(detailsToDisplay);
+				}
+			}		
+			
+			for (int i = 0; i < auctionList.size(); i++) {
+				
+				ResultSet rs6 = stmt.executeQuery("SELECT * "
+						   + "FROM auction A, businesses B "
+						   + "WHERE A.Certain_Business = B.id and "
+				   		   + "A.id = "+ auctionList.get(i).getId());				
+				
+				while(rs6.next())
+				{
+					IdWithName certailBusiness = new IdWithName(rs6.getInt("B.id"), (rs6.getString("B.Name")));
+					auctionList.get(i).setCertainBusiness(certailBusiness);
+				}
+			}			
 				
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -1388,12 +1435,12 @@ public class DAL {
 		
 		try {
 			ResultSet rs = stmt.executeQuery("SELECT * "
-										   + "FROM auction A, users U, businesses B, event_type ET, areas AR, details_to_display D, auction_status S "
-										   + "WHERE U.id = A.Created_By and "
-										   + "B.Business_Type = A.Business_Type and "
-										   + "A.Event_Type = ET.id and "
+										   + "FROM auction A, event_type ET, areas AR, auction_status S "
+
+
+										   + "WHERE A.Event_Type = ET.id and "
 										   + "A.Area = AR.id and "
-										   + "A.Details_To_Display = D.id and "
+
 										   + "S.id = 1 and "										   
 										   + "A.Auction_Status = S.id");
 			while (rs.next())
@@ -1407,12 +1454,12 @@ public class DAL {
 				auctionData.setEventDate(rs.getDate("A.Event_Date"));
 				auctionData.setDateFlexible(rs.getBoolean("A.Is_Date_Flexible"));
 				auctionData.setArea(new IdWithName(rs.getInt("AR.id"), rs.getString("AR.Name")));
-				auctionData.setCertainBusiness(new IdWithName(rs.getInt("B.id"), rs.getString("B.Name")));
+
 				auctionData.setDescription(rs.getString("A.Description"));
-				auctionData.setDetailsToDisplay(new IdWithName(rs.getInt("D.id"), rs.getString("D.Name")));
+
 				auctionData.setSmoking(rs.getBoolean("A.Smoking"));
 				auctionData.setAuctionStatus(new IdWithName(rs.getInt("S.id"), rs.getString("S.Name")));
-				auctionData.setCreatedBy(new IdWithName(rs.getInt("A.Created_By"), rs.getString("U.First_Name")));
+
 				
 				auctionList.add(auctionData);
 			}
@@ -1475,6 +1522,48 @@ public class DAL {
 				auctionList.get(i).setSittsType(seatsType);
 			}
 			
+			for (int i = 0; i < auctionList.size(); i++) {
+				
+				ResultSet rs4 = stmt.executeQuery("SELECT * "
+						   + "FROM auction A, details_to_display D "
+						   + "WHERE A.Details_To_Display = D.id and "
+				   		   + "A.id = "+ auctionList.get(i).getId());				
+				
+				while(rs4.next())
+				{
+					IdWithName detailsToDisplay = new IdWithName(rs4.getInt("D.id"), rs4.getString("D.Name"));
+					auctionList.get(i).setDetailsToDisplay(detailsToDisplay);
+				}
+			}
+
+			for (int i = 0; i < auctionList.size(); i++) {
+				
+				ResultSet rs5 = stmt.executeQuery("SELECT * "
+						   + "FROM auction A, users U "
+						   + "WHERE A.Created_By = U.id and "
+				   		   + "A.id = "+ auctionList.get(i).getId());				
+				
+				while(rs5.next())
+				{
+					IdWithName createdBy = new IdWithName(rs5.getInt("U.id"), (rs5.getString("U.First_Name") + " " + rs5.getString("U.Last_Name")));
+					auctionList.get(i).setCreatedBy(createdBy);
+				}
+			}
+
+			for (int i = 0; i < auctionList.size(); i++) {
+				
+				ResultSet rs6 = stmt.executeQuery("SELECT * "
+						   + "FROM auction A, businesses B "
+						   + "WHERE A.Certain_Business = B.id and "
+				   		   + "A.id = "+ auctionList.get(i).getId());				
+				
+				while(rs6.next())
+				{
+					IdWithName certailBusiness = new IdWithName(rs6.getInt("B.id"), (rs6.getString("B.Name")));
+					auctionList.get(i).setCertainBusiness(certailBusiness);
+				}
+			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

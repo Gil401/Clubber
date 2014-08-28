@@ -2,18 +2,13 @@ package ClubberServlets;
 
 import java.io.IOException;
 import java.util.Date;
-
-import javax.jms.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import ClubberLogic.Client;
 import ClubberLogic.DAL;
-import ClubberLogic.PR;
 import ClubberLogic.UserData;
 import ClubberLogic.UserType;
 import Utlis.Constants;
@@ -48,12 +43,8 @@ public class Login extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 		
-		String firstName = request.getParameter(Constants.FIRST_NAME);
         String emailParam = request.getParameter(Constants.EMAIL);
         String passwordParam = request.getParameter(Constants.PASSWORD);
-        String userImageUrl ="";
-        
-        UserType userType = UserType.Client;
         HttpSession session = request.getSession(true);
         
         boolean isSucceed = true; 
@@ -109,7 +100,7 @@ public class Login extends HttpServlet {
         	session.setAttribute(Constants.WHO_AM_I, sessionUserData.getUserType());
         	session.setAttribute(Constants.IMAGE, sessionUserData.getImageURL());
         	session.setAttribute("User", sessionUserData);
-        	if(userType == UserType.Client)
+        	if(session.getAttribute(Constants.WHO_AM_I) == UserType.Client)
         		getServletContext().getRequestDispatcher("/ClientProfile.jsp").forward(request, response);
         	else
         		getServletContext().getRequestDispatcher("/PrProfile.jsp").forward(request, response);

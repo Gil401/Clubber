@@ -36,7 +36,7 @@ input{
 
 <h2>פרטי משתמש</h2>
 	<div class="user-details">
-		<form class="user-details-form" id="userDetails" name="userDetails" method="post" action="UpdatePrDetails">
+		<form class="user-details-form" id="userDetails" name="userDetails" method="post" action="UpdateUserDetails">
 		  	
 		  	<label id="firstnameLabel">שם פרטי</label>
 		  	<input type="text" name="firstName" id="firstName" required disabled>
@@ -138,7 +138,7 @@ input{
 <script type="text/javascript" src="js/switcher.js"></script>
 <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-<script src="js/datepicker-he.js"></script
+<script src="js/datepicker-he.js"></script>
 	<script>
 	
 		// Set error messages  

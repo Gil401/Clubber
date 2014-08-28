@@ -123,5 +123,13 @@ public class Constants {
 	 public static String LINE_DJ= "DJ";
 	 public static String LINE_PHOTO= "photo";
 
+	 
+	 //images
+	 public static final String IMAGES_DIR = "images";
+	 public static final String USER_IMAGES_DIR = "/Uploaded/userImages/";
+	 public static final String LINE_IMAGES_DIR = "/Uploaded/lineImages/";
+	 public static final String BUSSINESS_IMAGES_DIR = "/Uploaded/bussinessImages/";
+		
+	 
 }
 
