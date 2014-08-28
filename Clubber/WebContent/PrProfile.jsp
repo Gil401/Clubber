@@ -75,7 +75,7 @@ input{
   			<br>
   			  			
   			<button id="editUserDel" type="button" >ערוך</button>
-  			<button id="updateUserDel" type="submit" onclick="updateUserDetails()" disabled>שמור</button>
+  			<button id="updateUserDel" type="submit" disabled>שמור</button>
 		</form>		
 		<br>
 		<label id="messageText">
@@ -176,6 +176,7 @@ input{
 			$('#password').attr("disabled", false);		
 			$('#verifyPassword').attr("disabled", false);
 			$("#updateUserDel").attr("disabled",false);
+			$('#pic').replaceWith('<input type="file" name="pic" id="pic">');		      
 		});
 		
 		function getUserProfile(){
@@ -192,6 +193,7 @@ input{
 		        	$("#phoneNumber").val(data.phoneNumber);
 		        	$("#email").val(data.email);
 		        	$("#password").val(data.password);
+		        	$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic">');
 		        },
 		        error: function(data){
 		            	console.log("error");}
