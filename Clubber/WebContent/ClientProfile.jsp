@@ -42,7 +42,7 @@ input{
 						<form class="user-details-form" id="userDetails"
 							name="userDetails" method="post" action="UpdateUserDetails" enctype="multipart/form-data">
 
-							<label id="firstnameLabel">תמונה</label> 
+							<label id="pictureLabel">תמונה</label> 
 							<input type="file" name="pic" id="pic" disabled > 
 							<br>
 							

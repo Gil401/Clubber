@@ -38,6 +38,10 @@ input{
 	<div class="user-details">
 		<form class="user-details-form" id="userDetails" name="userDetails" method="post" action="UpdateUserDetails">
 		  	
+			<label id="pictureLabel">תמונה</label> 
+			<input type="file" name="pic" id="pic" disabled > 
+			<br>
+		  	
 		  	<label id="firstnameLabel">שם פרטי</label>
 		  	<input type="text" name="firstName" id="firstName" required disabled>
 		  	<br>
