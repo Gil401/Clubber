@@ -45,9 +45,10 @@ public class UpdateUserDetails extends HttpServlet {
         
         String path = getServletContext().getRealPath(Constants.IMAGES_DIR+Constants.USER_IMAGES_DIR);
 
-        UploadServlet f = new UploadServlet();
+        UploadServlet uploadServlet = new UploadServlet();
         Client client = new Client();
-        String temp2 = f.upload(request, path, Constants.IMAGES_DIR+Constants.USER_IMAGES_DIR, client);
+        
+        uploadServlet.upload(request, path, Constants.IMAGES_DIR+Constants.USER_IMAGES_DIR, client);
         String message = "";
         
         boolean isSucceed = true;
