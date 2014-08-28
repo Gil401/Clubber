@@ -15,7 +15,7 @@ input{
 		div.star {
 		   width:26px; 
 		   height:30px; 
-		   background-image:url('images/star.jpg');
+		   background-image:url('images/star.png');
 		   background-repeat:no-repeat; 
 		   float:right;
 		}
