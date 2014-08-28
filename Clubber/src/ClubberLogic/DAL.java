@@ -1911,8 +1911,15 @@ public class DAL {
 	
 	public static LinkedList<IdWithName> getBusinessesNameAndID()
 	{
-		String query = "Select * from businesses;";
-		return GetIdAndNameData(query);		
+		connectToDBServer();
+		try {
+			String query = "Select * from businesses;";
+			return GetIdAndNameData(query);
+		}
+		finally{
+			disconnectFromDBServer();
+		}
+		
 	}
 	
 }
