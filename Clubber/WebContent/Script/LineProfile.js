@@ -72,13 +72,13 @@ function uploadMusicStyleData(lineMusicChecked){
         	
         	//delete former data 
         	musicStyleDiv.html("");
-        	
-        	for(var i=0; i < musicStyleList.length; i++){
-        		
-        		var element = '<label><input type="checkbox" id=music'+musicStyleList[i].id+' name="musicStyle">' +musicStyleList[i].Name+ '</label>' ;
-        		musicStyleDiv.append($(element));
-        	}
-        	
+			
+			console.log("adding music styles");
+			 $.each(musicStyleList, function(index, val) {
+			            $('<option id=music'+musicStyleList[i].id+'value="'+val.id+'">' + val.Name + '</option>').appendTo($(musicStyleDiv )) ;
+		        });	
+			 
+			//mark check box in db
         	for (var item in lineMusicChecked) 
 			{
 				$('#music'+ lineMusicChecked[item].id).attr("checked", true);
@@ -132,6 +132,13 @@ function getLineProfile() {
 	});
 }
 
+function loadListDataFromDB(data, listName)
+{
+	console.log("adding"+ listName);
+	 $.each(data, function(index, val) {
+	            $('<option value="'+val.id+'">' + val.Name + '</option>').appendTo($(listName)) ;
+        });	
+}
 
 function ajaxLineDtailesUpdate()
 {	

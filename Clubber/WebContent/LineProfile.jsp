@@ -88,14 +88,9 @@ input{
 								
 								<div style="height:120px"> 
 						         	<label id="lineMusicStyleLabel"> סגנון מוזיקה </label>
-						         	<div id="musicStyleEdt" class="music-style-area">
-						        	<div class='new-auction-field-input combobox-auction-input' id= "musicStyle" >
+						         	<div id="musicStyleEdt" class="music-style-area combobox-auction-input">
 						        	</div>
 								</div> 
-								
-								<label id="lineMusicStyleLabel">סגנון מוזיקה</label> 
-								<div id="musicStyleEdt" class="music-style-area">
-								</div>
 								<br>
 								
 								<button id="updateLineDel" type="submit" >שמור</button>							
