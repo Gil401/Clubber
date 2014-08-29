@@ -59,9 +59,10 @@ input{
 			נקבה
 			<br>
 			
-			<label id="birthdateLabel">תאריך לידה</label> 
-			<input name="birthdate" id="birthdate" class="datepicker" disabled> 
-			<br><br> 
+			<label id="birthdateLabel">תאריך לידה</label>
+			<input type = "datetime" name="birthdate" id="birthdate" required>
+			<br>
+
 			
 			<label id="phonenumberLabel">טלפון</label>
 			<input type="text" name="phoneNumber" id="phoneNumber" required disabled>
@@ -154,6 +155,21 @@ input{
 <script src="js/datepicker-he.js"></script>
 	<script>
 	
+		// date picker
+		$(function() {
+			var date = new Date();
+			var currentYear = date.getFullYear();
+			$('#birthdate').datepicker({
+				yearRange: "-120:+0",
+				minDate: new Date(currentYear - 120, 1, 1),
+				maxDate: date,
+				changeMonth: true,
+		      	changeYear: true,
+		      	showOn: "button",
+		        buttonImage: "images/calendar.gif",
+		        buttonImageOnly: true});	      	
+		});
+
 		// Set error messages  
 		jQuery.extend(jQuery.validator.messages, {
 		    required: "שדה חובה",
@@ -185,7 +201,7 @@ input{
 			$('input[name="gender"]').attr("disabled", false);
 			$('#birthdate').attr("disabled", false);		
 			$('#phoneNumber').attr("disabled", false);
-			$('#email').attr("disabled", false);
+			$('#email').attr("disabled", false);			
 			$('#password').attr("disabled", false);		
 			$('#verifyPassword').attr("disabled", false);
 			$("#updateUserDel").attr("disabled",false);

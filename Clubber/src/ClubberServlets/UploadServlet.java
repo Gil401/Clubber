@@ -58,7 +58,8 @@ public class UploadServlet extends HttpServlet {
 	
       // Process the uploaded file items
       Iterator<FileItem> i = fileItems.iterator();
-
+      i_UserData.setUserType(request.getSession().getAttribute(Constants.WHO_AM_I).toString());
+      
       while (i.hasNext()) 
       {
          FileItem fi = (FileItem)i.next();
@@ -93,11 +94,6 @@ public class UploadServlet extends HttpServlet {
         		 String value = fi.getString();
         		 i_UserData.setLastName(fi.getString("UTF-8").trim());
         	 }
-        	 else if(fi.getFieldName().equals(Constants.EMAIL))
-        	 {
-        		 String value = fi.getString();
-        		 i_UserData.setEmail(fi.getString("UTF-8").trim());
-        	 }
         	 else if(fi.getFieldName().equals(Constants.GENDER))
         	 {
         		 String value = fi.getString();
@@ -116,18 +112,19 @@ public class UploadServlet extends HttpServlet {
         	 else if(fi.getFieldName().equals(Constants.BIRTHDATE))
         	 {
 
-        		String value = fi.getString();
-    	        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-    	        Date birthDate = null;
-
-    	        try {
-    				birthDate = df.parse(value);
-    			} catch (ParseException e1) {
-    				// TODO Auto-generated catch block
-    				e1.printStackTrace();
-    			}
-    	        long birthDateParam = birthDate.getTime();
-    	        i_UserData.setBirthDate(birthDateParam);
+		        String dateParam = fi.getString();
+		        
+		        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		        Date birthDate = null;
+				try {
+					birthDate = df.parse(dateParam);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+		        long birthDateParam = birthDate.getTime();
+		        i_UserData.setBirthDate(birthDateParam);
         	 }
          }
       }
