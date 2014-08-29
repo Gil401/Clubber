@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ClubberLogic.Client;
 import ClubberLogic.DAL;
+import ClubberLogic.UserData;
 import ClubberLogic.UserType;
 import Utlis.Constants;
 
@@ -46,7 +47,7 @@ public class UpdateUserDetails extends HttpServlet {
         String path = getServletContext().getRealPath(Constants.IMAGES_DIR+Constants.USER_IMAGES_DIR);
 
         UploadServlet uploadServlet = new UploadServlet();
-        Client client = new Client();
+        UserData client = new Client();
         
         uploadServlet.upload(request, path, Constants.IMAGES_DIR+Constants.USER_IMAGES_DIR, client);
         String message = "";

@@ -4,6 +4,8 @@ public class Constants {
 	
 	 //DB-Data types:
 	 public static final String DB_DATA_NEW_AUCTION= "GetDBData-NewAuction";
+	 public static final String DB_DATA_PR_MY_LINES_SERACH = "GetDBData-loadOffersByPrData";
+	 public static final String DB_DATA_PR_LINES = "GetDBData-PRLines";
 	 public static final String DB_DATA_NEW_OFFER= "GetDBData-NewOffer";
 	 public static final String DB_DATA_MY_AUCTIONS= "GetDBData-MyAuctions";
 	 public static final String DB_DATA_AUCTION_MANAGEMENT ="GetDBData-AuctionManagement";

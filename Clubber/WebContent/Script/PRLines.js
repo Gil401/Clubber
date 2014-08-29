@@ -1,30 +1,9 @@
-﻿$(document).ready(
-		function() {
-			var date = new Date();
-			var currentMonth = date.getMonth() + 1;
-			var currentDay = date.getDate();
-			var currentYear = date.getFullYear();
-			var fullCurrentDateStr = currentDay + "/" + currentMonth + "/" + currentYear ;
-			dateChange(fullCurrentDateStr);
-		});
-
-$(function getDate() {
-	var date = new Date();
-	var currentMonth = date.getMonth();
-	var currentDay = date.getDate();
-	var currentYear = date.getFullYear();
-
-	$('#datepicker').datepicker({
-		onSelect : function(dateText, inst) {
-			var day1 = $("#datepicker").datepicker('getDate').getDate();
-			var month1 = $("#datepicker").datepicker('getDate').getMonth() + 1;
-			var year1 = $("#datepicker").datepicker('getDate').getFullYear();
-			var fullDate = year1 + "-" + month1 + "-" + day1;
-			getMainLinesFromDB(fullDate);
-		},
-		minDate : new Date(currentYear, currentMonth, currentDay)
-	});
+﻿$(document).ready(function(){
+	console.log($('#session_user_id').val());
+	getMainLinesFromDB($('#session_user_id').val());
 });
+
+
 
 function loadListDataFromDB(data, listName) {
 	console.log("adding" + listName);
@@ -60,7 +39,7 @@ function dateChange (date){
 	getMainLinesFromDB(date);
 }
 
-function getMainLinesFromDB(fullDate) {
+function getMainLinesFromDB(userId) {
 	console.log('Getting template from server');
 	
 	$.get( "patternTemplates/lineBox.tpl", function( data ) {
@@ -72,17 +51,16 @@ function getMainLinesFromDB(fullDate) {
 				type : "POST",
 				dataType : 'json',
 				data : {
-					RequestType : "GetDBData-WelcomeLines",
-					InDate : fullDate
+					RequestType : "GetDBData-PRLines",
+					userID: userId
 					}
 				});
-		  // TODO: date & hour init ******************************************************************************************
+		  
 		  dataRequest.done(function(returnedData){
 			  $.each(returnedData, function(){
 				  console.log($(this)[0]);
 				  $('#temp_container').html(lineTemplate);
 				  var temp_template = $('#temp_container');
-				  temp_template.find('.line_box_place').html($(this)[0]['m_StreetId']['Name']+' '+$(this)[0]['m_HouseNumber']+', '+$(this)[0]['m_CityId']['Name'] );
 				  temp_template.find('.line_box_place').html($(this)[0]['m_StreetId']['Name']+' '+$(this)[0]['m_HouseNumber']+', '+$(this)[0]['m_CityId']['Name'] );
 				  temp_template.find('.line_box_date').html();
 				  temp_template.find('.line_box_hour').html();

@@ -1,25 +1,63 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@  include file="patternTemplates/header.tpl" %>
+<style>
 
-    <div class= 'site-header'>
-    <div class= 'upper-header'>
-    </div>
-    </div>
+    .ui-datepicker-calendar{
+    	width: 17em;
+    }
+    
+    .ui-datepicker-calendar tbody {
+    	 text-align: left;
+    }
+    
+    .ui-datepicker {
+        padding: 15px;
+    }
+        
+    .ui-datepicker-next{
+     float: left;
+     padding: 10px;
+    }
+   </style>
+
     <div id="latest-events">
         <div class="container">
             <div class="event-inner">                
                 <div class="row">                       
                     <div id="latest-event-content" class="col-sm-7 col-md-8"> 
-                       
-    <div class='main-container'>  
-    <div class= "page-description bg">בדף זה ניתן לצפות בכל הליינים שלך</div>
+                        <div class="bg">
+                            <h2 class="heading"> הליינים <strong>שלי</strong> </h2 >       
+                            <div id="temp_container"></div>                    
+                            <div id="lines_container"></div>
+                                                       
+                             <div class="pager">
+                                <ul class="pagination">
+                                    <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                                    <li><a class="active" href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li><a href="#">6</a></li>
+                                    <li><a href="#">7</a></li>
+                                    <li><a href="#">8</a></li>
+                                    <li><a href="#">9</a></li>
+                                    <li><a href="#">10</a></li>
+                                    <li><a href="#">11</a></li>
+                                    <li><a href="#">12</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                </ul>
+                            </div> 
+                        </div>                                       
+                    </div> 
+ 	                </div>                          
+            </div>
+        </div>
     </div>
-    
-    
-    </div></div></div></div></div>
-    
-    
+
     <%@  include file="patternTemplates/footer.tpl" %>
+
+
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
@@ -32,7 +70,9 @@
     <script type="text/javascript" src="js/switcher.js"></script>
     <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
     
+    <script type="text/javascript" src="Script/PRLines.js"></script>
     
     <script src="js/datepicker-he.js"></script>
-    <script src="Script/MyAuctions.js"  type="text/javascript" charset="utf-8" ></script>
-  
+    
+</body>
+</html>

@@ -36,7 +36,7 @@ input{
 
 <h2>פרטי משתמש</h2>
 	<div class="user-details">
-		<form class="user-details-form" id="userDetails" name="userDetails" method="post" action="UpdateUserDetails">
+		<form class="user-details-form" id="userDetails" name="userDetails" method="post" action="UpdateUserDetails" enctype="multipart/form-data">
 		  	
 			<label id="pictureLabel">תמונה</label> 
 			<input type="file" name="pic" id="pic" disabled > 
@@ -57,9 +57,9 @@ input{
 			נקבה
 			<br>
 			
-			<label id="birthdateLabel">תאריך לידה</label>
-			<input name="birthdate" id="birthdate" disabled>
-  			<br>
+			<label id="birthdateLabel">תאריך לידה</label> 
+			<input name="birthdate" id="birthdate" class="datepicker" disabled> 
+			<br><br> 
 			
 			<label id="phonenumberLabel">טלפון</label>
 			<input type="text" name="phoneNumber" id="phoneNumber" required disabled>
@@ -180,7 +180,7 @@ input{
 			$('#password').attr("disabled", false);		
 			$('#verifyPassword').attr("disabled", false);
 			$("#updateUserDel").attr("disabled",false);
-			$('#pic').replaceWith('<input type="file" name="pic" id="pic">');		      
+			$('#pic').replaceWith('<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">');		      
 		});
 		
 		function getUserProfile(){
@@ -197,7 +197,7 @@ input{
 		        	$("#phoneNumber").val(data.phoneNumber);
 		        	$("#email").val(data.email);
 		        	$("#password").val(data.password);
-		        	$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic">');
+		        	$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" style="max-width:30%; max-height:30%;">');
 		        },
 		        error: function(data){
 		            	console.log("error");}

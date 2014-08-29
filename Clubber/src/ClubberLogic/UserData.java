@@ -110,6 +110,10 @@ public abstract class UserData {
 		return imageUrl;
 	}
 	
+	public int getUserId() {
+		return id;
+	}
+	
 	public String getPassword() {
 		return password;
 	}

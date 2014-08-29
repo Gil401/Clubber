@@ -13,7 +13,22 @@
                     <div id="latest-event-content" class="col-sm-7 col-md-8"> 
                        
     <div class='main-container'>  
-    <div class= "page-description bg">בדף זה ניתן לצפות בכל ההצעות שלך</div>
+    <div class= "page-description bg">
+    	
+    	<div style="width: 100%">
+    		<div style="width: 50%; float:right">
+    		<div style="width: 30%;float:right;margin:10px;">בחר ליין</div>
+    		<select style="margin:10px;" id="lineId"><option></option></select><BR>
+    		<div style="width: 30%;float:right;margin:10px">בחר תאריך</div>
+    		<input style="margin:10px"" type="text" class="datepicker"><br>
+    		<div style="width: 30%;float:right;margin:10px">בחר סטטוס</div>
+    		<select style="margin:10px" id="status"><option value="0">הכל</option><option value="1">ממתין</option><option value="2">אושר</option></select>
+    		</div>
+    		
+    		<div style="width: 50%; float: left"><input type="submit" value="חיפוש" onclick="loadOffers ($('#lineId').val(), $('.datepicker').val(), $('#status').val())"></div>
+    	</div>
+    	
+    </div>
            
     </div>
     
@@ -33,6 +48,7 @@
     <script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
     <script type="text/javascript" src="js/switcher.js"></script>
     <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    <script type="text/javascript" src="Script/myOffers.js"></script>
     
     
     <script src="js/datepicker-he.js"></script>

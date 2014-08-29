@@ -217,7 +217,7 @@ input{
 				$("#phoneNumber").val(data.phoneNumber);
 				$("#email").val(data.email);
 				$("#password").val(data.password);
-				$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic">');
+				$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" style="max-width:30%; max-height:30%;">');
 			},
 			error : function(data) {
 				console.log("error");

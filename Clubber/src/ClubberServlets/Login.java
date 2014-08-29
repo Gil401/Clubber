@@ -99,6 +99,7 @@ public class Login extends HttpServlet {
         	session.setAttribute(Constants.FIRST_NAME, sessionUserData.getFirstName());
         	session.setAttribute(Constants.WHO_AM_I, sessionUserData.getUserType());
         	session.setAttribute(Constants.IMAGE, sessionUserData.getImageURL());
+        	session.setAttribute("userID", sessionUserData.getUserId());
         	session.setAttribute("User", sessionUserData);
         	if(session.getAttribute(Constants.WHO_AM_I) == UserType.Client)
         		getServletContext().getRequestDispatcher("/ClientProfile.jsp").forward(request, response);

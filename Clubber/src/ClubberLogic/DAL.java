@@ -17,6 +17,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.jms.Session;
+
 import Utlis.AuctionManagementData;
 import Utlis.IdWithName;
 import Utlis.LineManagementData;
@@ -710,7 +712,7 @@ public class DAL {
 		
 		connectToDBServer();
 		
-		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		String date= df.format(userData.getBirthDate());
 		Date date2= df.parse(date);
 		java.sql.Date sqlDate = new java.sql.Date(date2.getTime());
@@ -915,7 +917,7 @@ public class DAL {
 	public static ArrayList<BusinessData> getWelcomeScreenEvents(String i_Date) throws ParseException {
 		final String NEW_FORMAT = "yyyy-MM-dd";
 		String parsedDate, dateStr;
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); ;
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = formatter.parse(i_Date);
 		DateFormat sqlFormatter = new SimpleDateFormat(NEW_FORMAT);
 		parsedDate = sqlFormatter.format(date);
@@ -971,6 +973,66 @@ public class DAL {
 			}
 			return data;
 		}
+	
+	public static ArrayList<BusinessData> getLineByPR(String i_userID) throws ParseException {
+		final String NEW_FORMAT = "yyyy-MM-dd";
+		String parsedDate, dateStr;
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); ;
+		Date date; //formatter.parse(i_Date);
+		DateFormat sqlFormatter = new SimpleDateFormat(NEW_FORMAT);
+		//parsedDate = sqlFormatter.format(date);
+		 ArrayList<BusinessData> data = new ArrayList<BusinessData>();
+			// access date fields   
+			connectToDBServer();
+			
+			try 
+			{
+				ResultSet rs = stmt.executeQuery("select * "
+												+ "from line L, businesses B, areas a, city c, streets s, business_type t "
+												+ "where L.Business_id = B.id AND L.PR_id ='"+i_userID+"' AND"
+											    +" B.Area = a.id and "
+											    + "B.city = c.id and "
+									 		    + "B.street = s.id and "
+											    + "B.Business_Type = t.id");	
+
+				while (rs.next())
+				{
+					dateStr = (rs.getString("L.Line_Start_Date"));
+					BusinessData bData = new BusinessData();
+					//set business data
+					bData.setM_Id(rs.getInt("b.id"));
+					bData.setM_Name(rs.getString("b.name"));
+					bData.setM_StreetId(new IdWithName(rs.getInt("b.street"), rs.getString("s.Name")));
+					bData.setM_HouseNumber(rs.getInt("b.structure_number"));
+					bData.setM_PhoneNumber(rs.getString("b.Business_Phone_Number"));
+					bData.setM_Description(rs.getString("b.Description"));
+					bData.setM_BusinessTypeId(new IdWithName(rs.getInt("b.Business_Type"), rs.getString("t.Name")));
+					bData.setM_CityId(new IdWithName(rs.getInt("b.city"), rs.getString("c.Name")));
+					bData.setM_AreaId(new IdWithName(rs.getInt("b.area"), rs.getString("a.Name")));
+					
+					LineData lData = new LineData();
+					date = sqlFormatter.parse(rs.getString("L.Line_Start_Date"));
+					lData.setM_LineName(rs.getString("L.name"));
+					lData.setDescription(rs.getString("L.Description"));
+					lData.setDj(rs.getString("L.DJ"));
+					lData.setEntranceFee(rs.getString("L.entrance_fee"));
+					lData.setMinAge(rs.getInt("L.Min_Age"));
+					lData.setStartDate(date);
+					lData.setId(rs.getInt("L.id"));
+					
+					bData.getM_Lines().add(lData);
+					
+					data.add(bData);
+				}		
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			finally{
+				disconnectFromDBServer();
+			}
+			return data;
+		}
+
 
 	public static void unlockUser(String email) {
 		
@@ -1920,6 +1982,19 @@ public class DAL {
 			disconnectFromDBServer();
 		}
 		
+	}
+
+	public static Object getOffersAndAuctions(String i_UserID, String i_LineID,
+			String i_Date, String i_Stataus) {
+		List<Object> data;
+		connectToDBServer();
+		try {
+			String query = "Select * from businesses;";
+			return GetIdAndNameData(query);
+		}
+		finally{
+			disconnectFromDBServer();
+		}
 	}
 	
 }

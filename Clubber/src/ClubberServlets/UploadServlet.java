@@ -58,7 +58,7 @@ public class UploadServlet extends HttpServlet {
 	
       // Process the uploaded file items
       Iterator<FileItem> i = fileItems.iterator();
-
+      i_UserData.setUserType(request.getSession().getAttribute(Constants.WHO_AM_I).toString());
       while (i.hasNext()) 
       {
          FileItem fi = (FileItem)i.next();
@@ -82,6 +82,7 @@ public class UploadServlet extends HttpServlet {
          }
          else
          {
+        	 
         	 if (fi.getFieldName().equals(Constants.FIRST_NAME)) 
      		{
         		 String value = fi.getString();
@@ -115,7 +116,7 @@ public class UploadServlet extends HttpServlet {
         	 else if(fi.getFieldName().equals(Constants.BIRTHDATE))
         	 {
         		 String value = fi.getString();
-        		 SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+        		 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         	        Date birthDate = new Date();
         	        try {
         				birthDate = sdf.parse(fi.getString("UTF-8").trim());

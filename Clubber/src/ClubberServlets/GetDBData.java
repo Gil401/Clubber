@@ -113,6 +113,12 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             	data=DAL.getWelcomeScreenEvents(request.getParameter("InDate"));
             	json = gson.toJson(data);
        		}
+            else if (requestType.equals(Constants.DB_DATA_PR_LINES))
+            {
+            	data=DAL.getLineByPR(request.getParameter("userID"));
+            	json = gson.toJson(data);
+       		}
+            
             else if(requestType.equals(Constants.DB_DATA_USER_PROFILE))
             {
             	PR pr= DAL.getUserProfileData(userEmail);
@@ -144,6 +150,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             {
             	ArrayList<IdWithName> areasList = DAL.getBusinessAreasData();
             	json = gson.toJson(areasList);            	
+            }
+            else if(requestType.equals(Constants.DB_DATA_PR_MY_LINES_SERACH))
+            {
+            	data= DAL.getOffersAndAuctions(request.getParameter("userID"), request.getParameter("lineID"), request.getParameter("date"), request.getParameter("status"));
+            	json = gson.toJson(data);            	
             }
             else if(requestType.equals(Constants.DB_DATA_GET_BUSINESS_CITIES_DATA)){
             	int areaId = Integer.parseInt(request.getParameter("areaId"));
