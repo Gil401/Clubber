@@ -57,7 +57,7 @@ public class NewAuction extends HttpServlet {
 			addAllBusinessTypes(request, auction);
 			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 			Date date= df.parse(request.getParameter(Constants.DATEPICKER));
-			auction.setEventDate(date);
+			auction.setEventDate(date.getTime());
 			auction.setDateFlexible(Boolean.parseBoolean(request.getParameter(Constants.FLEXIBLE_DATE)));
 			auction.setGuestesQuantiny(Integer.parseInt(request.getParameter(Constants.GUESTS_QUANTITY)));
 			auction.setExceptionsDescription(request.getParameter(Constants.EXCEPTION_DESCRIPTION));

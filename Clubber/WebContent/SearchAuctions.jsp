@@ -49,17 +49,6 @@
       	
       	</div>   
 	<script>
-	function formattedDate(date) {
-	    var d = new Date(date || Date.now()),
-	        month = '' + (d.getMonth() + 1),
-	        day = '' + d.getDate(),
-	        year = d.getFullYear();
-
-	    if (month.length < 2) month = '0' + month;
-	    if (day.length < 2) day = '0' + day;
-
-	    return [day, month, year].join('/');
-	}
 	
 	$("#searchByMyLines").change(function() {
 		if(this.checked){
@@ -93,10 +82,12 @@
 		var table= '<table class="auctions-table" id="auctionsTable" cellspacing="2">'
 			  +'<thead><tr><th>סוג אירוע</th><th>תאריך</th><th>גיל מינימלי</th><th>איזור</th><th>מספר הצעות שהוצעו</th></tr></thead><tbody>';
 
-		for (var item in data) {			
+		for (var item in data) {
+			var date = new Date(data[item].eventDate);
+			
 			table += '<tr id=' +data[item].id+' title="לחץ כאן כדי לראות את פרטי המכרז" onclick="auctionClicked('+data[item].id + ');">'
 					 +'<td>'+ data[item].eventType.Name+ '</td>'
-					 +'<td>'+ formattedDate(data[item].eventDate) +'</td>'
+					 +'<td>'+ date.getDay() + "/" date.getMonth() + "/" + date.getFullYear() +'</td>'
 					 +'<td>'+data[item].minAge+'</td>'
 					 +'<td>'+data[item].area.Name+'</td>'
 					 +'<td>'+data[item].offerNumber+counterDescription +'</td></tr>';

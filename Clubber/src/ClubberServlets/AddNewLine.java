@@ -72,8 +72,8 @@ public class AddNewLine extends HttpServlet {
 			e1.printStackTrace();
 		}
 
-        lineData.setStartDate(startDate);
-        lineData.setEndDate(endDate);
+        lineData.setStartDate(startDate.getTime());
+        lineData.setEndDate(endDate.getTime());
         lineData.setMinAge(Integer.parseInt(request.getParameter(Constants.LINE_MIN_AGE)));
         lineData.setDescription(request.getParameter(Constants.LINE_DESCRIPTION));
         lineData.setEntranceFee(request.getParameter(Constants.LINE_ETRANCEFEE));

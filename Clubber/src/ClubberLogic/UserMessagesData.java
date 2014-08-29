@@ -3,6 +3,7 @@ package ClubberLogic;
 import java.util.Date;
 
 
+
 public class UserMessagesData {
 	private Integer id;
 	private Integer fromUserId;

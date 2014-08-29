@@ -73,10 +73,9 @@ public class UpdateUserDetails extends HttpServlet {
         
         request.setAttribute(Constants.MESSAGE_TEXT, message);
         
-        UserType userType = client.getUserType();
-        request.setAttribute("User", userType);
+        String userType = request.getSession().getAttribute(Constants.WHO_AM_I).toString();
         
-        if(userType == UserType.Client)
+        if(userType == UserType.Client.toString())
         	getServletContext().getRequestDispatcher("/ClientProfile.jsp").forward(request, response);
         else
         	getServletContext().getRequestDispatcher("/PrProfile.jsp").forward(request, response);

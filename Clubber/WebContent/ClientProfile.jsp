@@ -143,22 +143,9 @@ input{
 <script type="text/javascript" src="js/switcher.js"></script>
 <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-
 <script src="js/datepicker-he.js"></script>
 
 <script>
-
-	function formattedDate(date) {
-	    var d = new Date(date || Date.now()),
-	        month = '' + (d.getMonth() + 1),
-	        day = '' + d.getDate(),
-	        year = d.getFullYear();
-	
-	    if (month.length < 2) month = '0' + month;
-	    if (day.length < 2) day = '0' + day;
-	
-	    return [day, month, year].join('/');
-	}
 
 	// Set error messages  
 	$.extend(jQuery.validator.messages, {
@@ -213,7 +200,10 @@ input{
 				$("#firstName").val(data.firstName);
 				$("#lastName").val(data.lastName);
 				$('input[name="gender"][value="' + data.gender + '"]').prop("checked", true);
-				$("#birthdate").val(formattedDate(data.birthDate));
+				
+				var date = new Date(data.birthDate);
+				$("#birthdate").val(date.getDay() + "/" +date.getMonth() + "/" + date.getFullYear());
+				
 				$("#phoneNumber").val(data.phoneNumber);
 				$("#email").val(data.email);
 				$("#password").val(data.password);
@@ -293,7 +283,3 @@ input{
 		getRecomendedUserLines();
 	});
 </script>
-
-
-</body>
-</html>

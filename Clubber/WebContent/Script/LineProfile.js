@@ -42,10 +42,14 @@ function LoadDataToInputs()
 		},
 		success : function(data) {
 			console.log(data);
+			
+			var startDate = new Date(data.startDate);
+			var endDate = new Date(data.endDate);
+			
 			$("#lineName").val(data.m_LineName);
 			$("#businessId").val(data.business.Name);
-			$("#startDate").val(formattedDate(data.startDate));
-			$("#endDate").val(formattedDate(data.endDate));
+			$("#startDate").val(startDate.getDay() + "/" + startDate.getMonth() + "/" + startDate.getFullYear());
+			$("#endDate").val(endDate.getDay() + "/" + endDate.getMonth() + "/" + endDate.getFullYear());
 			$("#minAge").val(data.minAge);
 			$("#etranceFee").val(data.entranceFee);
 			$("#DJ").val(data.dj);
@@ -106,10 +110,14 @@ function getLineProfile() {
 		},
 		success : function(data) {
 			console.log(data);
+			
+			var startDate = new Date(data.startDate);
+			var endDate = new Date(data.endDate);
+
 			$("#lineNameLbl").text(data.m_LineName);
 			$("#businessIdLbl").text(data.business.Name);
-			$("#startDateLbl").text(formattedDate(data.startDate));
-			$("#endDateLbl").text(formattedDate(data.endDate));
+			$("#startDateLbl").text(startDate.getDay() + "/" + startDate.getMonth() + "/" + startDate.getFullYear());
+			$("#endDateLbl").text(endDate.getDay() + "/" + endDate.getMonth() + "/" + endDate.getFullYear());
 			$("#minAgeLbl").text(data.minAge);
 			$("#etranceFeeLbl").text(data.entranceFee);
 			$("#DJLbl").text(data.dj);

@@ -1,6 +1,5 @@
 package ClubberLogic;
 
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class AuctionData {
 	private String exceptionsDescription;
 	private Integer guestesQuantiny;
 	private IdWithName eventType;
-	private Date eventDate;
+	private long eventDate;
 	private boolean isDateFlexible;
 	private IdWithName area;
 	private List<IdWithName> businessType;
@@ -35,11 +34,11 @@ public class AuctionData {
 		createdBy =null;
 		setOfferNumber(0);
 	}
-	public Date getEventDate() {
+	public long getEventDate() {
 		return eventDate;
 	}
 	
-	public void setEventDate(Date eventDate) {
+	public void setEventDate(long eventDate) {
 		this.eventDate = eventDate;
 	}
 	

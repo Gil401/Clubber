@@ -124,7 +124,7 @@ public class UploadServlet extends HttpServlet {
         				// TODO Auto-generated catch block
         				e.printStackTrace();
         			}
-        	        i_UserData.setBirthDate(birthDate);
+        	        i_UserData.setBirthDate(birthDate.getTime());
         	 }
          }
       }
