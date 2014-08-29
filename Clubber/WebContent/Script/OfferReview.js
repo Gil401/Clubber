@@ -10,7 +10,7 @@ function setNewMessageTextOnFocusOut()
     if ($('#outgoing-message-text')[0].value == "")
     {
     	document.getElementById(elementId).setAttribute("class","outgoing-message outgoing-message-empty");
-        document.getElementById(elementId).setAttribute("value","äùá...");
+        document.getElementById(elementId).setAttribute("value","ï¿½ï¿½ï¿½...");
     }  
 }
 
@@ -18,7 +18,7 @@ function setNewMessageTextOnFocusIn()
 {
 elementId= 'outgoing-message-text'; 
     
-    if ($('#outgoing-message-text')[0].value == "äùá...")
+    if ($('#outgoing-message-text')[0].value == "ï¿½ï¿½ï¿½...")
     {
     	document.getElementById(elementId).setAttribute("class","outgoing-message outgoing-message-value");
         document.getElementById(elementId).setAttribute("value","");
@@ -87,10 +87,14 @@ function loadOfferFromDB(data)
 		{
 			description= data.description;
 		}
-		$(".offer-item-reviewed-title").append("<div class= 'offer-item-right-title' >"+data.prId.Name+"</div> <div class='offer-item-left-title' >" +formattedDate(data.submitDate) +"</div>");
+
+		var submitDate = new Date(data.submitDate);
+		var expirationDate = new Date(data.expirationDate);
+		
+		$(".offer-item-reviewed-title").append("<div class= 'offer-item-right-title' >"+data.prId.Name+"</div> <div class='offer-item-left-title' >" +submitDate.getDay() +"/"+ submitDate.getMonth() +"/" + submitDate.getFullYear() +"</div>");
 		$("#offer-description").append("<label class='offer-value-label'>"+description+"</label>");
 		$("#offered-line").append("<label class='offer-value-label'>"+data.lineId.Name+"</label>");/*should be a link to line*/
-		$("#offer-expiration-date").append("<label class='offer-value-label'>"+formattedDate(data.expirationDate)+"</label>");
+		$("#offer-expiration-date").append("<label class='offer-value-label'>"+ expirationDate.getDay() +"/" + expirationDate.getMonth() +"/"+ expirationDate.getFullYear() +"</label>");
 		$("#max-arrival-hour").append("<label class='offer-value-label'>"+convert12to24(data.maxArrivalHour)+"</label>");
 		$("#offer-status").append("<label class='offer-value-label'>"+data.offerStatusId.Name+"</label>");
 		
@@ -103,8 +107,9 @@ function loadOfferFromDB(data)
 	
 	function loadAuctionFromDB(data){
 		console.log("adding current auction");
+		var eventDate = new Date(data.eventDate);
 		
-		$("#auction-event-date").append("<label class='offer-value-label'>"+formattedDate(data.eventDate)+"</label>");
+		$("#auction-event-date").append("<label class='offer-value-label'>"+eventDate.getDay() +"/"+ eventDate.getMonth()+"/"+eventDate.getFullYear()+"</label>");
 		$("#auction-event-type").append("<label class='offer-value-label'>"+data.eventType.Name+"</label>");
 		$("#auction-area").append("<label class='offer-value-label'>"+data.area.Name+"</label>");
 		$("#auction-guests-quantiny").append("<label class='offer-value-label'>"+data.guestesQuantiny+"</label>");

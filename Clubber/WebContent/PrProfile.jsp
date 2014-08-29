@@ -128,8 +128,15 @@ input{
 			<div class="star"></div>
 			<div class="star"></div>
 		</div>	
-	</div>		
-	<%@  include file="patternTemplates/footer.tpl" %>
+	</div>	
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+		
+<%@  include file="patternTemplates/footer.tpl" %>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
@@ -193,7 +200,10 @@ input{
 		        	$("#firstName").val(data.firstName);
 		        	$("#lastName").val(data.lastName);
 		        	$('input[name="gender"][value="'+data.gender+'"]').prop("checked", true);
-		        	$("#birthdate").val(data.birthDate);
+
+					var date = new Date(data.birthDate);
+					$("#birthdate").val(date.getDay() + "/" +date.getMonth() + "/" + date.getFullYear());
+
 		        	$("#phoneNumber").val(data.phoneNumber);
 		        	$("#email").val(data.email);
 		        	$("#password").val(data.password);

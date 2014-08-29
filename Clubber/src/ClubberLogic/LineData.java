@@ -1,7 +1,6 @@
 package ClubberLogic;
 
 import java.io.File;
-import java.util.Date;
 import java.util.LinkedList;
 
 import Utlis.IdWithName;
@@ -10,8 +9,8 @@ public class LineData {
 	private Integer id;
 	private String m_LineName;
 	private Integer m_DayInWeek;
-	private Date startDate;
-	private Date endDate;
+	private long startDate;
+	private long endDate;
 	private Integer minAge;
 	private File photo;
 	private String description;
@@ -52,11 +51,11 @@ public class LineData {
 		this.photo = photo;
 	}
 
-	public Date getStartDate() {
+	public long getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(long startDate) {
 		this.startDate = startDate;
 	}
 
@@ -92,11 +91,11 @@ public class LineData {
 		this.openingHour = openingHour;
 	}
 
-	public Date getEndDate() {
+	public long getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(long endDate) {
 		this.endDate = endDate;
 	}
 

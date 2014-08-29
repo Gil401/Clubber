@@ -18,7 +18,7 @@ public abstract class UserData {
 	private Gender gender;
 	private String phoneNumber;
 	private String email;
-	private Date birthDate; 
+	private long birthDate; 
 	private String imageUrl;
 	private UserType userType;
 	
@@ -38,7 +38,7 @@ public abstract class UserData {
 	 * 			added set to filed password
 	 */
 	
-	public UserData(String lastName, String firstName, String gender, String phoneNumber, String email, Date birthDate, String password, String url) 
+	public UserData(String lastName, String firstName, String gender, String phoneNumber, String email, long birthDate, String password, String url) 
     {
         this.setFirstName(firstName);
 		this.setLastName(lastName);
@@ -54,11 +54,11 @@ public abstract class UserData {
 		this.id = id;
 	}
 
-	public Date getBirthDate() {
+	public long getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(long birthDate) {
 		this.birthDate = birthDate;
 	}
 	

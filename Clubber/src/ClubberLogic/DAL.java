@@ -16,9 +16,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.jms.Session;
-
 import Utlis.AuctionManagementData;
 import Utlis.IdWithName;
 import Utlis.LineManagementData;
@@ -75,7 +72,7 @@ public class DAL {
 			while (rs.next())
 			{
 				AuctionData auction= new AuctionData();
-				auction.setEventDate(rs.getDate("Event_Date"));				
+				auction.setEventDate(rs.getLong("Event_Date"));				
 				auction.setDescription(rs.getString("Description"));
 				auction.setEventType(new IdWithName(rs.getInt("auc.Event_Type"),rs.getString("event_type_name") ));
 				auction.setId(rs.getInt("id"));
@@ -108,7 +105,7 @@ public class DAL {
 			 			
 			while (rs.next())
 			{
-				auction.setEventDate(rs.getDate("Event_Date"));				
+				auction.setEventDate(rs.getLong("Event_Date"));				
 				auction.setDescription(rs.getString("Description"));
 				auction.setEventType(new IdWithName(rs.getInt("auc.Event_Type"),rs.getString("event_type_name") ));
 				auction.setId(rs.getInt("id"));
@@ -155,12 +152,12 @@ public class DAL {
 				offer.setOfferStatusId(new IdWithName(rs.getInt("offer_status.id"),rs.getString("offer_Status.displayName")));
 				offer.setId(rs.getInt("off.id"));	
 				offer.setDescription(rs.getString("off.Description"));
-				offer.setExpirationDate(rs.getDate("off.Expiration_Date"));
+				offer.setExpirationDate(rs.getLong("off.Expiration_Date"));
 				offer.setAuctionId(currAuctionID);
 				offer.setLineId(new IdWithName(rs.getInt("off.Line_id"), rs.getString("line.Name")));
 				offer.setMaxArrivalHour(rs.getTime("off.Max_Arrival_Hour"));
 				offer.setPrId(new IdWithName(rs.getInt("off.Pr_id"), rs.getString("users.First_Name") + " " + rs.getString("users.Last_Name")));
-				offer.setSubmitDate(rs.getDate("off.Created_On"));
+				offer.setSubmitDate(rs.getLong("off.Created_On"));
 			}
 			
 			/*load offer treats*/
@@ -258,12 +255,12 @@ public class DAL {
 				offer.setId(rs.getInt("off.id"));
 				offer.setAuctionId(currAuctionID);	
 				offer.setDescription(rs.getString("off.Description"));
-				offer.setExpirationDate(rs.getDate("off.Expiration_Date"));
+				offer.setExpirationDate(rs.getLong("off.Expiration_Date"));
 				offer.setId(rs.getInt("off.id"));
 				offer.setLineId(new IdWithName(rs.getInt("off.Line_id"), rs.getString("line.Name")));
 				offer.setMaxArrivalHour(rs.getTime("off.Max_Arrival_Hour"));
 				offer.setPrId(new IdWithName(rs.getInt("off.Pr_id"), rs.getString("users.First_Name") + " " + rs.getString("users.Last_Name")));
-				offer.setSubmitDate(rs.getDate("off.Created_On"));
+				offer.setSubmitDate(rs.getLong("off.Created_On"));
 				offers.add(offer);
 			}
 			
@@ -276,7 +273,7 @@ public class DAL {
 				auction.setAuctionStatus(new IdWithName (rs.getInt("Auction_Status"),null));
 				auction.setDateFlexible(rs.getBoolean("Is_Date_Flexible"));
 				auction.setDescription(rs.getString("auc.Description"));
-				auction.setEventDate(rs.getDate("Event_Date"));
+				auction.setEventDate(rs.getLong("Event_Date"));
 				auction.setEventType(new IdWithName (rs.getInt("auc.Event_Type"),rs.getString("event_type.Name")));
 			}
 			
@@ -366,16 +363,12 @@ public class DAL {
 	{
 		connectToDBServer();
 		
-		DateFormat df = new SimpleDateFormat("dd-MMM-yy HH:mm:ss a");
-		String date= df.format(auction.getEventDate());
-		Date date2= df.parse(date);
-		java.sql.Date sqlDate = new java.sql.Date(date2.getTime());
-		
+
 		try {
 			//create new auction in db:
 			String sqlAuctionInsertion= String.format("insert into auction values(%d,%d,'%s','%s',%d,'%s','%s',%d,%d,'%s',%d,'%s',%d,%d, %s)",
 					null,auction.getMinAge(),auction.getExceptionsDescription(),auction.getGuestesQuantiny(),getValidID(auction.getEventType()), 
-					sqlDate,auction.getIsDateFlexible(),getValidID( auction.getArea()),
+					auction.getEventDate(),auction.getIsDateFlexible(),getValidID( auction.getArea()),
 					getValidID(auction.getCertainBusiness()),auction.getDescription(),getValidID(auction.getDetailsToDisplay()),
 					auction.isSmoking(), getValidID(auction.getAuctionStatus()),auction.getCreatedBy(), null);
 			
@@ -436,13 +429,8 @@ public class DAL {
 
 		connectToDBServer();
 
-		DateFormat df = new SimpleDateFormat("dd-MMM-yy HH:mm:ss a");
-		String date= df.format(userData.getBirthDate());
-		Date date2= df.parse(date);
-		java.sql.Date sqlDate = new java.sql.Date(date2.getTime());		
-		
 		String sql= "INSERT INTO users(User_Type, First_Name, Last_Name, Gender, Phone_Number, Email, Password, Birth_Date)"
-				+ " VALUES('"+userType+"','"+userData.getFirstName()+"','"+userData.getLastName()+"','"+userData.getGender()+"','"+userData.getPhoneNumber()+"','"+userData.getEmail()+"','"+userData.getPassword()+"','"+sqlDate+"')";
+				+ " VALUES('"+userType+"','"+userData.getFirstName()+"','"+userData.getLastName()+"','"+userData.getGender()+"','"+userData.getPhoneNumber()+"','"+userData.getEmail()+"','"+userData.getPassword()+"','"+userData.getBirthDate()+"')";
 		try {
 			stmt.executeUpdate(sql);
 		} catch (SQLException e) {
@@ -688,7 +676,7 @@ public class DAL {
 				pr.setPhoneNumber(rs.getString("Phone_Number"));
 				pr.setEmail(rs.getString("Email"));
 				pr.setPassword(rs.getString("Password"));
-				pr.setBirthDate(rs.getDate("Birth_Date"));
+				pr.setBirthDate(rs.getLong("Birth_Date"));
 				pr.setImageUrl(rs.getString("User_Image"));
 			}
 			
@@ -712,11 +700,6 @@ public class DAL {
 		
 		connectToDBServer();
 		
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		String date= df.format(userData.getBirthDate());
-		Date date2= df.parse(date);
-		java.sql.Date sqlDate = new java.sql.Date(date2.getTime());
-
 		String sql = "UPDATE clubber_db.users "
 				   + "SET First_Name = ? "
 				   + ", Last_Name = ? "
@@ -737,7 +720,7 @@ public class DAL {
 			ps.setString(4, userData.getPhoneNumber());
 			ps.setString(5, userData.getPassword());
 			ps.setString(6, userData.getImageURL());
-			ps.setDate(7, sqlDate);
+			ps.setLong(7, userData.getBirthDate());
 			ps.setString(8, userData.getEmail());
 			ps.executeUpdate();
 		} 
@@ -837,11 +820,11 @@ public class DAL {
 			
 			}
 			
-			//if(totalReviews.size() > 0){
-			//	reviews.setPunctuality(reviews.getPunctuality()/totalReviews.size());
-			//	reviews.setRealiability(reviews.getRealiability()/totalReviews.size());
-			//	reviews.setGeneral((reviews.getPunctuality() + reviews.getRealiability()) / 2);
-			//}
+			if(totalReviews.size() > 0){
+				reviews.setPunctuality(reviews.getPunctuality()/totalReviews.size());
+				reviews.setRealiability(reviews.getRealiability()/totalReviews.size());
+				reviews.setGeneral((reviews.getPunctuality() + reviews.getRealiability()) / 2);
+			}
 		
 		} 
 		catch (SQLException e) {
@@ -919,8 +902,6 @@ public class DAL {
 		String parsedDate, dateStr;
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = formatter.parse(i_Date);
-		DateFormat sqlFormatter = new SimpleDateFormat(NEW_FORMAT);
-		parsedDate = sqlFormatter.format(date);
 				   
 		 ArrayList<BusinessData> data = new ArrayList<BusinessData>();
 			// access date fields   
@@ -930,7 +911,7 @@ public class DAL {
 			{
 				ResultSet rs = stmt.executeQuery("select * "
 												+ "from line L, businesses B, areas a, city c, streets s, business_type t "
-												+ "where L.Business_id = B.id AND L.Line_End_Date >= '"+parsedDate+"' And"
+												+ "where L.Business_id = B.id AND L.Line_End_Date >= '"+date.getTime()+"' And"
 											    +" B.Area = a.id and "
 											    + "B.city = c.id and "
 									 		    + "B.street = s.id and "
@@ -952,13 +933,12 @@ public class DAL {
 					bData.setM_AreaId(new IdWithName(rs.getInt("b.area"), rs.getString("a.Name")));
 					
 					LineData lData = new LineData();
-					date = formatter.parse(i_Date);
 					lData.setM_LineName(rs.getString("L.name"));
 					lData.setDescription(rs.getString("L.Description"));
 					lData.setDj(rs.getString("L.DJ"));
 					lData.setEntranceFee(rs.getString("L.entrance_fee"));
 					lData.setMinAge(rs.getInt("L.Min_Age"));
-					lData.setStartDate(date);
+					lData.setStartDate(date.getTime());
 					lData.setId(rs.getInt("L.id"));
 					
 					bData.getM_Lines().add(lData);
@@ -975,13 +955,8 @@ public class DAL {
 		}
 	
 	public static ArrayList<BusinessData> getLineByPR(String i_userID) throws ParseException {
-		final String NEW_FORMAT = "yyyy-MM-dd";
-		String parsedDate, dateStr;
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); ;
-		Date date; //formatter.parse(i_Date);
-		DateFormat sqlFormatter = new SimpleDateFormat(NEW_FORMAT);
-		//parsedDate = sqlFormatter.format(date);
-		 ArrayList<BusinessData> data = new ArrayList<BusinessData>();
+
+		ArrayList<BusinessData> data = new ArrayList<BusinessData>();
 			// access date fields   
 			connectToDBServer();
 			
@@ -997,7 +972,6 @@ public class DAL {
 
 				while (rs.next())
 				{
-					dateStr = (rs.getString("L.Line_Start_Date"));
 					BusinessData bData = new BusinessData();
 					//set business data
 					bData.setM_Id(rs.getInt("b.id"));
@@ -1011,13 +985,12 @@ public class DAL {
 					bData.setM_AreaId(new IdWithName(rs.getInt("b.area"), rs.getString("a.Name")));
 					
 					LineData lData = new LineData();
-					date = sqlFormatter.parse(rs.getString("L.Line_Start_Date"));
 					lData.setM_LineName(rs.getString("L.name"));
 					lData.setDescription(rs.getString("L.Description"));
 					lData.setDj(rs.getString("L.DJ"));
 					lData.setEntranceFee(rs.getString("L.entrance_fee"));
 					lData.setMinAge(rs.getInt("L.Min_Age"));
-					lData.setStartDate(date);
+					lData.setStartDate(rs.getLong("L.Line_Start_Date"));
 					lData.setId(rs.getInt("L.id"));
 					
 					bData.getM_Lines().add(lData);
@@ -1123,7 +1096,7 @@ public class DAL {
 				lineData.setDescription(rs1.getString("L.Description"));
 				lineData.setDj(rs1.getString("L.DJ"));
 				lineData.setMinAge(rs1.getInt("L.Min_Age"));
-				lineData.setStartDate(rs1.getDate("L.Line_Start_Date"));
+				lineData.setStartDate(rs1.getLong("L.Line_Start_Date"));
 			
 				businessData.getM_Lines().add(lineData);
 			}			
@@ -1314,7 +1287,6 @@ public class DAL {
 		ArrayList<AuctionData> auctionList = new ArrayList<>();
 		int createdById = 0;
 
-		email = "orelsharabi8@gmail.com";
 		connectToDBServer();
 		
 		try {
@@ -1342,7 +1314,7 @@ public class DAL {
 				auctionData.setExceptionsDescription(rs.getString("A.Exceptions_Description"));
 				auctionData.setGuestesQuantiny(rs.getInt("A.Guestes_Quantiny"));
 				auctionData.setEventType(new IdWithName(rs.getInt("ET.id"), rs.getString("ET.Name")));
-				auctionData.setEventDate(rs.getDate("A.Event_Date"));
+				auctionData.setEventDate(rs.getLong("A.Event_Date"));
 				auctionData.setDateFlexible(rs.getBoolean("A.Is_Date_Flexible"));
 				auctionData.setArea(new IdWithName(rs.getInt("AR.id"), rs.getString("AR.Name")));
 
@@ -1516,7 +1488,7 @@ public class DAL {
 				auctionData.setExceptionsDescription(rs.getString("A.Exceptions_Description"));
 				auctionData.setGuestesQuantiny(rs.getInt("A.Guestes_Quantiny"));
 				auctionData.setEventType(new IdWithName(rs.getInt("ET.id"), rs.getString("ET.Name")));
-				auctionData.setEventDate(rs.getDate("A.Event_Date"));
+				auctionData.setEventDate(rs.getLong("A.Event_Date"));
 				auctionData.setDateFlexible(rs.getBoolean("A.Is_Date_Flexible"));
 				auctionData.setArea(new IdWithName(rs.getInt("AR.id"), rs.getString("AR.Name")));
 
@@ -1661,7 +1633,7 @@ public class DAL {
 				auctionData.setExceptionsDescription(rs.getString("A.Exceptions_Description"));
 				auctionData.setGuestesQuantiny(rs.getInt("A.Guestes_Quantiny"));
 				auctionData.setEventType(new IdWithName(rs.getInt("ET.id"), rs.getString("ET.Name")));
-				auctionData.setEventDate(rs.getDate("A.Event_Date"));
+				auctionData.setEventDate(rs.getLong("A.Event_Date"));
 				auctionData.setDateFlexible(rs.getBoolean("A.Is_Date_Flexible"));
 				auctionData.setArea(new IdWithName(rs.getInt("AR.id"), rs.getString("AR.Name")));
 				auctionData.setCertainBusiness(new IdWithName(rs.getInt("B.id"), rs.getString("B.Name")));
@@ -1711,19 +1683,11 @@ public class DAL {
 
 	public static boolean addNewLine(LineData lineData) throws ParseException {
 		boolean isSucceed = true;
-		DateFormat df = new SimpleDateFormat("dd-MMM-yy HH:mm:ss a");
-		String date1= df.format(lineData.getStartDate());
-		Date date2= df.parse(date1);
-		java.sql.Date sqlStartDate = new java.sql.Date(date2.getTime());
-		
-		String date3= df.format(lineData.getEndDate());
-		Date date4= df.parse(date3);
-		java.sql.Date sqlEndDate = new java.sql.Date(date4.getTime());
 		
 		connectToDBServer();
 		
 		String sql= "INSERT INTO businesses(Business_id, PR_id, Name, Day_In_Week, Line_Start_Date, Line_End_Date, Min_Age, Description, Entrance_Fee, DJ, Opening_Hour) "
-				+ "VALUES ('"+ lineData.getBusiness().getId()+ "','" + lineData.getPr().getId() +"','"+ lineData.getM_LineName() +"','" + lineData.getM_DayInWeek()+"','"+ sqlStartDate +"','"+ sqlEndDate +"','"+ lineData.getMinAge() +"','"+ lineData.getDescription()+"','"+ lineData.getEntranceFee() +"','"+ lineData.getOpeningHour() +"')";
+				+ "VALUES ('"+ lineData.getBusiness().getId()+ "','" + lineData.getPr().getId() +"','"+ lineData.getM_LineName() +"','" + lineData.getM_DayInWeek()+"','"+ lineData.getStartDate() +"','"+ lineData.getEndDate() +"','"+ lineData.getMinAge() +"','"+ lineData.getDescription()+"','"+ lineData.getEntranceFee() +"','"+ lineData.getOpeningHour() +"')";
 		try {
 			stmt.executeUpdate(sql);
 
@@ -1741,7 +1705,7 @@ public class DAL {
 	}
 
 	public static ArrayList<UserMessagesData> getJoinLineRequestData(String email) {
-		email = "orelsharabi8@gmail.com";
+
 		ArrayList<UserMessagesData> joinLineRequestList = new ArrayList<>();
 		connectToDBServer();
 		try {
@@ -1838,8 +1802,7 @@ public class DAL {
 				line.setBusiness(new IdWithName(rs.getInt("line.Business_id"), rs.getString("businesses.Name")));
 				line.setDescription(rs.getString("line.Description"));
 				line.setDj(rs.getString("line.DJ"));
-				line.setEndDate(rs.getDate("line.Line_End_Date"));
-				line.setStartDate(rs.getDate("line.Line_Start_Date"));
+				line.setEndDate(rs.getLong("line.Line_End_Date"));
 				line.setEntranceFee(rs.getString("line.Entrance_Fee"));
 				line.setM_DayInWeek(rs.getInt("line.Day_In_Week"));
 				line.setM_LineName(rs.getString("line.Name"));
@@ -1896,7 +1859,7 @@ public class DAL {
 					userData = new Client ();
 				
 				userData.setFirstName(rs.getString("first_Name"));
-				userData.setBirthDate(rs.getDate("Birth_Date"));
+				userData.setBirthDate(rs.getLong("Birth_Date"));
 				userData.setLastName(rs.getString("Last_Name"));
 				userData.setGender((rs.getString("Gender")));
 				userData.setUserType(rs.getString("User_Type"));
@@ -1921,23 +1884,12 @@ public class DAL {
 		
 		connectToDBServer();
 		
-		//parse end date
-		DateFormat df = new SimpleDateFormat("dd-MMM-yy HH:mm:ss a");
-		String date= df.format(line.getEndDate());
-		Date date2= df.parse(date);
-		java.sql.Date endDate = new java.sql.Date(date2.getTime());
-		//parse start date
-		df = new SimpleDateFormat("dd-MMM-yy HH:mm:ss a");
-		date= df.format(line.getEndDate());
-		date2= df.parse(date);
-		java.sql.Date startDate = new java.sql.Date(date2.getTime());
-
 		String sql = "UPDATE clubber_db.line "
 				   + "SET Business_id = '" + line.getBusiness() + "'"
 				   + ", Name = '" + line.getM_LineName()+ "'"
 				   + ", Day_In_Week = '" +line.getM_DayInWeek() + "'"
-				   + ", Line_Start_Date = '" +startDate + "'"
-				   + ", Line_End_Date = '" +endDate + "'"
+				   + ", Line_Start_Date = '" +line.getStartDate() + "'"
+				   + ", Line_End_Date = '" +line.getEndDate() + "'"
 				   + ", Min_Age = '" +line.getMinAge() + "'"
 				   + ", Description = '" +line.getDescription() + "'"
 				   + ", Entrance_Fee = '" +line.getEntranceFee() + "'"

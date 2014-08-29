@@ -58,10 +58,10 @@ public class UpdateLineDetails extends HttpServlet {
 			
 			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 			Date date= df.parse(request.getParameter(Constants.START_DATE_EDT));
-			line.setStartDate(date);
+			line.setStartDate(date.getTime());
 			
 			date= df.parse(request.getParameter(Constants.END_DATE_EDT));
-			line.setEndDate(date);
+			line.setEndDate(date.getTime());
 			
 			line.setM_LineName(request.getParameter(Constants.LINE_NAME_EDT));
 			

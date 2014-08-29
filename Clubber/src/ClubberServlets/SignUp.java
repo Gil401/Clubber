@@ -58,17 +58,17 @@ public class SignUp extends HttpServlet {
         String genderParam = request.getParameter(Constants.GENDER);
         String url = request.getParameter(Constants.IMAGE);
         
-		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-		Date date = new Date();
-
+        String dateParam = request.getParameter(Constants.BIRTHDATE);
+        
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Date birthDate = null;
 		try {
-			String dateParam = request.getParameter(Constants.BIRTHDATE);
-			date = df.parse(dateParam);
+			birthDate = df.parse(dateParam);
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		Date birthdateParam = date;
+        long birthDateParam = birthDate.getTime();
                 
         String phoneNumberParam = request.getParameter(Constants.PHONE_NUMBER);
         String emailParam = request.getParameter(Constants.EMAIL);
@@ -91,7 +91,7 @@ public class SignUp extends HttpServlet {
 	        if(whoAmIParam.equals("Client") == true)
 	        {
 	        	userType = UserType.Client;
-	        	Client client = new Client(lastNameParam, firstNameParam, genderParam, phoneNumberParam, emailParam, birthdateParam, passwordParam,"temp");
+	        	Client client = new Client(lastNameParam, firstNameParam, genderParam, phoneNumberParam, emailParam, birthDateParam, passwordParam,"temp");
 
 	        	if( sentMail(firstNameParam, passwordParam, emailParam) == true)
 	        	{
@@ -113,7 +113,7 @@ public class SignUp extends HttpServlet {
 	        else if(whoAmIParam.equals("PR") == true)
 	        {
 	        	userType = UserType.PR;
-	        	PR pr = new PR(lastNameParam, firstNameParam, genderParam, phoneNumberParam, emailParam, birthdateParam, passwordParam, url);
+	        	PR pr = new PR(lastNameParam, firstNameParam, genderParam, phoneNumberParam, emailParam, birthDateParam, passwordParam, url);
 
         		if(sentMail(firstNameParam, passwordParam, emailParam) == true)
         		{
@@ -163,6 +163,10 @@ public class SignUp extends HttpServlet {
 			// TODO Auto-generated catch block
 			isSucceed = false;
 			e.printStackTrace();
+		}catch (Exception e){
+			isSucceed = false;
+			e.printStackTrace();
+			
 		}
 		
 		return isSucceed;

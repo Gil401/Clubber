@@ -2,7 +2,6 @@ package ClubberLogic;
 
 import java.io.File;
 import java.sql.Time;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,8 +13,8 @@ public class OfferData {
 	private String description;
 	private IdWithName lineId;
 	private IdWithName prId;
-	private Date expirationDate;
-	private Date submitDate ;
+	private long expirationDate;
+	private long submitDate ;
 	private Time maxArrivalHour;
 	private File seatsPhoto;
 	private Integer auctionId;
@@ -47,10 +46,10 @@ public class OfferData {
 	public void setLineId(IdWithName lineId) {
 		this.lineId = lineId;
 	}
-	public Date getExpirationDate() {
+	public long getExpirationDate() {
 		return expirationDate;
 	}
-	public void setExpirationDate(Date expirationDate) {
+	public void setExpirationDate(long expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 	public Time getMaxArrivalHour() {
@@ -89,10 +88,10 @@ public class OfferData {
 	public void setPrId(IdWithName prId) {
 		this.prId = prId;
 	}
-	public Date getSubmitDate() {
+	public long getSubmitDate() {
 		return submitDate;
 	}
-	public void setSubmitDate(Date submitDate) {
+	public void setSubmitDate(long submitDate) {
 		this.submitDate = submitDate;
 	}
 	public List<IdWithName> getOfferTreats() {

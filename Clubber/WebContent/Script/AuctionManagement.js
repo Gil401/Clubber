@@ -23,8 +23,10 @@ function loadOffersFromDB(data, areaName)
 			{
 				description= data[item].description;
 			}
+			
+			var date = new Date(data[item].submitDate);
 			$('<div id=' +data[item].id+' class="offer-item-container bg"><div  class="offer-item-line-image-container" id="'+data[item].lineId.id+'" onclick="alert(' + data[item].lineId.id + ')"><img src="/Clubber/images/line_Img.png" class="offer-item-line-image" style="float: right; max-width: 100px; max-height:100px;"></div>'
-					+ ' <div class="offer-item-title"> <div class= "offer-item-right-title" style="float: right" >'+data[item].prId.Name+'</div> <div class="offer-item-left-title" style="float: left">' +formattedDate(data[item].submitDate) +'</div> </div>'
+					+ ' <div class="offer-item-title"> <div class= "offer-item-right-title" style="float: right" >'+data[item].prId.Name+'</div> <div class="offer-item-left-title" style="float: left">' + date.getDay() +"/" + date.getMonth() +"/" + date.getFullYear() +'</div> </div>'
 					+ '<div class="offer-item-content" >'
 					+ '<div class="offer-item-description">'+description+'</div>'
 					+'</div><br /><br /><div style="float: left; "><button style="background-color: red; border-radius: 20px; font-size:13px;">סמן כלא רלוונטי</button><button onclick="offerClicked(' + data[item].id + ')" style="border-radius: 20px; font-size:13px;">פרטים נוספים</button></div>'
@@ -44,7 +46,9 @@ function loadOffersFromDB(data, areaName)
 		{
 			description= data.description;
 		}
-		$(' <div id=' +data.id+' class="my-auction-container" onclick="alert(' + data.id + ')" style="padding-top: 0; cursor: hand; cursor: pointer;border-radius: 25px; background: #6D1F10; padding:10px; margin-top: 10px;"> <div class="my-auction-title">'+data.eventType.Name+ ' <div style="float: left; margin-left: 15px;"> '+formattedDate(data.eventDate) +' </div></div>'
+		
+		var date = new Date(data.eventDate);
+		$(' <div id=' +data.id+' class="my-auction-container" onclick="alert(' + data.id + ')" style="padding-top: 0; cursor: hand; cursor: pointer;border-radius: 25px; background: #6D1F10; padding:10px; margin-top: 10px;"> <div class="my-auction-title">'+data.eventType.Name+ ' <div style="float: left; margin-left: 15px;"> '+date.getDay() +"/" + date.getMonth() +"/" + date.getFullYear() +' </div></div>'
 				+ '<div class="my-auction-description">'+description+'</div>'
 				+'</div>').appendTo($(areaName)) ;
 	}
