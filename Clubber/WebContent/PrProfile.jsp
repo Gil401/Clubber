@@ -36,7 +36,9 @@ input{
 
 <h2>פרטי משתמש</h2>
 	<div class="user-details">
-		<form class="user-details-form" id="userDetails" name="userDetails" method="post" action="UpdateUserDetails" enctype="multipart/form-data">
+			<form class="user-details-form" id="userDetails"
+				name="userDetails" method="post" action="UpdateUserDetails" enctype="multipart/form-data">
+
 		  	
 			<label id="pictureLabel">תמונה</label> 
 			<input type="file" name="pic" id="pic" disabled > 
