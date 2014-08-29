@@ -115,7 +115,7 @@ input{
 							<div class="star"></div>
 						</div>
 						<br>
-						<br> <label id="reliabilityLabel">אמינות</label> description<br>
+						<br> <label id="reliabilityLabel">אמינות</label><br>
 						<div class="reliabilityStars">
 							<div class="star"></div>
 							<div class="star"></div>
