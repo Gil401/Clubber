@@ -59,6 +59,7 @@ public class UploadServlet extends HttpServlet {
       // Process the uploaded file items
       Iterator<FileItem> i = fileItems.iterator();
       i_UserData.setUserType(request.getSession().getAttribute(Constants.WHO_AM_I).toString());
+      i_UserData.setEmail(request.getSession().getAttribute(Constants.EMAIL).toString());
       
       while (i.hasNext()) 
       {
@@ -83,7 +84,6 @@ public class UploadServlet extends HttpServlet {
          }
          else
          {
-        	 
         	 if (fi.getFieldName().equals(Constants.FIRST_NAME)) 
      		{
         		 String value = fi.getString();
@@ -93,6 +93,11 @@ public class UploadServlet extends HttpServlet {
         	 {
         		 String value = fi.getString();
         		 i_UserData.setLastName(fi.getString("UTF-8").trim());
+        	 }
+        	 else if(fi.getFieldName().equals(Constants.EMAIL))
+        	 {
+        		 String value = fi.getString();
+        		 i_UserData.setEmail(fi.getString("UTF-8").trim());
         	 }
         	 else if(fi.getFieldName().equals(Constants.GENDER))
         	 {
@@ -132,7 +137,7 @@ public class UploadServlet extends HttpServlet {
 
       catch(Exception ex) {
 	   System.out.println(ex);
-   }
+      }
       return filePath;
    }  
    public void doGet(HttpServletRequest request, 

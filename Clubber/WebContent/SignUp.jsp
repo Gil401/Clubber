@@ -44,7 +44,7 @@
 				<br><br>
 				
 				<div class="lable" id="birthdateLabel">תאריך לידה</div>
-				<input type = "datetime" name="birthdate" id="birthdate" required>
+				<input type = "datetime" name="birthdate" id="birthdate" required disabled>
 	  			<br>
 	  							
 				<div class="lable" id="phonenumberLabel">טלפון</div>

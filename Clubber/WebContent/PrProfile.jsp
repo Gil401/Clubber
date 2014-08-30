@@ -62,17 +62,11 @@ input{
 			<label id="birthdateLabel">תאריך לידה</label>
 			<input type = "datetime" name="birthdate" id="birthdate" required disabled>
 			<br>
-
 			
 			<label id="phonenumberLabel">טלפון</label>
 			<input type="text" name="phoneNumber" id="phoneNumber" required disabled>
 			<br>
-
 			
-			<label id="emailLabel">דוא"ל</label>
-			<input type="text" name="email" id="email" required disabled>
-  			<br>
-
 			<label id="passwordLabel">סיסמה</label>
 			<input type="password" name="Password" id="password" required disabled>
   			<br>
@@ -166,6 +160,7 @@ input{
 				changeMonth: true,
 		      	changeYear: true,
 		      	showOn: "button",
+		      	disabled: true,
 		        buttonImage: "images/calendar.gif",
 		        buttonImageOnly: true});	      	
 		});
@@ -173,25 +168,15 @@ input{
 		// Set error messages  
 		jQuery.extend(jQuery.validator.messages, {
 		    required: "שדה חובה",
-		    email: 'כתובת דוא"ל אינה חוקית',
-		    equalTo: "סיסמאות אינן תואמות",
-		    date: "תאריך לידה אינו חוקי"		    
+		    equalTo: "סיסמאות אינן תואמות"	    
 		});
 		
 
 		$( "#userDetails" ).validate({
 			  rules: {
-			    email: {
-			      	email: true
-			    },
-		
 				verifyPassword: {
 		      		equalTo: "#password"
-			  	},
-			    
-			    birthdate: {
-			    	date: true
-			    }
+			  	}
 			 }
 		});		
 		
@@ -199,9 +184,8 @@ input{
 			$('#firstName').attr("disabled", false);
 			$('#lastName').attr("disabled", false);
 			$('input[name="gender"]').attr("disabled", false);
-			$('#birthdate').attr("disabled", false);		
+			$('#birthdate').datepicker("enable");
 			$('#phoneNumber').attr("disabled", false);
-			$('#email').attr("disabled", false);			
 			$('#password').attr("disabled", false);		
 			$('#verifyPassword').attr("disabled", false);
 			$("#updateUserDel").attr("disabled",false);
@@ -223,7 +207,6 @@ input{
 					$("#birthdate").val(date.getDay() + "/" +date.getMonth() + "/" + date.getFullYear());
 
 		        	$("#phoneNumber").val(data.phoneNumber);
-		        	$("#email").val(data.email);
 		        	$("#password").val(data.password);
 		        	$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" style="max-width:30%; max-height:30%;">');
 		        },
