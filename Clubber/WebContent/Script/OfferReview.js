@@ -90,11 +90,13 @@ function loadOfferFromDB(data)
 
 		var submitDate = new Date(data.submitDate);
 		var expirationDate = new Date(data.expirationDate);
+		var submitMonth = submitDate.getMonth() + 1;
+		var expirationMonth = expirationDate.getMonth() + 1;
 		
-		$(".offer-item-reviewed-title").append("<div class= 'offer-item-right-title' >"+data.prId.Name+"</div> <div class='offer-item-left-title' >" +submitDate.getDay() +"/"+ submitDate.getMonth() +"/" + submitDate.getFullYear() +"</div>");
+		$(".offer-item-reviewed-title").append("<div class= 'offer-item-right-title' >"+data.prId.Name+"</div> <div class='offer-item-left-title' >" +submitDate.getDate() +"/"+ submitMonth +"/" + submitDate.getFullYear() +"</div>");
 		$("#offer-description").append("<label class='offer-value-label'>"+description+"</label>");
 		$("#offered-line").append("<label class='offer-value-label'>"+data.lineId.Name+"</label>");/*should be a link to line*/
-		$("#offer-expiration-date").append("<label class='offer-value-label'>"+ expirationDate.getDay() +"/" + expirationDate.getMonth() +"/"+ expirationDate.getFullYear() +"</label>");
+		$("#offer-expiration-date").append("<label class='offer-value-label'>"+ expirationDate.getDate() +"/" + expirationMonth +"/"+ expirationDate.getFullYear() +"</label>");
 		$("#max-arrival-hour").append("<label class='offer-value-label'>"+convert12to24(data.maxArrivalHour)+"</label>");
 		$("#offer-status").append("<label class='offer-value-label'>"+data.offerStatusId.Name+"</label>");
 		
@@ -108,8 +110,9 @@ function loadOfferFromDB(data)
 	function loadAuctionFromDB(data){
 		console.log("adding current auction");
 		var eventDate = new Date(data.eventDate);
+		var month = eventDate.getMonth() + 1;
 		
-		$("#auction-event-date").append("<label class='offer-value-label'>"+eventDate.getDay() +"/"+ eventDate.getMonth()+"/"+eventDate.getFullYear()+"</label>");
+		$("#auction-event-date").append("<label class='offer-value-label'>"+eventDate.getDate() +"/"+ month +"/"+eventDate.getFullYear()+"</label>");
 		$("#auction-event-type").append("<label class='offer-value-label'>"+data.eventType.Name+"</label>");
 		$("#auction-area").append("<label class='offer-value-label'>"+data.area.Name+"</label>");
 		$("#auction-guests-quantiny").append("<label class='offer-value-label'>"+data.guestesQuantiny+"</label>");

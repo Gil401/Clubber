@@ -45,11 +45,13 @@ function LoadDataToInputs()
 			
 			var startDate = new Date(data.startDate);
 			var endDate = new Date(data.endDate);
+			var startMonth = startDate.getMonth() + 1;
+			var endMonth = endDate.getMonth() + 1;
 			
 			$("#lineName").val(data.m_LineName);
 			$("#businessId").val(data.business.Name);
-			$("#startDate").val(startDate.getDay() + "/" + startDate.getMonth() + "/" + startDate.getFullYear());
-			$("#endDate").val(endDate.getDay() + "/" + endDate.getMonth() + "/" + endDate.getFullYear());
+			$("#startDate").val(startDate.getDate() + "/" + startMonth + "/" + startDate.getFullYear());
+			$("#endDate").val(endDate.getDate() + "/" + endMonth + "/" + endDate.getFullYear());
 			$("#minAge").val(data.minAge);
 			$("#etranceFee").val(data.entranceFee);
 			$("#DJ").val(data.dj);
@@ -113,11 +115,13 @@ function getLineProfile() {
 			
 			var startDate = new Date(data.startDate);
 			var endDate = new Date(data.endDate);
+			var startMonth = startDate.getMonth() + 1;
+			var endMonth = endDate.getMonth() + 1;
 
 			$("#lineNameLbl").text(data.m_LineName);
 			$("#businessIdLbl").text(data.business.Name);
-			$("#startDateLbl").text(startDate.getDay() + "/" + startDate.getMonth() + "/" + startDate.getFullYear());
-			$("#endDateLbl").text(endDate.getDay() + "/" + endDate.getMonth() + "/" + endDate.getFullYear());
+			$("#startDateLbl").text(startDate.getDate() + "/" + startMonth + "/" + startDate.getFullYear());
+			$("#endDateLbl").text(endDate.getDate() + "/" + endMonth + "/" + endDate.getFullYear());
 			$("#minAgeLbl").text(data.minAge);
 			$("#etranceFeeLbl").text(data.entranceFee);
 			$("#DJLbl").text(data.dj);

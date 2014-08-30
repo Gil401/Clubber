@@ -32,9 +32,11 @@ function loadDataFromDB(data, areaName)
 				var bg = 'background: #FF2900';
 			else
 				var bg = '';
-				var date = new Date(data[item].eventDate);
+			
+			var date = new Date(data[item].eventDate);
+			var month = date.getMonth() + 1;
 				
-			$('  <div class="bg" style="padding-top: 0; cursor: hand; cursor: pointer;border-radius: 25px; '+bg+'"><div id=' +data[item].id+' class="my-auction-container" title="לחץ כאן כדי לראות את פרטי המכרז"  onclick="auctionClicked('+data[item].id + ')"> <div class="my-auction-title"><h2>'+data[item].eventType.Name+ '</h2> <div style="float: left">'+ date.getDay() +"/" + date.getMonth() +"/" + date.getFullYear() +'</div></div>'
+			$('  <div class="bg" style="padding-top: 0; cursor: hand; cursor: pointer;border-radius: 25px; '+bg+'"><div id=' +data[item].id+' class="my-auction-container" title="לחץ כאן כדי לראות את פרטי המכרז"  onclick="auctionClicked('+data[item].id + ')"> <div class="my-auction-title"><h2>'+data[item].eventType.Name+ '</h2> <div style="float: left">'+ date.getDate() +"/" + month +"/" + date.getFullYear() +'</div></div>'
 					+ '<div class="my-auction-description">'+description+'</div>'
 					+ '<div class="my-auction-offer-number"><strong>'+data[item].offerNumber+"&nbsp;&nbsp;"+counterDescription +'</strong></div>'
 					+'</div></div>').appendTo($(areaName)) ;

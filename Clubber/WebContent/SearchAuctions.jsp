@@ -84,10 +84,11 @@
 
 		for (var item in data) {
 			var date = new Date(data[item].eventDate);
+			var month = date.getMonth() + 1;
 			
 			table += '<tr id=' +data[item].id+' title="לחץ כאן כדי לראות את פרטי המכרז" onclick="auctionClicked('+data[item].id + ');">'
 					 +'<td>'+ data[item].eventType.Name+ '</td>'
-					 +'<td>'+ date.getDay() + "/" date.getMonth() + "/" + date.getFullYear() +'</td>'
+					 +'<td>'+ date.getDate() + "/" month + "/" + date.getFullYear() +'</td>'
 					 +'<td>'+data[item].minAge+'</td>'
 					 +'<td>'+data[item].area.Name+'</td>'
 					 +'<td>'+data[item].offerNumber+counterDescription +'</td></tr>';

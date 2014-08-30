@@ -53,86 +53,87 @@ public class UploadServlet extends HttpServlet {
       upload.setSizeMax( maxFileSize );
 
       try{ 
-      // Parse the request to get file items.
-      List<FileItem> fileItems = upload.parseRequest(request);
+	      // Parse the request to get file items.
+	      List<FileItem> fileItems = upload.parseRequest(request);
+		
+	      // Process the uploaded file items
+	      Iterator<FileItem> i = fileItems.iterator();
+	      i_UserData.setUserType(request.getSession().getAttribute(Constants.WHO_AM_I).toString());
+	      i_UserData.setEmail(request.getSession().getAttribute(Constants.EMAIL).toString());
+	      i_UserData.setImageUrl(request.getSession().getAttribute(Constants.IMAGE).toString());
+	      i_UserData.setFirstName(request.getSession().getAttribute(Constants.FIRST_NAME).toString());
+	      
+	      while (i.hasNext()) 
+	      {
+	         FileItem fi = (FileItem)i.next();
+	         if ( !fi.isFormField () &&  !fi.getName().isEmpty())	
+	         {
+	            // Get the uploaded file parameters
+	            String fieldName = fi.getFieldName();
+	            String fileName = fi.getName();
+	            String contentType = fi.getContentType();
+	            boolean isInMemory = fi.isInMemory();
+	            long sizeInBytes = fi.getSize();
+	            
+	            // Write the file
+	            filePath = i_Path  + "\\" + fileName;
+	            file = new File(filePath) ;
+	            fi.write(file);
+	            System.out.println(filePath);
+	       	 	
+	            i_UserData.setImageUrl(rel_Path + fileName);
+	         }
+	         else
+	         {
+	        	 if (fi.getFieldName().equals(Constants.FIRST_NAME)) 
+	     		{
+	        		 String value = fi.getString();
+	        		 i_UserData.setFirstName(fi.getString("UTF-8").trim());
+	     		}
+	        	 else if(fi.getFieldName().equals(Constants.LAST_NAME))
+	        	 {
+	        		 String value = fi.getString();
+	        		 i_UserData.setLastName(fi.getString("UTF-8").trim());
+	        	 }
+	        	 else if(fi.getFieldName().equals(Constants.EMAIL))
+	        	 {
+	        		 String value = fi.getString();
+	        		 i_UserData.setEmail(fi.getString("UTF-8").trim());
+	        	 }
+	        	 else if(fi.getFieldName().equals(Constants.GENDER))
+	        	 {
+	        		 String value = fi.getString();
+	        		 i_UserData.setGender(fi.getString("UTF-8").trim());
+	        	 }
+	        	 else if(fi.getFieldName().equals(Constants.PASSWORD))
+	        	 {
+	        		 String value = fi.getString();
+	        		 i_UserData.setPassword(fi.getString("UTF-8").trim());
+	        	 }
+	        	 else if(fi.getFieldName().equals(Constants.PHONE_NUMBER))
+	        	 {
+	        		 String value = fi.getString();
+	        		 i_UserData.setPhoneNumber(fi.getString("UTF-8").trim());
+	        	 }
+	        	 else if(fi.getFieldName().equals(Constants.BIRTHDATE))
+	        	 {
 	
-      // Process the uploaded file items
-      Iterator<FileItem> i = fileItems.iterator();
-      i_UserData.setUserType(request.getSession().getAttribute(Constants.WHO_AM_I).toString());
-      i_UserData.setEmail(request.getSession().getAttribute(Constants.EMAIL).toString());
-      
-      while (i.hasNext()) 
-      {
-         FileItem fi = (FileItem)i.next();
-         if ( !fi.isFormField () )	
-         {
-            // Get the uploaded file parameters
-            String fieldName = fi.getFieldName();
-            String fileName = fi.getName();
-            String contentType = fi.getContentType();
-            boolean isInMemory = fi.isInMemory();
-            long sizeInBytes = fi.getSize();
-            
-            // Write the file
-            filePath = i_Path  + "\\" + fileName;
-            file = new File(filePath) ;
-            fi.write(file);
-            System.out.println(filePath);
-       	 	
-            i_UserData.setImageUrl(rel_Path + fileName);
-
-         }
-         else
-         {
-        	 if (fi.getFieldName().equals(Constants.FIRST_NAME)) 
-     		{
-        		 String value = fi.getString();
-        		 i_UserData.setFirstName(fi.getString("UTF-8").trim());
-     		}
-        	 else if(fi.getFieldName().equals(Constants.LAST_NAME))
-        	 {
-        		 String value = fi.getString();
-        		 i_UserData.setLastName(fi.getString("UTF-8").trim());
-        	 }
-        	 else if(fi.getFieldName().equals(Constants.EMAIL))
-        	 {
-        		 String value = fi.getString();
-        		 i_UserData.setEmail(fi.getString("UTF-8").trim());
-        	 }
-        	 else if(fi.getFieldName().equals(Constants.GENDER))
-        	 {
-        		 String value = fi.getString();
-        		 i_UserData.setGender(fi.getString("UTF-8").trim());
-        	 }
-        	 else if(fi.getFieldName().equals(Constants.PASSWORD))
-        	 {
-        		 String value = fi.getString();
-        		 i_UserData.setPassword(fi.getString("UTF-8").trim());
-        	 }
-        	 else if(fi.getFieldName().equals(Constants.PHONE_NUMBER))
-        	 {
-        		 String value = fi.getString();
-        		 i_UserData.setPhoneNumber(fi.getString("UTF-8").trim());
-        	 }
-        	 else if(fi.getFieldName().equals(Constants.BIRTHDATE))
-        	 {
-
-		        String dateParam = fi.getString();
-		        
-		        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		        Date birthDate = null;
-				try {
-					birthDate = df.parse(dateParam);
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-		        long birthDateParam = birthDate.getTime();
-		        i_UserData.setBirthDate(birthDateParam);
-        	 }
-         }
-      }
+			        String dateParam = fi.getString();
+			        
+			        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			        Date birthDate = null;
+					try {
+						birthDate = df.parse(dateParam);
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+			        long birthDateParam = birthDate.getTime();
+			        i_UserData.setBirthDate(birthDateParam);
+	        	 }
+	         }
+	      }
       }
 
       catch(Exception ex) {

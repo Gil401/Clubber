@@ -204,7 +204,8 @@ input{
 				$('input[name="gender"][value="' + data.gender + '"]').prop("checked", true);
 				
 				var date = new Date(data.birthDate);
-				$("#birthdate").val(date.getDay() + "/" +date.getMonth() + "/" + date.getFullYear());
+				var month = date.getMonth() + 1;
+				$("#birthdate").val(date.getDate() + "/" +month + "/" + date.getFullYear());
 				
 				$("#phoneNumber").val(data.phoneNumber);
 				$("#password").val(data.password);
