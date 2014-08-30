@@ -40,7 +40,7 @@ input{
 
 					<div class="line-details">
 						<form class="line-details-form" id="lineDetails"
-							name="lineDetails" method="post" action="UpdatelineDetails" enctype="multipart/form-data">
+							name="lineDetails" >
 							
 							<div id='EditLineData' style="display:none">
 								
@@ -56,14 +56,23 @@ input{
 								<br>
 								
 								<label id="lineDayLabel">יום בשבוע</label> 
+								<select type="text" name="Day" id="Day" required>
+									<option value='1'>א</option>
+									<option value='2'>ב</option>
+									<option value='3'>ג</option>
+									<option value='4'>ד</option>
+									<option value='5'>ה</option>
+									<option value='6'>ו</option>
+									<option value='7'>ש</option>
+								</select>
 								<br>
 								
 								<label id="lineStartDateLabel">תאריך פתיחה של הליין</label> 
-								<input type="text" name="startDate" id="startDate" required > 
+								<input type="text" name="startDate" id='startDate' class='LineDatepicker' readonly="true" required>
 								<br>
 								
 								<label id="lineEndDateLabel">תאריך סגירה של הליין</label> 
-								<input type="text" name="endDate" id="endDate" required > 
+								<input type="text" name="endDate" id='endDate' class='LineDatepicker' readonly="true" required>
 								<br>
 								
 								<label id="minAgeLabel">גיל מינימלי</label> 
@@ -93,7 +102,7 @@ input{
 								</div> 
 								<br>
 								
-								<button id="updateLineDel" type="submit" >שמור</button>							
+								<button id="updateLineDel" type="button" >שמור</button>							
 							</div>
 							
 							<div id='viewLineData'>
@@ -109,6 +118,7 @@ input{
 								<br>
 								
 								<label id="lineDayLabel">יום בשבוע</label> 
+								<label  id="DayLabel"> </label>
 								<br>
 								
 								<label id="lineStartDateLabel">תאריך פתיחה של הליין</label> 

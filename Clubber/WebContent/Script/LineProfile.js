@@ -1,3 +1,5 @@
+var line_id=-1;
+
 function formattedDate(date) {
     var d = new Date(date || Date.now()),
         month = '' + (d.getMonth() + 1),
@@ -26,8 +28,6 @@ function initiateFormBtns(){
 	
 	$("#updateLineDel").click(function() {
 		ajaxLineDtailesUpdate();
-		$('#EditLineData').hide();
-		$('#viewLineData').show();	
 	});
 }
 
@@ -47,16 +47,17 @@ function LoadDataToInputs()
 			var endDate = new Date(data.endDate);
 			var startMonth = startDate.getMonth() + 1;
 			var endMonth = endDate.getMonth() + 1;
-			
+			line_id= data.id;
 			$("#lineName").val(data.m_LineName);
-			$("#businessId").val(data.business.Name);
+			$("#businessName").val(data.business.Name);
+			$("#businessId").val(data.business.id);
 			$("#startDate").val(startDate.getDate() + "/" + startMonth + "/" + startDate.getFullYear());
 			$("#endDate").val(endDate.getDate() + "/" + endMonth + "/" + endDate.getFullYear());
 			$("#minAge").val(data.minAge);
 			$("#etranceFee").val(data.entranceFee);
 			$("#DJ").val(data.dj);
 			$("#description").val(data.description);
-			
+			$("#Day").val(data.m_DayInWeek);
 			uploadMusicStyleData(data.musicStylesIds);	
 		
 		},
@@ -79,12 +80,15 @@ function uploadMusicStyleData(lineMusicChecked){
         	//delete former data 
         	musicStyleDiv.html("");
 			
-			console.log("adding music styles");
-			 $.each(musicStyleList, function(index, val) {
-			            $('<option id=music'+musicStyleList[i].id+'value="'+val.id+'">' + val.Name + '</option>').appendTo($(musicStyleDiv )) ;
-		        });	
+        	
+			//load all music styles:
+        	for (var item in musicStyleList) 
+			{
+        		 $('<input id="music'+musicStyleList[item].id+'" type="checkbox" name="musicStyleEdt" value=' + musicStyleList[item].id + '/>' +
+            		'<label style="padding-right:10px; font-weight:normal;" for="'+musicStyleList[item].id+'">' + musicStyleList[item].Name + '</label></br>').appendTo($('#musicStyleEdt')) ;
+			} 
 			 
-			//mark check box in db
+			//mark check box in db:
         	for (var item in lineMusicChecked) 
 			{
 				$('#music'+ lineMusicChecked[item].id).attr("checked", true);
@@ -126,6 +130,7 @@ function getLineProfile() {
 			$("#etranceFeeLbl").text(data.entranceFee);
 			$("#DJLbl").text(data.dj);
 			$("#descriptionLbl").text(data.description);
+			$("#DayLabel").text(convertNumToDay(data.m_DayInWeek));
 			
 			for (var item in data.musicStylesIds) 
 			{
@@ -144,38 +149,72 @@ function getLineProfile() {
 	});
 }
 
-function loadListDataFromDB(data, listName)
+function convertNumToDay(dayInInt)
 {
-	console.log("adding"+ listName);
-	 $.each(data, function(index, val) {
-	            $('<option value="'+val.id+'">' + val.Name + '</option>').appendTo($(listName)) ;
-        });	
+	var res='';
+	if(dayInInt==1)
+	{
+		res='א';
+	}
+	else if(dayInInt==2)
+	{
+		res='ב';
+	}
+	else if(dayInInt==3)
+	{
+		res='ג';
+	}
+	else if(dayInInt==4)
+	{
+		res='ד';
+	}
+	else if(dayInInt==5)
+	{
+		res='ה';
+	}
+	else if(dayInInt==6)
+	{
+		res='ו';
+	}
+	else if(dayInInt==7)
+	{
+		res='ש';
+	}
+
+	return res;
+}
+function replaceAll(find, replace, str) 
+{
+	  return str.replace(new RegExp(find, 'g'), replace);
 }
 
 function ajaxLineDtailesUpdate()
 {	
 	var musicStyles= $('#musicStyleEdt').find('input').serialize();
-	var final= replaceAll("%23musicStyle=","",musicStyles);
+	var final= replaceAll("musicStyleEdt=","",musicStyles);
 	var final2= replaceAll("%2F","",final); 
-
+  
 	var lineName=  $('#lineName')[0].value;
-	var businessId= $('#businessId')[0].value;
+	var businessId= $('#businessName')[0].value;
 	var startDate= $('#startDate')[0].value;
 	var endDate=  $('#endDate')[0].value;
 	var minAge= $('#minAge')[0].value;
 	var description= $('#description')[0].value;
 	var etranceFee= $('#etranceFee')[0].value;
 	var dj= $('#DJ')[0].value;
+	var day=$("#Day")[0].value;
 	
     $.ajax({
         url: "UpdateLineDetails",
         type: "post",
         dataType: 'json',
-        data: {MusicStyleList: final2, LineName: lineName, BusinessId: businessId,
+        data: {Id:line_id, MusicStyleList: final2, LineName: lineName, BusinessId: businessId,
         	StartDate:startDate, EndDate: endDate, MinAge: minAge,
-        	Description: description, EtranceFee: etranceFee, DJ:dj},
+        	Description: description, EtranceFee: etranceFee, DJ:dj, Day:day},
         success: function(data){
         	console.log("line update succedded");
+    		$('#EditLineData').hide();
+    		$('#viewLineData').show();
      },
         error: function(data){
             	console.log("error");}
@@ -195,7 +234,7 @@ function uploadAllBusinessData(){
         	businesses.html("");
         	
 			for (var i = 0; i < businessList.length; i++) {
-				businesses.append('<option id=' + businessList[i].id +'>' + businessList[i].Name + '</option>');
+				businesses.append('<option value=' + businessList[i].id +'>' + businessList[i].Name + '</option>');
 			}        	
         },
         error: function(data){
@@ -205,6 +244,8 @@ function uploadAllBusinessData(){
 }
 
 $(function() {
+	$('#startDate').datepicker({});
+	$('#endDate').datepicker({});
 	getLineProfile();
 	setErrorMessages();
 	initiateFormBtns();

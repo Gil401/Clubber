@@ -165,7 +165,7 @@ public class DAL {
 			
 			while (rs.next())
 			{
-				offer.getOfferTreats().add(new IdWithName(null, rs.getString("treats.Name")));
+				offer.getOfferTreats().add(new IdWithName(rs.getInt("treats.id"), rs.getString("treats.Name")));
 			}			
 			
 		} 
@@ -1885,7 +1885,7 @@ public class DAL {
 		connectToDBServer();
 		
 		String sql = "UPDATE clubber_db.line "
-				   + "SET Business_id = '" + line.getBusiness() + "'"
+				   + "SET Business_id = '" + line.getBusiness().getId() + "'"
 				   + ", Name = '" + line.getM_LineName()+ "'"
 				   + ", Day_In_Week = '" +line.getM_DayInWeek() + "'"
 				   + ", Line_Start_Date = '" +line.getStartDate() + "'"
@@ -1906,7 +1906,7 @@ public class DAL {
 			//add relevant records to line music style table:
 			for(IdWithName item: line.getMusicStylesIds())
 			{
-				String sqlMusicStyles= String.format("insert into Auction_Music_Style values(%d,%d,%d)", null,line.getId() , item.getId());
+				String sqlMusicStyles= String.format("insert into line_music_style values(%d,%d,%d)", null,line.getId() , item.getId());
 				stmt.executeUpdate(sqlMusicStyles);
 			}
 			

@@ -138,6 +138,8 @@ public class Constants {
 	 public static String DESCRIPTION_EDT= "Description";
 	 public static String ENTRANCE_EDT= "EtranceFee";
 	 public static String DJ_EDT= "DJ";
+	 public static String ID_EDT="Id";
+	 public static String DAY_EDT="Day";
 	 
 	 //accept Offer
 	 public static String ACCEPTED_OFFER_ID="AccptedOfferId";

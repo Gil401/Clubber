@@ -68,10 +68,32 @@ function convertTimeStampFormat(timestamp)
 	return (formattedDate(timestamp) + ' '+ convert12to24(time));
 }
 
+function initiateFormBtns(){
+	$("#edit-offer-button").click(function() {
+		
+		$('#EditOfferData').show();
+		$('#ViewOfferData').hide();
+		$('#accept-offer-button').hide();
+		$('#edit-offer-button').hide();
+		ajaxOfferFormDBData(loadDataToInputs);	
+	});
+	
+	$("#update-offer-button").click(function() {
+		$('#EditOfferData').hide();
+		$('#ViewOfferData').show();
+		$('#accept-offer-button').show();
+		$('#edit-offer-button').show();
+	});
+}
 
 function approveBtnClicked()
 {
 	ajaxApproveCurrentOffer();
+}
+
+function editBtnClicked()
+{
+	
 }
 
 function loadOfferFromDB(data)
@@ -165,29 +187,13 @@ function loadOfferFromDB(data)
 		
 		
 	}
-	function ajaxOfferFormDBData() {
-		var now= new Date();
-		
+	function ajaxOfferFormDBData(successCallbck) {	
 	    $.ajax({
 	        url: "GetDBData",
 	        type: "post",
 	        dataType: 'json',
 	        data:{RequestType: "GetDBData-OfferReview"},
-	        success: function(data) {
-	            if (data != null) {
-	            	//if offer expired or already accepted or auction is closed -> remove accept btn:
-	            	if (data.expirationDate< now || data.offerStatusId.id == 1 )
-            		{
-	            		$("#accept-offer-button").remove();
-            		}
-	            	
-	            	console.log("GetDBData-OfferReview");  
-		            currAucId= data.auctionId;
-		            currOffId=data.id;
-		            loadOfferFromDB(data);
-		            
-		            ajaxAuctionFromDBData();
-	            }},
+	        success: successCallbck,
 	        error: function(data){
 	            	console.log("error- offer review");}	        
 	    });
@@ -267,10 +273,84 @@ function loadOfferFromDB(data)
 	        
 	    });
 	}
-
+	
+	function loadDataToInputs(data) {
+		$("#description").val(data.description);
+		$("#offerStatus").html(data.offerStatusId.Name);
+		$("#maxArrivalTime").val(convert12to24(data.maxArrivalHour));
+		$('#endDate').datepicker({});
+		$('#endDate').datepicker("setDate", data.expirationDate);
+		loadTreatsAndLines(data.offerTreats, data.lineId);
+		
+	}
+	
+	function loadTreatsAndLines(treatsChecked, selectedLine) {
+	    $.ajax({
+	        url: "GetDBData",
+	        type: "post",
+	        dataType: 'json',
+	        data:{RequestType: "GetDBData-NewOffer"},
+	        success: function(data) {
+	            if (data != null) {
+	                
+	            	var treatsDiv = $("#treats");
+	            	
+	            	//delete former data 
+	            	treatsDiv.html("");
+	            	
+	            	for(var i=0; i < data.treats.length; i++){
+	            		
+	            		var element = '<label><input type="checkbox" id=treat'+data.treats[i].id+' name="treats">' +data.treats[i].Name+ '</label>' ;
+	            		treatsDiv.append($(element));
+	            	}
+	            	
+	            	for (var item in treatsChecked) 
+	    			{
+	    				$('#treat'+ treatsChecked[item].id).attr("checked", true);
+	    			}
+	            	
+            		var linesDiv = $("#lineName");
+	            	
+	            	//delete former data 
+            		linesDiv.html("");
+	            	
+            		for(var i=0; i < data.lines.length; i++){
+	            		
+            			var element = '<option value="'+data.lines[i].id + '">' + data.lines[i].Name + '</option>';
+	            		linesDiv.append($(element));
+	            	}
+            		
+            		$("#lineName").val(selectedLine.id);
+	                
+	            }},
+	        error: function(data){
+	            	console.log("error");}
+	    });
+	}
+	
 	$(function() {
-		ajaxOfferFormDBData();
+		
+		var successCallback = function(data) {
+            if (data != null) {
+        		var now= new Date();
+        		
+            	//if offer expired or already accepted or auction is closed -> remove accept btn:
+            	if (data.expirationDate< now || data.offerStatusId.id == 1 )
+        		{
+            		$("#accept-offer-button").remove();
+        		}
+            	
+            	console.log("GetDBData-OfferReview");  
+	            currAucId= data.auctionId;
+	            currOffId=data.id;
+	            loadOfferFromDB(data);
+	            
+	            ajaxAuctionFromDBData();
+        }};
+            
+		ajaxOfferFormDBData(successCallback);
 		$('#outgoing-message-text').keypress( function( e ) {
 			  if( e.keyCode == 13 ) { ajaxSendMessage(); }
 			} );
+		initiateFormBtns();
 	});

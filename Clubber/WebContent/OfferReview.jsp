@@ -24,7 +24,7 @@
        			<div title="לחץ כאן כדי לראות את פרטי הליין" class="offer-reviewed-item-line-image-container" onclick="alert('')" style="float:right">
        				<img src="/Clubber/images/line_Img.png" class="offer-item-line-image">
        			</div>
-       			<div class="offer-reviewed-item-description">
+       			<div id="ViewOfferData" class="offer-reviewed-item-description">
 		       		<div id="offer-description">
 						<label class="offer-title-label">תיאור</label>
 					</div>
@@ -43,6 +43,37 @@
 					<div id="offer-treats">
 						<label class="offer-title-label"> סל פינוקים</label>
 					</div>
+				</div>
+				<div id='EditOfferData' class='offer-reviewed-item-description' style='display:none'>
+					<label id="lineDescriptionLabel">תיאור</label> 
+					<textarea rows="5" cols="20" type="text" name="description" id="description" required ></textarea>
+					<br>
+					
+					<label id="linebusinessNameLable">ליין מוצע</label> 
+					<input type="text" name="lineId" id="lineId" required hidden /> 
+					<select name="lineName" id="lineName" required></select>
+					<br>
+
+					<label id="offerEndDateLabel">ת. תפוגת ההצעה</label> 
+					<input type="text" id='endDate' name="endDate" readonly="true" required placeholder="תאריך האירוע"> 
+					<br>
+					
+					<label id="offerMaxArrivalTime">שעת הגעה מקסימלית</label> 
+					<input type="time" name="maxArrivalTime" id="maxArrivalTime" required >
+					<br>
+					
+					<label id="offerStatusLabel">סטטוס ההצעה</label> 
+					<label id="offerStatus"></label>
+					<br>
+					
+					<div style="height:120px"> 
+			         	<label id="treatsLabel">סל פינוקים</label>
+							<div id="treatsEdt" class="music-style-area">
+						        <div class='new-auction-field-input combobox-auction-input' id= "treats" >
+						        </div>
+							</div> 
+					</div>
+					<input class='btn-primary' type="button" id="update-offer-button" name="update-offer-button" value="שמור"/>
 				</div>
 				<div class="auction-item-description">
 		       		<div id="auction-event-date">
@@ -77,6 +108,7 @@
 					</div>
 				</div>
 				<input class='btn-primary' type="button" id="accept-offer-button" name="accept-offer-button"  value="קבל הצעה זו" onClick= "approveBtnClicked()"/>
+				<input class='btn-primary' type="button" id="edit-offer-button" name="edit-offer-button"  value="ערוך"/>
 			</div>
 		</div>
        <div class='all-messages-container'>

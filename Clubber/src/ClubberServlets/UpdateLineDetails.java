@@ -73,7 +73,14 @@ public class UpdateLineDetails extends HttpServlet {
 			
 			line.setDj(request.getParameter(Constants.DJ_EDT));
 			
+			line.setId(Integer.parseInt(request.getParameter(Constants.ID_EDT)));
+			
+			line.setM_DayInWeek(Integer.parseInt(request.getParameter(Constants.DAY_EDT)));
+			
 			DAL.updateLineDetails(line);
+			
+            System.out.println(true);
+            out.print(true);
             out.flush();
 		}
         catch (Exception e) {
@@ -82,7 +89,6 @@ public class UpdateLineDetails extends HttpServlet {
         finally 
         {
             out.close();
-            //response.sendRedirect("");
         }
 	}
 	
