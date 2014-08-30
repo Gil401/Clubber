@@ -16,6 +16,7 @@ public class OfferData {
 	private long expirationDate;
 	private long submitDate ;
 	private Time maxArrivalHour;
+	private Long maxArrivalHourAsLong;
 	private File seatsPhoto;
 	private Integer auctionId;
 	private IdWithName  offerStatusId;
@@ -99,5 +100,13 @@ public class OfferData {
 	}
 	public void setOfferTreats(List<IdWithName> offerTreats) {
 		this.offerTreats = offerTreats;
+	}
+
+	public Long getMaxArrivalHourAsLong() {
+		return maxArrivalHourAsLong;
+	}
+
+	public void setMaxArrivalHourAsLong(Long maxArrivalHourAsLong) {
+		this.maxArrivalHourAsLong = maxArrivalHourAsLong;
 	}
 }

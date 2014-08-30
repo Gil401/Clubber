@@ -1950,4 +1950,51 @@ public class DAL {
 		}
 	}
 	
+	/*public static boolean updateOfferDetails(OfferData offer) throws ParseException {
+		// TODO Auto-generated method stub
+		
+		boolean isSucceed = true;
+		
+		connectToDBServer();
+		
+		String sql = "UPDATE clubber_db.line "
+				   + "SET Business_id = '" + line.getBusiness().getId() + "'"
+				   + ", Name = '" + line.getM_LineName()+ "'"
+				   + ", Day_In_Week = '" +line.getM_DayInWeek() + "'"
+				   + ", Line_Start_Date = '" +line.getStartDate() + "'"
+				   + ", Line_End_Date = '" +line.getEndDate() + "'"
+				   + ", Min_Age = '" +line.getMinAge() + "'"
+				   + ", Description = '" +line.getDescription() + "'"
+				   + ", Entrance_Fee = '" +line.getEntranceFee() + "'"
+				   + ", DJ = '" +line.getDj() + "'"
+				   + ", Opening_Hour = '" +line.getOpeningHour() + "'"
+				   + " WHERE id ='" + line.getId() + "'";
+		
+		try {
+			stmt.executeUpdate(sql);	
+			
+			//remove all exists music style records
+			stmt.executeUpdate("DELETE FROM line_music_style WHERE Line_Id="+ line.getId());
+			
+			//add relevant records to line music style table:
+			for(IdWithName item: line.getMusicStylesIds())
+			{
+				String sqlMusicStyles= String.format("insert into line_music_style values(%d,%d,%d)", null,line.getId() , item.getId());
+				stmt.executeUpdate(sqlMusicStyles);
+			}
+			
+		} 
+		catch (SQLException e) {
+			isSucceed = false;
+			e.printStackTrace();
+			
+		}
+		finally{
+			disconnectFromDBServer();
+		}
+		
+		return isSucceed;
+	}*/
+	
+	
 }

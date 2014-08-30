@@ -141,6 +141,15 @@ public class Constants {
 	 public static String ID_EDT="Id";
 	 public static String DAY_EDT="Day";
 	 
+	 //Offer update fields
+
+	 public static String END_DATE_OFFER_EDT= "EndDate";
+	 public static String DESCRIPTION_OFFER__EDT= "Description";
+	 public static String ID_OFFER__EDT="Id";
+	 public static String MAX_ARRIVAL_OFFER_EDT="MaxArrivalTime";
+	 public static String LINE_NAME_OFFER_EDT="LineName";
+	 public static String TREATS_OFFER_EDT="Treats";
+	 
 	 //accept Offer
 	 public static String ACCEPTED_OFFER_ID="AccptedOfferId";
 	
