@@ -132,10 +132,14 @@ function getLineProfile() {
 			$("#descriptionLbl").text(data.description);
 			$("#DayLabel").text(convertNumToDay(data.m_DayInWeek));
 			
+			$("#musicStyleContainer").html("");
+			
 			for (var item in data.musicStylesIds) 
 			{
 				$("#musicStyleContainer").append("<div class='music-style'><img src='/Clubber/images/Check_Image.png' class='offer-item-treat-image'><label class='offer-multi-value-label'>"+data.musicStylesIds[item].Name+"</label></div><br>");
 			}
+			
+			$("#prsContainer").html("");
 			
 			for (var item in data.prs) 
 			{
@@ -213,8 +217,7 @@ function ajaxLineDtailesUpdate()
         	Description: description, EtranceFee: etranceFee, DJ:dj, Day:day},
         success: function(data){
         	console.log("line update succedded");
-    		$('#EditLineData').hide();
-    		$('#viewLineData').show();
+    		getLineProfile();
      },
         error: function(data){
             	console.log("error");}

@@ -1802,6 +1802,7 @@ public class DAL {
 				line.setBusiness(new IdWithName(rs.getInt("line.Business_id"), rs.getString("businesses.Name")));
 				line.setDescription(rs.getString("line.Description"));
 				line.setDj(rs.getString("line.DJ"));
+				line.setStartDate(rs.getLong("line.Line_Start_Date"));
 				line.setEndDate(rs.getLong("line.Line_End_Date"));
 				line.setEntranceFee(rs.getString("line.Entrance_Fee"));
 				line.setM_DayInWeek(rs.getInt("line.Day_In_Week"));

@@ -4,32 +4,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@  include file="patternTemplates/header.tpl"%>
 
-<%
-	String messageText = (String) request.getAttribute(Constants.MESSAGE_TEXT);
-%>
-
-<style>
-input{
-	margin: 10px;
-}
-		div.star {
-		   width:26px; 
-		   height:30px; 
-		   background-image:url('images/star.jpg');
-		   background-repeat:no-repeat; 
-		   float:right;
-		}
-
-		div.yellow-Star {
-		   width:26px;
-		   height:30px;
-		   background-image:url('images/yellowStar.jpg');
-		   background-repeat:no-repeat;
-		   float:right;
-		}
-	
-</style>
-
 <div id="latest-events">
 	<div class="container">
 		<div class="event-inner">
@@ -160,15 +134,6 @@ input{
 
 						</form>
 						<br> 
-						
-						<label id="messageText"> <%
-					 	if (messageText != null) {
-					 	%>
-							<%=messageText%> 
-						<%
-					 	}
-					 	%>
-						</label>
 					</div>
 					<div class="recomendedLines">
 					</div>
