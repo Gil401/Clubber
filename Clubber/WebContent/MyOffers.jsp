@@ -18,7 +18,7 @@
     	<div style="width: 100%">
     		<div style="width: 50%; float:right">
     		<div style="width: 30%;float:right;margin:10px;">בחר ליין</div>
-    		<select style="margin:10px;" id="lineId"><option></option></select><BR>
+    		<select style="margin:10px;" id="myLines"><option></option></select><BR>
     		<div style="width: 30%;float:right;margin:10px">בחר תאריך</div>
     		<input style="margin:10px"" type="text" class="datepicker"><br>
     		<div style="width: 30%;float:right;margin:10px">בחר סטטוס</div>

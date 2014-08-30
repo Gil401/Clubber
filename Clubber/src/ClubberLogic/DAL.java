@@ -16,11 +16,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
 import Utlis.AuctionManagementData;
 import Utlis.IdWithName;
 import Utlis.LineManagementData;
+import Utlis.MyLinesData;
 import Utlis.NewAuctionData;
 import Utlis.NewOfferData;
+import Utlis.OfferPerAuction;
 
 public class DAL {
 	private static Connection conn;
@@ -1948,6 +1951,76 @@ public class DAL {
 		finally{
 			disconnectFromDBServer();
 		}
+		
 	}
+	
+	@SuppressWarnings("null")
+	public static Object getLineDay(String i_LineID) {
+		ArrayList<Integer> data = new ArrayList<Integer>();
+		connectToDBServer();
+		try {
+				ResultSet rs = stmt.executeQuery("Select Day_In_Week from line where id = '"+ i_LineID +"'");
+				while (rs.next())
+				{
+					data.add(rs.getInt("Day_In_Week"));
+				}	
+				
+			} catch (SQLException e) {
+				System.out.println(e);
+				e.printStackTrace();
+			}
+			finally{
+				disconnectFromDBServer();
+			}
+			return data;
+	}
+	
+	public static MyLinesData getMyLinesData(String pr_ID) {
+		MyLinesData data = new MyLinesData();
+		connectToDBServer();
+		try {
+			String query = "Select * from line where PR_id = '"+pr_ID+"'";
+			data.setLines(GetIdAndNameData(query));
+		} finally {
+			disconnectFromDBServer();
+		}
+	return data;
+}
+
+	public static OfferPerAuction getPROffersAndAuctions(String i_UserID, String i_LineID, String i_Status) {
+
+		OfferPerAuction data = new OfferPerAuction();
+		connectToDBServer();
+		ResultSet rs;
+		try {
+			if(i_Status.equals("0"))
+			{
+				rs = stmt.executeQuery("Select * from line L, offers O, auction A"
+						+ " where O.PR_id = 7" //'"+i_UserID+"'"
+						+ " And O.Auction_id = A.id");
+			}
+			else
+			{
+				rs = stmt.executeQuery("Select * from line L, offers O, auction A"
+					+ " where O.PR_id = '"+i_UserID+"'"
+					+ " And O.Auction_id = A.id AND O.Offer_Status = '"+i_Status+"'");
+			}
+			
+		while (rs.next())
+		{
+			data.getM_OfferData().setDescription(rs.getString("A.Description"));
+			System.out.println(rs);
+		}	
+		
+	} catch (SQLException e) {
+		System.out.println(e);
+		e.printStackTrace();
+	}
+	finally{
+		disconnectFromDBServer();
+	}
+	return data;
+		
+				}
 	
 }

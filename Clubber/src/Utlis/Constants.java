@@ -3,6 +3,9 @@ package Utlis;
 public class Constants {
 	
 	 //DB-Data types:
+	 public static final String DB_DATA_GET_LINE_DAY = "GetDBData-getAvailableDay";
+	 public static final String DB_DATA_OFFER_PER_AUCION = "GetDBData-offerPerAuction";
+	 public static final String DB_DATA_MY_PR_LINES = "GetDBData-loadMyLinesByPRId";
 	 public static final String DB_DATA_NEW_AUCTION= "GetDBData-NewAuction";
 	 public static final String DB_DATA_PR_MY_LINES_SERACH = "GetDBData-loadOffersByPrData";
 	 public static final String DB_DATA_PR_LINES = "GetDBData-PRLines";

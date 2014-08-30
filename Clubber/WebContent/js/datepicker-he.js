@@ -1,5 +1,3 @@
-/* Hebrew initialisation for the UI Datepicker extension. */
-/* Written by Amir Hardon (ahardon at gmail dot com). */
 (function( factory ) {
 	if ( typeof define === "function" && define.amd ) {
 
@@ -24,7 +22,7 @@
 		dayNamesShort: ['א\'','ב\'','ג\'','ד\'','ה\'','ו\'','שבת'],  
 		dayNamesMin: ['א\'','ב\'','ג\'','ד\'','ה\'','ו\'','ש\''],
 		weekHeader: 'Wk',
-		dateFormat: 'dd/mm/yy',
+		dateFormat: 'dd/mm/yyyy',
 		firstDay: 0,
 		isRTL: true,
 		showMonthAfterYear: false,

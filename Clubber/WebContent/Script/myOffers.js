@@ -1,3 +1,79 @@
+var userID = $("#session_user_id").val();
+
+$(document).ready(function(){
+
+	loadDataIntoInputs(userID);
+	
+	$('#myLines').on('change', function() {
+		//getAvailableDay($(this).val()); });
+		getAuctionsAndOffers(userID, $(this).val(), $("#status").val());
+	})})
+
+function getAuctionsAndOffers(prID, lineID, Status)
+{
+	  var dataRequest = $.ajax({
+			url : "GetDBData",
+			type : "POST",
+			dataType : 'json',
+			data : {
+				RequestType : "GetDBData-offerPerAuction",
+				userID: prID,
+				lineID : lineID,
+				status: Status,
+				}
+			});
+	  dataRequest.done(function(returnedData){
+		  $.each(returnedData, function(index, val){
+			  $('<option value="' + val[0].id + '">' + val[0].Name + '</option>').appendTo($("#myLines"));
+		  })})}
+
+function loadDataIntoInputs(id){
+		  var dataRequest = $.ajax({
+				url : "GetDBData",
+				type : "POST",
+				dataType : 'json',
+				data : {
+					RequestType : "GetDBData-loadMyLinesByPRId",
+					userID: id
+					}
+				})
+		  dataRequest.done(function(returnedData){
+			  $.each(returnedData, function(index, val){
+				  $('<option value="' + val[0].id + '">' + val[0].Name + '</option>').appendTo($("#myLines"));
+			  });
+		  });}
+
+function getAvailableDay(lineID)
+{
+	var dataRequest = $.ajax({
+		url : "GetDBData",
+		type : "POST",
+		dataType : 'json',
+		data : {
+			RequestType : "GetDBData-getAvailableDay",
+			lineID: lineID 
+		}});
+	  dataRequest.done(function(returnedData){
+		  $.each(returnedData, function(index, val){
+			  $(function()
+					  {
+					      $('#datepicker').datepicker({ beforeShowDay:
+					        function(dt)
+					        { 
+					          return [dt.getDay() != val, "" ];
+					        }
+					     , changeMonth: true, changeYear: false});
+					  }
+			  )
+		  })});}
+					      
+
+					      /*​$("datepicker").datepicker({
+    beforeShowDay: function(date) {
+        return [date.getDay() == 5];
+
+*/	
+
 function loadOffers (line, date, status){
 	$.get( "patternTemplates/offerBox.tpl", function( data ) {
 		 var lineTemplate = data;
@@ -27,8 +103,6 @@ function loadOffers (line, date, status){
 			  });
 			  $('#temp_container').html('');
 		  });
-		 
+		  })};
 		  
-		});
-	
-}
+		  

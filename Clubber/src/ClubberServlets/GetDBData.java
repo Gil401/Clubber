@@ -217,6 +217,20 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             	data = DAL.getBusinessesNameAndID();
             	json = gson.toJson(data);
             }
+            else if (requestType.equals(Constants.DB_DATA_OFFER_PER_AUCION))
+            {
+            	String userID = request.getParameter("userID");
+            	String lineID = request.getParameter("lineID");
+            	String status = request.getParameter("status");
+            	
+            	data = DAL.getPROffersAndAuctions(userID, lineID, status);
+            	json = gson.toJson(data);
+            }
+            else if (requestType.equals(Constants.DB_DATA_MY_PR_LINES))
+            {
+            	data= DAL.getMyLinesData(request.getParameter("userID").toString());
+            	json = gson.toJson(data);
+            }
             
             System.out.println(json);
             out.print(json);

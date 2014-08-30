@@ -16,6 +16,7 @@ $(function getDate() {
 
 	$('#datepicker').datepicker({
 		onSelect : function(dateText, inst) {
+			alert($("#datepicker").datetimepicker("getDate").getTime()) / 1000;
 			var day1 = $("#datepicker").datepicker('getDate').getDate();
 			var month1 = $("#datepicker").datepicker('getDate').getMonth() + 1;
 			var year1 = $("#datepicker").datepicker('getDate').getFullYear();
