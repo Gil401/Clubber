@@ -60,7 +60,7 @@ input{
 			<br>
 			
 			<label id="birthdateLabel">תאריך לידה</label>
-			<input type = "datetime" name="birthdate" id="birthdate" required>
+			<input type = "datetime" name="birthdate" id="birthdate" required disabled>
 			<br>
 
 			

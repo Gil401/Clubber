@@ -52,5 +52,4 @@
     
     
     <script src="js/datepicker-he.js"></script>
-    <script src="Script/MyAuctions.js"  type="text/javascript" charset="utf-8" ></script>
   
