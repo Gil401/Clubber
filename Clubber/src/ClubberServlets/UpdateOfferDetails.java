@@ -2,6 +2,7 @@ package ClubberServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,23 +13,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ClubberLogic.AuctionData;
 import ClubberLogic.DAL;
 import ClubberLogic.LineData;
+import ClubberLogic.OfferData;
 import Utlis.Constants;
 import Utlis.IdWithName;
 
 /**
- * Servlet implementation class UpdateLineDetails
+ * Servlet implementation class UpdateOfferDetails
  */
-@WebServlet("/UpdateLineDetails")
-public class UpdateLineDetails extends HttpServlet {
+@WebServlet("/UpdateOfferDetails")
+public class UpdateOfferDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateLineDetails() {
+    public UpdateOfferDetails() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,40 +45,27 @@ public class UpdateLineDetails extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
 		PrintWriter out = response.getWriter();
-		LineData line= new LineData();
+		OfferData offer= new OfferData();
 		try
 		{
-			line.setBusiness(new IdWithName(Integer.parseInt(request.getParameter(Constants.BUSINESSS_ID_EDT)),null));
-			
-			addAllMusicStyles(request, line);
+			addAlTreats(request, offer);
 			
 			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-			Date date= df.parse(request.getParameter(Constants.START_DATE_EDT));
-			line.setStartDate(date.getTime());
+			Date date= df.parse(request.getParameter(Constants.END_DATE_OFFER_EDT));
+			offer.setExpirationDate(date.getTime());
 			
-			date= df.parse(request.getParameter(Constants.END_DATE_EDT));
-			line.setEndDate(date.getTime());
+			offer.setLineId(new IdWithName(Integer.parseInt(request.getParameter(Constants.LINE_NAME_OFFER_EDT)),null));
+			offer.setDescription(request.getParameter(Constants.DESCRIPTION_OFFER__EDT));
+			offer.setId(Integer.parseInt(request.getParameter(Constants.ID_OFFER__EDT)));
 			
-			line.setM_LineName(request.getParameter(Constants.LINE_NAME_EDT));
+			offer.setMaxArrivalHourAsLong(Long.parseLong(request.getParameter(Constants.MAX_ARRIVAL_OFFER_EDT)));
 			
-			line.setMinAge(Integer.parseInt(request.getParameter(Constants.MIN_AGE_EDT)));
-			
-			line.setDescription(request.getParameter(Constants.DESCRIPTION_EDT));
-			
-			line.setEntranceFee(request.getParameter(Constants.ENTRANCE_EDT));
-			
-			line.setDj(request.getParameter(Constants.DJ_EDT));
-			
-			line.setId(Integer.parseInt(request.getParameter(Constants.ID_EDT)));
-			
-			line.setM_DayInWeek(Integer.parseInt(request.getParameter(Constants.DAY_EDT)));
-			
-			DAL.updateLineDetails(line);
+			//DAL.updateOfferDetails(offer);
 			
             System.out.println(true);
             out.print(true);
@@ -91,15 +79,14 @@ public class UpdateLineDetails extends HttpServlet {
             out.close();
         }
 	}
-	
-	protected void addAllMusicStyles(HttpServletRequest request, LineData line)
+
+	protected void addAlTreats(HttpServletRequest request, OfferData offer)
 	{
-		String musicStyles[]= request.getParameter(Constants.MUSIC_STYLE_LIST).split("&");
-		if (musicStyles.length > 0 && !musicStyles[0].equals("")) {
-			for (String item : musicStyles) {
-				line.getMusicStylesIds().add(new IdWithName(Integer.parseInt(item), null));
+		String treates[]= request.getParameter(Constants.TREATS_OFFER_EDT).split("&");
+		if (treates.length > 0 && !treates[0].equals("")) {
+			for (String item : treates) {
+				offer.getOfferTreats().add(new IdWithName(Integer.parseInt(item), null));
 			}
 		}
 	}
-	 
 }

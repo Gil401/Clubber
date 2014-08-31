@@ -274,15 +274,7 @@ function loadOfferFromDB(data)
 	    });
 	}
 	
-	function loadDataToInputs(data) {
-		$("#description").val(data.description);
-		$("#offerStatus").html(data.offerStatusId.Name);
-		$("#maxArrivalTime").val(convert12to24(data.maxArrivalHour));
-		$('#endDate').datepicker({});
-		$('#endDate').datepicker("setDate", data.expirationDate);
-		loadTreatsAndLines(data.offerTreats, data.lineId);
-		
-	}
+	
 	
 	function loadTreatsAndLines(treatsChecked, selectedLine) {
 	    $.ajax({
@@ -354,3 +346,40 @@ function loadOfferFromDB(data)
 			} );
 		initiateFormBtns();
 	});
+	
+	function loadDataToInputs(data) {
+		$("#description").val(data.description);
+		$("#offerStatus").html(data.offerStatusId.Name);
+		$("#maxArrivalTime").val(convert12to24(data.maxArrivalHour));
+		$('#endDate').datepicker({});
+		$('#endDate').datepicker("setDate", data.expirationDate);
+		loadTreatsAndLines(data.offerTreats, data.lineId);
+		
+	}
+	
+	function ajaxOfferDtailesUpdate()
+	{	
+		var treats= $('#treats').find('input').serialize();
+		var final= replaceAll("treats=","",treats);
+		var final2= replaceAll("%2F","",final); 
+		var offerId=currOffId;
+		
+		var description= $('#description')[0].value;
+		var maxArrivalTime=  $('#maxArrivalTime')[0].value;
+		var endDate= $('#endDate')[0].value;
+		var lineName=$("#lineName")[0].value;
+		
+	    $.ajax({
+	        url: "UpdateOfferDetails",
+	        type: "post",
+	        dataType: 'json',
+	        data: {Id:offerId, Treats: final2, LineName: lineName, 
+	        	EndDate: endDate, Description: description, MaxArrivalTime: maxArrivalTime},
+	        success: function(data){
+	        	console.log("line update succedded");
+	    		loadOfferDisplayView();
+	     },
+	        error: function(data){
+	            	console.log("error");}
+	    });
+	}
