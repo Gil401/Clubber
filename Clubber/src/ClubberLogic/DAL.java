@@ -2024,7 +2024,6 @@ public class DAL {
 				}
 	
 	public static boolean updateOfferDetails(OfferData offer) throws ParseException {
-		// TODO Auto-generated method stub
 		
 		boolean isSucceed = true;
 		
@@ -2032,9 +2031,9 @@ public class DAL {
 		
 		String sql = "UPDATE clubber_db.offers "
 				   + "SET  Expiration_Date = '" + offer.getExpirationDate() + "'"
-				   + ", Line_id = '" + offer.getLineId()+ "'"
+				   + ", Line_id = '" + offer.getLineId().getId()+ "'"
 				   + ", Description = '" +offer.getDescription() + "'"
-				   + ", Max_Arrival_Hour = '" +offer.getMaxArrivalHourAsLong() + "'"
+				 /*  + ", Max_Arrival_Hour = '" +offer.getMaxArrivalHourAsLong() + "'"*/
 				   + " WHERE id ='" + offer.getId() + "'";
 		
 		try {

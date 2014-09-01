@@ -68,12 +68,10 @@
 					
 					<div style="height:120px"> 
 			         	<label id="treatsLabel">סל פינוקים</label>
-							<div id="treatsEdt" class="music-style-area">
-						        <div class='new-auction-field-input combobox-auction-input' id= "treats" >
-						        </div>
+					        <div class='new-auction-field-input combobox-auction-input' id= "treats" >
 							</div> 
 					</div>
-					<input class='btn-primary' type="button" id="update-offer-button" name="update-offer-button" value="שמור"/>
+					<input class='btn-primary' type="button" id="update-offer-button" onClick="saveBtnClicked()" name="update-offer-button" value="שמור"/>
 				</div>
 				<div class="auction-item-description">
 		       		<div id="auction-event-date">

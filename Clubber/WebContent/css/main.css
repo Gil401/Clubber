@@ -2256,3 +2256,10 @@ ul.sub-menu{
 .auction-item-description {
 	float: left;
 }
+
+/***********************
+*******Asuction Review******
+***********************/
+.reviewed-auction{
+	float:right;
+}

@@ -1,5 +1,6 @@
 var currAucId;
 var currOffId;
+var msgIntervalId;
 
 var refreshRate = 1000; //miliseconds
 
@@ -91,9 +92,9 @@ function approveBtnClicked()
 	ajaxApproveCurrentOffer();
 }
 
-function editBtnClicked()
+function saveBtnClicked()
 {
-	
+	ajaxOfferDtailesUpdate();
 }
 
 function loadOfferFromDB(data)
@@ -210,7 +211,7 @@ function loadOfferFromDB(data)
 	            	console.log("GetDBData-AuctionReview");
 		            loadAuctionFromDB(data);
 		            
-		            setInterval(ajaxMessagesFormDBData, refreshRate);
+		            msgIntervalId= setInterval(ajaxMessagesFormDBData, refreshRate);
 	            }},
 	        error: function(data){
 	            	console.log("error- auction review");}	        
@@ -292,8 +293,8 @@ function loadOfferFromDB(data)
 	            	
 	            	for(var i=0; i < data.treats.length; i++){
 	            		
-	            		var element = '<label><input type="checkbox" id=treat'+data.treats[i].id+' name="treats">' +data.treats[i].Name+ '</label>' ;
-	            		treatsDiv.append($(element));
+	            		 $('<input id="treat'+data.treats[i].id+'" type="checkbox" name="treats" value=' + data.treats[i].id+ '/>' +
+	                     		'<label style="padding-right:10px; font-weight:normal;" for="'+data.treats[i].id+'">' + data.treats[i].Name + '</label></br>').appendTo($(treatsDiv)) ;
 	            	}
 	            	
 	            	for (var item in treatsChecked) 
@@ -357,6 +358,12 @@ function loadOfferFromDB(data)
 		
 	}
 	
+	function replaceAll(find, replace, str) 
+	{
+		  return str.replace(new RegExp(find, 'g'), replace);
+	}
+
+	
 	function ajaxOfferDtailesUpdate()
 	{	
 		var treats= $('#treats').find('input').serialize();
@@ -369,6 +376,8 @@ function loadOfferFromDB(data)
 		var endDate= $('#endDate')[0].value;
 		var lineName=$("#lineName")[0].value;
 		
+		clearInterval(msgIntervalId);
+		
 	    $.ajax({
 	        url: "UpdateOfferDetails",
 	        type: "post",
@@ -378,6 +387,7 @@ function loadOfferFromDB(data)
 	        success: function(data){
 	        	console.log("line update succedded");
 	    		loadOfferDisplayView();
+	    		 msgIntervalId= setInterval(ajaxMessagesFormDBData, refreshRate);
 	     },
 	        error: function(data){
 	            	console.log("error");}
