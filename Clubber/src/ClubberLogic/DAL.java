@@ -2023,37 +2023,31 @@ public class DAL {
 		
 				}
 	
-	/*public static boolean updateOfferDetails(OfferData offer) throws ParseException {
+	public static boolean updateOfferDetails(OfferData offer) throws ParseException {
 		// TODO Auto-generated method stub
 		
 		boolean isSucceed = true;
 		
 		connectToDBServer();
 		
-		String sql = "UPDATE clubber_db.line "
-				   + "SET Business_id = '" + line.getBusiness().getId() + "'"
-				   + ", Name = '" + line.getM_LineName()+ "'"
-				   + ", Day_In_Week = '" +line.getM_DayInWeek() + "'"
-				   + ", Line_Start_Date = '" +line.getStartDate() + "'"
-				   + ", Line_End_Date = '" +line.getEndDate() + "'"
-				   + ", Min_Age = '" +line.getMinAge() + "'"
-				   + ", Description = '" +line.getDescription() + "'"
-				   + ", Entrance_Fee = '" +line.getEntranceFee() + "'"
-				   + ", DJ = '" +line.getDj() + "'"
-				   + ", Opening_Hour = '" +line.getOpeningHour() + "'"
-				   + " WHERE id ='" + line.getId() + "'";
+		String sql = "UPDATE clubber_db.offers "
+				   + "SET  Expiration_Date = '" + offer.getExpirationDate() + "'"
+				   + ", Line_id = '" + offer.getLineId()+ "'"
+				   + ", Description = '" +offer.getDescription() + "'"
+				   + ", Max_Arrival_Hour = '" +offer.getMaxArrivalHourAsLong() + "'"
+				   + " WHERE id ='" + offer.getId() + "'";
 		
 		try {
 			stmt.executeUpdate(sql);	
 			
-			//remove all exists music style records
-			stmt.executeUpdate("DELETE FROM line_music_style WHERE Line_Id="+ line.getId());
+			//remove all exists treats records
+			stmt.executeUpdate("DELETE FROM offer_treats WHERE Offer_id="+ offer.getId());
 			
 			//add relevant records to line music style table:
-			for(IdWithName item: line.getMusicStylesIds())
+			for(IdWithName item: offer.getOfferTreats())
 			{
-				String sqlMusicStyles= String.format("insert into line_music_style values(%d,%d,%d)", null,line.getId() , item.getId());
-				stmt.executeUpdate(sqlMusicStyles);
+				String sqlTreats= String.format("insert into offer_treats values(%d,%d,%d)", null,offer.getId() , item.getId());
+				stmt.executeUpdate(sqlTreats);
 			}
 			
 		} 
@@ -2067,7 +2061,7 @@ public class DAL {
 		}
 		
 		return isSucceed;
-	}*/
+	}
 	
 	
 }

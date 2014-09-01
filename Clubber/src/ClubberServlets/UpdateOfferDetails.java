@@ -65,7 +65,7 @@ public class UpdateOfferDetails extends HttpServlet {
 			
 			offer.setMaxArrivalHourAsLong(Long.parseLong(request.getParameter(Constants.MAX_ARRIVAL_OFFER_EDT)));
 			
-			//DAL.updateOfferDetails(offer);
+			DAL.updateOfferDetails(offer);
 			
             System.out.println(true);
             out.print(true);
