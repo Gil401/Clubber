@@ -246,32 +246,36 @@ function uploadAllBusinessData(){
 	
 }
 
-$(function() {
-	var date = new Date();
-	$('#startDate').datepicker({
-		minDate: date,
+var date = new Date();
+$('#startDate').datepicker({
+	dateFormat: "dd/mm/yy",
+	minDate: date,
+	changeMonth: true,
+  	changeYear: true,
+  	showOn: "button",
+    buttonImage: "images/calendar.gif",
+    buttonImageOnly: true
+ });
+
+$("#startDate").change(function(){
+	var startDate = $("#startDate").val();
+	
+	$('#endDate').attr("disabled", false);
+	
+	$('#endDate').datepicker({
+		dateFormat: "dd/mm/yy",
+		minDate: startDate,
 		changeMonth: true,
       	changeYear: true,
       	showOn: "button",
         buttonImage: "images/calendar.gif",
         buttonImageOnly: true
-     });
-	
-	$("#startDate").change(function(){
-		var startDate = $("#startDate").val();
-		
-		$('#endDate').attr("disabled", false);
-		
-		$('#endDate').datepicker({
-			minDate: startDate,
-			changeMonth: true,
-	      	changeYear: true,
-	      	showOn: "button",
-	        buttonImage: "images/calendar.gif",
-	        buttonImageOnly: true
-		});
 	});
-		
+});
+
+
+$(function() {
+
 	getLineProfile();
 	setErrorMessages();
 	initiateFormBtns();

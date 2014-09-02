@@ -155,6 +155,7 @@ input{
 			var date = new Date();
 			var currentYear = date.getFullYear();
 			$('#birthdate').datepicker({
+				dateFormat: "dd/mm/yy",
 				yearRange: "-120:+0",
 				minDate: new Date(currentYear - 120, 1, 1),
 				maxDate: date,
@@ -163,7 +164,8 @@ input{
 		      	showOn: "button",
 		      	disabled: true,
 		        buttonImage: "images/calendar.gif",
-		        buttonImageOnly: true});	      	
+		        buttonImageOnly: true
+			});	      	
 		});
 
 		// Set error messages  
@@ -258,7 +260,7 @@ input{
 		        error: function(data){
 		            	console.log("error");}
 		    });
-		}		
+		}
 		
 		$(function(){
 			getUserProfile();

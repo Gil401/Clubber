@@ -152,6 +152,7 @@ input{
 		var date = new Date();
 		var currentYear = date.getFullYear();
 		$('#birthdate').datepicker({
+			dateFormat: "dd/mm/yy",
 			yearRange: "-120:+0",
 			minDate: new Date(currentYear - 120, 1, 1),
 			maxDate: date,

@@ -113,6 +113,7 @@
 	$(function() {
 		var date = new Date();
 		$('#startDate').datepicker({
+			dateFormat: "dd/mm/yy",
 			minDate: date,
 			changeMonth: true,
 	      	changeYear: true,
@@ -127,6 +128,7 @@
 		$('#endDate').attr("disabled", false);
 		
 		$('#endDate').datepicker({
+			dateFormat: "dd/mm/yy",
 			minDate: startDate,
 			changeMonth: true,
 	      	changeYear: true,

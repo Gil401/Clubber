@@ -20,7 +20,7 @@
     		<div style="width: 30%;float:right;margin:10px;">בחר ליין</div>
     		<select style="margin:10px;" id="myLines"><option></option></select><BR>
     		<div style="width: 30%;float:right;margin:10px">בחר תאריך</div>
-    		<input style="margin:10px"" type="text" class="datepicker"><br>
+    		<input  id="date" name="date" type="text" style="margin:10px"><br>
     		<div style="width: 30%;float:right;margin:10px">בחר סטטוס</div>
     		<select style="margin:10px" id="status"><option value="0">הכל</option><option value="1">ממתין</option><option value="2">אושר</option></select>
     		</div>
@@ -52,4 +52,16 @@
     
     
     <script src="js/datepicker-he.js"></script>
-  
+  	<script>
+	$(function() {
+
+		$('#date').datepicker({
+			dateFormat: "dd/mm/yy",
+	      	showOn: "button",
+	        buttonImage: "images/calendar.gif",
+	        buttonImageOnly: true
+		});	      	
+	});
+
+  	</script>
+	
