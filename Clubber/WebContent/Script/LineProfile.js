@@ -247,8 +247,31 @@ function uploadAllBusinessData(){
 }
 
 $(function() {
-	$('#startDate').datepicker({});
-	$('#endDate').datepicker({});
+	var date = new Date();
+	$('#startDate').datepicker({
+		minDate: date,
+		changeMonth: true,
+      	changeYear: true,
+      	showOn: "button",
+        buttonImage: "images/calendar.gif",
+        buttonImageOnly: true
+     });
+	
+	$("#startDate").change(function(){
+		var startDate = $("#startDate").val();
+		
+		$('#endDate').attr("disabled", false);
+		
+		$('#endDate').datepicker({
+			minDate: startDate,
+			changeMonth: true,
+	      	changeYear: true,
+	      	showOn: "button",
+	        buttonImage: "images/calendar.gif",
+	        buttonImageOnly: true
+		});
+	});
+		
 	getLineProfile();
 	setErrorMessages();
 	initiateFormBtns();

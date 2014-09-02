@@ -42,11 +42,11 @@
 								<br>
 								
 								<label id="lineStartDateLabel">תאריך פתיחה של הליין</label> 
-								<input type="text" name="startDate" id='startDate' class='LineDatepicker' readonly="true" required>
+								<input type="text" name="startDate" id='startDate' readonly required>
 								<br>
 								
 								<label id="lineEndDateLabel">תאריך סגירה של הליין</label> 
-								<input type="text" name="endDate" id='endDate' class='LineDatepicker' readonly="true" required>
+								<input type="text" name="endDate" id='endDate'  readonly required>
 								<br>
 								
 								<label id="minAgeLabel">גיל מינימלי</label> 
@@ -157,6 +157,5 @@
 <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 <script type="text/javascript" src="Script/LineProfile.js"></script>
 <script src="js/datepicker-he.js"></script>
-
 </body>
 </html>

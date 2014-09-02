@@ -42,8 +42,11 @@ input{
 						<form class="user-details-form" id="userDetails"
 							name="userDetails" method="post" action="UpdateUserDetails" enctype="multipart/form-data">
 
+					  	<div class="pic-area">
 							<label id="pictureLabel">תמונה</label> 
-							<input type="file" name="pic" id="pic" disabled > 
+							<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">
+						</div> 
+						<br>
 							<br>
 							
 							<label id="firstnameLabel">שם פרטי</label> 
@@ -186,7 +189,8 @@ input{
 		$('#password').attr("disabled", false);
 		$('#verifyPassword').attr("disabled", false);
 		$("#updateUserDel").attr("disabled", false);
-		$('#pic').replaceWith('<input type="file" name="pic" id="pic">');
+		$("#editUserDel").attr("disabled",true);
+		$('.pic-area').append('<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">');
 	});
 	
 	function getUserProfile() {
@@ -210,6 +214,8 @@ input{
 				$("#phoneNumber").val(data.phoneNumber);
 				$("#password").val(data.password);
 				$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" style="max-width:30%; max-height:30%;">');
+				$("#editUserDel").attr("disabled",false);
+				
 			},
 			error : function(data) {
 				console.log("error");

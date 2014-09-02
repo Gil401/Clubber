@@ -10,8 +10,7 @@
 		<link href="CSS/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
 	    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">		
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-		<link href="CSS/dataTable.css" rel="stylesheet" type="text/css">		
+		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>		
 		<style type="text/css">
 		table.auctions-table {
 			font-family: verdana,arial,sans-serif;
@@ -88,7 +87,7 @@
 			
 			table += '<tr id=' +data[item].id+' title="לחץ כאן כדי לראות את פרטי המכרז" onclick="auctionClicked('+data[item].id + ');">'
 					 +'<td>'+ data[item].eventType.Name+ '</td>'
-					 +'<td>'+ date.getDate() + "/" month + "/" + date.getFullYear() +'</td>'
+ 					 +'<td>'+ date.getDate() + "/" + month + "/" + date.getFullYear() +'</td>'
 					 +'<td>'+data[item].minAge+'</td>'
 					 +'<td>'+data[item].area.Name+'</td>'
 					 +'<td>'+data[item].offerNumber+counterDescription +'</td></tr>';
