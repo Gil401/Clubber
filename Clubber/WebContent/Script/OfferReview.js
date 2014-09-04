@@ -116,7 +116,7 @@ function loadOfferFromDB(data)
 		var submitMonth = submitDate.getMonth() + 1;
 		var expirationMonth = expirationDate.getMonth() + 1;
 		
-		$(".offer-item-reviewed-title").append("<div class= 'offer-item-right-title' >"+data.prId.Name+"</div> <div class='offer-item-left-title' >" +submitDate.getDate() +"/"+ submitMonth +"/" + submitDate.getFullYear() +"</div>");
+		$(".offer-item-reviewed-title").append("<div class= 'offer-item-right-title' onClick='moveToPrProfile("+data.prId.id+");' >"+data.prId.Name+"</div> <div class='offer-item-left-title' >" +submitDate.getDate() +"/"+ submitMonth +"/" + submitDate.getFullYear() +"</div>");
 		$("#offer-description").append("<label class='offer-value-label'>"+description+"</label>");
 		$("#offered-line").append("<label class='offer-value-label'>"+data.lineId.Name+"</label>");/*should be a link to line*/
 		$("#offer-expiration-date").append("<label class='offer-value-label'>"+ expirationDate.getDate() +"/" + expirationMonth +"/"+ expirationDate.getFullYear() +"</label>");
@@ -130,6 +130,21 @@ function loadOfferFromDB(data)
 		
 	}
 	
+	function moveToPrProfile(prId){
+		
+		 $.ajax({
+		        url: "PrProfile?",
+		        type: "post",
+		        dataType: 'json',
+		        data:{RequestType: "visitPrProfile", PrId:"prId"},
+		        success: successCallbck,
+		        error: function(data){
+		            	console.log("error- offer review");}	        
+		    });
+		window.location.href = 'PrProfile.jsp';
+		
+	}
+
 	function loadAuctionFromDB(data){
 		console.log("adding current auction");
 		var eventDate = new Date(data.eventDate);
@@ -285,7 +300,7 @@ function loadOfferFromDB(data)
 	        data:{RequestType: "GetDBData-NewOffer"},
 	        success: function(data) {
 	            if (data != null) {
-	                
+	            	clearInterval(msgIntervalId);
 	            	var treatsDiv = $("#treats");
 	            	
 	            	//delete former data 
@@ -314,7 +329,7 @@ function loadOfferFromDB(data)
 	            	}
             		
             		$("#lineName").val(selectedLine.id);
-	                
+            		msgIntervalId= setInterval(ajaxMessagesFormDBData, refreshRate);
 	            }},
 	        error: function(data){
 	            	console.log("error");}

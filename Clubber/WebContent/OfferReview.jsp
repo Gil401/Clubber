@@ -15,11 +15,11 @@
             <div class="event-inner">                
                 <div class="row">   
     <div class='main-container bg '>  
-       	<div class='offer-item-reviewed-title'>
-       	</div>
        	<br>
        	<br>
        	<div class="offer-item-reviewed-container">
+       	<div class='offer-item-reviewed-title'></div>
+       	<br>
        		<div class= "offer-item-reviewed-content">
        			<div title="לחץ כאן כדי לראות את פרטי הליין" class="offer-reviewed-item-line-image-container" onclick="alert('')" style="float:right">
        				<img src="/Clubber/images/line_Img.png" class="offer-item-line-image">
@@ -73,7 +73,12 @@
 					</div>
 					<input class='btn-primary' type="button" id="update-offer-button" onClick="saveBtnClicked()" name="update-offer-button" value="שמור"/>
 				</div>
-				<div class="auction-item-description">
+				
+				<input class='btn-primary' type="button" id="accept-offer-button" name="accept-offer-button"  value="קבל הצעה זו" onClick= "approveBtnClicked()"/>
+				<input class='btn-primary' type="button" id="edit-offer-button" name="edit-offer-button"  value="ערוך"/>
+			</div>
+		</div>
+		<div class="auction-item-description">
 		       		<div id="auction-event-date">
 						<label class="offer-title-label">תאריך האירוע</label>
 					</div>
@@ -105,10 +110,6 @@
 						<label class="offer-title-label">תיאור כללי</label>
 					</div>
 				</div>
-				<input class='btn-primary' type="button" id="accept-offer-button" name="accept-offer-button"  value="קבל הצעה זו" onClick= "approveBtnClicked()"/>
-				<input class='btn-primary' type="button" id="edit-offer-button" name="edit-offer-button"  value="ערוך"/>
-			</div>
-		</div>
        <div class='all-messages-container'>
 	       	<div class="old-messages"></div>
 	       	<div class="new-message"></div> 

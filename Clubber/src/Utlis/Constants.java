@@ -34,6 +34,7 @@ public class Constants {
 	 
 	 // PrProfile fields
 	 public static final String USER_DATA= "userData";
+	 public static final String PR_PROFILE_VISIT_REQUEST= "visitPrProfile";
 		 
 	 //Session data:
 	 public static final String AUCTION_TO_DISPLAY_ID= "AuctionToDisplayId";

@@ -30,11 +30,16 @@ function loadOffersFromDB(data, areaName)
 					+ ' <div class="offer-item-title"> <div class= "offer-item-right-title" style="float: right" >'+data[item].prId.Name+'</div> <div class="offer-item-left-title" style="float: left">' + date.getDate() +"/" + month +"/" + date.getFullYear() +'</div> </div>'
 					+ '<div class="offer-item-content" >'
 					+ '<div class="offer-item-description">'+description+'</div>'
-					+'</div><br /><br /><div style="float: left; "><button style="background-color: red; border-radius: 20px; font-size:13px;">סמן כלא רלוונטי</button><button onclick="offerClicked(' + data[item].id + ')" style="border-radius: 20px; font-size:13px;">פרטים נוספים</button></div>'
+					+'</div><br /><br /><div style="float: left; "><button style="background-color: red; border-radius: 20px; font-size:13px;" onClick="notRelevantOffer('+ data[item].id +');">סמן כלא רלוונטי</button><button onclick="offerClicked(' + data[item].id + ')" style="border-radius: 20px; font-size:13px;">פרטים נוספים</button></div>'
 					+'</div>').appendTo($(areaName)) ; 
 		}
 	}
 	
+	function notRelevantOffer()
+	{
+		
+	}
+
 	function loadAuctionFromDB(data, areaName)
 	{
 		var description;

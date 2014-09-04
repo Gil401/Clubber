@@ -38,7 +38,7 @@ public class DAL {
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubber_db?useUnicode=true&characterEncoding=UTF8", "root", "qwe123");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubber_db?useUnicode=true&characterEncoding=UTF8", "root", "a");
 			stmt= conn.createStatement();	
 		} 
 		catch (SQLException e) {
@@ -327,7 +327,7 @@ public class DAL {
 		connectToDBServer();
 		NewOfferData data= new NewOfferData();
 		String query;
-			
+		
 		query = "Select * from line L where L.PR_id = '"+i_PRid+"'";
 		data.setLines(GetIdAndNameData(query));
 		

@@ -196,7 +196,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             else if(requestType.equals(Constants.DB_DATA_NEW_OFFER))
             {
             	//ArrayList<OfferData> offerList = new ArrayList<>();
-            	data = DAL.getAllNewOfferData("7");
+            	data = DAL.getAllNewOfferData("3");
             	json = gson.toJson(data);
             	
             }
