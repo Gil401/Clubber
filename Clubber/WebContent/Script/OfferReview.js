@@ -58,6 +58,15 @@ function formattedDate(date) {
     return [day, month, year].join('/');
 }
 
+function convertLongToTimeString(longTime)
+{
+	return String(longTime).slice(0,2) + ":" + String(longTime).slice(2,4);
+}
+
+function convertStringToLongTime(stringTime)
+{
+	return parseInt(stringTime.slice(0,2)) * 10000 + parseInt(stringTime.slice(3,5)) * 100;
+}
 
 function convertTimeStampFormat(timestamp)
 {
@@ -116,18 +125,29 @@ function loadOfferFromDB(data)
 		var submitMonth = submitDate.getMonth() + 1;
 		var expirationMonth = expirationDate.getMonth() + 1;
 		
+		$(".offer-item-reviewed-title").html("");
 		$(".offer-item-reviewed-title").append("<div class= 'offer-item-right-title' onClick='moveToPrProfile("+data.prId.id+");' >"+data.prId.Name+"</div> <div class='offer-item-left-title' >" +submitDate.getDate() +"/"+ submitMonth +"/" + submitDate.getFullYear() +"</div>");
+		
+		$("#offer-description").html("");
 		$("#offer-description").append("<label class='offer-value-label'>"+description+"</label>");
+		
+		$("#offered-line").html("");
 		$("#offered-line").append("<label class='offer-value-label'>"+data.lineId.Name+"</label>");/*should be a link to line*/
+		
+		$("#offer-expiration-date").html("");
 		$("#offer-expiration-date").append("<label class='offer-value-label'>"+ expirationDate.getDate() +"/" + expirationMonth +"/"+ expirationDate.getFullYear() +"</label>");
-		$("#max-arrival-hour").append("<label class='offer-value-label'>"+convert12to24(data.maxArrivalHour)+"</label>");
+		
+		$("#max-arrival-hour").html("");
+		$("#max-arrival-hour").append("<label class='offer-value-label'>"+convertLongToTimeString(data.maxArrivalHourAsLong)+"</label>");
+		
+		$("#offer-status").html("");
 		$("#offer-status").append("<label class='offer-value-label'>"+data.offerStatusId.Name+"</label>");
 		
+		$("#offer-treats").html("");
 		for (var item in data.offerTreats) 
 		{
 			$("#offer-treats").append("<div class='offer-treat-div'><img src='/Clubber/images/Check_Image.png' class='offer-item-treat-image'><label class='offer-multi-value-label'>"+data.offerTreats[item].Name+"</label></div><br>");
 		}
-		
 	}
 	
 	function moveToPrProfile(prId){
@@ -366,7 +386,7 @@ function loadOfferFromDB(data)
 	function loadDataToInputs(data) {
 		$("#description").val(data.description);
 		$("#offerStatus").html(data.offerStatusId.Name);
-		$("#maxArrivalTime").val(convert12to24(data.maxArrivalHour));
+		$("#maxArrivalTime").val(convertLongToTimeString(data.maxArrivalHourAsLong));
 		$('#endDate').datepicker({});
 		$('#endDate').datepicker("setDate", data.expirationDate);
 		loadTreatsAndLines(data.offerTreats, data.lineId);
@@ -387,7 +407,7 @@ function loadOfferFromDB(data)
 		var offerId=currOffId;
 		
 		var description= $('#description')[0].value;
-		var maxArrivalTime=  $('#maxArrivalTime')[0].value;
+		var maxArrivalTime=  convertStringToLongTime($('#maxArrivalTime')[0].value);
 		var endDate= $('#endDate')[0].value;
 		var lineName=$("#lineName")[0].value;
 		
@@ -398,11 +418,19 @@ function loadOfferFromDB(data)
 	        type: "post",
 	        dataType: 'json',
 	        data: {Id:offerId, Treats: final2, LineName: lineName, 
-	        	EndDate: endDate, Description: description, MaxArrivalTime: maxArrivalTime},
+	        	EndDate: endDate, Description: description, MaxArrivalTimeAsLong: maxArrivalTime},
 	        success: function(data){
-	        	console.log("line update succedded");
-	    		loadOfferDisplayView();
-	    		 msgIntervalId= setInterval(ajaxMessagesFormDBData, refreshRate);
+	        	console.log("offer update succedded");
+	        	
+	        	var successCallback = function(data) {
+	                if (data != null) {	                	
+	                	console.log("GetDBData-OfferReview");
+	    	            loadOfferFromDB(data);
+	            }};
+	                
+	    		ajaxOfferFormDBData(successCallback);
+	    		
+	    		msgIntervalId= setInterval(ajaxMessagesFormDBData, refreshRate);
 	     },
 	        error: function(data){
 	            	console.log("error");}

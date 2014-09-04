@@ -158,7 +158,7 @@ public class DAL {
 				offer.setExpirationDate(rs.getLong("off.Expiration_Date"));
 				offer.setAuctionId(currAuctionID);
 				offer.setLineId(new IdWithName(rs.getInt("off.Line_id"), rs.getString("line.Name")));
-				offer.setMaxArrivalHour(rs.getTime("off.Max_Arrival_Hour"));
+				offer.setMaxArrivalHourAsLong(rs.getLong("off.Max_Arrival_Hour"));
 				offer.setPrId(new IdWithName(rs.getInt("off.Pr_id"), rs.getString("users.First_Name") + " " + rs.getString("users.Last_Name")));
 				offer.setSubmitDate(rs.getLong("off.Created_On"));
 			}
@@ -261,7 +261,7 @@ public class DAL {
 				offer.setExpirationDate(rs.getLong("off.Expiration_Date"));
 				offer.setId(rs.getInt("off.id"));
 				offer.setLineId(new IdWithName(rs.getInt("off.Line_id"), rs.getString("line.Name")));
-				offer.setMaxArrivalHour(rs.getTime("off.Max_Arrival_Hour"));
+				offer.setMaxArrivalHourAsLong(rs.getLong("off.Max_Arrival_Hour"));
 				offer.setPrId(new IdWithName(rs.getInt("off.Pr_id"), rs.getString("users.First_Name") + " " + rs.getString("users.Last_Name")));
 				offer.setSubmitDate(rs.getLong("off.Created_On"));
 				offers.add(offer);
@@ -2033,7 +2033,7 @@ public class DAL {
 				   + "SET  Expiration_Date = '" + offer.getExpirationDate() + "'"
 				   + ", Line_id = '" + offer.getLineId().getId()+ "'"
 				   + ", Description = '" +offer.getDescription() + "'"
-				 /*  + ", Max_Arrival_Hour = '" +offer.getMaxArrivalHourAsLong() + "'"*/
+				   + ", Max_Arrival_Hour = '" +offer.getMaxArrivalHourAsLong() + "'"
 				   + " WHERE id ='" + offer.getId() + "'";
 		
 		try {
