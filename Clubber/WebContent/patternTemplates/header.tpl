@@ -58,9 +58,9 @@
                     <input type="hidden" value="<% out.print(userID);%>" id="session_user_id">
                     
                     <% 	if(name != null) {   %>  
-	                    <div style="background-color: #fff; color: #000; padding: 5px; margin-top: 10px; float: left">
+	                    <div style="background-color: #fff; width: 190px; color: #000; padding: 5px; margin-top: 10px; float: left">
 	                            ברוך הבא <% out.println(name);%>
-	                            <img src="<% out.println(img);%>"  style=" float: left; padding: 0 15px  0 0; max-width:30%; max-height:30%;">
+	                            <img src="<% out.println(img);%>"  style=" float: left; padding: 0 15px  0 0; max-width:49%; max-height:20%;">
 	                            <br />
 	                            <a href="<%if(whoAmI == "PR") {out.print ("PrProfile.jsp");} else { out.print("ClientProfile.jsp"); } %>" style="font-size: 12px;">פרופיל</a>
 	                            <font style="padding-top:2px"> | </font> 

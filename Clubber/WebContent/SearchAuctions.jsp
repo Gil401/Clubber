@@ -2,51 +2,77 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@  include file="patternTemplates/header.tpl" %>
 	
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Search for auction</title>
-		<link href="CSS/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-	    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">		
-		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>		
 		<style type="text/css">
 		table.auctions-table {
 			font-family: verdana,arial,sans-serif;
 			font-size:11px;
-			color:#333333;
+			color:#FFF;
 			border-width: 1px;
 			border-color: #a9c6c9;
 			border-collapse: collapse;
+			width: 100%;
 		}
 		table.auctions-table th {
 			border-width: 1px;
 			padding: 8px;
 			border-style: solid;
 			border-color: #a9c6c9;
+			background-color: #EC5538;
+			text-align: right;
 		}
 		table.auctions-table td {
 			border-width: 1px;
 			padding: 8px;
 			border-style: solid;
 			border-color: #a9c6c9;
+			cursor: hand;
+			cursor: pointer;
 		}
 		</style>
 
-	</head>
-	<body dir="rtl">
+<div id="latest-events">
+	<div class="container">
+		<div class="event-inner">
+			<div class="row">
+				<div id="latest-event-content" class="col-sm-7 col-md-8">
+<div class="bg">
+
+
 		<div class="message">
 		כל המכרזים שפורסמו במערכת:
 		</div>
-		<div class="search-by-my-lines-area">
+		<br/>
+      	<div class='all-auctions-container'>
+      	
+      	</div>  
+      	<br/><br/>
+      	<div class="search-by-my-lines-area">
 			<input type="checkbox" name="searchByMyLines" id="searchByMyLines">
 			סנן לפי התאמה לליינים שלי
 			<br>
 		</div>	
-      	<div class='all-auctions-container'>
-      	
+      	 
       	</div>   
+      	</div>   
+      	</div>   
+      	</div>   
+      	</div>   
+      	</div>   
+      	
+<%@  include file="patternTemplates/footer.tpl" %>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="js/soundcloud.player.api.js"></script>
+<script type="text/javascript" src="js/sc-player.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/coundown-timer.js"></script>
+<script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
+<script type="text/javascript" src="js/switcher.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script src="js/datepicker-he.js"></script>
 	<script>
 	
 	$("#searchByMyLines").change(function() {

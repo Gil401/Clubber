@@ -11,7 +11,7 @@
                             <h2 class="heading">listing <strong>Music</strong></h2>
                             <a href="https://soundcloud.com/tokyopoliceclub" class="sc-player">Matas tracks</a>
                         </div> -->
-                        <div class="single-event photo-gallery">
+                        <% /* <div class="single-event photo-gallery">
                             <h2 class="heading"> גלריית <strong>תמונות</strong></h2>
                            <ul>
                                 <li><a href="images/home/event1.jpg" data-gallery="prettyPhoto"><img src="images/home/gal1.jpg" alt=""></a></li>
@@ -24,5 +24,5 @@
                                 <li><a href="images/home/event1.jpg" data-gallery="prettyPhoto"><img src="images/home/gal2.jpg" alt=""></a></li>
                                 <li><a href="images/home/event1.jpg" data-gallery="prettyPhoto"><img src="images/home/gal1.jpg" alt=""></a></li>
                             </ul>    
-                        </div>
+                        </div> */ %>
                     </div>

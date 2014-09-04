@@ -39,10 +39,16 @@ input{
 			<form class="user-details-form" id="userDetails"
 				name="userDetails" method="post" action="UpdateUserDetails" enctype="multipart/form-data">
 
-		  	<div class="pic-area">
-				<label id="pictureLabel">תמונה</label> 
-				<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">
-			</div> 
+				<input type="file" name="pic"id="pic" style="max-width:30%; max-height:30%; float: left;">
+				<div id="pic_container"></div>
+				<div style="float: left; margin-top: 100px;">
+				
+				<button class='btn' type="button" style="width: 160px;" onclick="window.location ='AddNewLine.jsp'">הוסף ליין חדש </button><br ><br>
+				<button class='btn' type="button" style="width: 160px;" onclick="window.location ='AddNewBusiness.jsp'">הוסף עסק חדש</button><br><br>
+				<button class='btn' type="button" style="width: 160px;" onclick="window.location ='AddNewLine.jsp'">חפש לקוחות</button><br><br>
+
+				</div>
+	<br /><br /><br />
 			<br>
 		  	
 		  	<label id="firstnameLabel">שם פרטי</label>
@@ -54,14 +60,16 @@ input{
 		  	<br>
 		  	
 		  	<label id="genderLabel">מין</label>
+		  	<div style="width: 69%; float: left">
 		  	<input type="radio" name="gender" value="Male" checked disabled >
 			זכר
 			<input type="radio" name="gender" value="Female" disabled>
 			נקבה
-			<br>
 			
+			</div>
+			<br>
 			<label id="birthdateLabel">תאריך לידה</label>
-			<input type = "datetime" name="birthdate" id="birthdate" required disabled>
+			<input type = "datetime" name="birthdate" id="birthdate" size="17" required disabled>
 			<br>
 			
 			<label id="phonenumberLabel">טלפון</label>
@@ -75,18 +83,14 @@ input{
 			<label id="verifyPasswordLabel">אימות סיסמה</label>
 			<input type="password" name="verifyPassword" id="verifyPassword" required disabled>
   			<br>
-  			  			
-  			<button id="editUserDel" type="button" >ערוך</button>
+  			<br ><BR><BR><BR><button id="editUserDel" type="button" >ערוך</button>
   			<button id="updateUserDel" type="submit" disabled>שמור</button>
-		</form>		
-		<br>
-		<label id="messageText">
-			<% if(messageText != null){ %>
-				<%=messageText %>
-			<%} %>		
-		</label>
-	</div>
-	<div class="user-rating">
+  			  <div class="user-rating">
+				<br /><br /><br />
+						
+  			
+  			<br /><br />	
+  			
 		<label id="generalLabel">כללי</label>
 		<br>
 		<div class="generalStars">
@@ -127,6 +131,15 @@ input{
 			<div class="star"></div>
 		</div>	
 	</div>	
+		</form>		
+		<br>
+		<label id="messageText">
+			<% if(messageText != null){ %>
+				<%=messageText %>
+			<%} %>		
+		</label>
+	</div>
+	
 </div>
 </div>
 </div>
@@ -193,7 +206,8 @@ input{
 			$('#verifyPassword').attr("disabled", false);
 			$("#updateUserDel").attr("disabled",false);
 			$("#editUserDel").attr("disabled",true);
-			$('.pic-area').append('<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">');		      
+			$('#pictureLabel').hide();
+			$('#pic_container').append('<br><br><br><input type="file" name="pic" id="pic" style="float:right;padding:0; margin:0;max-width:30%; max-height:30%;">');
 		});
 		
 		function getUserProfile(){
@@ -213,7 +227,7 @@ input{
 
 		        	$("#phoneNumber").val(data.phoneNumber);
 		        	$("#password").val(data.password);
-		        	$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" style="max-width:30%; max-height:30%;">');
+		        	$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" style="max-width:100px; max-height:100px; float:right">');
 					$("#editUserDel").attr("disabled",false);
 		        },
 		        error: function(data){
