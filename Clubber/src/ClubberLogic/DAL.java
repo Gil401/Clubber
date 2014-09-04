@@ -99,7 +99,7 @@ public class DAL {
 		try {
 			
 			/*load auction data*/
-			ResultSet rs = stmt.executeQuery("select auc.*, event_type.Name as event_type_name, auction_status.Name,areas.Name,businesses.Name " +
+			ResultSet rs = stmt.executeQuery("select auc.*, event_type.Name as event_type_name, auction_status.displayName,areas.Name,businesses.Name " +
 											 "from auction auc LEFT JOIN businesses ON businesses.id = auc.Certain_Business " +
 											 "LEFT JOIN event_type ON event_type.id = auc.Event_Type " +
 											 "LEFT JOIN areas ON areas.id = auc.area " +
@@ -112,7 +112,7 @@ public class DAL {
 				auction.setDescription(rs.getString("Description"));
 				auction.setEventType(new IdWithName(rs.getInt("auc.Event_Type"),rs.getString("event_type_name") ));
 				auction.setId(rs.getInt("id"));
-				auction.setAuctionStatus(new IdWithName(rs.getInt("auc.Auction_Status"),rs.getString("auction_status.Name")));
+				auction.setAuctionStatus(new IdWithName(rs.getInt("auc.Auction_Status"),rs.getString("auction_status.displayName")));
 				
 				String certainBusiness = rs.getString("businesses.Name");
 				

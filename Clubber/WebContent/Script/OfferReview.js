@@ -128,28 +128,28 @@ function loadOfferFromDB(data)
 		$(".offer-item-reviewed-title").html("");
 		$(".offer-item-reviewed-title").append("<div class= 'offer-item-right-title' onClick='moveToPrProfile("+data.prId.id+");' >"+data.prId.Name+"</div> <div class='offer-item-left-title' >" +submitDate.getDate() +"/"+ submitMonth +"/" + submitDate.getFullYear() +"</div>");
 		
-		$("#offer-description").html("");
+		$("#offer-description").html($("#offer-description").find(".offer-title-label"));
 		$("#offer-description").append("<label class='offer-value-label'>"+description+"</label>");
 		
-		$("#offered-line").html("");
+		$("#offered-line").html($("#offered-line").find(".offer-title-label"));
 		$("#offered-line").append("<label class='offer-value-label'>"+data.lineId.Name+"</label>");/*should be a link to line*/
 		
-		$("#offer-expiration-date").html("");
+		$("#offer-expiration-date").html($("#offer-expiration-date").find(".offer-title-label"));
 		$("#offer-expiration-date").append("<label class='offer-value-label'>"+ expirationDate.getDate() +"/" + expirationMonth +"/"+ expirationDate.getFullYear() +"</label>");
 		
-		$("#max-arrival-hour").html("");
+		$("#max-arrival-hour").html($("#max-arrival-hour").find(".offer-title-label"));
 		$("#max-arrival-hour").append("<label class='offer-value-label'>"+convertLongToTimeString(data.maxArrivalHourAsLong)+"</label>");
 		
-		$("#offer-status").html("");
+		$("#offer-status").html($("#offer-status").find(".offer-title-label"));
 		$("#offer-status").append("<label class='offer-value-label'>"+data.offerStatusId.Name+"</label>");
 		
-		$("#offer-treats").html("");
+		$("#offer-treats").html($("#offer-treats").find(".offer-title-label"));
 		for (var item in data.offerTreats) 
 		{
 			$("#offer-treats").append("<div class='offer-treat-div'><img src='/Clubber/images/Check_Image.png' class='offer-item-treat-image'><label class='offer-multi-value-label'>"+data.offerTreats[item].Name+"</label></div><br>");
 		}
 	}
-	
+
 	function moveToPrProfile(prId){
 		
 		 $.ajax({

@@ -167,7 +167,7 @@ public class Constants {
 	 public static final String BUSSINESS_IMAGES_DIR = "/Uploaded/bussinessImages/";
 		
 	 //auction management
-	 public static final String AUCTION_MANAGEMENT_OFFER_NOT_RELEVANT= "Auction_Management_Offer_Not_Relevant";
-	 public static final String AUCTION_MANAGEMENT_AUCTION_NOT_RELEVANT= "Auction_Management_Auction_Not_Relevant";
+	 public static final String AUCTION_MANAGEMENT_OFFER_NOT_RELEVANT= "AuctionManagementOfferNotRelevant";
+	 public static final String AUCTION_MANAGEMENT_AUCTION_NOT_RELEVANT= "AuctionManagementAuctionNotRelevant";
 }
 

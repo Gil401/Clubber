@@ -30,7 +30,7 @@ function loadOffersFromDB(data, areaName)
 					+ ' <div class="offer-item-title"> <div class= "offer-item-right-title" style="float: right" >'+data[item].prId.Name+" "+' </div> <div class="offer-item-left-title" style="float: left">' + date.getDate() +"/" + month +"/" + date.getFullYear() +'</div> </div>'
 					+ '</br><div class="offer-item-content" >'
 					+ '<div class="offer-item-description">'+description+'</div>'
-					+'<br/><div cless="0ffer-item-status">'+data[item].offerStatusId.Name+'</div>'
+					+'<br/><div cless="0ffer-item-status">סטטוס: '+data[item].offerStatusId.Name+'</div>'
 					+'</div><br /><br /><div style="float: left; "><button style="background-color: red; border-radius: 20px; font-size:13px;" onClick="notRelevantOffer('+ data[item].id +');">סמן כלא רלוונטי</button><button onclick="offerClicked(' + data[item].id + ')" style="border-radius: 20px; font-size:13px;">פרטים נוספים</button></div>'
 					+'</div>').appendTo($(areaName)) ; 
 		}
@@ -44,7 +44,8 @@ function loadOffersFromDB(data, areaName)
 		        dataType: 'json',
 		        data:{RequestType: "AuctionManagementOfferNotRelevant", OfferId:offerId},
 		        success: function(data) {
-		                console.log("Offer not relevant");  
+		                console.log("Offer not relevant"); 
+		                ajaxOffersFormDBData();
 		            },
 		        error: function(data){
 		            	console.log("error");}
@@ -62,6 +63,7 @@ function loadOffersFromDB(data, areaName)
 		        data:{RequestType: "AuctionManagementAuctionNotRelevant", AuctionId:auctionId},
 		        success: function(data) {
 		                console.log("Aution not relevant");  
+		                ajaxOffersFormDBData();
 		            },
 		        error: function(data){
 		            	console.log("error");}
@@ -111,6 +113,7 @@ function loadOffersFromDB(data, areaName)
 				+ '<div class="my-auction-description">'+'כמות מוזמנים: '+data.guestesQuantiny+'</div>'
 				+ '<div class="my-auction-description">'+'סגנון מוזיקה: ' +musicStyles+'</div>'
 				+ '<div class="my-auction-description">'+'חריגים: ' +exceptions+'</div>'
+				+ '<dic class="my-auction-description">'+'סטטוס:'+data.auctionStatus.Name+'</div>'
 				+'<br /><br /><div style="float: left; "><button style="background-color: gray; border-radius: 20px; font-size:13px;" onClick="notRelevantAuction('+ data.id +');">סמן כלא רלוונטי</button></div>'+
 				+'</div>').appendTo($(areaName)) ;
 	}
