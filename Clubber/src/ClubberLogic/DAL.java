@@ -18,12 +18,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 import Utlis.AuctionManagementData;
+import Utlis.AuctionStatusIds;
 import Utlis.IdWithName;
 import Utlis.LineManagementData;
 import Utlis.MyLinesData;
 import Utlis.NewAuctionData;
 import Utlis.NewOfferData;
 import Utlis.OfferPerAuction;
+import Utlis.OfferStatusIds;
 
 public class DAL {
 	private static Connection conn;
@@ -2087,13 +2089,24 @@ public static boolean updateAuctionStatus(Integer auctionId, Integer auctionStat
 		
 		connectToDBServer();
 		
-		String sql = "UPDATE clubber_db.Auction "
-				   + "SET  Auction_Status = '" + auctionStatusId + "'"
-				   + " WHERE id ='" + auctionId + "'";
+		
 		
 		try
 		{
-			stmt.executeUpdate(sql);	
+			//set auction status
+			String sql = "UPDATE clubber_db.Auction "
+					   + "SET  Auction_Status = '" + auctionStatusId + "'"
+					   + " WHERE id ='" + auctionId + "'";
+			stmt.executeUpdate(sql);
+			
+			if (auctionStatusId== AuctionStatusIds.NotRelevant.getValue())
+			{
+				//set all auction offers as not relevant:
+				sql = "UPDATE clubber_db.offers "
+					   + "SET  Offer_Status = '" + OfferStatusIds.NotRelevant.getValue() + "'"
+					   + " WHERE Auction_id ='" + auctionId + "'";
+				stmt.executeUpdate(sql);
+			}
 		} 
 		catch (SQLException e) {
 			isSucceed = false;

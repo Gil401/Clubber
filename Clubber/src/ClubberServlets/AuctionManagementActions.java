@@ -65,6 +65,8 @@ public class AuctionManagementActions extends HttpServlet {
             	Boolean res= DAL.updateAuctionStatus(auctionId, AuctionStatusIds.NotRelevant.getValue());
             	json = gson.toJson(res);
             }
+            System.out.println(json);
+            out.print(json);
 		
         } 
         catch (Exception e) {

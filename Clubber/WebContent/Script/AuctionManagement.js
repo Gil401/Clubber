@@ -14,6 +14,7 @@ function loadOffersFromDB(data, areaName)
 	{
 		var description;
 		console.log("adding offers to "+ areaName);
+		$(areaName).html("");
 		for (var item in data) {
 			if (data[item].description== null)
 			{
@@ -77,6 +78,7 @@ function loadOffersFromDB(data, areaName)
 	{
 		var description;
 		console.log("adding current auction to "+ areaName);
+		$(areaName).html("");
 		if (data.description== null)
 		{
 			description="";
@@ -108,7 +110,7 @@ function loadOffersFromDB(data, areaName)
 			}
 		}
 
-		$(' <div id=' +data.id+' class="my-auction-container" style="padding-top: 0; cursor: hand; cursor: pointer;border-radius: 25px; background: #6D1F10; padding:10px; margin-top: 10px;"> <div class="my-auction-title">'+data.eventType.Name+ ' ב'+ data.area.Name +' <div style="float: left; margin-left: 15px;"> '+date.getDate() +"/" + month +"/" + date.getFullYear() +' </div></div>'
+		$(' <div id=' +data.id+' class="my-auction-container" style="padding-top: 0; border-radius: 25px; background: #6D1F10; padding:10px; margin-top: 10px;"> <div class="my-auction-title">'+data.eventType.Name+ ' ב'+ data.area.Name +' <div style="float: left; margin-left: 15px;"> '+date.getDate() +"/" + month +"/" + date.getFullYear() +' </div></div>'
 				+ '<div class="my-auction-description">'+description+'</div>'
 				+ '<div class="my-auction-description">'+'כמות מוזמנים: '+data.guestesQuantiny+'</div>'
 				+ '<div class="my-auction-description">'+'סגנון מוזיקה: ' +musicStyles+'</div>'
