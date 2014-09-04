@@ -72,7 +72,10 @@ public class NewAuction extends HttpServlet {
 			auction.setSmoking(Boolean.parseBoolean(request.getParameter(Constants.SMOKING)));
 			auction.setDescription(request.getParameter(Constants.GENERAL_DESCRIPTION));
 			
-			DAL.addNewAuction(auction);
+			Integer auctionId = DAL.addNewAuction(auction);
+			SessionUtils.setCurrentAuctionToDisplay(request.getSession(), auctionId);
+			System.out.println(true);
+            out.print(true);
             out.flush();
 		}
         catch (Exception e) {

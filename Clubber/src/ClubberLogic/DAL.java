@@ -251,10 +251,11 @@ public class DAL {
 		
 		try {
 			
-			ResultSet rs = stmt.executeQuery("select * from line ,offers off, users where off.Line_id = line.id and users.id= off.Pr_id and off.Auction_ID="+currAuctionID + " order by off.id");
+			ResultSet rs = stmt.executeQuery("select * from offer_status, line ,offers off, users where off.Line_id = line.id and users.id= off.Pr_id and off.Auction_ID="+currAuctionID + " and off.Offer_Status = offer_status.id order by off.id");
 			while (rs.next())
 			{
 				OfferData offer= new OfferData();
+				offer.setOfferStatusId(new IdWithName(rs.getInt("off.Offer_Status"), rs.getString("offer_Status.displayName")));
 				offer.setId(rs.getInt("off.id"));
 				offer.setAuctionId(currAuctionID);	
 				offer.setDescription(rs.getString("off.Description"));
@@ -268,17 +269,7 @@ public class DAL {
 			}
 			
 
-			rs = stmt.executeQuery("select * from auction auc ,areas, event_type where auc.id=" +currAuctionID+ " and areas.id= auc.area  and auc.Event_Type = event_type.id");
-			while (rs.next())
-			{
-				auction.setId(currAuctionID);
-				auction.setArea(new IdWithName(rs.getInt("areas.id"),rs.getString("areas.Name")));
-				auction.setAuctionStatus(new IdWithName (rs.getInt("Auction_Status"),null));
-				auction.setDateFlexible(rs.getBoolean("Is_Date_Flexible"));
-				auction.setDescription(rs.getString("auc.Description"));
-				auction.setEventDate(rs.getLong("Event_Date"));
-				auction.setEventType(new IdWithName (rs.getInt("auc.Event_Type"),rs.getString("event_type.Name")));
-			}
+			auction = getReviewedAuctionData(currAuctionID);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -362,7 +353,7 @@ public class DAL {
 		return data;
 	}
 	
-	public static void addNewAuction(AuctionData auction) throws Exception
+	public static Integer addNewAuction(AuctionData auction) throws Exception
 	{
 		connectToDBServer();
 		
@@ -379,6 +370,7 @@ public class DAL {
 			ResultSet rs= stmt.getGeneratedKeys();
 			rs.next();
 			Integer auctionId= rs.getInt(1);
+			
 			//add relevant records to auction music style table:
 			for(IdWithName item: auction.getMusicStyle())
 			{
@@ -398,10 +390,12 @@ public class DAL {
 			{
 				String sqlSittsType= String.format("insert into auction_sits_type values(%d,%d,%d)", null,auctionId , item.getId());
 				stmt.executeUpdate(sqlSittsType);
-			}	
+			}
+			return auctionId;
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 		finally
 		{
@@ -2062,5 +2056,53 @@ public class DAL {
 		return isSucceed;
 	}
 	
+	public static boolean updateOfferStatus(Integer offerId, Integer offerStatusId) throws ParseException {
+		
+		boolean isSucceed = true;
+		
+		connectToDBServer();
+		
+		String sql = "UPDATE clubber_db.offers "
+				   + "SET  Offer_Status = '" + offerStatusId + "'"
+				   + " WHERE id ='" + offerId + "'";
+		
+		try
+		{
+			stmt.executeUpdate(sql);	
+		} 
+		catch (SQLException e) {
+			isSucceed = false;
+			e.printStackTrace();
+			
+		}
+		finally{
+			disconnectFromDBServer();
+		}
+		return isSucceed;
+	}
 	
+public static boolean updateAuctionStatus(Integer auctionId, Integer auctionStatusId) throws ParseException {
+		
+		boolean isSucceed = true;
+		
+		connectToDBServer();
+		
+		String sql = "UPDATE clubber_db.Auction "
+				   + "SET  Auction_Status = '" + auctionStatusId + "'"
+				   + " WHERE id ='" + auctionId + "'";
+		
+		try
+		{
+			stmt.executeUpdate(sql);	
+		} 
+		catch (SQLException e) {
+			isSucceed = false;
+			e.printStackTrace();
+			
+		}
+		finally{
+			disconnectFromDBServer();
+		}
+		return isSucceed;
+	}
 }

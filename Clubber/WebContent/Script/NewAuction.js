@@ -135,6 +135,7 @@
 	        	Area: area, BusinessTypeList: final2_businessTypes, CertainBusiness:certainBusiness, Smoking: smoking, SitsTypeList:final2_sitsTypes, GeneralDescription:generalDescription},
 	        success: function(data){
 	        	console.log("Auction creation succedded");
+	        	window.location.href = "AuctionManagement.jsp";
 	     },
 	        error: function(data){
 	            	console.log("error");}

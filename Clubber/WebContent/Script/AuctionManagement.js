@@ -27,19 +27,50 @@ function loadOffersFromDB(data, areaName)
 			var date = new Date(data[item].submitDate);
 			var month = date.getMonth() + 1;
 			$('<div id=' +data[item].id+' class="offer-item-container bg"><div  class="offer-item-line-image-container" id="'+data[item].lineId.id+'" onclick="alert(' + data[item].lineId.id + ')"><img src="/Clubber/images/line_Img.png" class="offer-item-line-image" style="float: right; max-width: 100px; max-height:100px;"></div>'
-					+ ' <div class="offer-item-title"> <div class= "offer-item-right-title" style="float: right" >'+data[item].prId.Name+'</div> <div class="offer-item-left-title" style="float: left">' + date.getDate() +"/" + month +"/" + date.getFullYear() +'</div> </div>'
-					+ '<div class="offer-item-content" >'
+					+ ' <div class="offer-item-title"> <div class= "offer-item-right-title" style="float: right" >'+data[item].prId.Name+" "+' </div> <div class="offer-item-left-title" style="float: left">' + date.getDate() +"/" + month +"/" + date.getFullYear() +'</div> </div>'
+					+ '</br><div class="offer-item-content" >'
 					+ '<div class="offer-item-description">'+description+'</div>'
+					+'<br/><div cless="0ffer-item-status">'+data[item].offerStatusId.Name+'</div>'
 					+'</div><br /><br /><div style="float: left; "><button style="background-color: red; border-radius: 20px; font-size:13px;" onClick="notRelevantOffer('+ data[item].id +');">סמן כלא רלוונטי</button><button onclick="offerClicked(' + data[item].id + ')" style="border-radius: 20px; font-size:13px;">פרטים נוספים</button></div>'
 					+'</div>').appendTo($(areaName)) ; 
 		}
 	}
 	
-	function notRelevantOffer()
+	function notRelevantOffer(offerId)
 	{
-		
+		 $.ajax({
+		        url: "AuctionManagementActions",
+		        type: "post",
+		        dataType: 'json',
+		        data:{RequestType: "AuctionManagementOfferNotRelevant", OfferId:offerId},
+		        success: function(data) {
+		                console.log("Offer not relevant");  
+		            },
+		        error: function(data){
+		            	console.log("error");}
+		            
+		        
+		    });
+	}
+	
+	function notRelevantAuction(auctionId)
+	{
+		 $.ajax({
+		        url: "AuctionManagementActions",
+		        type: "post",
+		        dataType: 'json',
+		        data:{RequestType: "AuctionManagementAuctionNotRelevant", AuctionId:auctionId},
+		        success: function(data) {
+		                console.log("Aution not relevant");  
+		            },
+		        error: function(data){
+		            	console.log("error");}
+		            
+		        
+		    });
 	}
 
+	
 	function loadAuctionFromDB(data, areaName)
 	{
 		var description;
@@ -52,11 +83,35 @@ function loadOffersFromDB(data, areaName)
 		{
 			description= data.description;
 		}
+
+		var exceptions = 'אין';
+		
+		if (data.exceptionsDescription) {
+			exceptions = data.exceptionsDescription;
+		}
 		
 		var date = new Date(data.eventDate);
 		var month = date.getMonth() + 1;
-		$(' <div id=' +data.id+' class="my-auction-container" onclick="alert(' + data.id + ')" style="padding-top: 0; cursor: hand; cursor: pointer;border-radius: 25px; background: #6D1F10; padding:10px; margin-top: 10px;"> <div class="my-auction-title">'+data.eventType.Name+ ' <div style="float: left; margin-left: 15px;"> '+date.getDate() +"/" + month +"/" + date.getFullYear() +' </div></div>'
+		
+		var musicStyles = "לא נבחר";
+		if (data.musicStyle.length > 0) {
+			musicStyles = "";
+			for (var item in data.musicStyle) 
+			{
+				musicStyles += data.musicStyle[item].Name + " ,";
+			}
+			
+			if (musicStyles.length > 1) {
+				musicStyles = musicStyles.substring(0,musicStyles.length - 2);
+			}
+		}
+
+		$(' <div id=' +data.id+' class="my-auction-container" style="padding-top: 0; cursor: hand; cursor: pointer;border-radius: 25px; background: #6D1F10; padding:10px; margin-top: 10px;"> <div class="my-auction-title">'+data.eventType.Name+ ' ב'+ data.area.Name +' <div style="float: left; margin-left: 15px;"> '+date.getDate() +"/" + month +"/" + date.getFullYear() +' </div></div>'
 				+ '<div class="my-auction-description">'+description+'</div>'
+				+ '<div class="my-auction-description">'+'כמות מוזמנים: '+data.guestesQuantiny+'</div>'
+				+ '<div class="my-auction-description">'+'סגנון מוזיקה: ' +musicStyles+'</div>'
+				+ '<div class="my-auction-description">'+'חריגים: ' +exceptions+'</div>'
+				+'<br /><br /><div style="float: left; "><button style="background-color: gray; border-radius: 20px; font-size:13px;" onClick="notRelevantAuction('+ data.id +');">סמן כלא רלוונטי</button></div>'+
 				+'</div>').appendTo($(areaName)) ;
 	}
 
