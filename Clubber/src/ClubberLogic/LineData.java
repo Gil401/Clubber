@@ -2,6 +2,7 @@ package ClubberLogic;
 
 import java.io.File;
 import java.util.LinkedList;
+import java.util.List;
 
 import Utlis.IdWithName;
 
@@ -19,12 +20,12 @@ public class LineData {
 	private String openingHour;
 	private IdWithName pr; /*owner- created by*/
 	private IdWithName business;
-	private final LinkedList<IdWithName> musicStylesIds;
-	private final LinkedList<IdWithName> prs;
+	private List<IdWithName> musicStyles;
+	private LinkedList<IdWithName> prs;
 	
 	public LineData()
 	{
-		musicStylesIds= new LinkedList<IdWithName>();
+		musicStyles= new LinkedList<IdWithName>();
 		prs= new LinkedList<IdWithName>();
 		m_LineName="";
 		m_DayInWeek=1;
@@ -107,9 +108,7 @@ public class LineData {
 		this.entranceFee = entranceFee;
 	}
 
-	public LinkedList<IdWithName> getMusicStylesIds() {
-		return musicStylesIds;
-	}
+	
 
 	public String getM_LineName() {
 		return m_LineName;
@@ -134,6 +133,10 @@ public class LineData {
 	public void setBusiness(IdWithName business) {
 		this.business = business;
 	}
+	
+	public List<IdWithName> getMusicStylesIds() {
+		return musicStyles;
+	}
 
 	public Integer getM_DayInWeek() {
 		return m_DayInWeek;
@@ -145,6 +148,10 @@ public class LineData {
 
 	public LinkedList<IdWithName> getPrs() {
 		return prs;
+	}
+
+	public void setMusicStyle(LinkedList<IdWithName> musicStyles) {
+		this.musicStyles = musicStyles;
 	}
 
 }

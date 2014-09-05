@@ -85,10 +85,12 @@ function getMainLinesFromDB(fullDate) {
 				  var temp_template = $('#temp_container');
 				  temp_template.find('.line_box_place').html($(this)[0]['m_StreetId']['Name']+' '+$(this)[0]['m_HouseNumber']+', '+$(this)[0]['m_CityId']['Name'] );
 				  temp_template.find('.line_box_place').html($(this)[0]['m_StreetId']['Name']+' '+$(this)[0]['m_HouseNumber']+', '+$(this)[0]['m_CityId']['Name'] );
-				  temp_template.find('.line_box_date').html();
-				  temp_template.find('.line_box_hour').html();
+				  temp_template.find('.line_box_date').html(parseDate($(this)[0]['m_Lines'][0]['Line_Start_Date']));
+				  temp_template.find('.line_box_music_style').html(printDataFromArray($(this)[0]['m_Lines'][0]['musicStyles']));
+				  temp_template.find('.line_box_hour').html($(this)[0]['m_Lines'][0]['openingHour']);
 				  temp_template.find('.line_box_line').html($(this)[0]['m_Lines'][0]['description']);
 				  temp_template.find('.line_box_entrance_fee').html($(this)[0]['m_Lines'][0]['entranceFee']);
+				  temp_template.find('.line_box_number_day').html(dayConvertor($(this)[0]['m_Lines'][0]['m_DayInWeek']));
 				 
 				  temp_template.find('.line_box_name').html($(this)[0]['m_Name']);
 				  
@@ -102,9 +104,16 @@ function getMainLinesFromDB(fullDate) {
 		  
 		});
 	
-	
-	
-	
+	function printDataFromArray(data)
+	{
+		var result ="";
+		for(var i =0; i < data.length; i++)
+		{
+			result += data[i]['Name'] +', ';
+				alert(result);
+		}
+		return result;
+	}
 	/*dataRequest.done(function(data) {
 			console.log(data);
 			if (data != null) {
@@ -211,9 +220,10 @@ function replaceAll(find, replace, str) {
 
 function dayConvertor(i_Day)
 {
+	alert(i_Day);
 	var hebrewDaysNames = new Array("ראשון", "שני", "שלישי", "רביעי", "חמישי",
 			"שישי", "שבת");
-	return hebrewDaysNames[(i_day - 1)];
+	return hebrewDaysNames[(i_Day - 1)];
 }
 function dateConvertor(i_Date) {
 	var hebrewDaysNames = new Array("ראשון", "שני", "שלישי", "רביעי", "חמישי",
@@ -239,4 +249,12 @@ function dateConvertor(i_Date) {
 	$("#fullYear").text(fullYear);
 
 	return (getDay + " " + dayInMonth + " " + getMonth + " " + fullYear);
+}
+
+function parseDate(str) {
+    var y = str.substr(0,4),
+        m = str.substr(4,2) - 1,
+        d = str.substr(6,2);
+    var D = new Date(y,m,d);
+    return (D.getFullYear() == y && D.getMonth() == m && D.getDate() == d) ? D : 'invalid date';
 }

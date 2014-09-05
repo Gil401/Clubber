@@ -934,15 +934,24 @@ public class DAL {
 					LineData lData = new LineData();
 					lData.setM_LineName(rs.getString("L.name"));
 					lData.setDescription(rs.getString("L.Description"));
-					lData.setDj(rs.getString("L.DJ"));
+					lData.setDj(rs.getString("L.Dj"));
 					lData.setEntranceFee(rs.getString("L.entrance_fee"));
 					lData.setMinAge(rs.getInt("L.Min_Age"));
 					lData.setStartDate(date.getTime());
 					lData.setId(rs.getInt("L.id"));
+					lData.setM_DayInWeek(rs.getInt("L.Day_In_Week"));
+					lData.setOpeningHour(rs.getString("L.Opening_Hour"));
 					
 					bData.getM_Lines().add(lData);
-					
 					data.add(bData);
+				}
+				
+				for(int i = 0; i <data.size(); i++)
+				{
+					for(int j = 0; j < data.get(i).getM_Lines().size(); j++)
+					{
+						data.get(i).getM_Lines().get(j).setMusicStyle(GetIdAndNameData("Select music_style.* from line_music_style, music_style where line_music_style.Line_id = " + data.get(i).getM_Lines().get(j).getId() + " and music_style.id = line_music_style.music_style_id;"));
+					}
 				}		
 			} catch (SQLException e) {
 				e.printStackTrace();
