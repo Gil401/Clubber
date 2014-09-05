@@ -72,7 +72,6 @@ function loadOffersFromDB(data, areaName)
 		        
 		    });
 	}
-
 	
 	function loadAuctionFromDB(data, areaName)
 	{

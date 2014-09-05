@@ -157,5 +157,6 @@
 <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 <script type="text/javascript" src="Script/LineProfile.js"></script>
 <script src="js/datepicker-he.js"></script>
+<script src="Script/Utils.js"  type="text/javascript" charset="utf-8" ></script>
 </body>
 </html>

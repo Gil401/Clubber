@@ -117,6 +117,7 @@
     <script type="text/javascript" src="js/switcher.js"></script>
     <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
     <script src="js/datepicker-he.js"></script>
+    <script src="Script/Utils.js"  type="text/javascript" charset="utf-8" ></script>
     <script src="Script/NewAuction.js"></script>
     <script type="text/javascript">
     $('#event-type').on("change", function(){
