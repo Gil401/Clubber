@@ -19,10 +19,9 @@
     		<div style="width: 50%; float:right">
     		<div style="width: 30%;float:right;margin:10px;">בחר ליין</div>
     		<select style="margin:10px;" id="myLines"><option></option></select><BR>
-    		<div style="width: 30%;float:right;margin:10px">בחר תאריך</div>
-    		<input  id="date" name="date" type="text" style="margin:10px"><br>
+    		
     		<div style="width: 30%;float:right;margin:10px">בחר סטטוס</div>
-    		<select style="margin:10px" id="status"><option value="0">הכל</option><option value="1">ממתין</option><option value="2">אושר</option></select>
+    		<select style="margin:10px" id="status"><option value="0">הכל</option><option value="1">ממתין</option><option value="2">אושר</option><option value="2">סירוב</option></select>
     		</div>
     		
     		<div style="width: 50%; float: left"><input type="submit" value="חיפוש" onclick="loadOffers ($('#lineId').val(), $('.datepicker').val(), $('#status').val())"></div>

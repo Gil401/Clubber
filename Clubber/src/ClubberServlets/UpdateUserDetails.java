@@ -21,39 +21,45 @@ import Utlis.Constants;
 @WebServlet("/UpdateUserDetails")
 public class UpdateUserDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UpdateUserDetails() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public UpdateUserDetails() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-        request.setCharacterEncoding("UTF-8");
-        
-        String path = getServletContext().getRealPath(Constants.IMAGES_DIR+Constants.USER_IMAGES_DIR);
+		request.setCharacterEncoding("UTF-8");
 
-        UploadServlet uploadServlet = new UploadServlet();
-        UserData client = new Client();
-        
-        uploadServlet.upload(request, path, Constants.IMAGES_DIR+Constants.USER_IMAGES_DIR, client);
-        String message = "";
-        
-        boolean isSucceed = true;
-        
+		String path = getServletContext().getRealPath(
+				Constants.IMAGES_DIR + Constants.USER_IMAGES_DIR);
+
+		UploadServlet uploadServlet = new UploadServlet();
+		UserData client = new Client();
+
+		uploadServlet.upload(request, path, Constants.IMAGES_DIR
+				+ Constants.USER_IMAGES_DIR, client);
+		String message = "";
+
+		boolean isSucceed = true;
+
 		try {
 			isSucceed = DAL.updateUserDetails(client);
 		} catch (ParseException e) {
@@ -61,24 +67,24 @@ public class UpdateUserDetails extends HttpServlet {
 			e.printStackTrace();
 			isSucceed = false;
 		}
-        
-        if(isSucceed == true)
-        {
-        	message = "העדכון בוצע";
-        }
-        else
-        {
-        	message = "העדכון נכשל";
-        }
-        
-        request.setAttribute(Constants.MESSAGE_TEXT, message);
-        
-        String userType = request.getSession().getAttribute(Constants.WHO_AM_I).toString();
-        
-        if(userType == UserType.Client.toString())
-        	getServletContext().getRequestDispatcher("/ClientProfile.jsp").forward(request, response);
-        else
-        	getServletContext().getRequestDispatcher("/PrProfile.jsp").forward(request, response);
+
+		if (isSucceed == true) {
+			message = "העדכון בוצע";
+		} else {
+			message = "העדכון נכשל";
+		}
+
+		request.setAttribute(Constants.MESSAGE_TEXT, message);
+
+		String userType = request.getSession().getAttribute(Constants.WHO_AM_I)
+				.toString();
+
+		if (userType == UserType.Client.toString())
+			getServletContext().getRequestDispatcher("/ClientProfile.jsp")
+					.forward(request, response);
+		else
+			getServletContext().getRequestDispatcher("/PrProfile.jsp").forward(
+					request, response);
 	}
 
 }

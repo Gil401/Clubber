@@ -77,13 +77,14 @@
                                 <li><a href="SignUp.jsp">הרשמה</a></li>
                             <% } %>
                             <% if (whoAmI == "Client"){ %>
-                            <li><a href="ClientProfile.jsp">פרופיל לקוח</a></li>
                             <li><a href="MyAuctions.jsp">המכרזים שלי</a></li>
+                            <li><a href="newAuction.jsp">יצירת מכרז</a></li>
                             <% } 
 								if(whoAmI == "PR") { %>
                             <li><a href="MyOffers.jsp">ההצעות שלי</a></li>
                             <li><a href="MyLines.jsp">הליינים שלי</a></li>
                             <li><a href="SearchAuctions.jsp">חפש מכרזים</a></li>
+                            <li><a href="AddNewLine.jsp">הוספת ליין</a></li>
                             <% } %>
                             
                                  

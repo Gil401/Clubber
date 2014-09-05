@@ -2000,15 +2000,16 @@ public class DAL {
 		try {
 			if(i_Status.equals("0"))
 			{
-				rs = stmt.executeQuery("Select * from line L, offers O, auction A"
-						+ " where O.PR_id = 7" //'"+i_UserID+"'"
-						+ " And O.Auction_id = A.id");
+				rs = stmt.executeQuery("SELECT * FROM auction A, businesses B, line L, offers O" 
+							+" WHERE O.Pr_id = "+ i_UserID +" AND O.Line_id=L.id AND "
+							+ "L.Business_id = B.id AND O.Auction_id = A.id"); 
 			}
 			else
 			{
-				rs = stmt.executeQuery("Select * from line L, offers O, auction A"
-					+ " where O.PR_id = '"+i_UserID+"'"
-					+ " And O.Auction_id = A.id AND O.Offer_Status = '"+i_Status+"'");
+				rs = stmt.executeQuery("SELECT * FROM auction A, businesses B, line L, offers O" +
+						" WHERE O.Pr_id = "+ i_UserID +" AND O.Line_id=L.id AND "
+								+ "l.Business_id = B.id AND O.Auction_id = A.id"
+								+ " AND O.Offer_Status = "+i_Status); 
 			}
 			
 		while (rs.next())

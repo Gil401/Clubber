@@ -4,7 +4,8 @@
 			var currentMonth = date.getMonth() + 1;
 			var currentDay = date.getDate();
 			var currentYear = date.getFullYear();
-			var fullCurrentDateStr = currentDay + "/" + currentMonth + "/" + currentYear ;
+			var fullCurrentDateStr = currentDay + "/" + currentMonth + "/"
+					+ currentYear;
 			dateChange(fullCurrentDateStr);
 		});
 
@@ -16,7 +17,6 @@ $(function getDate() {
 
 	$('#datepicker').datepicker({
 		onSelect : function(dateText, inst) {
-			alert($("#datepicker").datetimepicker("getDate").getTime()) / 1000;
 			var day1 = $("#datepicker").datepicker('getDate').getDate();
 			var month1 = $("#datepicker").datepicker('getDate').getMonth() + 1;
 			var year1 = $("#datepicker").datepicker('getDate').getFullYear();
@@ -38,11 +38,8 @@ function loadListDataFromDB(data, listName) {
 function loadCheckboxListDataFromDB(data, listName) {
 	console.log("adding" + listName);
 	$
-			.each(
-					data,
-					function(index, val) {
-						$(
-								'<input id="'
+			.each(data,	function(index, val) {
+						$('<input id="'
 										+ val.id
 										+ '" type="checkbox" name="'
 										+ listName
@@ -56,104 +53,129 @@ function loadCheckboxListDataFromDB(data, listName) {
 					});
 }
 
-function dateChange (date){
-	$('#lines_container').html('<img src="images/load.GIF" id="loader_image" >');
+function dateChange(date) {
+	$('#lines_container')
+			.html('<img src="images/load.GIF" id="loader_image" >');
 	getMainLinesFromDB(date);
 }
 
 function getMainLinesFromDB(fullDate) {
 	console.log('Getting template from server');
-	
-	$.get( "patternTemplates/lineBox.tpl", function( data ) {
-		 var lineTemplate = data;
-		  console.log('template was loaded');
-		  
-		  var dataRequest = $.ajax({
-				url : "GetDBData",
-				type : "POST",
-				dataType : 'json',
-				data : {
-					RequestType : "GetDBData-WelcomeLines",
-					InDate : fullDate
-					}
-				});
-		  // TODO: date & hour init ******************************************************************************************
-		  dataRequest.done(function(returnedData){
-			  $.each(returnedData, function(){
-				  console.log($(this)[0]);
-				  $('#temp_container').html(lineTemplate);
-				  var temp_template = $('#temp_container');
-				  temp_template.find('.line_box_place').html($(this)[0]['m_StreetId']['Name']+' '+$(this)[0]['m_HouseNumber']+', '+$(this)[0]['m_CityId']['Name'] );
-				  temp_template.find('.line_box_place').html($(this)[0]['m_StreetId']['Name']+' '+$(this)[0]['m_HouseNumber']+', '+$(this)[0]['m_CityId']['Name'] );
-				  temp_template.find('.line_box_date').html(parseDate($(this)[0]['m_Lines'][0]['Line_Start_Date']));
-				  temp_template.find('.line_box_music_style').html(printDataFromArray($(this)[0]['m_Lines'][0]['musicStyles']));
-				  temp_template.find('.line_box_hour').html($(this)[0]['m_Lines'][0]['openingHour']);
-				  temp_template.find('.line_box_line').html($(this)[0]['m_Lines'][0]['description']);
-				  temp_template.find('.line_box_entrance_fee').html($(this)[0]['m_Lines'][0]['entranceFee']);
-				  temp_template.find('.line_box_number_day').html(dayConvertor($(this)[0]['m_Lines'][0]['m_DayInWeek']));
-				 
-				  temp_template.find('.line_box_name').html($(this)[0]['m_Name']);
-				  
-				  
-				  $('#lines_container').append($('#temp_container').html());
-				  console.log($(this)[0].m_Name)
-			  });
-			  $('#temp_container').html('');
-		  });
-		 
-		  
-		});
-	
-	function printDataFromArray(data)
-	{
-		var result ="";
-		for(var i =0; i < data.length; i++)
-		{
-			result += data[i]['Name'] +', ';
-				alert(result);
+
+	$
+			.get(
+					"patternTemplates/lineBox.tpl",
+					function(data) {
+						var lineTemplate = data;
+						console.log('template was loaded');
+
+						var dataRequest = $.ajax({
+							url : "GetDBData",
+							type : "POST",
+							dataType : 'json',
+							data : {
+								RequestType : "GetDBData-WelcomeLines",
+								InDate : fullDate
+							}
+						});
+						// TODO: date & hour init
+						// ******************************************************************************************
+						dataRequest
+								.done(function(returnedData) {
+									$
+											.each(
+													returnedData,
+													function() {
+														console.log($(this)[0]);
+														$('#temp_container')
+																.html(
+																		lineTemplate);
+														var temp_template = $('#temp_container');
+														temp_template
+																.find(
+																		'.line_box_place')
+																.html(
+																		$(this)[0]['m_StreetId']['Name']
+																				+ ' '
+																				+ $(this)[0]['m_HouseNumber']
+																				+ ', '
+																				+ $(this)[0]['m_CityId']['Name']);
+														temp_template
+																.find(
+																		'.line_box_music_style')
+																.html(
+																		printDataFromArray($(this)[0]['m_Lines'][0]['musicStyles']));
+														temp_template
+																.find(
+																		'.line_box_hour')
+																.html(
+																		$(this)[0]['m_Lines'][0]['openingHour']);
+														temp_template
+																.find(
+																		'.line_box_line')
+																.html(
+																		$(this)[0]['m_Lines'][0]['description']);
+														temp_template
+																.find(
+																		'.line_box_entrance_fee')
+																.html(
+																		$(this)[0]['m_Lines'][0]['entranceFee']);
+														temp_template
+																.find(
+																		'.line_box_number_day')
+																.html(
+																		dayConvertor($(this)[0]['m_Lines'][0]['m_DayInWeek']));
+														temp_template
+																.find(
+																		'.line_box_name')
+																.html(
+																		$(this)[0]['m_Name']);
+														var a = $(this)[0]['m_Lines'][0]['id'];
+
+														$('#lines_container')
+																.append(
+																		$(
+																				'#temp_container')
+																				.html());
+														console
+																.log($(this)[0].m_Name)
+													});
+									$('#temp_container').html('');
+								});
+
+					});
+
+	function printDataFromArray(data) {
+		var result = "";
+		for (var i = 0; i < data.length; i++) {
+			result += data[i]['Name'] + ', ';
 		}
 		return result;
 	}
-	/*dataRequest.done(function(data) {
-			console.log(data);
-			if (data != null) {
-				console.log("Loading data from DB");
-				console.log(fullDate);
-				//PrintWelcomeLinesTable(data);
-			}
-		},
-		error : function(data) {
-
-			console.log("error");
-		}
-	});*/
-$('#loader_image').remove();
+	/*
+	 * dataRequest.done(function(data) { console.log(data); if (data != null) {
+	 * console.log("Loading data from DB"); console.log(fullDate);
+	 * //PrintWelcomeLinesTable(data); } }, error : function(data) {
+	 * 
+	 * console.log("error"); } });
+	 */
+	$('#loader_image').remove();
 }
-/*function PrintWelcomeLinesTable(data) {
-	var $Lines = $('#Lines_Div');
-	var currDate = 0;
-	$Lines.html("");
-	if (data.length > 0) {
-		for (var i = 0; i < data.length; i++) {
-			if (currDate != data[i].m_Lines[0].startDate) {
-				$Lines.append('<div class = "hebrewDate">'
-						+ dateConvertor(data[i].m_Lines[0].startDate)
-						+ '</div></br>');
-			}
-			$Lines.append('<div class = "line_title">'
-					+ data[i].m_Lines[0].m_LineName + ' ' + data[i].m_Name	+ '</div>');
-			$Lines.append('<div class = "PicCell">' + ' Pic ' + '</div>');
-			$Lines.append('<div class = "AgeCell">' + data[i].m_Lines[0].minAge	+ '</div>');
-			$Lines.append('<div class = "DetailsCell">'	+ data[i].m_Lines[0].description + '</div>');
-			$Lines.append('</div>');
-
-			currDate = data[i].m_Lines[0].startDate;
-		}
-	} else {
-		$Lines.append('<h1>אין אירועים זמינים</h1>');
-	}
-	$Lines.append('</div>');
-}*/
+/*
+ * function PrintWelcomeLinesTable(data) { var $Lines = $('#Lines_Div'); var
+ * currDate = 0; $Lines.html(""); if (data.length > 0) { for (var i = 0; i <
+ * data.length; i++) { if (currDate != data[i].m_Lines[0].startDate) {
+ * $Lines.append('<div class = "hebrewDate">' +
+ * dateConvertor(data[i].m_Lines[0].startDate) + '</div></br>'); }
+ * $Lines.append('<div class = "line_title">' + data[i].m_Lines[0].m_LineName + ' ' +
+ * data[i].m_Name + '</div>'); $Lines.append('<div class = "PicCell">' + ' Pic ' + '</div>');
+ * $Lines.append('<div class = "AgeCell">' + data[i].m_Lines[0].minAge + '</div>');
+ * $Lines.append('<div class = "DetailsCell">' + data[i].m_Lines[0].description + '</div>');
+ * $Lines.append('</div>');
+ * 
+ * currDate = data[i].m_Lines[0].startDate; } } else { $Lines.append('<h1>אין
+ * אירועים זמינים</h1>'); } $Lines.append('</div>'); }
+ */
 
 function ajaxAuctionFormDBData() {
 	$.ajax({
@@ -180,14 +202,11 @@ function ajaxAuctionFormDBData() {
 	});
 }
 
-
-
-function printMusicStyle(i_MusicStylesArray){
+function printMusicStyle(i_MusicStylesArray) {
 	var musicStr = "";
-	for(var i = 0 ; i < MusicStylesArray.length; i++)
-		{
-			musicStr = musicStr + ", " + i_MusicStylesArray[i]; 
-		}
+	for (var i = 0; i < MusicStylesArray.length; i++) {
+		musicStr = musicStr + ", " + i_MusicStylesArray[i];
+	}
 	return musicStr;
 }
 function mandatoryFieldsCheck() {
@@ -218,9 +237,7 @@ function replaceAll(find, replace, str) {
 	return str.replace(new RegExp(find, 'g'), replace);
 }
 
-function dayConvertor(i_Day)
-{
-	alert(i_Day);
+function dayConvertor(i_Day) {
 	var hebrewDaysNames = new Array("ראשון", "שני", "שלישי", "רביעי", "חמישי",
 			"שישי", "שבת");
 	return hebrewDaysNames[(i_Day - 1)];
@@ -228,11 +245,12 @@ function dayConvertor(i_Day)
 function dateConvertor(i_Date) {
 	var hebrewDaysNames = new Array("ראשון", "שני", "שלישי", "רביעי", "חמישי",
 			"שישי", "שבת");
-	var date = new Date(i_Date), day = date.getDay(), fullYear = date.getFullYear(), month = date.getMonth(), dayInMonth = date
+	var date = new Date(i_Date), day = date.getDay(), fullYear = date
+			.getFullYear(), month = date.getMonth(), dayInMonth = date
 			.getDate();
 
 	// המערכים שמאפשרים את המרת השמות לשמות עבריים
-	
+
 	var hebrewMonthsNames = new Array("דצמבר", "נובמבר", "אוקטובר", "ספטמבר",
 			"אוגוסט", "יולי", "יוני", "מאי", "אפריל", "מרץ", "פברואר", "ינואר");
 
@@ -252,9 +270,8 @@ function dateConvertor(i_Date) {
 }
 
 function parseDate(str) {
-    var y = str.substr(0,4),
-        m = str.substr(4,2) - 1,
-        d = str.substr(6,2);
-    var D = new Date(y,m,d);
-    return (D.getFullYear() == y && D.getMonth() == m && D.getDate() == d) ? D : 'invalid date';
+	var y = str.substr(0, 4), m = str.substr(4, 2) - 1, d = str.substr(6, 2);
+	var D = new Date(y, m, d);
+	return (D.getFullYear() == y && D.getMonth() == m && D.getDate() == d) ? D
+			: 'invalid date';
 }
