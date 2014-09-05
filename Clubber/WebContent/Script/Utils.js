@@ -1,22 +1,39 @@
-function convert12to24(timeStr)
-	{
-	    var meridian = timeStr.substr(timeStr.length-2).toLowerCase();;
-	    var hours =  timeStr.substr(0, timeStr.indexOf(':'));
-	    var minutes = timeStr.substring(timeStr.indexOf(':')+1, timeStr.lastIndexOf(':'));
-	    if (meridian=='pm')
-	    {
-	        if (hours!=12)
-	        {
-	            hours=hours*1+12;
-	        }
-	        else
-	        {
-	            hours = (minutes!='00') ? '0' : '24' ;
-	        }
-	    }
+/******STATUS CODES*****/
+//Auction status ids:
+var ACTIVE_AUCTION_STATUS_ID=1;
+var INACTIVE_AUCTION_STATUS_ID= 2;
+var NOT_RELEVANT_AUCTION_STATUS_ID= 3;
 
-	    return hours+':'+minutes;
-	}
+//Offer status ids:
+var ACCEPTED_OFFER_STATUS_ID=1; 
+var PENDING_OFFER_STATUS_ID= 2;
+var DENIED_OFFER_STATUS_ID=3; 
+var NOT_RELEVANT_OFFER_STATUS_ID= 4;
+/***********************/
+
+
+
+
+
+function convert12to24(timeStr)
+{
+    var meridian = timeStr.substr(timeStr.length-2).toLowerCase();;
+    var hours =  timeStr.substr(0, timeStr.indexOf(':'));
+    var minutes = timeStr.substring(timeStr.indexOf(':')+1, timeStr.lastIndexOf(':'));
+    if (meridian=='pm')
+    {
+        if (hours!=12)
+        {
+            hours=hours*1+12;
+        }
+        else
+        {
+            hours = (minutes!='00') ? '0' : '24' ;
+        }
+    }
+
+    return hours+':'+minutes;
+}
 
 function formattedDate(date) {
     var d = new Date(date || Date.now()),
@@ -49,3 +66,5 @@ function convertTimeStampFormat(timestamp)
 	
 	return (formattedDate(timestamp) + ' '+ convert12to24(time));
 }
+
+

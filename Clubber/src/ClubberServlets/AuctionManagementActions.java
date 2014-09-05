@@ -65,6 +65,13 @@ public class AuctionManagementActions extends HttpServlet {
             	Boolean res= DAL.updateAuctionStatus(auctionId, AuctionStatusIds.NotRelevant.getValue());
             	json = gson.toJson(res);
             }
+            else if(requestType.equals(Utlis.Constants.AUCTION_MANAGEMENT_ACTIVATE_AUCTION))
+            {
+            	Integer auctionId= Integer.parseInt(request.getParameter("AuctionId"));
+            	
+            	Boolean res= DAL.updateAuctionStatus(auctionId, AuctionStatusIds.Active.getValue());
+            	json = gson.toJson(res);
+            }
             System.out.println(json);
             out.print(json);
 		

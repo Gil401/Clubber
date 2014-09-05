@@ -169,5 +169,6 @@ public class Constants {
 	 //auction management
 	 public static final String AUCTION_MANAGEMENT_OFFER_NOT_RELEVANT= "AuctionManagementOfferNotRelevant";
 	 public static final String AUCTION_MANAGEMENT_AUCTION_NOT_RELEVANT= "AuctionManagementAuctionNotRelevant";
+	 public static final String AUCTION_MANAGEMENT_ACTIVATE_AUCTION= "AuctionManagementActivateAuction";
 }
 

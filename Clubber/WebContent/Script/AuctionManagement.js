@@ -1,14 +1,3 @@
-function formattedDate(date) {
-    var d = new Date(date || Date.now()),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-
-    return [day, month, year].join('/');
-}	
 
 function loadOffersFromDB(data, areaName)
 	{
@@ -32,8 +21,13 @@ function loadOffersFromDB(data, areaName)
 					+ '</br><div class="offer-item-content" >'
 					+ '<div class="offer-item-description">'+description+'</div>'
 					+'<br/><div cless="0ffer-item-status">סטטוס: '+data[item].offerStatusId.Name+'</div>'
-					+'</div><br /><br /><div style="float: left; "><button style="background-color: red; border-radius: 20px; font-size:13px;" onClick="notRelevantOffer('+ data[item].id +');">סמן כלא רלוונטי</button><button onclick="offerClicked(' + data[item].id + ')" style="border-radius: 20px; font-size:13px;">פרטים נוספים</button></div>'
+					+'</div><br /><br /><div style="float: left; "><button id= "NotRelevantOffer'+data[item].id+'" style="background-color: red; border-radius: 20px; font-size:13px;" onClick="notRelevantOffer('+ data[item].id +');">סמן כלא רלוונטי</button><button onclick="offerClicked(' + data[item].id + ')" style="border-radius: 20px; font-size:13px;">פרטים נוספים</button></div>'
 					+'</div>').appendTo($(areaName)) ; 
+			
+			if (data[item].offerStatusId.id ==  NOT_RELEVANT_OFFER_STATUS_ID)
+			{
+				 $('#NotRelevantOffer'+data[item].id).hide();
+			}
 		}
 	}
 	
@@ -65,6 +59,29 @@ function loadOffersFromDB(data, areaName)
 		        success: function(data) {
 		                console.log("Aution not relevant");  
 		                ajaxOffersFormDBData();
+		                $('#NotRelevantAuction').hide();
+		                $('#ActivateAuction').show();
+		                
+		            },
+		        error: function(data){
+		            	console.log("error");}
+		            
+		        
+		    });
+	}
+	
+	function activateAuction(auctionId)
+	{
+		 $.ajax({
+		        url: "AuctionManagementActions",
+		        type: "post",
+		        dataType: 'json',
+		        data:{RequestType: "AuctionManagementActivateAuction", AuctionId:auctionId},
+		        success: function(data) {
+		                console.log("Auction activated");  
+		                ajaxOffersFormDBData();
+		                $('#NotRelevantAuction').show();
+		                $('#ActivateAuction').hide();          
 		            },
 		        error: function(data){
 		            	console.log("error");}
@@ -114,8 +131,8 @@ function loadOffersFromDB(data, areaName)
 				+ '<div class="my-auction-description">'+'כמות מוזמנים: '+data.guestesQuantiny+'</div>'
 				+ '<div class="my-auction-description">'+'סגנון מוזיקה: ' +musicStyles+'</div>'
 				+ '<div class="my-auction-description">'+'חריגים: ' +exceptions+'</div>'
-				+ '<dic class="my-auction-description">'+'סטטוס:'+data.auctionStatus.Name+'</div>'
-				+'<br /><br /><div style="float: left; "><button style="background-color: gray; border-radius: 20px; font-size:13px;" onClick="notRelevantAuction('+ data.id +');">סמן כלא רלוונטי</button></div>'+
+				+ '<br/><dic class="my-auction-description" style="font-weight:bold;" >'+'סטטוס:'+data.auctionStatus.Name+'</div>'
+				+'<br /><br /><div style="float: left; "><button id= "NotRelevantAuction" style="background-color: gray; border-radius: 20px; font-size:13px;" onClick="notRelevantAuction('+ data.id +');">סמן כלא רלוונטי</button><button id="ActivateAuction" style="background-color: gray; border-radius: 20px; font-size:13px;" onClick="activateAuction('+ data.id +');">הפוך לפעיל</button></div>'+
 				+'</div>').appendTo($(areaName)) ;
 	}
 
@@ -149,6 +166,16 @@ function loadOffersFromDB(data, areaName)
 	                console.log("GetDBData-AuctionManagement");  
 	                loadOffersFromDB(data.offers, '.all-Offers-container' );
 	                loadAuctionFromDB(data.currentAuciton, '.current-auction-container' );
+	                if (data.currentAuciton.auctionStatus.id == NOT_RELEVANT_AUCTION_STATUS_ID || data.currentAuciton.auctionStatus.id == INACTIVE_AUCTION_STATUS_ID){
+	                	 $('#NotRelevantAuction').hide();
+			             $('#ActivateAuction').show();
+	                }
+	                else
+                	{
+	                	 $('#NotRelevantAuction').show();
+			             $('#ActivateAuction').hide();
+                	}
+	                
 	            }},
 	        error: function(data){
 	            	console.log("error");}
