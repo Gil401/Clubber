@@ -13,7 +13,7 @@ public class LineData {
 	private long startDate;
 	private long endDate;
 	private Integer minAge;
-	private File photo;
+	private String linePhotoURL;
 	private String description;
 	private String entranceFee;
 	private String dj;
@@ -34,6 +34,7 @@ public class LineData {
 		entranceFee="";
 		dj="";
 		openingHour="";
+		linePhotoURL="";
 	}
 
 	public Integer getId() {
@@ -42,14 +43,6 @@ public class LineData {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public File getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(File photo) {
-		this.photo = photo;
 	}
 
 	public long getStartDate() {
@@ -152,6 +145,20 @@ public class LineData {
 
 	public void setMusicStyle(LinkedList<IdWithName> musicStyles) {
 		this.musicStyles = musicStyles;
+	}
+
+	/**
+	 * @return the linePhotoURL
+	 */
+	public String getLinePhotoURL() {
+		return linePhotoURL;
+	}
+
+	/**
+	 * @param linePhotoURL the linePhotoURL to set
+	 */
+	public void setLinePhotoURL(String linePhotoURL) {
+		this.linePhotoURL = linePhotoURL;
 	}
 
 }

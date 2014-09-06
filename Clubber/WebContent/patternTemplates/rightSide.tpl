@@ -1,11 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <div class="col-sm-5 col-md-4"> 
                         <div class="single-event">
-                            <h2 class="heading">  <strong>חפש</strong> אירוע</h2>
+                            <h2 class="heading">  <strong>חפש</strong> ליינים פועלים</h2>
                             בחר תאריכים: 
                            <div class="datepicker" ></div>
                            <br/>
-                           <div align="left"> מפרסם? <button>הוסף ליין</button>  </div>
                         </div>
                         <!-- <div class="single-event">
                             <h2 class="heading">listing <strong>Music</strong></h2>

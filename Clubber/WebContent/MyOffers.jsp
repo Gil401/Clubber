@@ -15,16 +15,16 @@
     <div class='main-container'>  
     <div class= "page-description bg">
     	
-    	<div style="width: 100%">
+    	<div id= "lineContainer" style="width: 100%">
     		<div style="width: 50%; float:right">
     		<div style="width: 30%;float:right;margin:10px;">בחר ליין</div>
-    		<select style="margin:10px;" id="myLines"><option></option></select><BR>
+    		<select style="margin:10px;" id="myLines"></select><BR>
     		
     		<div style="width: 30%;float:right;margin:10px">בחר סטטוס</div>
     		<select style="margin:10px" id="status"><option value="0">הכל</option><option value="1">ממתין</option><option value="2">אושר</option><option value="2">סירוב</option></select>
     		</div>
     		
-    		<div style="width: 50%; float: left"><input type="submit" value="חיפוש" onclick="loadOffers ($('#lineId').val(), $('.datepicker').val(), $('#status').val())"></div>
+    		
     	</div>
     	
     </div>

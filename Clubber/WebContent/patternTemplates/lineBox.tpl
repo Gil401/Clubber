@@ -2,7 +2,7 @@
     <div class="tab-image">
         <img class="img-responsive" src="images/latest-events/event1.jpg" alt="">
     </div>
-    <div class="tab-content event-details" onclick = "openDetails()">
+    <div style="border-radius: 10px" class="tab-content event-details" onclick = "openDetails()">
         <div class="tab-pane active date-tab1">
             <h3 class="media-heading line_box_name">שירה וחמין של בוקר אצל רוחמה</h3>
             <ul class="event-content">
@@ -16,9 +16,9 @@
         </div>
                                             
     </div> 
-    <div class="tab">                                     
+    <div style="border-radius: 5px"class="tab">                                     
         <ul>
-            <li class="active"><a href=".html" data-toggle="tab"><span class="line_box_month"></span>יום<span class="line_box_number_day">04</span> </a></li>
+            <li class="active"><a href=".html" data-toggle="tab"><span class="line_box_month"></span>יום<span class="line_box_number_day"></span> </a></li>
             <!--<li><a href="-2.html" data-toggle="tab"><i class="fa fa-map-marker"></i></a></li>
             <li><a href="-3.html" data-toggle="tab"><i class="fa fa-shopping-cart"></i></a></li>-->
         </ul>

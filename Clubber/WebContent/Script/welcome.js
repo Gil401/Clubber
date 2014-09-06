@@ -131,6 +131,7 @@ function getMainLinesFromDB(fullDate) {
 																.html(
 																		$(this)[0]['m_Name']);
 														var a = $(this)[0]['m_Lines'][0]['id'];
+														document.getElementById("imageid").src="../template/save.png";
 
 														$('#lines_container')
 																.append(

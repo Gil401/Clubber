@@ -8,6 +8,7 @@
 function loadListDataFromDB(data, listName) {
 	console.log("adding" + listName);
 	$.each(data, function(index, val) {
+		
 		$('<option value="' + val.id + '">' + val.Name + '</option>').appendTo(
 				$(listName));
 	});
