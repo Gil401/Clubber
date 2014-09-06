@@ -91,7 +91,7 @@ public class SignUp extends HttpServlet {
 	        if(whoAmIParam.equals("Client") == true)
 	        {
 	        	userType = UserType.Client;
-	        	Client client = new Client(lastNameParam, firstNameParam, genderParam, phoneNumberParam, emailParam, birthDateParam, passwordParam,"temp");
+	        	Client client = new Client(lastNameParam, firstNameParam, genderParam, phoneNumberParam, emailParam, birthDateParam, passwordParam,"temp", true);
 
 	        	if( sentMail(firstNameParam, passwordParam, emailParam) == true)
 	        	{
@@ -113,7 +113,7 @@ public class SignUp extends HttpServlet {
 	        else if(whoAmIParam.equals("PR") == true)
 	        {
 	        	userType = UserType.PR;
-	        	PR pr = new PR(lastNameParam, firstNameParam, genderParam, phoneNumberParam, emailParam, birthDateParam, passwordParam, url);
+	        	PR pr = new PR(lastNameParam, firstNameParam, genderParam, phoneNumberParam, emailParam, birthDateParam, passwordParam, url, true);
 
         		if(sentMail(firstNameParam, passwordParam, emailParam) == true)
         		{

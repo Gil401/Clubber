@@ -24,9 +24,9 @@ public class PR extends UserData{
 	 * 			added set to filed password
 	 * 			* type of gender changed 
 	 */	
-	public PR(String lastName, String firstName, String gender, String phoneNumber, String email, long birthDate, String password, String url) 
+	public PR(String lastName, String firstName, String gender, String phoneNumber, String email, long birthDate, String password, String url, boolean isUserEditable) 
     {
-        super(lastName, firstName, gender, phoneNumber, email, birthDate, password, url);
+        super(lastName, firstName, gender, phoneNumber, email, birthDate, password, url, isUserEditable);
     }
 
 }

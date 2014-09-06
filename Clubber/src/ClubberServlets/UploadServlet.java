@@ -60,7 +60,11 @@ public class UploadServlet extends HttpServlet {
 	      Iterator<FileItem> i = fileItems.iterator();
 	      i_UserData.setUserType(request.getSession().getAttribute(Constants.WHO_AM_I).toString());
 	      i_UserData.setEmail(request.getSession().getAttribute(Constants.EMAIL).toString());
-	      i_UserData.setImageUrl(request.getSession().getAttribute(Constants.IMAGE).toString());
+	      
+	      Object imageURL = request.getSession().getAttribute(Constants.IMAGE);
+	      if (imageURL != null) {
+	    	  i_UserData.setImageUrl(request.getSession().getAttribute(Constants.IMAGE).toString());
+	      }
 	      i_UserData.setFirstName(request.getSession().getAttribute(Constants.FIRST_NAME).toString());
 	      
 	      while (i.hasNext()) 

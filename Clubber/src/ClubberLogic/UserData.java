@@ -21,6 +21,7 @@ public abstract class UserData {
 	private long birthDate; 
 	private String imageUrl;
 	private UserType userType;
+	private boolean isUserEditable = true;
 	
 	
 	public UserData(){
@@ -38,7 +39,7 @@ public abstract class UserData {
 	 * 			added set to filed password
 	 */
 	
-	public UserData(String lastName, String firstName, String gender, String phoneNumber, String email, long birthDate, String password, String url) 
+	public UserData(String lastName, String firstName, String gender, String phoneNumber, String email, long birthDate, String password, String url, boolean isUserEditable) 
     {
         this.setFirstName(firstName);
 		this.setLastName(lastName);
@@ -48,6 +49,7 @@ public abstract class UserData {
 		this.setBirthDate(birthDate);	
 		this.setPassword(password);
 		this.imageUrl = url;
+		this.isUserEditable = isUserEditable;
     }
 	
 	public void setId(Integer id) {
@@ -127,4 +129,11 @@ public abstract class UserData {
 	public void setUserType(String userType) {
 		this.userType = userType.equals(UserType.PR.toString())? UserType.PR : UserType.Client;
 	}	
+	
+	public boolean getIsUserEditalble() {
+		return isUserEditable;
+	}
+	public void setIsUserEditalble(boolean isUserEditalble) {
+		this.isUserEditable = isUserEditalble;
+	}
 }

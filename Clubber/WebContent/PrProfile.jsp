@@ -34,7 +34,7 @@ input{
 				<div id="latest-event-content" class="col-sm-7 col-md-8">
 <div class="bg">
 
-<h2>פרטי משתמש</h2>
+<h2 id="prTitle">פרטי משתמש</h2>
 	<div class="user-details">
 			<form class="user-details-form" id="userDetails"
 				name="userDetails" method="post" action="UpdateUserDetails" enctype="multipart/form-data">
@@ -43,54 +43,80 @@ input{
 				<div id="pic_container"></div>
 				<div style="float: left; margin-top: 100px;">
 				
-				<button class='btn' type="button" style="width: 160px;" onclick="window.location ='AddNewLine.jsp'">הוסף ליין חדש </button><br ><br>
-				<button class='btn' type="button" style="width: 160px;" onclick="window.location ='AddNewBusiness.jsp'">הוסף עסק חדש</button><br><br>
-				<button class='btn' type="button" style="width: 160px;" onclick="window.location ='AddNewLine.jsp'">חפש לקוחות</button><br><br>
+				<button class='btn' id="addNewLine" type="button" style="width: 160px;" onclick="window.location ='AddNewLine.jsp'">הוסף ליין חדש </button><br ><br>
+				<button class='btn' id="addNewBusiness" type="button" style="width: 160px;" onclick="window.location ='AddNewBusiness.jsp'">הוסף עסק חדש</button><br><br>
+				<button class='btn' id="customersSearch" type="button" style="width: 160px;" onclick="window.location ='AddNewLine.jsp'">חפש לקוחות</button><br><br>
 
 				</div>
 	<br /><br /><br />
 			<br>
-		  	
-		  	<label id="firstnameLabel">שם פרטי</label>
-		  	<input type="text" name="firstName" id="firstName" required disabled>
-		  	<br>
-		  	
-		  	<label id="lastnameLabel">שם משפחה</label>
-		  	<input type="text" name="lastName" id="lastName" required disabled>			
-		  	<br>
-		  	
-		  	<label id="genderLabel">מין</label>
-		  	<div style="width: 69%; float: left">
-		  	<input type="radio" name="gender" value="Male" checked disabled >
-			זכר
-			<input type="radio" name="gender" value="Female" disabled>
-			נקבה
-			
-			</div>
-			<br>
-			<label id="birthdateLabel">תאריך לידה</label>
-			<input type = "datetime" name="birthdate" id="birthdate" size="17" required disabled>
-			<br>
-			
-			<label id="phonenumberLabel">טלפון</label>
-			<input type="text" name="phoneNumber" id="phoneNumber" required disabled>
-			<br>
-			
-			<label id="passwordLabel">סיסמה</label>
-			<input type="password" name="Password" id="password" required disabled>
-  			<br>
-
-			<label id="verifyPasswordLabel">אימות סיסמה</label>
-			<input type="password" name="verifyPassword" id="verifyPassword" required disabled>
-  			<br>
-  			<br ><BR><BR><BR><button id="editUserDel" type="button" >ערוך</button>
-  			<button id="updateUserDel" type="submit" disabled>שמור</button>
-  			  <div class="user-rating">
-				<br /><br /><br />
-						
-  			
-  			<br /><br />	
-  			
+			<div id="viewMode">
+			  	
+			  	<img src="" id="viewpic" style="max-width:100px; max-height:100px; float:right; margin-left:30px">
+			  	
+			  	<label id="viewEmailLabel">כתובת מייל</label>
+			  	<label id="viewEmail"></label>			
+			  	<br>
+			  	
+			  	<label id="viewgenderLabel">מין</label>
+			  	<label id="viewgender"></label>
+			  	
+				<br>
+				<label id="viewbirthdateLabel">תאריך לידה</label>
+				<label id="viewbirthdate"></label>
+				<br>
+				
+				<label id="viewphonenumberLabel">טלפון</label>
+				<label id="viewphonenumber"></label>
+				<br>
+				
+	  			<br ><BR><BR><BR><button id="editUserDel" type="button" >ערוך</button>
+  			</div>
+		  	<div id="editMode" style='display:none'>
+			  	<label id="firstnameLabel">שם פרטי</label>
+			  	<input type="text" name="firstName" id="firstName" required disabled>
+			  	<br>
+			  	
+			  	<label id="lastnameLabel">שם משפחה</label>
+			  	<input type="text" name="lastName" id="lastName" required disabled>			
+			  	<br>
+			  	
+			  	<label id="emailLabel">כתובת מייל</label>
+			  	<label id="email"></label>			
+			  	<br>
+			  	
+			  	<label id="genderLabel">מין</label>
+			  	<div style="width: 69%; float: left">
+			  	<input type="radio" name="gender" value="Male" checked disabled >
+				זכר
+				<input type="radio" name="gender" value="Female" disabled>
+				נקבה
+				
+				</div>
+				<br>
+				<label id="birthdateLabel">תאריך לידה</label>
+				<input type = "datetime" name="birthdate" id="birthdate" size="17" required disabled>
+				<br>
+				
+				<label id="phonenumberLabel">טלפון</label>
+				<input type="text" name="phoneNumber" id="phoneNumber" required disabled>
+				<br>
+				
+				<label id="passwordLabel">סיסמה</label>
+				<input type="password" name="Password" id="password" required disabled>
+	  			<br>
+	
+				<label id="verifyPasswordLabel">אימות סיסמה</label>
+				<input type="password" name="verifyPassword" id="verifyPassword" required disabled>
+	  			<br>
+	  			<br ><BR><BR><BR>
+	  			<button id="updateUserDel" type="submit" disabled>שמור</button>
+  			</div>
+	  			  <div class="user-rating">
+					<br /><br /><br />
+							
+	  			
+	  			<br /><br />	
 		<label id="generalLabel">כללי</label>
 		<br>
 		<div class="generalStars">
@@ -197,6 +223,7 @@ input{
 		});		
 		
 		$("#editUserDel").click(function() {
+			$('#prTitle').html("פרטי המשתמש");
 			$('#firstName').attr("disabled", false);
 			$('#lastName').attr("disabled", false);
 			$('input[name="gender"]').attr("disabled", false);
@@ -217,8 +244,10 @@ input{
 		        dataType: 'json',
 		        data:{RequestType: "DBDataUserProfile"},
 		        success: function(data) {
+		        	loadDataToView(data);
 		        	$("#firstName").val(data.firstName);
 		        	$("#lastName").val(data.lastName);
+		        	$("#email").val(data.email);
 		        	$('input[name="gender"][value="'+data.gender+'"]').prop("checked", true);
 
 					var date = new Date(data.birthDate);
@@ -227,8 +256,23 @@ input{
 
 		        	$("#phoneNumber").val(data.phoneNumber);
 		        	$("#password").val(data.password);
-		        	$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" style="max-width:100px; max-height:100px; float:right">');
-					$("#editUserDel").attr("disabled",false);
+		        	if (!data.imageUrl) {
+		        		$("#pic")[0].style.display = "none";
+		        	}
+		        	else {
+		        		$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">');
+		        	}
+					
+		        	if (data.isUserEditable) {
+		        		$("#editUserDel").attr("disabled",false);		        		
+		        	}
+		        	else {
+		        		$("#editUserDel")[0].style.display = "none";
+		        		$("#updateUserDel")[0].style.display = "none";
+		        		$("#addNewLine")[0].style.display = "none";
+	        			$("#addNewBusiness")[0].style.display = "none";
+	        			$("#customersSearch")[0].style.display = "none";
+		        	}
 		        },
 		        error: function(data){
 		            	console.log("error");}
@@ -274,6 +318,27 @@ input{
 		        error: function(data){
 		            	console.log("error");}
 		    });
+		}
+		
+		function loadDataToView(data) {
+			$('#prTitle').html(data.firstName + " " + data.lastName);
+        	$("#viewEmail").html(data.email);
+        	
+        	if (data.imageUrl) {
+        		$('#viewpic').attr("src", data.imageUrl);
+			}
+        	
+        	if (data.gender == "Female") {
+        		$("#viewgender").html("נקבה");        		
+        	}
+        	else {
+        		$("#viewgender").html("זכר");
+        	}
+        	
+			var date = new Date(data.birthDate);
+			var month = date.getMonth() + 1;
+			$("#viewbirthdate").html(date.getDate() + "/" +month + "/" + date.getFullYear());
+			$('#viewphonenumber').html(data.phoneNumber);
 		}
 		
 		$(function(){

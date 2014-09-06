@@ -121,11 +121,13 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             else if(requestType.equals(Constants.DB_DATA_USER_PROFILE))
             {
             	String email = userEmail;
+            	
             	if (userIdToDisplay != null) {
             		email = DAL.getUserEmailByID(userIdToDisplay);
             	}
             	
             	PR pr= DAL.getUserProfileData(email);
+            	pr.setIsUserEditalble(userEmail != null && userEmail.equals(email)); // Only the user can edit himself
             	json = gson.toJson(pr);
             }
             else if(requestType.equals(Constants.DB_DATA_PR_PROFILE_REVIEW)){
