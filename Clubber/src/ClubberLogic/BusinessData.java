@@ -17,6 +17,7 @@ public class BusinessData {
 	private String m_Description;
 	private File m_Photo;
 	private IdWithName m_BusinessTypeId;
+	private String imageUrl;	
 	private ArrayList<LineData> m_Lines = new ArrayList<LineData>();
 		
 	
@@ -89,5 +90,11 @@ public class BusinessData {
 	}
 	public void setM_Name(String m_Name) {
 		this.m_Name = m_Name;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 }

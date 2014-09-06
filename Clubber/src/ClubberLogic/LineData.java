@@ -20,6 +20,7 @@ public class LineData {
 	private String openingHour;
 	private IdWithName pr; /*owner- created by*/
 	private IdWithName business;
+	private String imageUrl;
 	private List<IdWithName> musicStyles;
 	private LinkedList<IdWithName> prs;
 	
@@ -159,6 +160,14 @@ public class LineData {
 	 */
 	public void setLinePhotoURL(String linePhotoURL) {
 		this.linePhotoURL = linePhotoURL;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 }

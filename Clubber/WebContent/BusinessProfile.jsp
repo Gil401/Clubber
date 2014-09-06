@@ -17,9 +17,11 @@
 	</head>
 <body dir="rtl">
 	<div class="business-details">
-		<form class="business-details-form" id="businessDetails" name="businessDetails" method="post" action="UpdateBusinessDetails">
+		<form class="business-details-form" id="businessDetails" name="businessDetails" method="post" action="UpdateBusinessDetails" enctype="multipart/form-data">
 		  	
 		  	<input type="text" name="id" id="id"  hidden/>
+		  	
+			<input type="file" name="pic"id="pic" style="max-width:30%; max-height:30%; float: left;">
 		  	
 		  	<label id="businessNameLabel">שם</label>
 		  	<input type="text" name="name" id="name" required disabled/>

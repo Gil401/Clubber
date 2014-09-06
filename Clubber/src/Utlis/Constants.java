@@ -134,7 +134,7 @@ public class Constants {
 	 public static String LINE_PHOTO= "photo";
 	 
 	 //line update fields
-	 public static String MUSIC_STYLE_EDT= "MusicStyleList";
+	 public static String MUSIC_STYLE_EDT= "musicStyleEdt";
 	 public static String LINE_NAME_EDT="LineName";
 	 public static String BUSINESSS_ID_EDT="BusinessId";
 	 public static String START_DATE_EDT="StartDate";

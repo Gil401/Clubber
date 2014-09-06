@@ -14,11 +14,13 @@
 
 					<div class="line-details">
 						<form class="line-details-form" id="lineDetails"
-							name="lineDetails" >
+							name="lineDetails" enctype="multipart/form-data">
 							
 							<div id='EditLineData' style="display:none">
 								
 								<h2>פרטי הליין</h2>
+								
+								<input type="file" name="pic"id="pic" style="max-width:30%; max-height:30%; float: left;">
 								
 								<label id="lineNameLable">שם הליין</label> 
 								<input type="text" name="lineName" id="lineName" required >
