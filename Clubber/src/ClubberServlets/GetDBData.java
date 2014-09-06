@@ -60,7 +60,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		Integer auctionId= SessionUtils.getCurrentAuctionToDisplay(request.getSession());
 		Integer offerID= SessionUtils.getCurrentOfferToDisplay(request.getSession());
 		String userEmail= SessionUtils.getUserEmail(request);
-		
+		Integer userIdToDisplay = SessionUtils.getUserIdToDisplay(request.getSession());
 		ArrayList<AuctionData> auctionsList = new ArrayList<>();
 		
 		ArrayList<IdWithName> musicStyleList = new ArrayList<>();
@@ -117,11 +117,15 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             {
             	data=DAL.getLineByPR(request.getParameter("userID"));
             	json = gson.toJson(data);
-       		}
-            
+       		} 
             else if(requestType.equals(Constants.DB_DATA_USER_PROFILE))
             {
-            	PR pr= DAL.getUserProfileData(userEmail);
+            	String email = userEmail;
+            	if (userIdToDisplay != null) {
+            		email = DAL.getUserEmailByID(userIdToDisplay);
+            	}
+            	
+            	PR pr= DAL.getUserProfileData(email);
             	json = gson.toJson(pr);
             }
             else if(requestType.equals(Constants.DB_DATA_PR_PROFILE_REVIEW)){

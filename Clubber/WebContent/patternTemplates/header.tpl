@@ -10,6 +10,7 @@
     <meta name="author" content="">
     <title>Clubber</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/jquery.alerts.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">    
     <link href="css/prettyPhoto.css" rel="stylesheet"> 
     <link href="css/sc-player-standard.css" rel="stylesheet">

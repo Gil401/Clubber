@@ -39,6 +39,7 @@ public class Constants {
 	 //Session data:
 	 public static final String AUCTION_TO_DISPLAY_ID= "AuctionToDisplayId";
 	 public static final String OFFER_TO_DISPLAY_ID= "OfferToDisplayId";
+	 public static final String USER_TO_DISPLAY_ID= "UserToDisplayId";
 	 
 	 //Item types:
 	 public static final String  OFFER_ITEM_CLICKED= "OfferItemClicked";
@@ -170,5 +171,9 @@ public class Constants {
 	 public static final String AUCTION_MANAGEMENT_OFFER_NOT_RELEVANT= "AuctionManagementOfferNotRelevant";
 	 public static final String AUCTION_MANAGEMENT_AUCTION_NOT_RELEVANT= "AuctionManagementAuctionNotRelevant";
 	 public static final String AUCTION_MANAGEMENT_ACTIVATE_AUCTION= "AuctionManagementActivateAuction";
+
+	//session actions
+	 public static final String SESSION_ACTIONS_SET_USER_IN_SESSION = "SessionActions-SetUserInSession";
+
 }
 

@@ -2128,4 +2128,28 @@ public static boolean updateAuctionStatus(Integer auctionId, Integer auctionStat
 		}
 		return isSucceed;
 	}
+
+	public static String getUserEmailByID(Integer userIdToDisplay) {
+	
+		String userEmail = null;
+		
+		connectToDBServer();
+		
+		try {
+			ResultSet rs = stmt.executeQuery("SELECT Email FROM clubber_db.users where id="+ userIdToDisplay +";");
+			while (rs.next())
+			{
+				userEmail = rs.getString("Email");
+			}		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+		finally{
+			disconnectFromDBServer();
+		}
+				
+		return userEmail;
+	}
+
 }

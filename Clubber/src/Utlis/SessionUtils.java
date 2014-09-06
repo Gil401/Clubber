@@ -32,5 +32,16 @@ public class SessionUtils {
         Object sessionAttribute = request.getSession().getAttribute(Constants.EMAIL);
         return sessionAttribute != null ? sessionAttribute.toString() : null;
     }
+    
+    public static void setUserIdToDisplay(HttpSession request, Integer value)
+    {
+         request.setAttribute(Constants.USER_TO_DISPLAY_ID,value);
+    }
+    
+    public static Integer getUserIdToDisplay(HttpSession request)
+    {
+    	Object sessionAttribute =request.getAttribute(Constants.USER_TO_DISPLAY_ID);
+    	return ( (sessionAttribute != null) ? (Integer)sessionAttribute : null );
+    }
 
 }

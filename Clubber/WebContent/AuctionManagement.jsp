@@ -27,6 +27,7 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+    <script type="text/javascript" src="js/jquery.alerts.js"></script>
     <script type="text/javascript" src="js/jquery.fitvids.js"></script>
     <script type="text/javascript" src="js/soundcloud.player.api.js"></script>
     <script type="text/javascript" src="js/sc-player.js"></script> 
