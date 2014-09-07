@@ -1704,15 +1704,22 @@ public class DAL {
 		
 		String sql1= "INSERT INTO streets(City_id, Name) "
 				+ "VALUES ('"+ businessData.getM_CityId().getId()+ "','" + businessData.getM_StreetId().getName() +"')";
-
-		String sql= "INSERT INTO businesses(Name, Street, Structure_Number, Business_Phone_Number, Description, Business_Type, City, Area, Photo) "
-				+ "VALUES ('"+ businessData.getM_Name()+ "','" + businessData.getM_StreetId().getId() +"','"+ businessData.getM_HouseNumber() +"','" + businessData.getM_PhoneNumber()+"','"+ businessData.getM_Description() +"','"+ businessData.getM_BusinessTypeId().getId() +"','"+ businessData.getM_CityId().getId() +"','"+ businessData.getM_AreaId().getId()+"','"+ businessData.getImageUrl()+"')";
-		
-		
 		try {
-			stmt.executeUpdate(sql1);
-			stmt.executeUpdate(sql);
 
+			stmt.executeUpdate(sql1);
+
+			ResultSet rs = stmt.executeQuery("SELECT MAX( id ) AS MAX from streets");
+			
+			if(rs.next())
+			{
+				Integer streetId = rs.getInt("MAX");
+				
+				String sql= "INSERT INTO businesses(Name, Street, Structure_Number, Business_Phone_Number, Description, Business_Type, City, Area, Photo) "
+						+ "VALUES ('"+ businessData.getM_Name()+ "','" + streetId +"','"+ businessData.getM_HouseNumber() +"','" + businessData.getM_PhoneNumber()+"','"+ businessData.getM_Description() +"','"+ businessData.getM_BusinessTypeId().getId() +"','"+ businessData.getM_CityId().getId() +"','"+ businessData.getM_AreaId().getId()+"','"+ businessData.getImageUrl()+"')";
+				
+				stmt.executeUpdate(sql);	
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			isSucceed = false;
