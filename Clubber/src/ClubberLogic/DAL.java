@@ -2219,4 +2219,96 @@ public static boolean updateAuctionStatus(Integer auctionId, Integer auctionStat
 	}
 	
 
+public static List<AuctionData> getAuctionFilteredByEventType(Integer eventTypeId, Integer guestesQuantiny, Integer areaId) {
+	List<AuctionData> data= new LinkedList <AuctionData>();
+	connectToDBServer();
+	AuctionData auction= new AuctionData();
+	String sqlQuery;
+	String guestesFilter= " auc.Guestes_Quantiny < " +guestesQuantiny;
+	String areaFilter=" auc.area=" +areaId;
+	String eventTypeFilter=" auc.Event_Type=" +eventTypeId;
+	
+	//build query:
+	sqlQuery= "select auc.*, event_type.Name as event_type_name, auction_status.displayName,areas.Name,businesses.Name " +
+				 "from auction auc LEFT JOIN businesses ON businesses.id = auc.Certain_Business " +
+				 "LEFT JOIN event_type ON event_type.id = auc.Event_Type " +
+				 "LEFT JOIN areas ON areas.id = auc.area " +
+				 "LEFT JOIN auction_status ON auction_status.id = auc.Auction_Status " +
+				 "where ";
+	
+	if (eventTypeId != null)
+	{
+		sqlQuery.concat(eventTypeFilter);
+		//add "and" if needed:
+		if (guestesQuantiny!= null || areaId!= null){
+			sqlQuery.concat(" and ");
+		}
+	}
+	if ( areaId!= null)
+	{
+		sqlQuery.concat(areaFilter);
+		//add "and" if needed:
+		if (guestesQuantiny!= null)
+		{
+			sqlQuery.concat(" and ");
+		}
+	}
+	if (guestesQuantiny!= null)
+	{
+		sqlQuery.concat(guestesFilter);
+	}
+	
+	//no where in query- get all auctions
+	if ((guestesQuantiny == null)&& ( areaId == null) && (eventTypeId == null))
+	{
+		sqlQuery= "select auc.*, event_type.Name as event_type_name, auction_status.displayName,areas.Name,businesses.Name " +
+				 "from auction auc LEFT JOIN businesses ON businesses.id = auc.Certain_Business " +
+				 "LEFT JOIN event_type ON event_type.id = auc.Event_Type " +
+				 "LEFT JOIN areas ON areas.id = auc.area " +
+				 "LEFT JOIN auction_status ON auction_status.id = auc.Auction_Status ";
+	}
+	
+	try {
+			ResultSet rs = stmt.executeQuery(sqlQuery);
+
+			while (rs.next())
+			{
+				auction.setEventDate(rs.getLong("Event_Date"));				
+				auction.setDescription(rs.getString("Description"));
+				auction.setEventType(new IdWithName(rs.getInt("auc.Event_Type"),rs.getString("event_type_name") ));
+				auction.setId(rs.getInt("id"));
+				auction.setAuctionStatus(new IdWithName(rs.getInt("auc.Auction_Status"),rs.getString("auction_status.displayName")));
+				auction.setUserDetailsExpose(rs.getInt("Details_To_Display"));
+				auction.setCreatedBy(new IdWithName(rs.getInt("Created_By"), null));
+				String certainBusiness = rs.getString("businesses.Name");
+				
+				if (certainBusiness != null) {
+					auction.setCertainBusiness(new IdWithName(rs.getInt("auc.Certain_Business"),certainBusiness));
+				}
+				auction.setDateFlexible(rs.getBoolean("Is_Date_Flexible"));
+				auction.setExceptionsDescription(rs.getString("Exceptions_Description"));
+				auction.setGuestesQuantiny(rs.getInt("Guestes_Quantiny"));
+				auction.setSmoking(rs.getBoolean("Smoking"));
+				auction.setMinAge(rs.getInt("Minimum_Age"));
+				auction.setArea(new IdWithName(rs.getInt("auc.area"),rs.getString("areas.Name")));
+			}
+		
+			auction.setMusicStyle(GetIdAndNameData("Select music_style.* from auction_music_style,music_style where auction_music_style.auction_id = " + auction.getId() + " and music_style.id = auction_music_style.music_style_id;"));
+			auction.setBusinessType(GetIdAndNameData("Select * from auction_business_type,business_type where auction_business_type.auction_id = " + auction.getId() + " and business_type.id = auction_business_type.business_type_id;"));
+			auction.setSittsType(GetIdAndNameData("Select sitts_type.* from auction_sits_type,sitts_type where auction_sits_type.auction_id = " + auction.getId() + "  and sitts_type.id = auction_sits_type.sits_id;"));
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally{
+			disconnectFromDBServer();
+		}
+
+	return data;	
 }
+
+
+
+}
+
+

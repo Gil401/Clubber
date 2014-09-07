@@ -42,6 +42,30 @@
 		כל המכרזים שפורסמו במערכת:
 		</div>
 		<br/>
+		
+		<div class='new-auction-field'>
+		         <label class='new-auction-field-title'>סוג האירוע</label>  
+		         <select class='new-auction-field-input' id="event-type" name="event-type">
+		         </select> &nbsp;&nbsp;&nbsp;<input type="text" id="other" style="display: none;" > 
+	    </div> 
+	    
+	    <div class='new-auction-field'> 
+	         <label class='new-auction-field-title'> אזור </label>
+	         <select class='new-auction-field-input' id= 'area' name= area>
+	         </select>
+	    </div>
+	     
+	     <div class='new-auction-field'> 
+	         <label class='new-auction-field-title'> כמות אורחים </label>
+	         <select class='new-auction-field-input' id= 'guestsQuantity' name= guestsQuantity>
+	         	<option value="10">עד 10 </option>
+	         	<option value="20">עד 20</option>
+	         	<option value="30">עד 30</option>
+	         </select>
+	     </div> 
+	     
+	    <button id="SearchAuctions" onClick="getFilteredAuctions();" type="button" >חפש</button>	    
+	    
       	<div class='all-auctions-container'>
       	
       	</div>  
@@ -154,8 +178,55 @@
 	}
 	
 	$(function onLoad(){
-		getAllAuctions();
+		ajaxFieldsDataFormDBData();	
 	});
+	
+    
+    function loadListDataFromDB(data, listName)
+	{
+		console.log("adding"+ listName);
+		 $.each(data, function(index, val) {
+		            $('<option value="'+val.id+'">' + val.Name + '</option>').appendTo($(listName)) ;
+		        });	
+	}
+    
+
+	function ajaxFieldsDataFormDBData() {
+	    $.ajax({
+	        url: "GetDBData",
+	        type: "post",
+	        dataType: 'json',
+	        data:{RequestType: "GetDBData-NewAuction"},
+	        success: function(data) {
+	            if (data != null) { 
+	                loadListDataFromDB(data.eventTypes, '#event-type' );
+	                loadListDataFromDB(data.area, '#area' );
+	            }
+	    		getAllAuctions();},
+	        error: function(data){
+	            	console.log("error");}
+	    });
+	}
+	
+	function getFilteredAuctions()
+	{
+		var eventTypeId= $('#event-type')[0].value;
+		var areaId= $('#area')[0].value;
+		var guestesQuantiny= $('#guestsQuantity')[0].value;
+		
+		 $.ajax({
+		        url: "GetDBData",
+		        type: "post",
+		        dataType: 'json',
+		        data: {RequestType: "DBDataFilteredAuctions", EventTypeId: eventTypeId, GuestesQuantiny: guestesQuantiny, AreaId: areaId},
+		        success: function(data) {
+					  showAuctions(data);
+		        },
+		        error: function(data){
+		            	console.log("error");}
+		    });
+		
+	}
 	
 	</script>	
 	</body>

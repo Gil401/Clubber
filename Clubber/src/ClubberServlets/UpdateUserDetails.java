@@ -67,8 +67,11 @@ public class UpdateUserDetails extends HttpServlet {
 			e.printStackTrace();
 			isSucceed = false;
 		}
-
+		
 		if (isSucceed == true) {
+			request.getSession().setAttribute(Constants.FIRST_NAME, client.getFirstName());
+			request.getSession().setAttribute(Constants.IMAGE, client.getImageURL());
+			request.getSession().setAttribute("User", client);
 			message = "העדכון בוצע";
 		} else {
 			message = "העדכון נכשל";

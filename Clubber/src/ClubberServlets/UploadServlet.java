@@ -25,7 +25,7 @@ public class UploadServlet extends HttpServlet {
    
    private boolean isMultipart;
    private String filePath;
-   private int maxFileSize = 500 * 1024;
+   private int maxFileSize = 5000 * 1024;
    private int maxMemSize = 40 * 1024;
    private File file ;
 

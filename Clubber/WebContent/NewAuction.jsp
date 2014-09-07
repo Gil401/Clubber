@@ -127,6 +127,7 @@
     	else 
     		$('#other').hide();
      });
+	
      </script>
    
 </body>

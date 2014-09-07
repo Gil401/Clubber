@@ -244,6 +244,16 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             	data= DAL.getMyLinesData(request.getParameter("userID").toString());
             	json = gson.toJson(data);
             }
+            else if (requestType.equals(Constants.DB_DATA_FILTERED_AUCTIONS))
+            {
+            	Integer areaId = Integer.parseInt(request.getParameter(Constants.AUCTION_SEARCH_AREA_ID));
+            	Integer eventType = Integer.parseInt(request.getParameter(Constants.AUCTION_SEARCH_EVENT_TYPE));
+            	Integer guestsQuantity = Integer.parseInt(request.getParameter(Constants.AUCTION_SEARCH_GUESTS_QUANTITY));
+            	
+            	data= DAL.getAuctionFilteredByEventType(eventType,guestsQuantity,areaId );
+            	json = gson.toJson(data);
+            }
+            
             
             System.out.println(json);
             out.print(json);

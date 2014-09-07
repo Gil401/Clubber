@@ -45,14 +45,12 @@ input{
 				
 				<button class='btn' id="addNewLine" type="button" style="width: 160px;" onclick="window.location ='AddNewLine.jsp'">הוסף ליין חדש </button><br ><br>
 				<button class='btn' id="addNewBusiness" type="button" style="width: 160px;" onclick="window.location ='AddNewBusiness.jsp'">הוסף עסק חדש</button><br><br>
-				<button class='btn' id="customersSearch" type="button" style="width: 160px;" onclick="window.location ='AddNewLine.jsp'">חפש לקוחות</button><br><br>
+				<button class='btn' id="customersSearch" type="button" style="width: 160px;" onclick="window.location ='SearchAuctions.jsp'">חפש לקוחות</button><br><br>
 
 				</div>
 	<br /><br /><br />
 			<br>
 			<div id="viewMode">
-			  	
-			  	<img src="" id="viewpic" style="max-width:100px; max-height:100px; float:right; margin-left:30px">
 			  	
 			  	<label id="viewEmailLabel">כתובת מייל</label>
 			  	<label id="viewEmail"></label>			
@@ -316,9 +314,9 @@ input{
 			$('#prTitle').html(data.firstName + " " + data.lastName);
         	$("#viewEmail").html(data.email);
         	
-        	if (data.imageUrl) {
+        	/*if (data.imageUrl) {
         		$('#viewpic').attr("src", data.imageUrl);
-			}
+			}*/
         	
         	if (data.gender == "Female") {
         		$("#viewgender").html("נקבה");        		

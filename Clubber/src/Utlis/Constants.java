@@ -32,7 +32,7 @@ public class Constants {
 	 public static final String DB_DATA_GET_JOIN_LINE_REQUEST_DATA = "DBDataGetJoinRequestData";
 	 public static final String DB_DATA_AUCTION_REVIEW = "GetDBData-AuctionReview";
 	 public static final String DB_DATA_BUSINESS_LST = "GetDBData-BusinessLst";
-	 
+	 public static final String DB_DATA_FILTERED_AUCTIONS="DBDataFilteredAuctions";
 	 // PrProfile fields
 	 public static final String USER_DATA= "userData";
 	 public static final String PR_PROFILE_VISIT_REQUEST= "visitPrProfile";
@@ -166,5 +166,10 @@ public class Constants {
 	 //session actions
 	 public static final String SESSION_ACTIONS_SET_USER_IN_SESSION = "SessionActions-SetUserInSession";
 	 public static final String SESSION_ACTIONS_GET_USER_DATA= "DBDataGetUserData";
+	 
+	 //search auctions parameters:
+	 public static final String AUCTION_SEARCH_EVENT_TYPE="EventTypeId";
+	 public static final String AUCTION_SEARCH_GUESTS_QUANTITY="GuestesQuantiny";
+	 public static final String AUCTION_SEARCH_AREA_ID="AreaId";
 }
 
