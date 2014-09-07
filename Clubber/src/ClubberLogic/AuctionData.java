@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import Utlis.IdWithName;
+import Utlis.UserDetailsExpose;
 
 public class AuctionData {
 	private Integer id;
@@ -18,12 +19,13 @@ public class AuctionData {
 	private List<IdWithName> businessType;
 	private IdWithName certainBusiness;
 	private String description;
-	private IdWithName detailsToDisplay;
 	private List<IdWithName> sittsType;
 	private boolean smoking;
 	private IdWithName auctionStatus;
 	private IdWithName createdBy;
 	private Integer offerNumber;
+	private UserDetailsExpose userDetailsExpose ;
+	private Integer userDetailsExposeInt ;
 	
 	public AuctionData()
 	{
@@ -121,14 +123,6 @@ public class AuctionData {
 		this.certainBusiness = certainBusiness;
 	}
 
-	public IdWithName getDetailsToDisplay() {
-		return detailsToDisplay;
-	}
-
-	public void setDetailsToDisplay(IdWithName detailsToDisplay) {
-		this.detailsToDisplay = detailsToDisplay;
-	}
-
 	public String isSmoking() {
 		if (smoking)
 		{
@@ -185,6 +179,17 @@ public class AuctionData {
 	public void setSittsType(List<IdWithName> sittsType) {
 		this.sittsType = sittsType;
 	}
-	 
-
+	public Integer getUserDetailsExpose() {
+		return userDetailsExpose.getValue();
+	}
+	public void setUserDetailsExpose(Integer userDetailsExpose) {
+		this.userDetailsExpose = UserDetailsExpose.forCode(userDetailsExpose);
+		userDetailsExposeInt= userDetailsExpose;
+	}
+	public Integer getUserDetailsExposeInt() {
+		return userDetailsExposeInt;
+	}
+	public void setUserDetailsExposeInt(Integer userDetailsExposeInt) {
+		this.userDetailsExposeInt = userDetailsExposeInt;
+	}
 }

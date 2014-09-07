@@ -115,7 +115,8 @@ public class DAL {
 				auction.setEventType(new IdWithName(rs.getInt("auc.Event_Type"),rs.getString("event_type_name") ));
 				auction.setId(rs.getInt("id"));
 				auction.setAuctionStatus(new IdWithName(rs.getInt("auc.Auction_Status"),rs.getString("auction_status.displayName")));
-				
+				auction.setUserDetailsExpose(rs.getInt("Details_To_Display"));
+				auction.setCreatedBy(new IdWithName(rs.getInt("Created_By"), null));
 				String certainBusiness = rs.getString("businesses.Name");
 				
 				if (certainBusiness != null) {
@@ -151,7 +152,7 @@ public class DAL {
 		try {
 			
 			/*load offer data*/
-			ResultSet rs = stmt.executeQuery("select * from offer_status, line, offers off, users where off.Line_id = line.id and users.id= off.Pr_id and offer_status.id=off.Offer_Status and off.ID="+currOfferID);
+			ResultSet rs = stmt.executeQuery("select * from offer_status, line, offers off, users, businesses where off.Line_id = line.id and users.id= off.Pr_id and businesses.id= line.Business_id and offer_status.id=off.Offer_Status and off.ID="+currOfferID);
 			while (rs.next())
 			{
 				offer.setOfferStatusId(new IdWithName(rs.getInt("offer_status.id"),rs.getString("offer_Status.displayName")));
@@ -163,6 +164,7 @@ public class DAL {
 				offer.setMaxArrivalHourAsLong(rs.getLong("off.Max_Arrival_Hour"));
 				offer.setPrId(new IdWithName(rs.getInt("off.Pr_id"), rs.getString("users.First_Name") + " " + rs.getString("users.Last_Name")));
 				offer.setSubmitDate(rs.getLong("off.Created_On"));
+				offer.setLineBusinessId(new IdWithName(rs.getInt("businesses.id"), rs.getString("businesses.Name")));
 			}
 			
 			/*load offer treats*/
@@ -365,7 +367,7 @@ public class DAL {
 			String sqlAuctionInsertion= String.format("insert into auction values(%d,%d,'%s','%s',%d,'%s','%s',%d,%d,'%s',%d,'%s',%d,%d, %s)",
 					null,auction.getMinAge(),auction.getExceptionsDescription(),auction.getGuestesQuantiny(),getValidID(auction.getEventType()), 
 					auction.getEventDate(),auction.getIsDateFlexible(),getValidID( auction.getArea()),
-					getValidID(auction.getCertainBusiness()),auction.getDescription(),getValidID(auction.getDetailsToDisplay()),
+					getValidID(auction.getCertainBusiness()),auction.getDescription(),(auction.getUserDetailsExposeInt()),
 					auction.isSmoking(), getValidID(auction.getAuctionStatus()),auction.getCreatedBy(), null);
 			
 			stmt.executeUpdate(sqlAuctionInsertion, Statement.RETURN_GENERATED_KEYS);
@@ -688,6 +690,41 @@ public class DAL {
 		}
 		
 		return pr;
+		
+	}
+	
+	public static Client getClientData(String email)
+	{
+		
+		Client client = new Client();
+		connectToDBServer();
+		
+		try {
+			ResultSet rs = stmt.executeQuery("SELECT * "
+					   + "FROM clubber_db.users "
+					   + "WHERE Email ='" + email + "'");
+			
+			while (rs.next())
+			{
+				client.setFirstName(rs.getString("First_Name"));
+				client.setLastName(rs.getString("Last_Name"));
+				client.setGender(rs.getString("Gender"));
+				client.setPhoneNumber(rs.getString("Phone_Number"));
+				client.setEmail(rs.getString("Email"));
+				client.setPassword(rs.getString("Password"));
+				client.setBirthDate(rs.getLong("Birth_Date"));
+				client.setImageUrl(rs.getString("User_Image"));
+			}
+			
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally{
+			disconnectFromDBServer();
+		}
+		
+		return client;
 		
 	}
 	
@@ -1414,8 +1451,7 @@ public class DAL {
 				
 				while(rs5.next())
 				{
-					IdWithName detailsToDisplay = new IdWithName(rs5.getInt("D.id"), rs5.getString("D.Name"));
-					auctionList.get(i).setDetailsToDisplay(detailsToDisplay);
+					auctionList.get(i).setUserDetailsExpose(rs5.getInt("D.id"));
 				}
 			}		
 			
@@ -1576,8 +1612,7 @@ public class DAL {
 				
 				while(rs4.next())
 				{
-					IdWithName detailsToDisplay = new IdWithName(rs4.getInt("D.id"), rs4.getString("D.Name"));
-					auctionList.get(i).setDetailsToDisplay(detailsToDisplay);
+					auctionList.get(i).setUserDetailsExpose(rs4.getInt("D.id"));
 				}
 			}
 
@@ -1646,7 +1681,7 @@ public class DAL {
 				auctionData.setArea(new IdWithName(rs.getInt("AR.id"), rs.getString("AR.Name")));
 				auctionData.setCertainBusiness(new IdWithName(rs.getInt("B.id"), rs.getString("B.Name")));
 				auctionData.setDescription(rs.getString("A.Description"));
-				auctionData.setDetailsToDisplay(new IdWithName(rs.getInt("D.id"), rs.getString("D.Name")));
+				auctionData.setUserDetailsExpose(rs.getInt("D.id"));
 				auctionData.setSmoking(rs.getBoolean("A.Smoking"));
 				auctionData.setAuctionStatus(new IdWithName(rs.getInt("S.id"), rs.getString("S.Name")));
 				auctionData.setCreatedBy(new IdWithName(rs.getInt("A.Created_By"), rs.getString("U.First_Name")));
@@ -2076,11 +2111,10 @@ public class DAL {
 		
 		String sql = "UPDATE clubber_db.offers "
 				   + "SET  Offer_Status = '" + offerStatusId + "'"
-				   + " WHERE id ='" + offerId + "'";
-		
+				   + " WHERE id ='" + offerId + "'";		
 		try
 		{
-			stmt.executeUpdate(sql);	
+			stmt.executeUpdate(sql);
 		} 
 		catch (SQLException e) {
 			isSucceed = false;
@@ -2093,13 +2127,36 @@ public class DAL {
 		return isSucceed;
 	}
 	
+	public static boolean updateUserDetailsCode(Integer displayCode, Integer auctionId)
+	{
+		boolean isSucceed = true;
+		
+		connectToDBServer();	
+		try
+		{
+			//set auction display code:
+			String sql = "UPDATE clubber_db.Auction "
+					   + "SET Details_To_Display = '" + displayCode + "'"
+					   + " WHERE id ='" + auctionId + "'";
+			stmt.executeUpdate(sql);
+		} 
+		catch (SQLException e) {
+			isSucceed = false;
+			e.printStackTrace();
+			
+		}
+		finally{
+			disconnectFromDBServer();
+		}
+		
+		return isSucceed;
+	}
+	
 public static boolean updateAuctionStatus(Integer auctionId, Integer auctionStatusId) throws ParseException {
 		
 		boolean isSucceed = true;
 		
 		connectToDBServer();
-		
-		
 		
 		try
 		{
@@ -2151,5 +2208,6 @@ public static boolean updateAuctionStatus(Integer auctionId, Integer auctionStat
 				
 		return userEmail;
 	}
+	
 
 }

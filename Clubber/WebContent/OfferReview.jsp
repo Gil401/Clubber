@@ -31,6 +31,9 @@
 					<div id="offered-line">
 						<label class="offer-title-label">ליין מוצע</label>
 					</div>
+					<div id="offered-line-business">
+						<label class="offer-title-label">בית עסק</label>
+					</div>
 					<div id="offer-expiration-date">
 						<label class="offer-title-label">ת.תפוגת ההצעה</label>
 					</div>
@@ -43,6 +46,7 @@
 					<div id="offer-treats">
 						<label class="offer-title-label"> סל פינוקים</label>
 					</div>
+					<input class='btn-primary' type="button" id="edit-offer-button" name="edit-offer-button"  value="ערוך"/>
 				</div>
 				<div id='EditOfferData' class='offer-reviewed-item-description' style='display:none'>
 					<label id="lineDescriptionLabel">תיאור</label> 
@@ -55,15 +59,11 @@
 					<br>
 
 					<label id="offerEndDateLabel">ת. תפוגת ההצעה</label> 
-					<input type="text" id='endDate' name="endDate" readonly="true" required placeholder="תאריך האירוע"> 
+					<input type="text" id='endDate' name="datepicker" readonly="true" required> 
 					<br>
 					
 					<label id="offerMaxArrivalTime">שעת הגעה מקסימלית</label> 
 					<input type="time" name="maxArrivalTime" id="maxArrivalTime" required >
-					<br>
-					
-					<label id="offerStatusLabel">סטטוס ההצעה</label> 
-					<label id="offerStatus"></label>
 					<br>
 					
 					<div style="height:120px"> 
@@ -73,9 +73,6 @@
 					</div>
 					<input class='btn-primary' type="button" id="update-offer-button" onClick="saveBtnClicked()" name="update-offer-button" value="שמור"/>
 				</div>
-				
-				<input class='btn-primary' type="button" id="accept-offer-button" name="accept-offer-button"  value="קבל הצעה זו" onClick= "approveBtnClicked()"/>
-				<input class='btn-primary' type="button" id="edit-offer-button" name="edit-offer-button"  value="ערוך"/>
 			</div>
 		</div>
 		<div class="auction-item-description">
@@ -108,8 +105,9 @@
 					</div>
 					<div id="auction-description">
 						<label class="offer-title-label">תיאור כללי</label>
-					</div>
+					</div>				
 				</div>
+		<br/><input class='btn-primary' type="button" id="accept-offer-button" name="accept-offer-button"  value="קבל הצעה זו" onClick= "approveBtnClicked()"/>
        <div class='all-messages-container'>
 	       	<div class="old-messages"></div>
 	       	<div class="new-message"></div> 
@@ -122,6 +120,7 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+    <script type="text/javascript" src="js/jquery.alerts.js"></script>
     <script type="text/javascript" src="js/jquery.fitvids.js"></script>
     <script type="text/javascript" src="js/soundcloud.player.api.js"></script>
     <script type="text/javascript" src="js/sc-player.js"></script> 
@@ -131,6 +130,6 @@
     <script type="text/javascript" src="js/switcher.js"></script>
     <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
     <script src="Script/Utils.js"  type="text/javascript" charset="utf-8" ></script>
-<script src="Script/OfferReview.js"  type="text/javascript" charset="windows-1255" ></script>
+	<script src="Script/OfferReview.js"  type="text/javascript" charset="utf-8" ></script>
     </body>
 </html>

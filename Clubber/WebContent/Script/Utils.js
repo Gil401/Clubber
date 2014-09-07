@@ -9,6 +9,12 @@ var ACCEPTED_OFFER_STATUS_ID=1;
 var PENDING_OFFER_STATUS_ID= 2;
 var DENIED_OFFER_STATUS_ID=3; 
 var NOT_RELEVANT_OFFER_STATUS_ID= 4;
+
+//user details expose:
+var DISPLAY_EMAIL=1;
+var DISPLAY_PHONE_NUMBER=2;
+var DISPLAY_EMAIL_AND_PHONE= 3;
+
 /***********************/
 
 

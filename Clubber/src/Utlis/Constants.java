@@ -23,6 +23,7 @@ public class Constants {
 	 public static final String DB_DATA_GET_BUSINESS_CITIES_DATA= "DBDataGetBusinessCitiesData";
 	 public static final String DB_DATA_GET_BUSINESSES_TYPE_DATA= "DBDataGetBusinessesTypeData";
 	 public static final String DB_DATA_USER_PROFILE= "DBDataUserProfile";
+	 public static final String DB_DATA_USER_DATA_RETRIVE= "DBDataUserDataRetrive";
 	 public static final String DB_DATA_PR_PROFILE_REVIEW = "DBDataPrProfileReview";
 	 public static final String DB_DATA_CLIENT_PROFILE_REVIEW = "DBDataClientProfileReview";
 	 public static final String DB_DATA_RECOMENDED_LINES = "DBDataRecomendedLines";	
@@ -40,6 +41,7 @@ public class Constants {
 	 public static final String AUCTION_TO_DISPLAY_ID= "AuctionToDisplayId";
 	 public static final String OFFER_TO_DISPLAY_ID= "OfferToDisplayId";
 	 public static final String USER_TO_DISPLAY_ID= "UserToDisplayId";
+	 public static final String USER_TO_RETRIVE= "UserToRetrive";
 	 
 	 //Item types:
 	 public static final String  OFFER_ITEM_CLICKED= "OfferItemClicked";
@@ -134,7 +136,7 @@ public class Constants {
 	 public static String LINE_PHOTO= "photo";
 	 
 	 //line update fields
-	 public static String MUSIC_STYLE_EDT= "musicStyleEdt";
+	 public static String MUSIC_STYLE_EDT= "MusicStyleList";
 	 public static String LINE_NAME_EDT="LineName";
 	 public static String BUSINESSS_ID_EDT="BusinessId";
 	 public static String START_DATE_EDT="StartDate";
@@ -171,9 +173,11 @@ public class Constants {
 	 public static final String AUCTION_MANAGEMENT_OFFER_NOT_RELEVANT= "AuctionManagementOfferNotRelevant";
 	 public static final String AUCTION_MANAGEMENT_AUCTION_NOT_RELEVANT= "AuctionManagementAuctionNotRelevant";
 	 public static final String AUCTION_MANAGEMENT_ACTIVATE_AUCTION= "AuctionManagementActivateAuction";
-
-	//session actions
+	 public static final String AUCTION_MANAGEMENT_OFFER_ACCEPTED="AuctionManagementOfferAccepted";
+	 
+	 
+	 //session actions
 	 public static final String SESSION_ACTIONS_SET_USER_IN_SESSION = "SessionActions-SetUserInSession";
-
+	 public static final String SESSION_ACTIONS_GET_USER_DATA= "DBDataGetUserData";
 }
 

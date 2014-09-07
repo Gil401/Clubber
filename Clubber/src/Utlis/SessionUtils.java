@@ -43,5 +43,16 @@ public class SessionUtils {
     	Object sessionAttribute =request.getAttribute(Constants.USER_TO_DISPLAY_ID);
     	return ( (sessionAttribute != null) ? (Integer)sessionAttribute : null );
     }
+    
+    public static void setUserIdToRetrieve(HttpSession request, Integer value)
+    {
+         request.setAttribute(Constants.USER_TO_RETRIVE,value);
+    }
+    
+    public static Integer getUserIdToRetrieve(HttpSession request)
+    {
+    	Object sessionAttribute =request.getAttribute(Constants.USER_TO_RETRIVE);
+    	return ( (sessionAttribute != null) ? (Integer)sessionAttribute : null );
+    }
 
 }

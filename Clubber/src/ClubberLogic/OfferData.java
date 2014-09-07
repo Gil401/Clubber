@@ -22,7 +22,7 @@ public class OfferData {
 	private IdWithName  offerStatusId;
 	private File linePhoto;
 	private List<IdWithName> offerTreats;
-	
+	private IdWithName lineBusinessId;
 	
 	public OfferData()
 	{
@@ -108,5 +108,12 @@ public class OfferData {
 
 	public void setMaxArrivalHourAsLong(Long maxArrivalHourAsLong) {
 		this.maxArrivalHourAsLong = maxArrivalHourAsLong;
+	}
+	
+	public IdWithName getLineBusinessId() {
+		return lineBusinessId;
+	}
+	public void setLineBusinessId(IdWithName lineBusinessId) {
+		this.lineBusinessId = lineBusinessId;
 	}
 }

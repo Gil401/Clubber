@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ClubberLogic.AuctionData;
 import ClubberLogic.BusinessData;
+import ClubberLogic.Client;
 import ClubberLogic.DAL;
 import ClubberLogic.LineData;
 import ClubberLogic.OfferData;
@@ -121,7 +122,6 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             else if(requestType.equals(Constants.DB_DATA_USER_PROFILE))
             {
             	String email = userEmail;
-            	
             	if (userIdToDisplay != null) {
             		email = DAL.getUserEmailByID(userIdToDisplay);
             	}
@@ -130,6 +130,13 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             	pr.setIsUserEditalble(userEmail != null && userEmail.equals(email)); // Only the user can edit himself
             	json = gson.toJson(pr);
             }
+            else if(requestType.equals(Constants.DB_DATA_USER_DATA_RETRIVE))
+            {
+            	String email = DAL.getUserEmailByID(userIdToDisplay);
+            	Client client= DAL.getClientData(email);
+            	json = gson.toJson(client);
+            }
+            
             else if(requestType.equals(Constants.DB_DATA_PR_PROFILE_REVIEW)){
             	UserReviews reviews = DAL.getPrProfileReview(userEmail);
             	json = gson.toJson(reviews);

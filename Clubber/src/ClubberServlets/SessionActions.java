@@ -57,6 +57,13 @@ public class SessionActions extends HttpServlet {
             	SessionUtils.setUserIdToDisplay(request.getSession(), userId);
             }
             
+            if (requestType.equals(Utlis.Constants.SESSION_ACTIONS_GET_USER_DATA))
+            {
+            	Integer userId= Integer.parseInt(request.getParameter("UserId"));
+            	
+            	SessionUtils.setUserIdToRetrieve(request.getSession(), userId);
+            }
+            
             System.out.println(json);
             out.print(json);
             out.flush();
