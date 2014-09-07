@@ -125,7 +125,7 @@ public class Constants {
 	 public static String LINE_NAME= "name";
 	 public static String LINE_BUSINEES_ID= "businessId";
 	 public static String LINE_BUSINEES_NAME= "businessName";
-	 public static String LINE_MUSIC_STYLE_NAME= "musicStyle";
+	 public static String LINE_MUSIC_STYLE= "musicStyleEdt";
 	 public static String LINE_DAY_IN_WEEK= "dayInWeek";
 	 public static String LINE_START_DATE= "startDate";
 	 public static String LINE_END_DATE= "endDate";
@@ -134,19 +134,6 @@ public class Constants {
 	 public static String LINE_ETRANCEFEE= "etranceFee";
 	 public static String LINE_DJ= "DJ";
 	 public static String LINE_PHOTO= "photo";
-	 
-	 //line update fields
-	 public static String MUSIC_STYLE_EDT= "MusicStyleList";
-	 public static String LINE_NAME_EDT="LineName";
-	 public static String BUSINESSS_ID_EDT="BusinessId";
-	 public static String START_DATE_EDT="StartDate";
-	 public static String END_DATE_EDT= "EndDate";
-	 public static String MIN_AGE_EDT="MinAge";
-	 public static String DESCRIPTION_EDT= "Description";
-	 public static String ENTRANCE_EDT= "EtranceFee";
-	 public static String DJ_EDT= "DJ";
-	 public static String ID_EDT="Id";
-	 public static String DAY_EDT="Day";
 	 
 	 //Offer update fields
 

@@ -58,11 +58,6 @@
 			<label id="descriptionLabel">תיאור</label>
 			<input name="description" id="description" disabled/>
   			<br>
-			
-			<div class="business-photo">
-			
-			</div>
-			<br>
 			  			  			
   			<button id="editBusinessDel" type="button" >ערוך</button>
   			<button id="updateBusinessDel" type="submit" disabled>שמור</button>
@@ -95,6 +90,9 @@
 			$('#phoneNumber').attr("disabled", false);
 			$('#description').attr("disabled", false);
 			$("#updateBusinessDel").attr("disabled",false);
+			$('#pictureLabel').hide();
+			$('#pic_container').append('<br><br><br><input type="file" name="pic" id="pic" style="float:right;padding:0; margin:0;max-width:30%; max-height:30%;">');
+			
 		});
 		
 		function getBusinessData(id){
@@ -125,6 +123,13 @@
 		        	$("#homeNumber").val(data.m_HouseNumber);
 		        	$("#phoneNumber").val(data.m_PhoneNumber);
 		        	$("#description").val(data.m_Description);
+		        	if (!data.imageUrl) {
+		        		$("#pic")[0].style.display = "none";
+		        	}
+		        	else {
+		        		$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">');
+		        	}
+		        	
 		        	var areaId = data.m_AreaId.id;
 		        	getAllCitiesByArea(areaId);
 

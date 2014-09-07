@@ -16,7 +16,7 @@
                         <div class="bg">
                             <h2 class="heading">הוספת ליין חדש</h2 >
 					        <div class="add-new-business-area">
-					  			<form class="add-new-line-form" id="addNewLine" name="addNewLine" method="post" action="AddNewLine">
+					  			<form class="add-new-line-form" id="addNewLine" name="addNewLine" method="post" action="AddNewLine" enctype="multipart/form-data">
 						  			<div class="message-area">
 										<label id=subscribeFailed>
 										<% if(messageText != null){ %>
@@ -24,6 +24,9 @@
 										<%} %>
 										</label>   			
 					  				</div>
+					  				
+	  								<input type="file" name="pic" id="pic" >
+	  								<br>
 					  				
 								  	<div class="lable" id="lineNameLable">שם הליין</div>
 								  	<input type="text" name="name" name="name" required>
@@ -35,15 +38,21 @@
 									<br>
 																  	
 								  	<div class="lable" id="lineMusicStyleLabel">סגנון מוזיקה
-									  	<div class="music-style-area">
-									  	</div>
-								  	</div>
+							         	<div id="musicStyleEdt" class="music-style-area combobox-auction-input">
+							        	</div>
+								 	</div>
 								  	<br>
 								  	
-								  	<div class="lable" id="lineDayLabel" required>יום בשבוע
-								  	
-								  	</div>
-								  	<br>
+									<select type="text" name="dayInWeek" id="dayInWeek" required>
+										<option value='1'>א</option>
+										<option value='2'>ב</option>
+										<option value='3'>ג</option>
+										<option value='4'>ד</option>
+										<option value='5'>ה</option>
+										<option value='6'>ו</option>
+										<option value='7'>ש</option>
+									</select>
+									<br>
 	
 								  	<div class="lable" id="lineStartDateLabel" required>תאריך פתיחה של הליין</div>								  	
 								  	<input type="text" name="startDate" id="startDate" required>
@@ -56,12 +65,7 @@
 								  	<div class="lable" id="minAgeLabel">גיל מינימלי</div>
 								  	<input type="text" name="minAge" id="minAge" required>
 								  	<br>
-								  	
-								  	<div class="lable" id="businessPhotoLabel">תמונה של הליין
-								  	
-								  	</div>
-								  	<br>
-								  	
+								  									  	
 								  	<div class="lable" id="lineDescriptionLabel">תיאור</div>
 								  	<textarea rows="5" cols="20" type="text" name="description" id="description"></textarea>
 								  	<br>
@@ -177,8 +181,10 @@
 	        	businesses.html("");
 	        	
 				for (var i = 0; i < businessList.length; i++) {
-					businesses.append('<option id=' + businessList[i].m_Id +'>' + businessList[i].m_Name + '</option>');
+					businesses.append('<option id=' + businessList[i].id +'>' + businessList[i].Name + '</option>');
 				}        	
+				
+				$("#businessId").val($("#businessName").find('option:first').attr('id'));
 	        },
 	        error: function(data){
 	            	console.log("error");}
@@ -186,10 +192,17 @@
 		
 	}
 	
+	$("#businessName").change(function() {
+		$("#businessId").val($("#businessName").find('option:selected').attr('id'));
+	});
+	
 	$(function onLoad(){
 		uploadMusicStyleData();
 		uploadAllBusinessData();
 	});
+
+	
+	
 
 	
     </script>                                	

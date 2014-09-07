@@ -13,17 +13,19 @@
 
 
 					<div class="line-details">
-						<form class="line-details-form" id="lineDetails"
-							name="lineDetails" enctype="multipart/form-data">
+						<form class="line-details-form" id="lineDetails" name="lineDetails" enctype="multipart/form-data">
 							
 							<div id='EditLineData' style="display:none">
 								
 								<h2>פרטי הליין</h2>
 								
-								<input type="file" name="pic"id="pic" style="max-width:30%; max-height:30%; float: left;">
+								<div class="pic-area">
+									<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">
+								</div> 
+								<br>
 								
 								<label id="lineNameLable">שם הליין</label> 
-								<input type="text" name="lineName" id="lineName" required >
+								<input type="text" name="name" id="name" required >
 								<br>
 								
 								<label id="linebusinessNameLable">מקום הליין</label> 
@@ -32,7 +34,7 @@
 								<br>
 								
 								<label id="lineDayLabel">יום בשבוע</label> 
-								<select type="text" name="Day" id="Day" required>
+								<select type="text" name="dayInWeek" id="dayInWeek" required>
 									<option value='1'>א</option>
 									<option value='2'>ב</option>
 									<option value='3'>ג</option>

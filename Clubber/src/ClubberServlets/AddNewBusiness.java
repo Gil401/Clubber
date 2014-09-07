@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ClubberLogic.BusinessData;
 import ClubberLogic.DAL;
+import ClubberLogic.LineData;
 import Utlis.Constants;
 import Utlis.IdWithName;
 
@@ -41,34 +42,18 @@ public class AddNewBusiness extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		response.setContentType("text/html; charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        String message = "";
-        BusinessData businessData = new BusinessData();
-        
-        businessData.setM_Name(request.getParameter(Constants.BUSINESS_NAME));
+		request.setCharacterEncoding("UTF-8");
 
-        Integer typeId = new Integer(Integer.parseInt(request.getParameter(Constants.BUSINESS_TYPE_ID)));
-        IdWithName type = new IdWithName(typeId, request.getParameter(Constants.BUSINESS_TYPE_NAME));
-        businessData.setM_BusinessTypeId(type);
-        
-        Integer areaId = new Integer(Integer.parseInt(request.getParameter(Constants.BUSINESS_AREA_ID)));
-        IdWithName area = new IdWithName(areaId, request.getParameter(Constants.BUSINESS_AREA_NAME));
-        businessData.setM_AreaId(area);
-        
-        Integer cityId = new Integer(Integer.parseInt(request.getParameter(Constants.BUSINESS_CITY_ID)));
-        IdWithName city = new IdWithName(cityId, request.getParameter(Constants.BUSINESS_CITY_NAME));
-        businessData.setM_CityId(city);
+		String path = getServletContext().getRealPath(
+				Constants.IMAGES_DIR + Constants.BUSSINESS_IMAGES_DIR);
 
-        Integer streetId = 0;
-        IdWithName street = new IdWithName(streetId, request.getParameter(Constants.BUSINESS_STREET_NAME));
-        businessData.setM_StreetId(street);
-        
-        businessData.setM_HouseNumber(Integer.parseInt(request.getParameter(Constants.BUSINESS_HOME_NUMBER)));
-        businessData.setM_PhoneNumber(request.getParameter(Constants.BUSINESS_PHONE_NUMBER));
-        businessData.setM_Description(request.getParameter(Constants.BUSINESS_DESCRIPTION));
-        //businessData.setM_Photo(request.getParameter(Constants.BUSINESS_PHOTO));
-                        
+		UploadBusinessImageServlet uploadServlet = new UploadBusinessImageServlet();
+		BusinessData businessData = new BusinessData();
+
+		uploadServlet.upload(request, path, Constants.IMAGES_DIR
+				+ Constants.BUSSINESS_IMAGES_DIR, businessData);
+		String message = "";
+
         boolean isSucceed = true;
         
 		isSucceed = DAL.addNewBusiness(businessData);

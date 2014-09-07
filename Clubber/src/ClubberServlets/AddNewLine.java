@@ -45,44 +45,19 @@ public class AddNewLine extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		response.setContentType("text/html; charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        String message = "";
-        LineData lineData = new LineData();
-        boolean isSucceed = true;
+		request.setCharacterEncoding("UTF-8");
 
-        lineData.setM_LineName(request.getParameter(Constants.LINE_NAME));
-        Integer businnesId = Integer.parseInt(request.getParameter(Constants.LINE_BUSINEES_ID));
-        String 	businessName = 	request.getParameter(Constants.LINE_BUSINEES_NAME);
-        lineData.setBusiness(new IdWithName(businnesId, businessName));
-        lineData.setM_DayInWeek(Integer.parseInt(request.getParameter(Constants.LINE_DAY_IN_WEEK)));
+		String path = getServletContext().getRealPath(
+				Constants.IMAGES_DIR + Constants.LINE_IMAGES_DIR);
 
-		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-		Date startDate = new Date();
-		Date endDate = new Date();
+		UploadLineImageServlet uploadServlet = new UploadLineImageServlet();
+		LineData lineData = new LineData();
 
-		try {
-			String startDateStr = request.getParameter(Constants.LINE_START_DATE);
-			startDate = df.parse(startDateStr);
-			String endDateStr = request.getParameter(Constants.LINE_START_DATE);
-			endDate = df.parse(endDateStr);			
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		uploadServlet.upload(request, path, Constants.IMAGES_DIR
+				+ Constants.LINE_IMAGES_DIR, lineData);
+		String message = "";
 
-        lineData.setStartDate(startDate.getTime());
-        lineData.setEndDate(endDate.getTime());
-        lineData.setMinAge(Integer.parseInt(request.getParameter(Constants.LINE_MIN_AGE)));
-        lineData.setDescription(request.getParameter(Constants.LINE_DESCRIPTION));
-        lineData.setEntranceFee(request.getParameter(Constants.LINE_ETRANCEFEE));
-        lineData.setDj(request.getParameter(Constants.LINE_DJ));
-        
-        /*
-         * very important needs to save the pr details here take it from session
-         */
-        //set pr id and name
-        //lineData.setPr(pr);
+		boolean isSucceed = true;
         
         try {
 			isSucceed = DAL.addNewLine(lineData);

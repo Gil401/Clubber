@@ -32,7 +32,12 @@ public class UploadBusinessImageServlet  extends HttpServlet {
 	   private String areaName;
 	   private String cityName;	   
 	   private String streetName;
-	   private String businessName;
+	   private String businessTypeName;
+	   private Integer areaId;
+	   private Integer cityId;	   
+	   private Integer streetId;
+	   private Integer businessTypeId;
+	   
 
 	   public void init( ){
 	      // Get the file location where it would be stored.
@@ -96,16 +101,15 @@ public class UploadBusinessImageServlet  extends HttpServlet {
 		        	 }
 		        	 else if(fi.getFieldName().equals(Constants.BUSINESS_AREA_ID))
 		        	 {
-		        		 Integer id = new Integer(fi.getString("UTF-8").trim());
-		        		 i_BusinessData.setM_AreaId(new IdWithName(id, areaName));
+		        		 areaId = new Integer(fi.getString("UTF-8").trim());
 		        	 }		        	 
 		        	 else if(fi.getFieldName().equals(Constants.BUSINESS_CITY_NAME))
 		        	 {
-		        		 cityName = fi.getString("UTF-8").trim();		        	 }
+		        		 cityName = fi.getString("UTF-8").trim();		        	 
+		        	 }
 		        	 else if(fi.getFieldName().equals(Constants.BUSINESS_CITY_ID))
 		        	 {
-		        		 Integer id = new Integer(fi.getString("UTF-8").trim());
-		        		 i_BusinessData.setM_AreaId(new IdWithName(id, cityName));
+		        		 cityId = new Integer(fi.getString("UTF-8").trim());
 		        	 }
 		        	 else if(fi.getFieldName().equals(Constants.BUSINESS_STREET_NAME))
 		        	 {
@@ -113,8 +117,7 @@ public class UploadBusinessImageServlet  extends HttpServlet {
 		        	 }
 		        	 else if(fi.getFieldName().equals(Constants.BUSINESS_STREET_ID))
 		        	 {
-		        		 Integer id = new Integer(fi.getString("UTF-8").trim());
-		        		 i_BusinessData.setM_AreaId(new IdWithName(id, streetName));
+		        		 streetId = new Integer(fi.getString("UTF-8").trim());
 		        	 }		        	 
 		        	 else if(fi.getFieldName().equals(Constants.BUSINESS_HOME_NUMBER))
 		        	 {
@@ -125,15 +128,14 @@ public class UploadBusinessImageServlet  extends HttpServlet {
 		        	 else if(fi.getFieldName().equals(Constants.BUSINESS_PHONE_NUMBER))
 		        	 {
 		        		 i_BusinessData.setM_PhoneNumber(fi.getString("UTF-8").trim());
-		        	 }
+		        	 }		        	 
 		        	 else if(fi.getFieldName().equals(Constants.BUSINESS_TYPE_NAME))
 		        	 {
-		        		 businessName = fi.getString("UTF-8").trim();		        	 
+		        		 businessTypeName = fi.getString("UTF-8").trim();		        	 
 		        	 }
 		        	 else if(fi.getFieldName().equals(Constants.BUSINESS_TYPE_ID))
 		        	 {
-		        		 Integer id = new Integer(fi.getString("UTF-8").trim());
-		        		 i_BusinessData.setM_AreaId(new IdWithName(id, businessName));
+		        		 businessTypeId = new Integer(fi.getString("UTF-8").trim());
 		        	 }
 		        	 
 		        	 else if(fi.getFieldName().equals(Constants.BUSINESS_DESCRIPTION))
@@ -142,6 +144,12 @@ public class UploadBusinessImageServlet  extends HttpServlet {
 		        	 }
 		         }
 		      }
+     		 
+		      i_BusinessData.setM_AreaId(new IdWithName(areaId, areaName));
+     		  i_BusinessData.setM_CityId(new IdWithName(cityId, cityName));
+    		  i_BusinessData.setM_StreetId(new IdWithName(streetId, streetName));
+    		  i_BusinessData.setM_BusinessTypeId(new IdWithName(businessTypeId, businessTypeName));
+		      
 	      }
 
 	      catch(Exception ex) {

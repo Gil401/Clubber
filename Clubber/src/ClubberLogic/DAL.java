@@ -1702,15 +1702,17 @@ public class DAL {
 
 		connectToDBServer();
 		
-		String sql= "INSERT INTO businesses(Name, Street, Structure_Number, Business_Phone_Number, Description, Business_Type, City, Area) "
-				+ "VALUES ('"+ businessData.getM_Name()+ "','" + businessData.getM_StreetId().getId() +"','"+ businessData.getM_HouseNumber() +"','" + businessData.getM_PhoneNumber()+"','"+ businessData.getM_Description() +"','"+ businessData.getM_BusinessTypeId().getId() +"','"+ businessData.getM_CityId().getId() +"','"+ businessData.getM_AreaId().getId()+"')";
-		
 		String sql1= "INSERT INTO streets(City_id, Name) "
 				+ "VALUES ('"+ businessData.getM_CityId().getId()+ "','" + businessData.getM_StreetId().getName() +"')";
+
+		String sql= "INSERT INTO businesses(Name, Street, Structure_Number, Business_Phone_Number, Description, Business_Type, City, Area, Photo) "
+				+ "VALUES ('"+ businessData.getM_Name()+ "','" + businessData.getM_StreetId().getId() +"','"+ businessData.getM_HouseNumber() +"','" + businessData.getM_PhoneNumber()+"','"+ businessData.getM_Description() +"','"+ businessData.getM_BusinessTypeId().getId() +"','"+ businessData.getM_CityId().getId() +"','"+ businessData.getM_AreaId().getId()+"','"+ businessData.getImageUrl()+"')";
+		
 		
 		try {
-			stmt.executeUpdate(sql);
 			stmt.executeUpdate(sql1);
+			stmt.executeUpdate(sql);
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			isSucceed = false;
@@ -1729,8 +1731,8 @@ public class DAL {
 		
 		connectToDBServer();
 		
-		String sql= "INSERT INTO businesses(Business_id, PR_id, Name, Day_In_Week, Line_Start_Date, Line_End_Date, Min_Age, Description, Entrance_Fee, DJ, Opening_Hour) "
-				+ "VALUES ('"+ lineData.getBusiness().getId()+ "','" + lineData.getPr().getId() +"','"+ lineData.getM_LineName() +"','" + lineData.getM_DayInWeek()+"','"+ lineData.getStartDate() +"','"+ lineData.getEndDate() +"','"+ lineData.getMinAge() +"','"+ lineData.getDescription()+"','"+ lineData.getEntranceFee() +"','"+ lineData.getOpeningHour() +"')";
+		String sql= "INSERT INTO line(Business_id, PR_id, Name, Day_In_Week, Line_Start_Date, Line_End_Date, Min_Age, Description, Entrance_Fee, DJ, Opening_Hour, Line_Photo) "
+				+ "VALUES ('"+ lineData.getBusiness().getId()+ "','" + lineData.getPr().getId() +"','"+ lineData.getM_LineName() +"','" + lineData.getM_DayInWeek()+"','"+ lineData.getStartDate() +"','"+ lineData.getEndDate() +"','"+ lineData.getMinAge() +"','"+ lineData.getDescription()+"','"+ lineData.getEntranceFee() +"','"+ lineData.getDj() +"','"+ lineData.getOpeningHour() +"','"+ lineData.getImageUrl() +"')";
 		try {
 			stmt.executeUpdate(sql);
 

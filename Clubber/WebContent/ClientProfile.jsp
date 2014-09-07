@@ -38,9 +38,9 @@ input{
 		<div class="event-inner">
 			<div class="row">
 				<div id="latest-event-content" class="col-sm-7 col-md-8">
-<div class="bg">
+				<div class="bg">
 
-<h2>פרטי משתמש</h2>
+					<h2>פרטי משתמש</h2>
 					<div class="user-details" style="float: right">
 						<form class="user-details-form" id="userDetails"
 							name="userDetails" method="post" action="UpdateUserDetails" enctype="multipart/form-data">
@@ -94,7 +94,7 @@ input{
 					</div>
 					
 					<div class="user-rating" style="float: left">
-					<div class="pic-area">
+						<div class="pic-area">
 							<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">
 						</div> 
 						<label id="generalLabel">כללי</label> <br>
@@ -215,7 +215,14 @@ input{
 				
 				$("#phoneNumber").val(data.phoneNumber);
 				$("#password").val(data.password);
-				$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" class="fancybox" style="max-width:30%; max-height:30%;">');
+
+				if (!data.imageUrl) {
+	        		$("#pic")[0].style.display = "none";
+	        	}
+	        	else {
+	        		$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">');
+	        	}
+				
 				$("#editUserDel").attr("disabled",false);
 				
 			},

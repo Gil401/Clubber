@@ -36,7 +36,7 @@ function LoadDataToInputs()
 			var startMonth = startDate.getMonth() + 1;
 			var endMonth = endDate.getMonth() + 1;
 			line_id= data.id;
-			$("#lineName").val(data.m_LineName);
+			$("#name").val(data.m_LineName);
 			$("#businessName").val(data.business.Name);
 			$("#businessId").val(data.business.id);
 			$("#startDate").val(startDate.getDate() + "/" + startMonth + "/" + startDate.getFullYear());
@@ -45,7 +45,8 @@ function LoadDataToInputs()
 			$("#etranceFee").val(data.entranceFee);
 			$("#DJ").val(data.dj);
 			$("#description").val(data.description);
-			$("#Day").val(data.m_DayInWeek);
+			$("#dayInWeek").val(data.m_DayInWeek);
+			$('.pic-area').append('<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">');
 			uploadMusicStyleData(data.musicStylesIds);	
 		
 		},
@@ -119,7 +120,14 @@ function getLineProfile() {
 			$("#DJLbl").text(data.dj);
 			$("#descriptionLbl").text(data.description);
 			$("#DayLabel").text(convertNumToDay(data.m_DayInWeek));
-			
+
+			if (!data.imageUrl) {
+        		$("#pic")[0].style.display = "none";
+        	}
+        	else {
+        		$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">');
+        	}
+
 			$("#musicStyleContainer").html("");
 			
 			for (var item in data.musicStylesIds) 
@@ -186,7 +194,7 @@ function ajaxLineDtailesUpdate()
 	var final= replaceAll("musicStyleEdt=","",musicStyles);
 	var final2= replaceAll("%2F","",final); 
   
-	var lineName=  $('#lineName')[0].value;
+	var lineName=  $('#name')[0].value;
 	var businessId= $('#businessName')[0].value;
 	var startDate= $('#startDate')[0].value;
 	var endDate=  $('#endDate')[0].value;
@@ -194,7 +202,7 @@ function ajaxLineDtailesUpdate()
 	var description= $('#description')[0].value;
 	var etranceFee= $('#etranceFee')[0].value;
 	var dj= $('#DJ')[0].value;
-	var day=$("#Day")[0].value;
+	var day=$("#dayInWeek")[0].value;
 	
     $.ajax({
         url: "UpdateLineDetails",

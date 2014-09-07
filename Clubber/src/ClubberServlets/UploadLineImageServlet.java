@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -33,6 +34,7 @@ public class UploadLineImageServlet  extends HttpServlet {
 	   private int maxMemSize = 40 * 1024;
 	   private File file ;
 	   private String businessName;
+	   private Integer businessId;
 
 	   public void init( ){
 	      // Get the file location where it would be stored.
@@ -60,7 +62,12 @@ public class UploadLineImageServlet  extends HttpServlet {
 	      try{ 
 		      // Parse the request to get file items.
 		      List<FileItem> fileItems = upload.parseRequest(request);
-			
+		      
+		      //set pr id and name
+		      Integer prId = Integer.parseInt(request.getSession(true).getAttribute("userID").toString());
+		      String prName =  request.getSession(true).getAttribute(Constants.FIRST_NAME).toString();
+		      i_LineData.setPr(new IdWithName(prId, prName));
+		      
 		      // Process the uploaded file items
 		      Iterator<FileItem> i = fileItems.iterator();
 		      		      
@@ -86,7 +93,7 @@ public class UploadLineImageServlet  extends HttpServlet {
 		         }
 		         else
 		         {
-		        	 if (fi.getFieldName().equals(Constants.LINE_NAME_EDT)) 
+		        	 if (fi.getFieldName().equals(Constants.LINE_NAME)) 
 		     		{
 		        		 i_LineData.setM_LineName(fi.getString("UTF-8").trim());
 		     		}
@@ -96,15 +103,15 @@ public class UploadLineImageServlet  extends HttpServlet {
 		        	 }
 		        	 else if(fi.getFieldName().equals(Constants.LINE_BUSINEES_ID))
 		        	 {
-		        		 Integer id = new Integer(fi.getString("UTF-8").trim());
-		        		 i_LineData.setBusiness(new IdWithName(id, businessName));
+		        		 businessId = new Integer(fi.getString("UTF-8").trim().toString());
+
 		        	 }		        	 
-		        	 else if(fi.getFieldName().equals(Constants.DAY_EDT))
+		        	 else if(fi.getFieldName().equals(Constants.LINE_DAY_IN_WEEK))
 		        	 {
 		        		 Integer day = new Integer(fi.getString("UTF-8").trim());
 		        		 i_LineData.setM_DayInWeek(day);
 		        	 }
-		        	 else if(fi.getFieldName().equals(Constants.START_DATE_EDT))
+		        	 else if(fi.getFieldName().equals(Constants.LINE_START_DATE))
 		        	 {
 				        String dateStr = fi.getString("UTF-8").trim();
 				        
@@ -120,7 +127,7 @@ public class UploadLineImageServlet  extends HttpServlet {
 				        long dateParam = date.getTime();
 				        i_LineData.setStartDate(dateParam);
 		        	 }
-		        	 else if(fi.getFieldName().equals(Constants.END_DATE_EDT))
+		        	 else if(fi.getFieldName().equals(Constants.LINE_END_DATE))
 		        	 {
 					        String dateStr = fi.getString("UTF-8").trim();
 					        
@@ -136,22 +143,22 @@ public class UploadLineImageServlet  extends HttpServlet {
 					        long dateParam = date.getTime();
 					        i_LineData.setEndDate(dateParam);
 		        	 }
-		        	 else if(fi.getFieldName().equals(Constants.MIN_AGE_EDT))
+		        	 else if(fi.getFieldName().equals(Constants.LINE_MIN_AGE))
 		        	 {
 		        		 Integer minAge = new Integer(fi.getString("UTF-8").trim());
 		        		 i_LineData.setMinAge(minAge);
 		        	 }
-		        	 else if(fi.getFieldName().equals(Constants.DESCRIPTION_EDT))
+		        	 else if(fi.getFieldName().equals(Constants.LINE_DESCRIPTION))
 		        	 {
 		        		 i_LineData.setDescription(fi.getString("UTF-8").trim());
 		        	 }
-		        	 else if(fi.getFieldName().equals(Constants.ENTRANCE_EDT))
+		        	 else if(fi.getFieldName().equals(Constants.LINE_ETRANCEFEE))
 		        	 {
 		        		 i_LineData.setEntranceFee(fi.getString("UTF-8").trim());
 		        	 }
-		        	 else if(fi.getFieldName().equals(Constants.DJ_EDT))
+		        	 else if(fi.getFieldName().equals(Constants.LINE_DJ))
 		        	 {
-		        		 i_LineData.setEntranceFee(fi.getString("UTF-8").trim());
+		        		 i_LineData.setDj(fi.getString("UTF-8").trim());
 		        	 }
 		        	 else if(fi.getFieldName().equals(Constants.MUSIC_STYLE_LIST))
 		        	 {
@@ -165,6 +172,8 @@ public class UploadLineImageServlet  extends HttpServlet {
 		        	 }				        	 
 		         }
 		      }
+		      
+     		 i_LineData.setBusiness(new IdWithName(businessId, businessName));
 	      }
 
 	      catch(Exception ex) {

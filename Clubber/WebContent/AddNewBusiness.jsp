@@ -16,7 +16,7 @@
                         <div class="bg">
                             <h2 class="heading">הוספת מקום חדש</h2 >
 					        <div class="add-new-business-area">
-					  			<form class="add-new-business-form" id="addNewBusiness" name="addNewBusiness" method="post" action="AddNewBusiness">
+					  			<form class="add-new-business-form" id="addNewBusiness" name="addNewBusiness" method="post" action="AddNewBusiness" enctype="multipart/form-data">
 						  			<div class="message-area">
 										<label id=subscribeFailed>
 										<% if(messageText != null){ %>
@@ -25,6 +25,10 @@
 										</label>   			
 					  				</div>
 								  	<br>
+								  	
+								  	<input type="file" name="pic"id="pic">
+								  	<br>
+								  	
 								  	<div class="lable" id="businessNameLable">שם המקום</div>
 								  	<input type="text" name="name" name="name" required>
 									<br>
@@ -127,6 +131,13 @@
 				for (var i = 0; i < areasList.length; i++) {
 					areas.append('<option id=' + areasList[i].id +'>' + areasList[i].Name + '</option>');
 				}
+				
+				$("#areaId").val($("#areaName").find('option:first').attr('id'));
+				
+			    var id = $("#areaName").find(':first')[0].id;
+			    getAllCitiesByArea(id);
+
+				
 	        },
 	        error: function(data){
 	            	console.log("error");}
@@ -156,6 +167,9 @@
 				for (var i = 0; i < typesList.length; i++) {
 					types.append('<option id=' + typesList[i].id +'>' + typesList[i].Name + '</option>');
 				}
+				
+				$("#BusinessTypeId").val($("#BusinessTypeName").find('option:first').attr('id'));
+				
 	        },
 	        error: function(data){
 	            	console.log("error");}
@@ -187,6 +201,8 @@
 				for (var i = 0; i < citiesList.length; i++) {
 					cities.append('<option id='+ citiesList[i].id +'>' + citiesList[i].Name + '</option>');
 				}
+				
+				$("#cityId").val($("#cityName").find('option:first').attr('id'));
 
 	        },
 	        error: function(data){
