@@ -5,7 +5,6 @@ $(document).ready(function() {
 	loadDataIntoInputs(userID);
 
 	$('#myLines').on('change', function() {
-		// getAvailableDay($(this).val()); });
 		getAuctionsAndOffers(userID, $(this).val(), $("#status").val());
 	})
 })
@@ -114,7 +113,6 @@ function loadOffers(line, date, status) {
 						$(this)[0]['m_StreetId']['Name'] + ' '
 								+ $(this)[0]['m_HouseNumber'] + ', '
 								+ $(this)[0]['m_CityId']['Name']);
-
 				$('#lines_container').append($('#temp_container').html());
 				console.log($(this)[0].m_Name)
 			});

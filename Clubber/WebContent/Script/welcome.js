@@ -1,4 +1,6 @@
 ﻿$(document).ready(
+		
+		
 		function() {
 			var date = new Date();
 			var currentMonth = date.getMonth() + 1;
@@ -7,6 +9,7 @@
 			var fullCurrentDateStr = currentDay + "/" + currentMonth + "/"
 					+ currentYear;
 			dateChange(fullCurrentDateStr);
+			
 		});
 
 $(function getDate() {
@@ -131,17 +134,19 @@ function getMainLinesFromDB(fullDate) {
 																.html(
 																		$(this)[0]['m_Name']);
 														var a = $(this)[0]['m_Lines'][0]['id'];
-														document.getElementById("imageid").src="../template/save.png";
-
+														$(".img-responsive").attr('src', "../template/save.png");
+														
+														$('#temp_container').find('.latest-event').hide();
+														
 														$('#lines_container')
 																.append(
 																		$(
 																				'#temp_container')
 																				.html());
-														console
-																.log($(this)[0].m_Name)
+														console.log($(this)[0].m_Name)
 													});
 									$('#temp_container').html('');
+									page(1);
 								});
 
 					});
