@@ -20,7 +20,7 @@
                             <input type="text" id="email" name="email" placeholder="שם משתמש" required><br><br>
                             <input type="password" id="Password" name="Password" placeholder="סיסמא" required><br><br>
                             <button type="submit">התחבר</button><br>
-                            <a href="PasswordRetrival.jsp" style="color:white; font-size: 13px;">שכחתי סיסמא\ שם משתמש</a><br>
+                            <a href="PasswordRetrival.jsp" style="color:white; font-size: 13px;">שכחתי סיסמא  / שם משתמש</a><br>
                             <a href="SignUp.jsp">הירשם</a>
                             <br>
                             

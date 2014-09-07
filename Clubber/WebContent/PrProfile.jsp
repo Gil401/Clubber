@@ -74,11 +74,11 @@ input{
   			</div>
 		  	<div id="editMode" style='display:none'>
 			  	<label id="firstnameLabel">שם פרטי</label>
-			  	<input type="text" name="firstName" id="firstName" required disabled>
+			  	<input type="text" name="firstName" id="firstName" required>
 			  	<br>
 			  	
 			  	<label id="lastnameLabel">שם משפחה</label>
-			  	<input type="text" name="lastName" id="lastName" required disabled>			
+			  	<input type="text" name="lastName" id="lastName" required>			
 			  	<br>
 			  	
 			  	<label id="emailLabel">כתובת מייל</label>
@@ -87,30 +87,30 @@ input{
 			  	
 			  	<label id="genderLabel">מין</label>
 			  	<div style="width: 69%; float: left">
-			  	<input type="radio" name="gender" value="Male" checked disabled >
+			  	<input type="radio" name="gender" value="Male" checked>
 				זכר
-				<input type="radio" name="gender" value="Female" disabled>
+				<input type="radio" name="gender" value="Female">
 				נקבה
 				
 				</div>
 				<br>
 				<label id="birthdateLabel">תאריך לידה</label>
-				<input type = "datetime" name="birthdate" id="birthdate" size="17" required disabled>
+				<input type = "datetime" name="birthdate" id="birthdate" size="17" required readonly>
 				<br>
 				
 				<label id="phonenumberLabel">טלפון</label>
-				<input type="text" name="phoneNumber" id="phoneNumber" required disabled>
+				<input type="text" name="phoneNumber" id="phoneNumber" required>
 				<br>
 				
 				<label id="passwordLabel">סיסמה</label>
-				<input type="password" name="Password" id="password" required disabled>
+				<input type="password" name="Password" id="password" required>
 	  			<br>
 	
 				<label id="verifyPasswordLabel">אימות סיסמה</label>
-				<input type="password" name="verifyPassword" id="verifyPassword" required disabled>
+				<input type="password" name="verifyPassword" id="verifyPassword" required>
 	  			<br>
 	  			<br ><BR><BR><BR>
-	  			<button id="updateUserDel" type="submit" disabled>שמור</button>
+	  			<button id="updateUserDel" type="submit">שמור</button>
   			</div>
 	  			  <div class="user-rating">
 					<br /><br /><br />
@@ -201,7 +201,6 @@ input{
 				changeMonth: true,
 		      	changeYear: true,
 		      	showOn: "button",
-		      	disabled: true,
 		        buttonImage: "images/calendar.gif",
 		        buttonImageOnly: true
 			});	      	
@@ -224,15 +223,8 @@ input{
 		
 		$("#editUserDel").click(function() {
 			$('#prTitle').html("פרטי המשתמש");
-			$('#firstName').attr("disabled", false);
-			$('#lastName').attr("disabled", false);
-			$('input[name="gender"]').attr("disabled", false);
-			$('#birthdate').datepicker("enable");
-			$('#phoneNumber').attr("disabled", false);
-			$('#password').attr("disabled", false);		
-			$('#verifyPassword').attr("disabled", false);
-			$("#updateUserDel").attr("disabled",false);
-			$("#editUserDel").attr("disabled",true);
+			$("#viewMode").hide();
+			$("#editMode").show();
 			$('#pictureLabel').hide();
 			$('#pic_container').append('<br><br><br><input type="file" name="pic" id="pic" style="float:right;padding:0; margin:0;max-width:30%; max-height:30%;">');
 		});
