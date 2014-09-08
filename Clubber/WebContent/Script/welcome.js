@@ -148,13 +148,7 @@ function getMainLinesFromDB(fullDate) {
 
 					});
 
-	function printDataFromArray(data) {
-		var result = "";
-		for (var i = 0; i < data.length; i++) {
-			result += data[i]['Name'] + ', ';
-		}
-		return result;
-	}
+	
 	/*
 	 * dataRequest.done(function(data) { console.log(data); if (data != null) {
 	 * console.log("Loading data from DB"); console.log(fullDate);

@@ -1064,6 +1064,8 @@ public class DAL {
 	}
 
 	private static void getMusicByLineId(LineData lineData, Integer id) {
+		
+		LinkedList<IdWithName> music = new LinkedList<IdWithName>();
 		connectToDBServer();
 
 		try {
@@ -1072,7 +1074,7 @@ public class DAL {
 							+ " WHERE LMS.Line_Id = "
 							+ id
 							+ " AND MS.id = LMS.Music_Style_Id");
-			ArrayList<IdWithName> music = new ArrayList<IdWithName>();
+			
 			while (rs.next()) 
 			{
 				music.add(new IdWithName(rs.getInt("MS.id"),rs.getString("MS.Name")));
@@ -1084,6 +1086,8 @@ public class DAL {
 		finally {
 			disconnectFromDBServer();
 		}
+	lineData.setMusicStyle(music);
+	
 	}
 
 	public static void unlockUser(String email) {
@@ -2109,37 +2113,72 @@ public class DAL {
 		return data;
 	}
 
-	public static OfferPerAuction getPROffersAndAuctions(String i_UserID,
+	public static ArrayList<OfferPerAuction> getPROffersAndAuctions(String i_UserID,
 			String i_LineID, String i_Status) {
 
-		OfferPerAuction data = new OfferPerAuction();
+		ArrayList<OfferPerAuction> data = new ArrayList<OfferPerAuction>();
+		
 		connectToDBServer();
-		ResultSet rs;
+		String query = "";
 		try {
-			if (i_Status.equals("0")) {
-				rs = stmt
-						.executeQuery("SELECT * FROM auction A, businesses B, line L, offers O"
+			if (i_Status.equals("0") && i_LineID.equals("0"))  {
+				query = "SELECT * FROM auction A, businesses B, line L, offers O"
+								+ " WHERE O.Pr_id = "+ i_UserID	+ " AND O.Line_id=L.id AND "
+								+ "L.Business_id = B.id AND O.Auction_id = A.id";
+			} else if (i_Status.equals("0")) {
+				query = "SELECT * FROM auction A, businesses B, line L, offers O"
 								+ " WHERE O.Pr_id = "
 								+ i_UserID
-								+ " AND O.Line_id=L.id AND "
-								+ "L.Business_id = B.id AND O.Auction_id = A.id");
-			} else {
-				rs = stmt
-						.executeQuery("SELECT * FROM auction A, businesses B, line L, offers O"
+								+ " AND O.Line_id = "+i_LineID+" AND O.Line_id=L.id AND "
+								+ "l.Business_id = B.id AND O.Auction_id = A.id";
+			}
+			else if(i_LineID.equals("0"))
+			{
+				query = "SELECT * FROM auction A, businesses B, line L, offers O"
 								+ " WHERE O.Pr_id = "
 								+ i_UserID
 								+ " AND O.Line_id=L.id AND "
 								+ "l.Business_id = B.id AND O.Auction_id = A.id"
-								+ " AND O.Offer_Status = " + i_Status);
+								+ " AND O.Offer_Status = " + i_Status;
+			}
+			
+		 else { //all params are not 0
+			query = "SELECT * FROM auction A, businesses B, line L, offers O"
+							+ " WHERE O.Pr_id = "
+							+ i_UserID
+							+ " AND O.Line_id = "+i_LineID+" AND O.Line_id=L.id AND "
+							+ "l.Business_id = B.id AND O.Auction_id = A.id"
+							+" AND O.Offer_Status = " + i_Status;
+		 }
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) 
+			{
+				OfferPerAuction currentOfferPerAuction = new OfferPerAuction();
+				currentOfferPerAuction.getM_OfferData().setDescription(rs.getString("A.Description"));
+				currentOfferPerAuction.getM_Auction().setId(rs.getInt("A.id"));
+				currentOfferPerAuction.getM_Auction().setMinAge(rs.getInt("A.Minimum_Age"));
+				currentOfferPerAuction.getM_Auction().setExceptionsDescription(rs.getString("A.Exceptions_Description"));
+				currentOfferPerAuction.getM_Auction().setGuestesQuantiny(rs.getInt("A.Guests_Quantity"));
+				//currentOfferPerAuction.getM_Auction().setEventType(rs.getString("A.Event_Type"));
+				currentOfferPerAuction.getM_Auction().setEventDate(rs.getLong("A.Event_Date"));
+				currentOfferPerAuction.getM_Auction().setDateFlexible(rs.getBoolean("A.Is_Date_Flexible"));
+				//currentOfferPerAuction.getM_Auction().setCertainBusiness();
+				//currentOfferPerAuction.getM_Auction().setArea(/area);
+				//currentOfferPerAuction.getM_Auction().setBusinessType(businessType);
+				//currentOfferPerAuction.getM_Auction().setCreatedBy(createdBy);
+				
+				
+				currentOfferPerAuction.getM_OfferData().setId(rs.getInt("O.id"));
+				currentOfferPerAuction.getM_OfferData().setDescription(rs.getString("O.Description"));
+				currentOfferPerAuction.getM_OfferData().line
+				
+
+				
 			}
 
-			while (rs.next()) {
-				data.getM_OfferData().setDescription(
-						rs.getString("A.Description"));
-				System.out.println(rs);
-			}
-
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			System.out.println(e);
 			e.printStackTrace();
 		} finally {
@@ -2397,7 +2436,8 @@ public class DAL {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-		} finally {
+		} 
+		finally {
 			disconnectFromDBServer();
 		}
 	}

@@ -60,13 +60,13 @@ function getMainLinesFromDB(userId) {
 			  $.each(returnedData, function(index, val){
 				  $('#temp_container').html(lineTemplate);
 				  var temp_template = $('#temp_container');
-				  alert($(this)[0]['m_BusinessData']['m_CityId']['Name']);
 				  temp_template.find('.line_box_place').html($(this)[0]['m_BusinessData']['m_StreetId']['Name']+' '+$(this)[0]['m_BusinessData']['m_HouseNumber']+', '+$(this)[0]['m_BusinessData']['m_CityId']['Name'] );
 				  temp_template.find('.line_box_hour').html($(this)[0]['openingHour']);
 				  temp_template.find('.line_box_line').html($(this)[0]['description']);
 				  temp_template.find('.line_box_entrance_fee').html($(this)[0]['entranceFee']);
 				  temp_template.find('.line_box_name').html($(this)[0]['m_LineName']);
 				  temp_template.find('.line_box_number_day').html(dayConvertor($(this)[0]['m_DayInWeek']));
+				  temp_template.find('.line_box_music_style').html(	printDataFromArray($(this)[0]['musicStyles']));
 				  $(".img-responsive").attr('src', $(this)[0]['linePhotoURL']);
 				  $('#temp_container').find('.latest-event').hide();
 				  $('#lines_container').append($('#temp_container').html());

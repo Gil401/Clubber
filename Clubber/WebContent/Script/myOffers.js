@@ -1,11 +1,18 @@
 var userID = $("#session_user_id").val();
 
-$(document).ready(function() {
-
+$(document).ready(function() 
+{
 	loadDataIntoInputs(userID);
+	
+	getAuctionsAndOffers(userID, 0, 0);
+	
+	$('#offerStatus').on('change', function() {
+		getAuctionsAndOffers(userID, $(this).val(), $("#offerStatus").val());})
+		
 	$('#myLines').on('change', function() {
-		getAuctionsAndOffers(userID, $(this).val(), $("#status").val());
-	});
+		getAuctionsAndOffers(userID, $(this).val(), $("#status").val());})
+	
+	
 });
 
 function loadListDataFromDB(data, listName)
@@ -29,9 +36,12 @@ function getAuctionsAndOffers(prID, lineID, Status) {
 		}
 	});
 	dataRequest.done(function(returnedData) {
+		if(returnedData.length == 0)
+			{
+				$('<h1> לא נמצאו הצעות </h1>').appendTo($("#offerPerAuction_Container"));
+			}
 		$.each(returnedData, function(index, val) {
-			$('<option value="' + val[0].id + '">' + val[0].Name + '</option>')
-					.appendTo($("#myLines"));
+			$('<option value="' + val[0].id + '">' + val[0].Name + '</option>').appendTo($("#myLines"));
 		});
 	});
 }

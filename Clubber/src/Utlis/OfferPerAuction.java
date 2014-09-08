@@ -7,6 +7,27 @@ public class OfferPerAuction {
 	private AuctionData m_Auction;
 	private OfferData m_OfferData;
 	
+	private String auctionId;
+	private String minAge;
+	private String Exceptions; 
+	private String numOfGuests;
+	private String eventType;
+	private long eventDate;
+	private boolean isFlexable; 
+	private String area;
+	private String bType;
+	private String specPlace;
+	private String desc;
+	private String contacts;
+	
+	
+	
+	
+	public OfferPerAuction() {
+		m_Auction = new AuctionData();
+		m_OfferData = new OfferData();
+	}
+	
 	public AuctionData getM_Auction() {
 		return m_Auction;
 	}
