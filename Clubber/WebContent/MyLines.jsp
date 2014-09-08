@@ -33,8 +33,8 @@
                              <div class="pager">
                                 <ul class="pagination">
                                     <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                    <li><a class="active" href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
+                                    <<li><a href="#" class="active" onclick="page(1)">1</a></li>
+                                    <li><a href="#" onclick="page(2)">2</a></li>
                                     <li><a href="#">3</a></li>
                                     <li><a href="#">4</a></li>
                                     <li><a href="#">5</a></li>
@@ -58,6 +58,7 @@
     <%@  include file="patternTemplates/footer.tpl" %>
 
 
+	<script type="text/javascript" src="Script/Utils.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
@@ -69,8 +70,7 @@
     <script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
     <script type="text/javascript" src="js/switcher.js"></script>
     <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-    
-    <script type="text/javascript" src="Script/PRLines.js"></script>
+    <script type="text/javascript" src="Script/myLines.js"></script>
     
     <script src="js/datepicker-he.js"></script>
     

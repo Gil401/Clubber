@@ -1,7 +1,4 @@
-﻿$(document).ready(
-		
-		
-		function() {
+﻿$(document).ready(function() {
 			var date = new Date();
 			var currentMonth = date.getMonth() + 1;
 			var currentDay = date.getDate();

@@ -4,7 +4,6 @@
 });
 
 
-
 function loadListDataFromDB(data, listName) {
 	console.log("adding" + listName);
 	$.each(data, function(index, val) {
@@ -67,14 +66,12 @@ function getMainLinesFromDB(userId) {
 				  temp_template.find('.line_box_hour').html();
 				  temp_template.find('.line_box_line').html($(this)[0]['m_Lines'][0]['description']);
 				  temp_template.find('.line_box_entrance_fee').html($(this)[0]['m_Lines'][0]['entranceFee']);
-				 
 				  temp_template.find('.line_box_name').html($(this)[0]['m_Name']);
-				  
-				  
 				  $('#lines_container').append($('#temp_container').html());
 				  console.log($(this)[0].m_Name)
 			  });
 			  $('#temp_container').html('');
+			  page(1);
 		  });
 		 
 		  

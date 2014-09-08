@@ -53,8 +53,7 @@ public class AddNewLine extends HttpServlet {
 		UploadLineImageServlet uploadServlet = new UploadLineImageServlet();
 		LineData lineData = new LineData();
 
-		uploadServlet.upload(request, path, Constants.IMAGES_DIR
-				+ Constants.LINE_IMAGES_DIR, lineData);
+		uploadServlet.upload(request, path, Constants.IMAGES_DIR + Constants.LINE_IMAGES_DIR, lineData);
 		String message = "";
 
 		boolean isSucceed = true;

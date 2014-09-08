@@ -64,9 +64,11 @@ public class UploadLineImageServlet  extends HttpServlet {
 		      List<FileItem> fileItems = upload.parseRequest(request);
 		      
 		      //set pr id and name
-		      Integer prId = Integer.parseInt(request.getSession(true).getAttribute("userID").toString());
+		      String prId = request.getSession().getAttribute("userID").toString();
+		      String email = request.getSession().getAttribute(Constants.EMAIL).toString();
 		      String prName =  request.getSession(true).getAttribute(Constants.FIRST_NAME).toString();
-		      i_LineData.setPr(new IdWithName(prId, prName));
+		      Integer id = Integer.parseInt(prId); 
+		      i_LineData.setPr(new IdWithName(id, prName));
 		      
 		      // Process the uploaded file items
 		      Iterator<FileItem> i = fileItems.iterator();
@@ -88,8 +90,7 @@ public class UploadLineImageServlet  extends HttpServlet {
 		            file = new File(filePath) ;
 		            fi.write(file);
 		            System.out.println(filePath);
-		       	 	
-		            i_LineData.setLinePhotoURL(rel_Path + fileName);
+		            i_LineData.setLinePhotoURL(filePath);
 		         }
 		         else
 		         {

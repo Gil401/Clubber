@@ -70,36 +70,10 @@
     <script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
     <script type="text/javascript" src="js/switcher.js"></script>
     <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-    
+    <script type="text/javascript" src="Script/Utils.js"></script>
     <script type="text/javascript" src="Script/welcome.js"></script>
-    <script src="js/datepicker-he.js"></script>
     
-    <script>
-    	function page (page_num){
-    		
-    		var number_of_results_per_page = 5;
-    		var number_of_pages =  Math.ceil($('#lines_container .latest-event').length/number_of_results_per_page);
-    		$('.pagination').html('');
-    		for(i=1;i<=number_of_pages;i++){
-    			$('.pagination').append('<li><a href="#" id="page_'+i+'" onclick="page('+i+')">'+i+'</a></li>');
-    		}
-    		$('#page_'+page_num).addClass("active");
-    		 $('#page_number').val(page_num);
-    		var current_page_number = $('#page_number').val();
-    		var results = (number_of_results_per_page*current_page_number)-number_of_results_per_page;
-    		$('#lines_container .latest-event').each(function(index, element){
-    			 $(this).hide();
-    			 if((index > results || index == results) && index < results + number_of_results_per_page)
-    				$(this).show();
-    			console.log($(this));
-    			console.log('element');
-    			console.log(number_of_pages);
-    		});
-    	}
-    	
-    	
-    	
-    </script>
+    <script src="js/datepicker-he.js"></script>
     
 </body>
 </html>
