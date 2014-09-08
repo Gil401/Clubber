@@ -51,7 +51,7 @@ input{
 	<br /><br /><br />
 			<br>
 			<div id="viewMode">
-			  	
+			  	<br>
 			  	<label id="viewEmailLabel">כתובת מייל</label>
 			  	<label id="viewEmail"></label>			
 			  	<br>
@@ -84,12 +84,11 @@ input{
 			  	<br>
 			  	
 			  	<label id="genderLabel">מין</label>
-			  	<div style="width: 69%; float: left">
-			  	<input type="radio" name="gender" value="Male" checked>
-				זכר
-				<input type="radio" name="gender" value="Female">
-				נקבה
-				
+			  	<div >
+				  	<input type="radio" name="gender" value="Male" checked>
+					זכר
+					<input type="radio" name="gender" value="Female">
+					נקבה
 				</div>
 				<br>
 				<label id="birthdateLabel">תאריך לידה</label>
