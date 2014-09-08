@@ -66,10 +66,17 @@ input{
 				
 				<label id="viewphonenumberLabel">טלפון</label>
 				<label id="viewphonenumber"></label>
-				<br>
+				<br><br>
 				
-	  			<br ><BR><BR><BR><button id="editUserDel" type="button" >ערוך</button>
+	  			<button id="editUserDel" type="button" >ערוך</button>
+	  			<br><br>
+				<label id="messageText">
+					<% if(messageText != null){ %>
+						<%=messageText %>
+					<%} %>		
+				</label>
   			</div>
+  			<br>
 		  	<div id="editMode" style='display:none'>
 			  	<label id="firstnameLabel">שם פרטי</label>
 			  	<input type="text" name="firstName" id="firstName" required>
@@ -80,17 +87,16 @@ input{
 			  	<br>
 			  	
 			  	<label id="emailLabel">כתובת מייל</label>
-			  	<label id="email"></label>			
+			  	<input type="text" name="email" id="email" required>		
 			  	<br>
 			  	
 			  	<label id="genderLabel">מין</label>
-			  	<div >
-				  	<input type="radio" name="gender" value="Male" checked>
-					זכר
-					<input type="radio" name="gender" value="Female">
-					נקבה
-				</div>
+			  	<input type="radio" name="gender" value="Male" checked>
+				זכר
+				<input type="radio" name="gender" value="Female">
+				נקבה
 				<br>
+
 				<label id="birthdateLabel">תאריך לידה</label>
 				<input type = "datetime" name="birthdate" id="birthdate" size="17" required readonly>
 				<br>
@@ -105,15 +111,11 @@ input{
 	
 				<label id="verifyPasswordLabel">אימות סיסמה</label>
 				<input type="password" name="verifyPassword" id="verifyPassword" required>
-	  			<br>
-	  			<br ><BR><BR><BR>
+				<br>
 	  			<button id="updateUserDel" type="submit">שמור</button>
   			</div>
-	  			  <div class="user-rating">
-					<br /><br /><br />
-							
-	  			
-	  			<br /><br />	
+  			<br>
+	<div class="user-rating">
 		<label id="generalLabel">כללי</label>
 		<br>
 		<div class="generalStars">
@@ -154,13 +156,9 @@ input{
 			<div class="star"></div>
 		</div>	
 	</div>	
+	  			
 		</form>		
 		<br>
-		<label id="messageText">
-			<% if(messageText != null){ %>
-				<%=messageText %>
-			<%} %>		
-		</label>
 	</div>
 	
 </div>

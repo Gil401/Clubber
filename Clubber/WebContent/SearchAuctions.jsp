@@ -37,10 +37,7 @@
 				<div id="latest-event-content" class="col-sm-7 col-md-8">
 <div class="bg">
 
-
-		<div class="message">
-		כל המכרזים שפורסמו במערכת:
-		</div>
+		<h2 id="prTitle">כל המכרזים שפורסמו במערכת:</h2>
 		<br/>
 		
 		<div class='new-auction-field'>
@@ -65,11 +62,13 @@
 	     </div> 
 	     
 	    <button id="SearchAuctions" onClick="getFilteredAuctions();" type="button" >חפש</button>	    
-	    
+		<br/><br/>
+			    
       	<div class='all-auctions-container'>
       	
       	</div>  
-      	<br/><br/>
+      	<br/>
+      	
       	<div class="search-by-my-lines-area">
 			<input type="checkbox" name="searchByMyLines" id="searchByMyLines">
 			סנן לפי התאמה לליינים שלי
