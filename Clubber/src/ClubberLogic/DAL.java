@@ -969,6 +969,7 @@ public class DAL {
 					bData.setM_AreaId(new IdWithName(rs.getInt("b.area"), rs.getString("a.Name")));
 					
 					LineData lData = new LineData();
+					lData.setLinePhotoURL(rs.getString("L.Line_Photo"));
 					lData.setM_LineName(rs.getString("L.name"));
 					lData.setDescription(rs.getString("L.Description"));
 					lData.setDj(rs.getString("L.Dj"));
@@ -1851,6 +1852,7 @@ public class DAL {
 			ResultSet rs = stmt.executeQuery("select * from line, businesses, users where line.id =" + lineID+ " and businesses.id= line.Business_id and users.Id= line.PR_id;");
 			while (rs.next()){
 				line.setId(lineID);
+				line.setLinePhotoURL(rs.getString("line.Line_Photo"));
 				line.setBusiness(new IdWithName(rs.getInt("line.Business_id"), rs.getString("businesses.Name")));
 				line.setDescription(rs.getString("line.Description"));
 				line.setDj(rs.getString("line.DJ"));
@@ -1937,18 +1939,22 @@ public class DAL {
 		
 		connectToDBServer();
 		
-		String sql = "UPDATE clubber_db.line "
-				   + "SET Business_id = '" + line.getBusiness().getId() + "'"
-				   + ", Name = '" + line.getM_LineName()+ "'"
-				   + ", Day_In_Week = '" +line.getM_DayInWeek() + "'"
-				   + ", Line_Start_Date = '" +line.getStartDate() + "'"
-				   + ", Line_End_Date = '" +line.getEndDate() + "'"
-				   + ", Min_Age = '" +line.getMinAge() + "'"
-				   + ", Description = '" +line.getDescription() + "'"
-				   + ", Entrance_Fee = '" +line.getEntranceFee() + "'"
-				   + ", DJ = '" +line.getDj() + "'"
-				   + ", Opening_Hour = '" +line.getOpeningHour() + "'"
-				   + " WHERE id ='" + line.getId() + "'";
+		String photoURL = "";
+		if (line.getLinePhotoURL() != null && !line.getLinePhotoURL().isEmpty()) {
+			photoURL = ", Line_Photo = '" + line.getLinePhotoURL() + "'";
+		}
+		
+		String sql = "UPDATE clubber_db.line " + "SET Business_id = '"
+				+ line.getBusiness().getId() + "'" + ", Name = '"
+				+ line.getM_LineName() + "'" + ", Day_In_Week = '"
+				+ line.getM_DayInWeek() + "'" + photoURL + ", Line_Start_Date = '"
+				+ line.getStartDate() + "'" + ", Line_End_Date = '"
+				+ line.getEndDate() + "'" + ", Min_Age = '" + line.getMinAge()
+				+ "'" + ", Description = '" + line.getDescription() + "'"
+				+ ", Entrance_Fee = '" + line.getEntranceFee() + "'"
+				+ ", DJ = '" + line.getDj() + "'" + ", Opening_Hour = '"
+				+ line.getOpeningHour() + "'" + " WHERE id ='" + line.getId()
+				+ "'";
 		
 		try {
 			stmt.executeUpdate(sql);	
@@ -2307,7 +2313,28 @@ public static List<AuctionData> getAuctionFilteredByEventType(Integer eventTypeI
 	return data;	
 }
 
-
+public static LinkedList<IdWithName> getOfferStatus()
+{
+	connectToDBServer();
+	LinkedList<IdWithName> data= new LinkedList<IdWithName> ();
+	try {
+		String query = "Select * from offer_status;";
+		ResultSet rs = stmt.executeQuery(query);
+		while (rs.next())
+		{
+			data.add(new IdWithName(rs.getInt("Id"), rs.getString("displayName")));
+		}
+		
+		return data;
+	}
+	catch (Exception e) {
+		e.printStackTrace();
+		return null;
+	}
+	finally{
+		disconnectFromDBServer();
+	}
+}
 
 }
 

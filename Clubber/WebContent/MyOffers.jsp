@@ -21,7 +21,7 @@
     		<select style="margin:10px;" id="myLines"></select><BR>
     		
     		<div style="width: 30%;float:right;margin:10px">בחר סטטוס</div>
-    		<select style="margin:10px" id="status"><option value="0">הכל</option><option value="1">ממתין</option><option value="2">אושר</option><option value="2">סירוב</option></select>
+    		<select id="offerStatus" style="margin:10px" id="status"></select>
     		</div>
     		
     		

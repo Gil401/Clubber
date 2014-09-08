@@ -108,6 +108,8 @@
 					</div>				
 				</div>
 		<br/><input class='btn-primary' type="button" id="accept-offer-button" name="accept-offer-button"  value="קבל הצעה זו" onClick= "approveBtnClicked()"/>
+		<input class='btn-primary' type="button" id="expose-user-details-button" name="expose-user-details-button"  value="חשוף פרטי התקשרות" onClick= "approveBtnClicked()"/>
+		
        <div class='all-messages-container'>
 	       	<div class="old-messages"></div>
 	       	<div class="new-message"></div> 

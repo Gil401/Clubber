@@ -15,7 +15,7 @@ function initiateFormBtns(){
 	});
 	
 	$("#updateLineDel").click(function() {
-		ajaxLineDtailesUpdate();
+		//ajaxLineDtailesUpdate();
 	});
 }
 
@@ -36,6 +36,7 @@ function LoadDataToInputs()
 			var startMonth = startDate.getMonth() + 1;
 			var endMonth = endDate.getMonth() + 1;
 			line_id= data.id;
+			$("#id").val(data.id);
 			$("#name").val(data.m_LineName);
 			$("#businessName").val(data.business.Name);
 			$("#businessId").val(data.business.id);
@@ -47,7 +48,7 @@ function LoadDataToInputs()
 			$("#description").val(data.description);
 			$("#dayInWeek").val(data.m_DayInWeek);
 			$('.pic-area').append('<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">');
-			uploadMusicStyleData(data.musicStylesIds);	
+			uploadMusicStyleData(data.musicStyles);	
 		
 		},
 		error : function(data) {
@@ -64,17 +65,17 @@ function uploadMusicStyleData(lineMusicChecked){
         dataType: 'json',
         data:{RequestType: "DBDataGetMusicStyleData"},
         success: function(musicStyleList) {
-        	var musicStyleDiv = $("#musicStyleEdt");
+        	var musicStyleDiv = $("#MusicStyleList");
         	
         	//delete former data 
-        	musicStyleDiv.html("");
+        	//musicStyleDiv.html('<input type="text" name="MusicStyleList" id="MusicStyleList" hidden />');
+        	musicStyleDiv.html('');
 			
-        	
 			//load all music styles:
         	for (var item in musicStyleList) 
 			{
-        		 $('<input id="music'+musicStyleList[item].id+'" type="checkbox" name="musicStyleEdt" value=' + musicStyleList[item].id + '/>' +
-            		'<label style="padding-right:10px; font-weight:normal;" for="'+musicStyleList[item].id+'">' + musicStyleList[item].Name + '</label></br>').appendTo($('#musicStyleEdt')) ;
+        		 $('<input id="music'+musicStyleList[item].id+'" type="checkbox" name="MusicStyleList" value=' + musicStyleList[item].id + '/>' +
+            		'<label style="padding-right:10px; font-weight:normal;" for="'+musicStyleList[item].id+'">' + musicStyleList[item].Name + '</label></br>').appendTo($('#MusicStyleList')) ; 
 			} 
 			 
 			//mark check box in db:
@@ -121,18 +122,20 @@ function getLineProfile() {
 			$("#descriptionLbl").text(data.description);
 			$("#DayLabel").text(convertNumToDay(data.m_DayInWeek));
 
-			if (!data.imageUrl) {
+			if (!data.linePhotoURL) {
         		$("#pic")[0].style.display = "none";
+        		$("#lineImg")[0].style.display = "none";
         	}
         	else {
-        		$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">');
+        		$('#pic').replaceWith('<img src="'+data.linePhotoURL+'" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">');
+        		$("#lineImg").replaceWith('<img src="'+data.linePhotoURL+'" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">');
         	}
 
 			$("#musicStyleContainer").html("");
 			
-			for (var item in data.musicStylesIds) 
+			for (var item in data.musicStyles) 
 			{
-				$("#musicStyleContainer").append("<div class='music-style'><img src='/Clubber/images/Check_Image.png' class='offer-item-treat-image'><label class='offer-multi-value-label'>"+data.musicStylesIds[item].Name+"</label></div><br>");
+				$("#musicStyleContainer").append("<div class='music-style'><img src='/Clubber/images/Check_Image.png' class='offer-item-treat-image'><label class='offer-multi-value-label'>"+data.musicStyles[item].Name+"</label></div><br>");
 			}
 			
 			$("#prsContainer").html("");
@@ -190,8 +193,8 @@ function replaceAll(find, replace, str)
 
 function ajaxLineDtailesUpdate()
 {	
-	var musicStyles= $('#musicStyleEdt').find('input').serialize();
-	var final= replaceAll("musicStyleEdt=","",musicStyles);
+	var musicStyles= $('MMusicStyleList').find('input').serialize();
+	var final= replaceAll("MusicStyleList=","",musicStyles);
 	var final2= replaceAll("%2F","",final); 
   
 	var lineName=  $('#name')[0].value;
@@ -275,5 +278,10 @@ $(function() {
 	getLineProfile();
 	setErrorMessages();
 	initiateFormBtns();
-});
+	$('#businessName').change(function() {
 
+		var id = $(this).find('option:selected').val();
+		$("#businessId").val(id);
+
+	});	
+});

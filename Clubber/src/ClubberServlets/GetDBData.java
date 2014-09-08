@@ -253,6 +253,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             	data= DAL.getAuctionFilteredByEventType(eventType,guestsQuantity,areaId );
             	json = gson.toJson(data);
             }
+            else if (requestType.equals(Constants.DB_DATA_GET_OFFER_STATUS))
+            {
+            	data= DAL.getOfferStatus();
+            	json = gson.toJson(data);
+            }
             
             
             System.out.println(json);

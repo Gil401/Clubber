@@ -89,11 +89,15 @@ public class UploadLineImageServlet  extends HttpServlet {
 		            fi.write(file);
 		            System.out.println(filePath);
 		       	 	
-		            i_LineData.setImageUrl(rel_Path + fileName);
+		            i_LineData.setLinePhotoURL(rel_Path + fileName);
 		         }
 		         else
 		         {
-		        	 if (fi.getFieldName().equals(Constants.LINE_NAME)) 
+		        	 if (fi.getFieldName().equals(Constants.LINE_ID))
+		        	 {
+		        		 i_LineData.setId(new Integer(fi.getString("UTF-8").trim()));
+		        	 }
+		        	 else if (fi.getFieldName().equals(Constants.LINE_NAME)) 
 		     		{
 		        		 i_LineData.setM_LineName(fi.getString("UTF-8").trim());
 		     		}
@@ -165,7 +169,7 @@ public class UploadLineImageServlet  extends HttpServlet {
 		        			String musicStyles[]= fi.getString("UTF-8").split("&");
 		        			if (musicStyles.length > 0 && !musicStyles[0].equals("")) {
 		        				for (String item : musicStyles) {
-		        					i_LineData.getMusicStylesIds().add(new IdWithName(Integer.parseInt(item), null));
+		        					i_LineData.getMusicStylesIds().add(new IdWithName(Integer.parseInt(item.replace("/","")), null));
 		        				}
 		        			}
 

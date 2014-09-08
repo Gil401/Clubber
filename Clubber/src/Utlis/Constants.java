@@ -33,6 +33,8 @@ public class Constants {
 	 public static final String DB_DATA_AUCTION_REVIEW = "GetDBData-AuctionReview";
 	 public static final String DB_DATA_BUSINESS_LST = "GetDBData-BusinessLst";
 	 public static final String DB_DATA_FILTERED_AUCTIONS="DBDataFilteredAuctions";
+	 public static final String DB_DATA_GET_OFFER_STATUS="DBDataGetOfferStatus";
+	 
 	 // PrProfile fields
 	 public static final String USER_DATA= "userData";
 	 public static final String PR_PROFILE_VISIT_REQUEST= "visitPrProfile";
@@ -161,7 +163,7 @@ public class Constants {
 	 public static final String AUCTION_MANAGEMENT_AUCTION_NOT_RELEVANT= "AuctionManagementAuctionNotRelevant";
 	 public static final String AUCTION_MANAGEMENT_ACTIVATE_AUCTION= "AuctionManagementActivateAuction";
 	 public static final String AUCTION_MANAGEMENT_OFFER_ACCEPTED="AuctionManagementOfferAccepted";
-	 
+	 public static final String AUCTION_MANAGEMENT_EXPOSE_USER_DETAILS= "AuctionManagementExposeUserDetails";
 	 
 	 //session actions
 	 public static final String SESSION_ACTIONS_SET_USER_IN_SESSION = "SessionActions-SetUserInSession";

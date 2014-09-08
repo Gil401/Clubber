@@ -68,8 +68,8 @@ public class AuctionManagementActions extends HttpServlet {
             else if(requestType.equals(Utlis.Constants.AUCTION_MANAGEMENT_ACTIVATE_AUCTION))
             {
             	Integer auctionId= Integer.parseInt(request.getParameter("AuctionId"));
-            	
             	Boolean res= DAL.updateAuctionStatus(auctionId, AuctionStatusIds.Active.getValue());
+            	
             	json = gson.toJson(res);
             }
             else if(requestType.equals(Utlis.Constants.AUCTION_MANAGEMENT_OFFER_ACCEPTED))
@@ -77,11 +77,22 @@ public class AuctionManagementActions extends HttpServlet {
             	Integer offerId= Integer.parseInt(request.getParameter("OfferId"));
             	Integer displayCode= Integer.parseInt(request.getParameter("DisplayCode"));
             	Integer auctionId= Integer.parseInt(request.getParameter("AcceptedAuctionID"));
-            	Boolean res= DAL.updateAuctionStatus(offerId, OfferStatusIds.Accepted.getValue());
-            	res=res& (DAL.updateUserDetailsCode(displayCode,auctionId));
+            	Boolean res= DAL.updateOfferStatus(offerId, OfferStatusIds.Accepted.getValue());
+            	res= res && DAL.updateAuctionStatus(auctionId, AuctionStatusIds.InActive.getValue());
+            	res=res && (DAL.updateUserDetailsCode(displayCode,auctionId));
             	
             	json = gson.toJson(res);
             }
+            
+            else if(requestType.equals(Utlis.Constants.AUCTION_MANAGEMENT_EXPOSE_USER_DETAILS))
+            {
+            	Integer displayCode= Integer.parseInt(request.getParameter("DisplayCode"));
+            	Integer auctionId= Integer.parseInt(request.getParameter("AcceptedAuctionID"));
+            	Boolean res=(DAL.updateUserDetailsCode(displayCode,auctionId));
+            	
+            	json = gson.toJson(res);
+            }
+            
             System.out.println(json);
             out.print(json);
 		

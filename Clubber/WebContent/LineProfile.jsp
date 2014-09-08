@@ -13,15 +13,18 @@
 
 
 					<div class="line-details">
-						<form class="line-details-form" id="lineDetails" name="lineDetails" enctype="multipart/form-data">
-							
+						<form class="line-details-form" id="lineDetails" name="lineDetails" method="post" action="UpdateLineDetails" enctype="multipart/form-data">
+														
 							<div id='EditLineData' style="display:none">
 								
 								<h2>פרטי הליין</h2>
 								
 								<div class="pic-area">
 									<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">
-								</div> 
+								</div>
+								
+								<input type="text" name="id" id="id" hidden=true>
+								 
 								<br>
 								
 								<label id="lineNameLable">שם הליין</label> 
@@ -75,12 +78,13 @@
 								
 								<div style="height:120px"> 
 						         	<label id="lineMusicStyleLabel"> סגנון מוזיקה </label>
-						         	<div id="musicStyleEdt" class="music-style-area combobox-auction-input">
+						         	<div id="MusicStyleList" class="music-style-area combobox-auction-input">
+						         		
 						        	</div>
 								</div> 
 								<br>
 								
-								<button id="updateLineDel" type="button" >שמור</button>							
+								<button id="updateLineDel" type="submit" >שמור</button>							
 							</div>
 							
 							<div id='viewLineData'>

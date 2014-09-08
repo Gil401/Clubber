@@ -3,11 +3,18 @@ var userID = $("#session_user_id").val();
 $(document).ready(function() {
 
 	loadDataIntoInputs(userID);
-
 	$('#myLines').on('change', function() {
 		getAuctionsAndOffers(userID, $(this).val(), $("#status").val());
-	})
-})
+	});
+});
+
+function loadListDataFromDB(data, listName)
+{
+	console.log("adding"+ listName);
+	 $.each(data, function(index, val) {
+	            $('<option value="'+val.id+'">' + val.Name + '</option>').appendTo($(listName)) ;
+	 });	
+}
 
 function getAuctionsAndOffers(prID, lineID, Status) {
 	var dataRequest = $.ajax({
@@ -25,8 +32,8 @@ function getAuctionsAndOffers(prID, lineID, Status) {
 		$.each(returnedData, function(index, val) {
 			$('<option value="' + val[0].id + '">' + val[0].Name + '</option>')
 					.appendTo($("#myLines"));
-		})
-	})
+		});
+	});
 }
 
 function loadDataIntoInputs(id) {
@@ -38,7 +45,7 @@ function loadDataIntoInputs(id) {
 			RequestType : "GetDBData-loadMyLinesByPRId",
 			userID : id
 		}
-	})
+	});
 	dataRequest.done(function(returnedData) {
 		$.each(returnedData, function(index, val) {
 			if (val.length == 0) {
@@ -52,7 +59,8 @@ function loadDataIntoInputs(id) {
 				}
 			}
 		});
-	})
+		ajaxOfferStatusFormDBData();
+	});
 }
 
 function getAvailableDay(lineID) {
@@ -75,10 +83,27 @@ function getAvailableDay(lineID) {
 					changeMonth : true,
 					changeYear : false
 				});
-			})
-		})
+			});
+		});
 	});
 }
+
+function ajaxOfferStatusFormDBData() {
+    $.ajax({
+        url: "GetDBData",
+        type: "post",
+        dataType: 'json',
+        data:{RequestType: "DBDataGetOfferStatus"},
+        success: function(data) {
+            if (data != null) {
+                loadListDataFromDB(data, '#offerStatus' );
+            }},
+        error: function(data){
+            	console.log("error");}
+    });
+}
+
+
 
 /*
  * ​$("datepicker").datepicker({ beforeShowDay: function(date) { return
@@ -118,6 +143,6 @@ function loadOffers(line, date, status) {
 			});
 			$('#temp_container').html('');
 		});
-	})
+	});
 };
 
