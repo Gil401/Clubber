@@ -60,7 +60,7 @@ function getMainLinesFromDB(userId) {
 			  $.each(returnedData, function(index, val){
 				  $('#temp_container').html(lineTemplate);
 				  var temp_template = $('#temp_container');
-				  temp_template.find('.event-details').attr("id",$(this)[0]['m_Lines'][0]['id']);
+				  temp_template.find('.event-details').attr("id",$(this)[0]['id']);
 				  temp_template.find('.line_box_place').html($(this)[0]['m_BusinessData']['m_StreetId']['Name']+' '+$(this)[0]['m_BusinessData']['m_HouseNumber']+', '+$(this)[0]['m_BusinessData']['m_CityId']['Name'] );
 				  temp_template.find('.line_box_hour').html($(this)[0]['openingHour']);
 				  temp_template.find('.line_box_line').html($(this)[0]['description']);
