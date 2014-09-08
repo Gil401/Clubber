@@ -59,6 +59,7 @@
     <%@  include file="patternTemplates/footer.tpl" %>
 	
 	<input type="hidden" value="1" id="page_number">
+	<script type="text/javascript" src="Script/Utils.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
@@ -70,7 +71,6 @@
     <script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
     <script type="text/javascript" src="js/switcher.js"></script>
     <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-    <script type="text/javascript" src="Script/Utils.js"></script>
     <script type="text/javascript" src="Script/welcome.js"></script>
     
     <script src="js/datepicker-he.js"></script>

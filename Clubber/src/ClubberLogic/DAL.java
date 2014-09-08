@@ -908,8 +908,7 @@ public class DAL {
 				lineData.setEntranceFee(rs.getString("L.Entrance_Fee"));
 				lineData.setDj(rs.getString("L.DJ"));
 				lineData.setOpeningHour(rs.getTime("L.Opening_Hour").toString());
-				//line.setPhoto(rs.getString("line_photo"));
-				
+				lineData.setLinePhotoURL(rs.getString("L.Line_Photo"));
 				businessData.setM_Id(rs.getInt("B.id"));
 				businessData.setM_Name(rs.getString("B.Name"));
 				businessData.setM_StreetId(new IdWithName(rs.getInt("S.id"), rs.getString("S.Name")));
@@ -971,7 +970,7 @@ public class DAL {
 					LineData lData = new LineData();
 					lData.setLinePhotoURL(rs.getString("L.Line_Photo"));
 					lData.setM_LineName(rs.getString("L.name"));
-					lData.setDescription(rs.getString("L.Description"));
+  					lData.setDescription(rs.getString("L.Description"));
 					lData.setDj(rs.getString("L.Dj"));
 					lData.setEntranceFee(rs.getString("L.entrance_fee"));
 					lData.setMinAge(rs.getInt("L.Min_Age"));
@@ -1740,7 +1739,7 @@ public class DAL {
 		connectToDBServer();
 		
 		String sql= "INSERT INTO line(Business_id, PR_id, Name, Day_In_Week, Line_Start_Date, Line_End_Date, Min_Age, Description, Entrance_Fee, DJ, Opening_Hour, Line_Photo) "
-				+ "VALUES ('"+ lineData.getBusiness().getId()+ "','" + lineData.getPr().getId() +"','"+ lineData.getM_LineName() +"','" + lineData.getM_DayInWeek()+"','"+ lineData.getStartDate() +"','"+ lineData.getEndDate() +"','"+ lineData.getMinAge() +"','"+ lineData.getDescription()+"','"+ lineData.getEntranceFee() +"','"+ lineData.getDj() +"','"+ lineData.getOpeningHour() +"','"+ lineData.getImageUrl() +"')";
+				+ "VALUES ('"+ lineData.getBusiness().getId()+ "','" + lineData.getPr().getId() +"','"+ lineData.getM_LineName() +"','" + lineData.getM_DayInWeek()+"','"+ lineData.getStartDate() +"','"+ lineData.getEndDate() +"','"+ lineData.getMinAge() +"','"+ lineData.getDescription()+"','"+ lineData.getEntranceFee() +"','"+ lineData.getDj() +"','"+ lineData.getOpeningHour() +"','"+ lineData.getLinePhotoURL()+"')";
 		try {
 			stmt.executeUpdate(sql);
 

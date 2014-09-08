@@ -57,7 +57,7 @@
 
     <%@  include file="patternTemplates/footer.tpl" %>
 
-
+	<input type="hidden" value="1" id="page_number">
 	<script type="text/javascript" src="Script/Utils.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>

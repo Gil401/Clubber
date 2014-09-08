@@ -70,8 +70,12 @@
 								  	<textarea rows="5" cols="20" type="text" name="description" id="description"></textarea>
 								  	<br>
 	
-								  	<div class="lable" id="lineEtranceFeeLabel">כניסה בתשלום</div>
+								  	<div class="lable" id="lineEtranceFeeLabel">עלות כניסה</div>
 								  	<input type="text" name="etranceFee" id="etranceFee">
+								  	<br>
+								  	
+								  	<div class="lable" id="lineEtranceFeeLabel">פתיחת שערים</div>
+								  	<input type="time" value="22:00" name="openingHour" id="lineOpeningHour">
 								  	<br>
 	
 								  	<div class="lable" id="lineDJLabel">דיג'יי</div>

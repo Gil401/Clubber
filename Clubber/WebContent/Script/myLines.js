@@ -67,6 +67,10 @@ function getMainLinesFromDB(userId) {
 				  temp_template.find('.line_box_line').html($(this)[0]['m_Lines'][0]['description']);
 				  temp_template.find('.line_box_entrance_fee').html($(this)[0]['m_Lines'][0]['entranceFee']);
 				  temp_template.find('.line_box_name').html($(this)[0]['m_Name']);
+				  temp_template.find('.line_box_number_day').html(dayConvertor($(this)[0]['m_DayInWeek']));
+				  $(".img-responsive").attr('src', "../template/save.png");
+				
+					$('#temp_container').find('.latest-event').hide();
 				  $('#lines_container').append($('#temp_container').html());
 				  console.log($(this)[0].m_Name)
 			  });
@@ -184,13 +188,8 @@ function replaceAll(find, replace, str) {
 	return str.replace(new RegExp(find, 'g'), replace);
 }
 
-function dayConvertor(i_Day)
-{
-	var hebrewDaysNames = new Array("ראשון", "שני", "שלישי", "רביעי", "חמישי",
-			"שישי", "שבת");
-	return hebrewDaysNames[(i_day - 1)];
-}
 function dateConvertor(i_Date) {
+	
 	var hebrewDaysNames = new Array("ראשון", "שני", "שלישי", "רביעי", "חמישי",
 			"שישי", "שבת");
 	var date = new Date(i_Date), day = date.getDay(), fullYear = date.getFullYear(), month = date.getMonth(), dayInMonth = date

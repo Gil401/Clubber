@@ -136,6 +136,7 @@ public class Constants {
 	 public static String LINE_ETRANCEFEE= "etranceFee";
 	 public static String LINE_DJ= "DJ";
 	 public static String LINE_PHOTO= "photo";
+	 public static String Line_Opening_Hour = "lineOpeningHour";
 	 
 	 //Offer update fields
 
@@ -173,5 +174,6 @@ public class Constants {
 	 public static final String AUCTION_SEARCH_EVENT_TYPE="EventTypeId";
 	 public static final String AUCTION_SEARCH_GUESTS_QUANTITY="GuestesQuantiny";
 	 public static final String AUCTION_SEARCH_AREA_ID="AreaId";
+
 }
 

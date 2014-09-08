@@ -90,7 +90,7 @@ public class UploadLineImageServlet  extends HttpServlet {
 		            file = new File(filePath) ;
 		            fi.write(file);
 		            System.out.println(filePath);
-		            i_LineData.setLinePhotoURL(filePath);
+		            i_LineData.setLinePhotoURL(rel_Path+"\\" + fileName);
 		         }
 		         else
 		         {
@@ -158,6 +158,10 @@ public class UploadLineImageServlet  extends HttpServlet {
 		        		 i_LineData.setDescription(fi.getString("UTF-8").trim());
 		        	 }
 		        	 else if(fi.getFieldName().equals(Constants.LINE_ETRANCEFEE))
+		        	 {
+		        		 i_LineData.setEntranceFee(fi.getString("UTF-8").trim());
+		        	 }
+		        	 else if(fi.getFieldName().equals(Constants.Line_Opening_Hour))
 		        	 {
 		        		 i_LineData.setEntranceFee(fi.getString("UTF-8").trim());
 		        	 }

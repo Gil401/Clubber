@@ -131,7 +131,7 @@ function getMainLinesFromDB(fullDate) {
 																.html(
 																		$(this)[0]['m_Name']);
 														var a = $(this)[0]['m_Lines'][0]['id'];
-														$(".img-responsive").attr('src', "../template/save.png");
+														$(".img-responsive").attr('src', $(this)[0]['m_Lines'][0]['linePhotoURL']);
 														
 														$('#temp_container').find('.latest-event').hide();
 														
@@ -240,11 +240,6 @@ function replaceAll(find, replace, str) {
 	return str.replace(new RegExp(find, 'g'), replace);
 }
 
-function dayConvertor(i_Day) {
-	var hebrewDaysNames = new Array("ראשון", "שני", "שלישי", "רביעי", "חמישי",
-			"שישי", "שבת");
-	return hebrewDaysNames[(i_Day - 1)];
-}
 function dateConvertor(i_Date) {
 	var hebrewDaysNames = new Array("ראשון", "שני", "שלישי", "רביעי", "חמישי",
 			"שישי", "שבת");

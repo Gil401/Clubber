@@ -73,6 +73,12 @@ function convertTimeStampFormat(timestamp)
 	return (formattedDate(timestamp) + ' '+ convert12to24(time));
 }
 
+function dayConvertor(i_Day) {
+	var hebrewDaysNames = new Array("ראשון", "שני", "שלישי", "רביעי", "חמישי",
+			"שישי", "שבת");
+	return hebrewDaysNames[(i_Day - 1)];
+}
+
 function page (page_num){
 	var number_of_results_per_page = 5;
 	var number_of_pages =  Math.ceil($('#lines_container .latest-event').length/number_of_results_per_page);
