@@ -91,6 +91,7 @@ function getMainLinesFromDB(fullDate) {
 																.html(
 																		lineTemplate);
 														var temp_template = $('#temp_container');
+														temp_template.find('.event-details').attr("id",$(this)[0]['m_Lines'][0]['id']);
 														temp_template
 																.find(
 																		'.line_box_place')

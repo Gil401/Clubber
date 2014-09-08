@@ -1,4 +1,4 @@
-var line_id=-1;
+var line_id= sessionStorage.getItem("lineId");
 
 function setErrorMessages() {
 	$.extend(jQuery.validator.messages, {
@@ -26,7 +26,7 @@ function LoadDataToInputs()
 		type : "post",
 		dataType : 'json',
 		data : {
-			RequestType : "GetDBData-LineProfile"
+			RequestType : "GetDBData-LineProfile", lineId : line_id
 		},
 		success : function(data) {
 			console.log(data);
@@ -102,7 +102,7 @@ function getLineProfile() {
 		type : "post",
 		dataType : 'json',
 		data : {
-			RequestType : "GetDBData-LineProfile"
+			RequestType : "GetDBData-LineProfile", lineId : line_id
 		},
 		success : function(data) {
 			console.log(data);

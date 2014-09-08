@@ -108,3 +108,9 @@ function printDataFromArray(data) {
 	}
 	return result;
 }
+
+function openDetails(lineId)
+{
+	sessionStorage.setItem("lineId", lineId);
+	window.location.href = "LineProfile.jsp";
+}

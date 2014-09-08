@@ -215,7 +215,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             }
             else if (requestType.equals(Constants.DB_DATA_LINE_PROFILE))
             {
-            	data= DAL.getLineProfileData(1);
+            	Integer lineId= Integer.parseInt(request.getParameter("lineId").toString());
+            	data= DAL.getLineProfileData(lineId);
             	json = gson.toJson(data);
             }
             else if(requestType.equals(Constants.DB_DATA_AUCTION_REVIEW))

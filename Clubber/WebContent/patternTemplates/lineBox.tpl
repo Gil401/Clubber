@@ -2,7 +2,7 @@
     <div class="tab-image">
         <img class="img-responsive" src="images/latest-events/event1.jpg" alt="">
     </div>
-    <div style="border-radius: 10px" class="tab-content event-details" onclick = "openDetails()">
+    <div id="" style="border-radius: 10px" class="tab-content event-details" onclick="openDetails(this.id);" >
         <div class="tab-pane active date-tab1">
             <h3 class="media-heading line_box_name">שירה וחמין של בוקר אצל רוחמה</h3>
             <ul class="event-content">
