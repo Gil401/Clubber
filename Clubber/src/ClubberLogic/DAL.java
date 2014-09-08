@@ -2171,9 +2171,7 @@ public class DAL {
 				
 				currentOfferPerAuction.getM_OfferData().setId(rs.getInt("O.id"));
 				currentOfferPerAuction.getM_OfferData().setDescription(rs.getString("O.Description"));
-				currentOfferPerAuction.getM_OfferData().line
-				
-
+				//currentOfferPerAuction.getM_OfferData().line
 				
 			}
 

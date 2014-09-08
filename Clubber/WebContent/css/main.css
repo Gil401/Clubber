@@ -784,7 +784,8 @@ ul.sub-menu{
   display: block;
   margin-top: 25px;
   overflow: hidden;
-  padding: 30px
+  padding: 30px;
+  border-radius: 50px;
 }
 
 .sponsor h2 {

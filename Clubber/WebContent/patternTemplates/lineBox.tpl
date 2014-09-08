@@ -16,8 +16,8 @@
         </div>
                                             
     </div> 
-    <div style="border-radius: 5px"class="tab">                                     
-        <ul>
+    <div class="tab">                                     
+        <ul style="border-radius: 50px" >
             <li class="active"><a href=".html" data-toggle="tab"><span class="line_box_month"></span>יום<span class="line_box_number_day"></span> </a></li>
             <!--<li><a href="-2.html" data-toggle="tab"><i class="fa fa-map-marker"></i></a></li>
             <li><a href="-3.html" data-toggle="tab"><i class="fa fa-shopping-cart"></i></a></li>-->
