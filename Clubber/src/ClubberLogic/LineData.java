@@ -22,9 +22,11 @@ public class LineData {
 	private IdWithName business;
 	private List<IdWithName> musicStyles;
 	private LinkedList<IdWithName> prs;
+	private BusinessData m_BusinessData;
 	
 	public LineData()
 	{
+		setBusinessData(new BusinessData());
 		musicStyles= new LinkedList<IdWithName>();
 		prs= new LinkedList<IdWithName>();
 		m_LineName="";
@@ -159,5 +161,19 @@ public class LineData {
 	 */
 	public void setLinePhotoURL(String linePhotoURL) {
 		this.linePhotoURL = linePhotoURL;
+	}
+
+	/**
+	 * @return the n_BusinessData
+	 */
+	public BusinessData getBusinessData() {
+		return m_BusinessData;
+	}
+
+	/**
+	 * @param n_BusinessData the n_BusinessData to set
+	 */
+	public void setBusinessData(BusinessData n_BusinessData) {
+		this.m_BusinessData = n_BusinessData;
 	}
 }

@@ -999,9 +999,9 @@ public class DAL {
 			return data;
 		}
 	
-	public static ArrayList<BusinessData> getLineByPR(String i_userID) throws ParseException {
+	public static ArrayList<LineData> getLineByPR(String i_userID) throws ParseException {
 
-		ArrayList<BusinessData> data = new ArrayList<BusinessData>();
+		ArrayList<LineData> data = new ArrayList<LineData>();
 			// access date fields   
 			connectToDBServer();
 			
@@ -1017,8 +1017,19 @@ public class DAL {
 
 				while (rs.next())
 				{
+					
+					LineData lData = new LineData();
+					lData.setM_DayInWeek(rs.getInt("L.Day_In_Week"));
+					lData.setM_LineName(rs.getString("L.name"));
+					lData.setDescription(rs.getString("L.Description"));
+					lData.setDj(rs.getString("L.DJ"));
+					lData.setEntranceFee(rs.getString("L.entrance_fee"));
+					lData.setMinAge(rs.getInt("L.Min_Age"));
+  					lData.setStartDate(rs.getLong("L.Line_Start_Date"));
+					lData.setId(rs.getInt("L.id"));
+					lData.setLinePhotoURL(rs.getString("L.Line_Photo"));					
+					
 					BusinessData bData = new BusinessData();
-					//set business data
 					bData.setM_Id(rs.getInt("b.id"));
 					bData.setM_Name(rs.getString("b.name"));
 					bData.setM_StreetId(new IdWithName(rs.getInt("b.street"), rs.getString("s.Name")));
@@ -1029,18 +1040,9 @@ public class DAL {
 					bData.setM_CityId(new IdWithName(rs.getInt("b.city"), rs.getString("c.Name")));
 					bData.setM_AreaId(new IdWithName(rs.getInt("b.area"), rs.getString("a.Name")));
 					
-					LineData lData = new LineData();
-					lData.setM_LineName(rs.getString("L.name"));
-					lData.setDescription(rs.getString("L.Description"));
-					lData.setDj(rs.getString("L.DJ"));
-					lData.setEntranceFee(rs.getString("L.entrance_fee"));
-					lData.setMinAge(rs.getInt("L.Min_Age"));
-					lData.setStartDate(rs.getLong("L.Line_Start_Date"));
-					lData.setId(rs.getInt("L.id"));
+					lData.setBusinessData(bData);
 					
-					bData.getM_Lines().add(lData);
-					
-					data.add(bData);
+					data.add(lData);
 				}		
 			} catch (SQLException e) {
 				e.printStackTrace();

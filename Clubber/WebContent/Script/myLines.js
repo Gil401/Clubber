@@ -57,20 +57,18 @@ function getMainLinesFromDB(userId) {
 				});
 		  
 		  dataRequest.done(function(returnedData){
-			  $.each(returnedData, function(){
-				  console.log($(this)[0]);
+			  $.each(returnedData, function(index, val){
 				  $('#temp_container').html(lineTemplate);
 				  var temp_template = $('#temp_container');
-				  temp_template.find('.line_box_place').html($(this)[0]['m_StreetId']['Name']+' '+$(this)[0]['m_HouseNumber']+', '+$(this)[0]['m_CityId']['Name'] );
-				  temp_template.find('.line_box_date').html();
-				  temp_template.find('.line_box_hour').html();
-				  temp_template.find('.line_box_line').html($(this)[0]['m_Lines'][0]['description']);
-				  temp_template.find('.line_box_entrance_fee').html($(this)[0]['m_Lines'][0]['entranceFee']);
-				  temp_template.find('.line_box_name').html($(this)[0]['m_Name']);
+				  alert($(this)[0]['m_BusinessData']['m_CityId']['Name']);
+				  temp_template.find('.line_box_place').html($(this)[0]['m_BusinessData']['m_StreetId']['Name']+' '+$(this)[0]['m_BusinessData']['m_HouseNumber']+', '+$(this)[0]['m_BusinessData']['m_CityId']['Name'] );
+				  temp_template.find('.line_box_hour').html($(this)[0]['openingHour']);
+				  temp_template.find('.line_box_line').html($(this)[0]['description']);
+				  temp_template.find('.line_box_entrance_fee').html($(this)[0]['entranceFee']);
+				  temp_template.find('.line_box_name').html($(this)[0]['m_LineName']);
 				  temp_template.find('.line_box_number_day').html(dayConvertor($(this)[0]['m_DayInWeek']));
-				  $(".img-responsive").attr('src', "../template/save.png");
-				
-					$('#temp_container').find('.latest-event').hide();
+				  $(".img-responsive").attr('src', $(this)[0]['linePhotoURL']);
+				  $('#temp_container').find('.latest-event').hide();
 				  $('#lines_container').append($('#temp_container').html());
 				  console.log($(this)[0].m_Name)
 			  });
