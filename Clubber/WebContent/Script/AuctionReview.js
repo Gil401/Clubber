@@ -94,47 +94,8 @@ var currAucId;
 	    });
 	}
 	
-	function getClientProfileReview() {
-		$.ajax({
-			url : "GetDBData",
-			type : "post",
-			dataType : 'json',
-			data : {
-				RequestType : "DBDataClientProfileReview"
-			},
-			success : function(data) {
-
-				var i;
-				if (data != null) {
-					for (i = 0; i < data.punctuality; i++) {
-						var star = $(".punctualityStars").children()[i];
-						$(star).removeClass("star");
-						$(star).addClass("yellow-Star");
-					}
-
-					for (i = 0; i < data.realiability; i++) {
-						var star = $(".reliabilityStars").children()[i];
-						$(star).removeClass("star");
-						$(star).addClass("yellow-Star");
-					}
-
-					for (i = 0; i < data.general; i++) {
-						var star = $(".generalStars").children()[i];
-						$(star).removeClass("star");
-						$(star).addClass("yellow-Star");
-					}
-				}
-
-			},
-			error : function(data) {
-				console.log("error");
-			}
-		});
-	}
-	
 	$(function() {
         ajaxAuctionFromDBData();
-        getClientProfileReview();
 	});
 
 	

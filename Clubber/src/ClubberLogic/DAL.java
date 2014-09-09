@@ -350,34 +350,15 @@ public class DAL {
 		List<IdWithName> lines = new LinkedList<IdWithName>();
 		String query;
 
-		query = "Select * from line L where L.PR_id = '" + i_PRid + "'";
+		query = "Select * from line where id in (select line_id from line_prs Lp where Lp.PR_id = " + i_PRid + ")";
 		data.setLines(GetIdAndNameData(query));
 
 		query = "Select * from treats;";
 		data.setTreats(GetIdAndNameData(query));
 
-		query = "Select * from Sitts_Type;";
-		data.setSittsType(GetIdAndNameData(query));
-	
-		/* load submitted prs: */
-		ResultSet rs;
-		try {
-			rs = stmt.executeQuery("select * from line_prs lp, line where line.id= p.line_id  and lp.Pr_id= '" + i_PRid + "'");
-			while (rs.next()) {
-				lines.add(new IdWithName(rs.getInt("line.id"), rs.getString("line.Name")));
-			}
-			
-			data.setLines(lines);
-			return data;
-		} 
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		finally {
-			disconnectFromDBServer();
-		}
+		disconnectFromDBServer();
+		
+		return data;
 	}
 		
 
@@ -2475,4 +2456,38 @@ public static boolean updateAuctionStatus(Integer auctionId, Integer auctionStat
 		}
 	}
 
+	public static Integer addNewOffer(OfferData offer) {
+		connectToDBServer();
+		
+		try {
+			//created on = now :
+			Calendar calendar = Calendar.getInstance();
+			Timestamp currentTimestamp = new java.sql.Timestamp(calendar.getTime().getTime());
+			
+			//create new offer in db:
+			String sqlOfferInsertion = String.format("insert into offers values(%d,'%s',%d,%d,%d,%s,%d,%d,%d,'%s')",
+					null,offer.getDescription(),offer.getLineId().getId(),offer.getExpirationDate(),offer.getMaxArrivalHourAsLong(),null,offer.getAuctionId(), offer.getOfferStatusId().getId(), offer.getPrId().getId(), currentTimestamp);
+
+			stmt.executeUpdate(sqlOfferInsertion,
+					Statement.RETURN_GENERATED_KEYS);
+			ResultSet rs = stmt.getGeneratedKeys();
+			rs.next();
+			Integer offerId = rs.getInt(1);
+
+			// add relevant records to auction music style table:
+			for (IdWithName item : offer.getOfferTreats()) {
+				String sqlTreats = String.format(
+						"insert into offer_treats values(%d,%d,%d)",
+						null, offerId, item.getId());
+				stmt.executeUpdate(sqlTreats);
+			}
+
+			return offerId;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			disconnectFromDBServer();
+		}
+	}
 }

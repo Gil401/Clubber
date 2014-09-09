@@ -6,7 +6,6 @@ import java.util.List;
 public class NewOfferData {
 	private List<IdWithName> lines;
 	private List<IdWithName> treats;
-	private List<IdWithName> sittsType;
 	
 	public NewOfferData()
 	{
@@ -25,11 +24,5 @@ public class NewOfferData {
 	}
 	public void setTreats(List<IdWithName> treats) {
 		this.treats = treats;
-	}
-	public List<IdWithName> getSittsType() {
-		return sittsType;
-	}
-	public void setSittsType(List<IdWithName> sittsType) {
-		this.sittsType = sittsType;
 	}
 }
