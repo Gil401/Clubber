@@ -13,6 +13,11 @@ public class SessionUtils {
          request.setAttribute(Constants.AUCTION_TO_DISPLAY_ID,value);
     }
 	
+    public static void setCurrentLineToDisplay(HttpSession request, Integer value)
+    {
+         request.setAttribute(Constants.LINE_TO_DISPLAY_ID,value);
+    }
+    
     public static void setCurrentOfferToDisplay(HttpSession request, Integer value)
     {
          request.setAttribute(Constants.OFFER_TO_DISPLAY_ID,value);

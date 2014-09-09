@@ -70,20 +70,24 @@ public class DAL {
 
 		try {
 
-			ResultSet rs = stmt
-					.executeQuery("select auc.*, event_type.Name as event_type_name, COALESCE(counter,0) as counter from event_type,"
-							+ " auction auc left join (Select auction_id, count(id) as counter from  offers) offers1 on offers1.auction_id = auc.id where auc.Event_Type = event_type.id and auc.Created_By="+loggedOnUserID+" order by auc.Event_Date");
+			ResultSet rs = stmt.executeQuery("select auction.*, event_type.Name as event_type_name, COALESCE(counter2,0) as counter"
+					+" from event_type,auction left join (select auc.id, count(offers.id) as counter2"
+							+" from auction auc, offers"
+							+" where offers.auction_id = auc.id" 
+							+" group by auc.id) c on c.id = auction.id"
+							+" where auction.Event_Type = event_type.id and auction.Created_By="+loggedOnUserID
+							+" order by auction.Event_Date desc");
 
 			while (rs.next()) {
 				AuctionData auction = new AuctionData(); 
 				auction.setEventDate(rs.getLong("Event_Date"));
 				auction.setDescription(rs.getString("Description"));
 				auction.setEventType(new IdWithName(
-						rs.getInt("auc.Event_Type"), rs
+						rs.getInt("Event_Type"), rs
 								.getString("event_type_name")));
 				auction.setId(rs.getInt("id"));
 				auction.setOfferNumber(rs.getInt("counter"));
-				auction.setCreatedBy(new IdWithName(rs.getInt("auc.Created_By"), null));
+				auction.setCreatedBy(new IdWithName(rs.getInt("Created_By"), null));
 				data.add(auction);
 			}
 		} catch (SQLException e) {
@@ -301,6 +305,7 @@ public class DAL {
 						+ " "
 						+ rs.getString("users.Last_Name")));
 				offer.setSubmitDate(rs.getLong("off.Created_On"));
+				offer.setLinePhotoURL(rs.getString("line.Line_Photo"));
 				offers.add(offer);
 			}
 

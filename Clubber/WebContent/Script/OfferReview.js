@@ -103,7 +103,7 @@ function loadOfferFromDB(data)
 		{
 			$("#offer-treats").append("<div class='offer-treat-div'><img src='/Clubber/images/Check_Image.png' class='offer-item-treat-image'><label class='offer-multi-value-label'>"+data.offerTreats[item].Name+"</label></div>");
 		}
-		
+		/*
 		if(userType == CLIENT)
 		{
 			("$edit-offer-button").hide();

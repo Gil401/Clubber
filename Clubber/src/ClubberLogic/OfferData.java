@@ -23,10 +23,12 @@ public class OfferData {
 	private File linePhoto;
 	private List<IdWithName> offerTreats;
 	private IdWithName lineBusinessId;
+	private String linePhotoURL;
 	
 	public OfferData()
 	{
 		offerTreats= new LinkedList<IdWithName>();
+		linePhotoURL="";
 	}
 	
 	public Integer getId() {
@@ -115,5 +117,13 @@ public class OfferData {
 	}
 	public void setLineBusinessId(IdWithName lineBusinessId) {
 		this.lineBusinessId = lineBusinessId;
+	}
+
+	public String getLinePhotoURL() {
+		return linePhotoURL;
+	}
+
+	public void setLinePhotoURL(String linePhotoURL) {
+		this.linePhotoURL = linePhotoURL;
 	}
 }
