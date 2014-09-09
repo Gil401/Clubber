@@ -221,6 +221,7 @@ input{
 			$("#viewMode").hide();
 			$("#editMode").show();
 			$('#pictureLabel').hide();
+			$('.user-rating').hide();
 			$('#pic_container').append('<br><br><br><input type="file" name="pic" id="pic" style="float:right;padding:0; margin:0;max-width:30%; max-height:30%;">');
 		});
 		
@@ -231,6 +232,9 @@ input{
 		        dataType: 'json',
 		        data:{RequestType: "DBDataUserProfile"},
 		        success: function(data) {
+		        	if (data == "UserNotLoggedOn") {
+						window.location.href = "Login.jsp";
+					}
 		        	loadDataToView(data);
 		        	$("#firstName").val(data.firstName);
 		        	$("#lastName").val(data.lastName);
@@ -310,10 +314,6 @@ input{
 		function loadDataToView(data) {
 			$('#prTitle').html(data.firstName + " " + data.lastName);
         	$("#viewEmail").html(data.email);
-        	
-        	/*if (data.imageUrl) {
-        		$('#viewpic').attr("src", data.imageUrl);
-			}*/
         	
         	if (data.gender == "Female") {
         		$("#viewgender").html("נקבה");        		

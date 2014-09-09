@@ -2226,14 +2226,20 @@ ul.sub-menu{
 ***********************/
 .offer-item-reviewed-container{
 	float:right;
+	width:50%;
+    display:table-column;
 }
 .offer-item-treat-image{
 	height:16px;
 	width:16px;
 }
+.offer-value-label{
+	width:auto;
+	word-wrap:break-word;
+}
 
 .offer-treat-div{
-	float:left;
+	margin-right:200px;
 }
 
 .offer-item-left-title{
@@ -2260,9 +2266,59 @@ ul.sub-menu{
 	float: right;
 }
 .auction-item-description {
+	width:47%;
 	float: left;
+	display:table-column;
 }
 
+.auction-data-display{
+	padding:10px;
+	border:8px double #343434;
+	border-radius: 7px;
+	width:100%;
+	float:right;
+}
+
+.offer-item-line-image{
+	width: 100px;
+	height:120px;
+}
+
+.offer-title-label{
+	vertical-align: top;
+}
+.Auction-area-title{
+	font-size: 25px;
+	padding-right:33px;
+}
+
+.Offer-area-title{
+	float:right;
+	font-size: 25px;
+	padding-right:32px;
+}
+
+.title-img-bg{
+	background-image: url("../images/title-back.png");
+	background-repeat: no-repeat;
+	float:right; 
+}
+#ViewOfferData{
+	padding:10px;
+	border:8px double #343434;
+	border-radius: 7px;
+	width:100%;
+}
+
+#containers-table{
+	display:  table;
+    width:auto;
+}
+
+#containers-row{
+	display:  table-row;
+    width:auto;
+}
 /***********************
 ****Auction Review******
 ***********************/

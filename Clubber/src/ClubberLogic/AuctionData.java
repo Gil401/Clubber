@@ -34,6 +34,7 @@ public class AuctionData {
 		sittsType= new LinkedList<IdWithName>();	
 		businessType= new LinkedList<IdWithName>();
 		createdBy =null;
+		userDetailsExpose= UserDetailsExpose.None;
 		setOfferNumber(0);
 	}
 	public long getEventDate() {

@@ -175,5 +175,7 @@ public class Constants {
 	 public static final String AUCTION_SEARCH_GUESTS_QUANTITY="GuestesQuantiny";
 	 public static final String AUCTION_SEARCH_AREA_ID="AreaId";
 
+	//User not Logged on
+	 public static final String USER_NOT_LOGGED_ON="UserNotLoggedOn";
 }
 

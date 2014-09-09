@@ -106,7 +106,9 @@ function getLineProfile() {
 		},
 		success : function(data) {
 			console.log(data);
-			
+			if (data == "UserNotLoggedOn") {
+				window.location.href = "Login.jsp";
+			}
 			var startDate = new Date(data.startDate);
 			var endDate = new Date(data.endDate);
 			var startMonth = startDate.getMonth() + 1;

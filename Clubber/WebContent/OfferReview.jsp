@@ -17,13 +17,11 @@
     <div class='main-container bg '>  
        	<br>
        	<br>
+       	<div id="containers-table">
+	       	<div id="containers-row">
        	<div class="offer-item-reviewed-container">
-       	<div class='offer-item-reviewed-title'></div>
-       	<br>
+		       		<div class="title-img-bg"><label class="Offer-area-title">פרטי ההצעה</label></div>
        		<div class= "offer-item-reviewed-content">
-       			<div title="לחץ כאן כדי לראות את פרטי הליין" class="offer-reviewed-item-line-image-container" onclick="alert('')" style="float:right">
-       				<img src="/Clubber/images/line_Img.png" class="offer-item-line-image">
-       			</div>
        			<div id="ViewOfferData" class="offer-reviewed-item-description">
 		       		<div id="offer-description">
 						<label class="offer-title-label">תיאור</label>
@@ -76,6 +74,8 @@
 			</div>
 		</div>
 		<div class="auction-item-description">
+					<div class="title-img-bg"><label class="Auction-area-title">פרטי האירוע</label></div>
+					<div class="auction-data-display">
 		       		<div id="auction-event-date">
 						<label class="offer-title-label">תאריך האירוע</label>
 					</div>
@@ -107,9 +107,12 @@
 						<label class="offer-title-label">תיאור כללי</label>
 					</div>				
 				</div>
+				</div>
+			</div>
+		</div>
 		<br/><input class='btn-primary' type="button" id="accept-offer-button" name="accept-offer-button"  value="קבל הצעה זו" onClick= "approveBtnClicked()"/>
 		<input class='btn-primary' type="button" id="expose-user-details-button" name="expose-user-details-button"  value="חשוף פרטי התקשרות" onClick= "approveBtnClicked()"/>
-		
+		<input id="exposedDetails" type="text" hidden="true" value="1"/>
        <div class='all-messages-container'>
 	       	<div class="old-messages"></div>
 	       	<div class="new-message"></div> 
@@ -117,7 +120,8 @@
 	    </div>
 
 	    <div class='recomended-lines-container'></div>        
-    </div></div></div></div>
+    </div></div></div>
+    </div>
     <%@  include file="patternTemplates/footer.tpl" %>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>

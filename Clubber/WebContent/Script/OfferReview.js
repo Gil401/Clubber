@@ -77,9 +77,9 @@ function loadOfferFromDB(data)
 		
 		currOffPrNAME= data.prId.Name;
 		
-		$(".offer-item-reviewed-title").html("");
+		/*$(".offer-item-reviewed-title").html("");
 		$(".offer-item-reviewed-title").append("<div class= 'offer-item-right-title' onClick='moveToPrProfile("+data.prId.id+");' >"+data.prId.Name+"</div> <div class='offer-item-left-title' >" +submitDate.getDate() +"/"+ submitMonth +"/" + submitDate.getFullYear() +"</div>");
-		
+		*/
 		$("#offer-description").html($("#offer-description").find(".offer-title-label"));
 		$("#offer-description").append("<label class='offer-value-label'>"+description+"</label>");
 		
@@ -101,7 +101,7 @@ function loadOfferFromDB(data)
 		$("#offer-treats").html($("#offer-treats").find(".offer-title-label"));
 		for (var item in data.offerTreats) 
 		{
-			$("#offer-treats").append("<div class='offer-treat-div'><img src='/Clubber/images/Check_Image.png' class='offer-item-treat-image'><label class='offer-multi-value-label'>"+data.offerTreats[item].Name+"</label></div><br>");
+			$("#offer-treats").append("<div class='offer-treat-div'><img src='/Clubber/images/Check_Image.png' class='offer-item-treat-image'><label class='offer-multi-value-label'>"+data.offerTreats[item].Name+"</label></div>");
 		}
 	}
 
@@ -209,21 +209,26 @@ function loadOfferFromDB(data)
 	            	console.log("error- auction review");}	        
 	    });
 	}
-
+	function exposedChanged(list) {
+		$('#exposedDetails').val(list.value);
+	}
 	function ajaxApproveCurrentOffer() {
-		jConfirm(' הינך מאשר את ההצעה הנ"ל, ובכך חושף את פרטי ההתקשרות שלך בפני היחצן , האם אתה בטוח שברצונך לבצע את הפעולה?', 'קבלת הצעה ', 
+		jConfirm(' הינך מאשר את ההצעה הנ"ל, ובכך חושף את פרטי ההתקשרות שלך בפני היחצן <br> בחר את פרטי ההקשרות שברצונך לחשוף: <br><br>  <select name="userDetailsExpose" id="userDetailsExpose" required onchange="exposedChanged(this)"><option value="1">אימייל</option><option value="2">טלפון</option><option value="3">אימייל וטלפון</option></select>', 'קבלת הצעה ', 
 				function(res) {
 					if (res) {
+						var userExposeCode = $('#exposedDetails').val();
+						$('#exposedDetails').val("1");
 						clearInterval(msgIntervalId);
 						$.ajax({
 						        url: "AuctionManagementActions",
 						        type: "post",
 						        dataType: 'json',
-						        data:{RequestType: "AuctionManagementOfferAccepted", OfferId:currOffId, DisplayCode: 3, AcceptedAuctionID : currAucId },
+						        data:{RequestType: "AuctionManagementOfferAccepted", OfferId:currOffId, DisplayCode: userExposeCode, AcceptedAuctionID : currAucId },
 						        success: function(data) {
 						                console.log("Offer accepted"); 
-						                ajaxGetUserDetails(createdById,3);
-						                msgIntervalId= setInterval(ajaxMessagesFormDBData, refreshRate);
+						                location.reload();
+						                //ajaxGetUserDetails(createdById,userExposeCode);
+						                //msgIntervalId= setInterval(ajaxMessagesFormDBData, refreshRate);
 						            },
 						        error: function(data){
 						            	console.log("error");} 
@@ -271,6 +276,7 @@ function loadOfferFromDB(data)
 	        data:{UserId: userId, RequestType: "SessionActions-SetUserInSession"},
 	        success: function(data) {
 	        	retriveUserData(displayCode,userId);
+	        	
 	        },
 	        error: function(data){
 	        	console.log("error");
@@ -290,7 +296,8 @@ function loadOfferFromDB(data)
 	        success: function(data) {
 	            if (data != null) { 
 	            	addClientDetailsToScreen(displayCode, data);
-	            }},
+	            }}
+	        ,
 	        error: function(data){
 	            	console.log("error- user details");}
 	        

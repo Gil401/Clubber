@@ -40,63 +40,81 @@ input{
 				<div id="latest-event-content" class="col-sm-7 col-md-8">
 				<div class="bg">
 
-					<h2>פרטי משתמש</h2>
-					<div class="user-details" style="float: right">
+					<h2 id="clientTitle">פרטי משתמש</h2>
+					<div class="user-details">
 						<form class="user-details-form" id="userDetails"
 							name="userDetails" method="post" action="UpdateUserDetails" enctype="multipart/form-data">
+							<div class="pic-area">
+								<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">
+							</div>
+							<div id="viewMode">
+							  	<br>
+							  	<label id="viewEmailLabel">כתובת מייל</label>
+							  	<label id="viewEmail"></label>			
+							  	<br>
 
+							  	<label id="viewgenderLabel">מין</label>
+							  	<label id="viewgender"></label>
+							  	
+								<br>
+								<label id="viewbirthdateLabel">תאריך לידה</label>
+								<label id="viewbirthdate"></label>
 							<br>
 							
+								<label id="viewphonenumberLabel">טלפון</label>
+								<label id="viewphonenumber"></label>
+								<br><br>
+					  			<button id="editUserDel" type="button" >ערוך</button>
+					  			<br><br>
+								<label id="messageText">
+									<% if(messageText != null){ %>
+										<%=messageText %>
+									<%} %>		
+								</label>
+				  			</div>
+
+							<br>
+							<div id="editMode" style='display:none'>
+								<br><br><br><br>
 							<label id="firstnameLabel">שם פרטי</label> 
-							<input type="text" name="firstName" id="firstName" required disabled > 
+							  	<input type="text" name="firstName" id="firstName" required>
 							<br>
 
 							<label id="lastnameLabel">שם משפחה</label> 
-							<input type="text" name="lastName" id="lastName" required disabled> 
+							  	<input type="text" name="lastName" id="lastName" required>			
 							<br>
 
 							<label id="genderLabel">מין</label> 
-							<input type="radio" name="gender" value="Male" checked disabled> זכר 
-							<input type="radio" name="gender" value="Female" disabled> נקבה
+							  	<input type="radio" name="gender" value="Male" checked>
+								זכר
+								<input type="radio" name="gender" value="Female">
+								נקבה
 							<br> 
 							
 							<label id="birthdateLabel">תאריך לידה</label>
-							<input type = "datetime" name="birthdate" size="17" id="birthdate" required disabled>
+								<input type = "datetime" name="birthdate" id="birthdate" size="17" required readonly>
 	  						<br>
 														
 							<label id="phonenumberLabel">טלפון</label> 
-							<input type="text" name="phoneNumber" id="phoneNumber" required disabled > 
+								<input type="text" name="phoneNumber" id="phoneNumber" required>
 							<br>
 							
 							<label id="passwordLabel">סיסמה</label> 
-							<input type="password" name="Password" id="password" required disabled> 
+								<input type="password" name="Password" id="password" required>
 							<br>
 
 							<label id="verifyPasswordLabel">אימות סיסמה</label> 
-							<input type="password" name="verifyPassword" id="verifyPassword" required disabled> 
+								<input type="password" name="verifyPassword" id="verifyPassword" required>
 							<br>
-
-							<button id="editUserDel" type="button">ערוך</button>
-							<button id="updateUserDel" type="submit"  disabled >שמור</button>
+					  			<button id="updateUserDel" type="submit">שמור</button>
+  							</div>							
 						</form>
 						<br> 
-						
-						<label id="messageText"> <%
-					 	if (messageText != null) {
-					 	%>
-							<%=messageText%> 
-						<%
-					 	}
-					 	%>
-						</label>
 					</div>
 					<div class="recomendedLines">
 					</div>
 					
-					<div class="user-rating" style="float: left">
-						<div class="pic-area">
-							<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">
-						</div> 
+					<div class="user-rating">
 						<label id="generalLabel">כללי</label> <br>
 						<div class="generalStars">
 							<div class="star"></div>
@@ -180,19 +198,11 @@ input{
 	});
 
 	$("#editUserDel").click(function() {
-		
-		$('input').attr('disabled', false);
-		
-		$('#firstName').attr("disabled", false);
-		$('#lastName').attr("disabled", false);
-		$('input[name="gender"]').attr("disabled", false);
-		$('#birthdate').datepicker("enable");
-		$('#phoneNumber').attr("disabled", false);
-		$('#password').attr("disabled", false);
-		$('#verifyPassword').attr("disabled", false);
-		$("#updateUserDel").attr("disabled", false);
-		$("#editUserDel").attr("disabled",true);
-		$('.pic-area').append('<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">');
+		$('#clientTitle').html("פרטי המשתמש");
+		$("#viewMode").hide();
+		$("#editMode").show();
+		$('.pic-area').append('<input type="file" name="pic" id="pic" style="float:right;padding:0; margin:0;max-width:30%; max-height:30%;">');
+		$(".user-rating").hide();
 	});
 	
 	function getUserProfile() {
@@ -204,7 +214,11 @@ input{
 				RequestType : "DBDataUserProfile"
 			},
 			success : function(data) {
+				if (data == "UserNotLoggedOn") {
+					window.location.href = "Login.jsp";
+				}
 				console.log(data);
+				loadDataToView(data);
 				$("#firstName").val(data.firstName);
 				$("#lastName").val(data.lastName);
 				$('input[name="gender"][value="' + data.gender + '"]').prop("checked", true);
@@ -223,8 +237,13 @@ input{
 	        		$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">');
 	        	}
 				
+				if (data.isUserEditable) {
 				$("#editUserDel").attr("disabled",false);
-				
+	        	}
+	        	else {
+	        		$("#editUserDel")[0].style.display = "none";
+	        		$("#updateUserDel")[0].style.display = "none";
+	        	}
 			},
 			error : function(data) {
 				console.log("error");
@@ -232,6 +251,23 @@ input{
 		});
 	}
 
+	function loadDataToView(data) {
+		$('#clientTitle').html(data.firstName + " " + data.lastName);
+    	$("#viewEmail").html(data.email);
+    	        	
+    	if (data.gender == "Female") {
+    		$("#viewgender").html("נקבה");        		
+    	}
+    	else {
+    		$("#viewgender").html("זכר");
+    	}
+    	
+		var date = new Date(data.birthDate);
+		var month = date.getMonth() + 1;
+		$("#viewbirthdate").html(date.getDate() + "/" +month + "/" + date.getFullYear());
+		$('#viewphonenumber').html(data.phoneNumber);
+	}
+	
 	function getClientProfileReview() {
 		$.ajax({
 			url : "GetDBData",

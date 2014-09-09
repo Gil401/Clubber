@@ -208,62 +208,65 @@ public class DAL {
 		return offer;
 	}
 
-	public static List<UserMessagesData> getAllMassages(Integer currAuctionID) {
-		List<UserMessagesData> messages = new LinkedList<UserMessagesData>();
+	public static List <UserMessagesData> getAllMassages(Integer currAuctionID)
+	{
+		List <UserMessagesData> messages= new LinkedList<UserMessagesData>();
 		connectToDBServer();
-
+		
 		try {
-
-			/* load messages */
-			ResultSet rs = stmt
-					.executeQuery("select * from messages where Auction_id="
-							+ currAuctionID);
-			while (rs.next()) {
-				UserMessagesData message = new UserMessagesData();
+			
+			/*load messages*/
+			ResultSet rs = stmt.executeQuery("select * from messages where Auction_id="+currAuctionID);
+			while (rs.next())
+			{
+				UserMessagesData message= new UserMessagesData();
 				message.setAuctionId(currAuctionID);
 				message.setCreatedOn(rs.getTimestamp("Created_On"));
 				message.setDescription(rs.getString("Description"));
 				message.setFromUserId(rs.getInt("From_User_id"));
 				message.setId(rs.getInt("id"));
 				message.setToUserId(rs.getInt("To_User_id"));
-
+				
 				messages.add(message);
 			}
-
-		} catch (SQLException e) {
+			
+		} 
+		catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
+		}
+		finally{
 			disconnectFromDBServer();
 		}
-
+		
 		return messages;
-
+		
 	}
-
-	public static boolean addNewMessage(String description, Integer auctionId)
-			throws Exception {
+	public static boolean addNewMessage(String description, Integer auctionId) throws Exception
+	{
 		connectToDBServer();
-
+		
 		try {
-			// created on = now :
+			//created on = now :
 			Calendar calendar = Calendar.getInstance();
-			Timestamp currentTimestamp = new java.sql.Timestamp(calendar
-					.getTime().getTime());
-
-			// create new message in db:
-			String sqlMessageInsertion = String.format(
-					"insert into messages values(%d,%d,%d,%d,'%s','%s')", null,
-					1, 2, auctionId, currentTimestamp, description);
-
+			Timestamp currentTimestamp = new java.sql.Timestamp(calendar.getTime().getTime());
+			
+			//create new message in db:
+			String sqlMessageInsertion= String.format("insert into messages values(%d,%d,%d,%d,'%s','%s')",
+					null,1,2,auctionId,currentTimestamp,description);
+			
 			stmt.executeUpdate(sqlMessageInsertion);
 			return true;
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			e.printStackTrace();
 			return false;
-		} finally {
+		}
+		finally
+		{
 			disconnectFromDBServer();
 		}
 	}
+	
 
 	public static AuctionManagementData getAllAuctionOffersData(
 			Integer currAuctionID) throws ParseException {
@@ -2186,140 +2189,148 @@ public class DAL {
 
 	}
 
-	public static boolean updateOfferDetails(OfferData offer)
-			throws ParseException {
-
+public static boolean updateOfferDetails(OfferData offer) throws ParseException {
+		
 		boolean isSucceed = true;
-
+		
 		connectToDBServer();
-
-		String sql = "UPDATE clubber_db.offers " + "SET  Expiration_Date = '"
-				+ offer.getExpirationDate() + "'" + ", Line_id = '"
-				+ offer.getLineId().getId() + "'" + ", Description = '"
-				+ offer.getDescription() + "'" + ", Max_Arrival_Hour = '"
-				+ offer.getMaxArrivalHourAsLong() + "'" + " WHERE id ='"
-				+ offer.getId() + "'";
-
+		
+		String sql = "UPDATE clubber_db.offers "
+				   + "SET  Expiration_Date = '" + offer.getExpirationDate() + "'"
+				   + ", Line_id = '" + offer.getLineId().getId()+ "'"
+				   + ", Description = '" +offer.getDescription() + "'"
+				   + ", Max_Arrival_Hour = '" +offer.getMaxArrivalHourAsLong() + "'"
+				   + " WHERE id ='" + offer.getId() + "'";
+		
 		try {
-			stmt.executeUpdate(sql);
-
-			// remove all exists treats records
-			stmt.executeUpdate("DELETE FROM offer_treats WHERE Offer_id="
-					+ offer.getId());
-
-			// add relevant records to line music style table:
-			for (IdWithName item : offer.getOfferTreats()) {
-				String sqlTreats = String.format(
-						"insert into offer_treats values(%d,%d,%d)", null,
-						offer.getId(), item.getId());
+			stmt.executeUpdate(sql);	
+			
+			//remove all exists treats records
+			stmt.executeUpdate("DELETE FROM offer_treats WHERE Offer_id="+ offer.getId());
+			
+			//add relevant records to line music style table:
+			for(IdWithName item: offer.getOfferTreats())
+			{
+				String sqlTreats= String.format("insert into offer_treats values(%d,%d,%d)", null,offer.getId() , item.getId());
 				stmt.executeUpdate(sqlTreats);
 			}
-
-		} catch (SQLException e) {
+			
+		} 
+		catch (SQLException e) {
 			isSucceed = false;
 			e.printStackTrace();
-
-		} finally {
+			
+		}
+		finally{
 			disconnectFromDBServer();
 		}
-
+		
 		return isSucceed;
 	}
-
-	public static boolean updateOfferStatus(Integer offerId,
-			Integer offerStatusId) throws ParseException {
-
+	
+	public static boolean updateOfferStatus(Integer offerId, Integer offerStatusId) throws ParseException {
+		
 		boolean isSucceed = true;
-
+		
 		connectToDBServer();
-
-		String sql = "UPDATE clubber_db.offers " + "SET  Offer_Status = '"
-				+ offerStatusId + "'" + " WHERE id ='" + offerId + "'";
-		try {
+		
+		String sql = "UPDATE clubber_db.offers "
+				   + "SET  Offer_Status = '" + offerStatusId + "'"
+				   + " WHERE id ='" + offerId + "'";		
+		try
+		{
 			stmt.executeUpdate(sql);
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			isSucceed = false;
 			e.printStackTrace();
-
-		} finally {
+			
+		}
+		finally{
 			disconnectFromDBServer();
 		}
 		return isSucceed;
 	}
-
-	public static boolean updateUserDetailsCode(Integer displayCode,
-			Integer auctionId) {
+	
+	public static boolean updateUserDetailsCode(Integer displayCode, Integer auctionId)
+	{
 		boolean isSucceed = true;
-
-		connectToDBServer();
-		try {
-			// set auction display code:
+		
+		connectToDBServer();	
+		try
+		{
+			//set auction display code:
 			String sql = "UPDATE clubber_db.Auction "
-					+ "SET Details_To_Display = '" + displayCode + "'"
-					+ " WHERE id ='" + auctionId + "'";
+					   + "SET Details_To_Display = '" + displayCode + "'"
+					   + " WHERE id ='" + auctionId + "'";
 			stmt.executeUpdate(sql);
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			isSucceed = false;
 			e.printStackTrace();
-
-		} finally {
+			
+		}
+		finally{
 			disconnectFromDBServer();
 		}
-
+		
 		return isSucceed;
 	}
-
-	public static boolean updateAuctionStatus(Integer auctionId,
-			Integer auctionStatusId) throws ParseException {
-
+	
+public static boolean updateAuctionStatus(Integer auctionId, Integer auctionStatusId) throws ParseException {
+		
 		boolean isSucceed = true;
-
+		
 		connectToDBServer();
-
-		try {
-			// set auction status
+		
+		try
+		{
+			//set auction status
 			String sql = "UPDATE clubber_db.Auction "
-					+ "SET  Auction_Status = '" + auctionStatusId + "'"
-					+ " WHERE id ='" + auctionId + "'";
+					   + "SET  Auction_Status = '" + auctionStatusId + "'"
+					   + " WHERE id ='" + auctionId + "'";
 			stmt.executeUpdate(sql);
-
-			if (auctionStatusId == AuctionStatusIds.NotRelevant.getValue()) {
-				// set all auction offers as not relevant:
-				sql = "UPDATE clubber_db.offers " + "SET  Offer_Status = '"
-						+ OfferStatusIds.NotRelevant.getValue() + "'"
-						+ " WHERE Auction_id ='" + auctionId + "'";
+			
+			if (auctionStatusId== AuctionStatusIds.NotRelevant.getValue() || auctionStatusId== AuctionStatusIds.InActive.getValue())
+			{
+				//set all auction offers as not relevant or already approved offer:
+				sql = "UPDATE clubber_db.offers "
+					   + "SET  Offer_Status = '" + OfferStatusIds.NotRelevant.getValue() + "'"
+					   + " WHERE Auction_id ='" + auctionId + "'";
 				stmt.executeUpdate(sql);
 			}
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			isSucceed = false;
 			e.printStackTrace();
-
-		} finally {
+			
+		}
+		finally{
 			disconnectFromDBServer();
 		}
 		return isSucceed;
 	}
 
 	public static String getUserEmailByID(Integer userIdToDisplay) {
-
+	
 		String userEmail = null;
-
+		
 		connectToDBServer();
-
+		
 		try {
-			ResultSet rs = stmt
-					.executeQuery("SELECT Email FROM clubber_db.users where id="
-							+ userIdToDisplay + ";");
-			while (rs.next()) {
+			ResultSet rs = stmt.executeQuery("SELECT Email FROM clubber_db.users where id="+ userIdToDisplay +";");
+			while (rs.next())
+			{
 				userEmail = rs.getString("Email");
-			}
+			}		
 		} catch (SQLException e) {
 			e.printStackTrace();
-
-		} finally {
+			
+		}
+		finally{
 			disconnectFromDBServer();
 		}
-
+				
 		return userEmail;
 	}
 

@@ -121,6 +121,10 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
        		} 
             else if(requestType.equals(Constants.DB_DATA_USER_PROFILE))
             {
+            	if (userEmail == null) {
+            		json = gson.toJson(Constants.USER_NOT_LOGGED_ON);
+            	}
+            	else {
             	String email = userEmail;
             	if (userIdToDisplay != null) {
             		email = DAL.getUserEmailByID(userIdToDisplay);
@@ -129,6 +133,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             	PR pr= DAL.getUserProfileData(email);
             	pr.setIsUserEditalble(userEmail != null && userEmail.equals(email)); // Only the user can edit himself
             	json = gson.toJson(pr);
+            }
             }
             else if(requestType.equals(Constants.DB_DATA_USER_DATA_RETRIVE))
             {
@@ -215,10 +220,16 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             }
             else if (requestType.equals(Constants.DB_DATA_LINE_PROFILE))
             {
+            	if (userEmail == null) {
+            		json = gson.toJson(Constants.USER_NOT_LOGGED_ON); 
+            	}
+            	else {
             	Integer lineId= Integer.parseInt(request.getParameter("lineId").toString());
             	data= DAL.getLineProfileData(lineId);
             	json = gson.toJson(data);
             }
+            }
+
             else if(requestType.equals(Constants.DB_DATA_AUCTION_REVIEW))
             {
             	String sessionAttribute= request.getParameter(Constants.CURR_AUCTION_ID);

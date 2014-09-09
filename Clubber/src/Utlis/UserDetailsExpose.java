@@ -1,6 +1,7 @@
 package Utlis;
 
 public enum UserDetailsExpose {
+	None(0),
 	Email(1),
 	Phone(2),
 	EmailAndPhone(3);
