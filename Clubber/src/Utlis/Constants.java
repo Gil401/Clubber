@@ -41,6 +41,7 @@ public class Constants {
 		 
 	 //Session data:
 	 public static final String AUCTION_TO_DISPLAY_ID= "AuctionToDisplayId";
+	 public static final String LINE_TO_DISPLAY_ID= "LineToDisplayId";
 	 public static final String OFFER_TO_DISPLAY_ID= "OfferToDisplayId";
 	 public static final String USER_TO_DISPLAY_ID= "UserToDisplayId";
 	 public static final String USER_TO_RETRIVE= "UserToRetrive";
@@ -169,6 +170,8 @@ public class Constants {
 	 //session actions
 	 public static final String SESSION_ACTIONS_SET_USER_IN_SESSION = "SessionActions-SetUserInSession";
 	 public static final String SESSION_ACTIONS_GET_USER_DATA= "DBDataGetUserData";
+	 public static final String SESSION_ACTIONS_SET_CURR_LINE="SessionActions-SetCurrentLine";
+	 public static final String SESSION_ACTIONS_GET_CURR_LINE="SessionActions-GetCurrentLine";
 	 
 	 //search auctions parameters:
 	 public static final String AUCTION_SEARCH_EVENT_TYPE="EventTypeId";

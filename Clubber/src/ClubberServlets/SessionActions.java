@@ -63,6 +63,13 @@ public class SessionActions extends HttpServlet {
             	
             	SessionUtils.setUserIdToRetrieve(request.getSession(), userId);
             }
+            else if (requestType.equals(Utlis.Constants.SESSION_ACTIONS_SET_CURR_LINE))
+            {
+            	Integer lineId= Integer.parseInt(request.getParameter("lineId"));
+            	
+            	SessionUtils.setCurrentLineToDisplay(request.getSession(), lineId);
+            	
+            }
             
             System.out.println(json);
             out.print(json);

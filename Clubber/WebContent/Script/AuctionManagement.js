@@ -16,7 +16,14 @@ function loadOffersFromDB(data, areaName)
 			
 			var date = new Date(data[item].submitDate);
 			var month = date.getMonth() + 1;
-			$('<div id=' +data[item].id+' class="offer-item-container bg"><div  class="offer-item-line-image-container" id="'+data[item].lineId.id+'" onclick="alert(' + data[item].lineId.id + ')"><img src="/Clubber/images/line_Img.png" class="offer-item-line-image" style="float: right; max-width: 100px; max-height:100px;"></div>'
+			var line_img= "/Clubber/images/Line_Default.jpg";
+			
+			if ((data[item].linePhotoURL != "" ) && (data[item].linePhotoURL != null ))
+			{
+				line_img=data[item].linePhotoURL;
+			}
+			
+			$('<div id=' +data[item].id+' class="offer-item-container bg"><div  class="offer-item-line-image-container" id="'+data[item].lineId.id+'" onclick="openDetails('+data[item].lineId.id+');"><img src="'+line_img+'" class="offer-item-line-image" style="float: right; max-width: 100px; max-height:100px; margin-left:25px;margin-top: 8px;cursor: pointer;"></div>'
 					+ ' <div class="offer-item-title"> <div class= "offer-item-right-title" style="float: right;cursor: pointer;text-decoration: underline;color:cornflowerblue" onclick="loadPrProfile(' + data[item].prId.id+ ')" >'+data[item].prId.Name+" "+' </div> <div class="offer-item-left-title" style="float: left">' + date.getDate() +"/" + month +"/" + date.getFullYear() +'</div> </div>'
 					+ '</br><div class="offer-item-content" >'
 					+ '<div class="offer-item-description">'+description+'</div>'
