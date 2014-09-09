@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//WebContent/AllBusinesses.jsp=UTF-8
+encoding//WebContent/BusinessProfile.jsp=UTF-8
 encoding//WebContent/index.jsp=UTF-8
 encoding//WebContent/patternTemplates/footer.tpl=UTF-8
 encoding//WebContent/patternTemplates/header.tpl=UTF-8

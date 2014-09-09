@@ -41,7 +41,7 @@ public class DAL {
 			conn = DriverManager
 					.getConnection(
 							"jdbc:mysql://localhost:3306/clubber_db?useUnicode=true&characterEncoding=UTF8",
-							"root", "a");
+							"root", "qwe123");
 			stmt = conn.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();

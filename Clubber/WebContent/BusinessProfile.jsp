@@ -1,22 +1,22 @@
 <%@page import="Utlis.SessionUtils"%>
-<%@page import="Utlis.Constants"%> 
+<%@page import="Utlis.Constants"%>
+<%@page import="ClubberLogic.UserType"%> 
 <%@page import="ClubberLogic.PR"%>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@  include file="patternTemplates/header.tpl" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <% String messageText = (String)request.getAttribute(Constants.MESSAGE_TEXT); %>
     
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>פרופיל מקום</title>
-	    <link href="CSS/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-	    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>	
-	</head>
-<body dir="rtl">
-	<div class="business-details">
+    
+
+<br/>
+<div id="latest-events">
+<div class="container">
+ <div class="event-inner">
+ <div class="row">                       
+                    <div id="latest-event-content" class="col-sm-7 col-md-8">
+    
+    
+	<div class="business-details bg">
 		<form class="business-details-form" id="businessDetails" name="businessDetails" method="post" action="UpdateBusinessDetails" enctype="multipart/form-data">
 		  	
 		  	<input type="text" name="id" id="id"  hidden/>
@@ -71,8 +71,20 @@
 	</div>
 	
 	<div class="business-lines">
-	</div>	
-		
+	</div>	</div></div></div></div></div>
+		<%@  include file="patternTemplates/footer.tpl" %>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="js/soundcloud.player.api.js"></script>
+<script type="text/javascript" src="js/sc-player.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/coundown-timer.js"></script>
+<script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
+<script type="text/javascript" src="js/switcher.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 	<script>
 	
 		// Set error messages  
