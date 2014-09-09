@@ -2,15 +2,6 @@
 		ajaxOfferFormDBData();
 	});	
 	
-	function test()
-	{
-		$('input:checkbox[name=locationthemes]').each(function() 
-				{    
-				    if($(this).is(':checked'))
-				      alert($(this).val());
-				});
-	}
-	
 	function ajaxNewOfferCreation()
 	{	
 		var timeToClose= $('#closing-time').value();

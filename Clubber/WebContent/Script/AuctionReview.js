@@ -2,6 +2,7 @@ var currAucId;
 
 	function loadAuctionFromDB(data){
 		console.log("adding current auction");
+		
 		var eventDate = new Date(data.eventDate);
 		var month = eventDate.getMonth() + 1;
 		
@@ -62,12 +63,15 @@ var currAucId;
 	        url: "GetDBData",
 	        type: "post",
 	        dataType: 'json',
-	        data:{RequestType: "GetDBData-AuctionReview", currAuctionID : 26},
+	        data:{RequestType: "GetDBData-AuctionReview"},
 	        success: function(data) {
+	        	if (data == "UserNotLoggedOn") {
+					window.location.href = "Login.jsp";
+				}
 	            if (data != null) {
 	            	console.log("GetDBData-AuctionReview");
 		            loadAuctionFromDB(data);
-		            currAucId= data.auctionId;
+		            currAucId= data.id;
 	            }},
 	        error: function(data){
 	            	console.log("error- auction review");}	        
@@ -80,10 +84,10 @@ var currAucId;
 	        url: "AuctionOfferItemClicked",
 	        type: "post",
 	        dataType: 'json',
-	        data:{ClickedItemType: "AuctionItemClicked", ItemID:29},
+	        data:{ClickedItemType: "AuctionItemClicked", ItemID:currAucId},
 	        success: function(data) {
 	        	 console.log("redirect to new offer page");
-	             window.location.href = 'NewOffer.jsp';
+	             window.location.href = 'prNewOffer.jsp';
 	            },
 	        error: function(data){
 	            	console.log("error");}

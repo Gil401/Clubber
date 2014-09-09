@@ -32,7 +32,11 @@ public class SessionUtils {
         Object sessionAttribute = request.getSession().getAttribute(Constants.EMAIL);
         return sessionAttribute != null ? sessionAttribute.toString() : null;
     }
-    
+       
+    public static Integer getLoggedOnUserID (HttpSession request) {
+        Object sessionAttribute = request.getAttribute("userID");
+        return sessionAttribute != null ? (Integer)sessionAttribute : null;
+    }
     public static void setUserIdToDisplay(HttpSession request, Integer value)
     {
          request.setAttribute(Constants.USER_TO_DISPLAY_ID,value);

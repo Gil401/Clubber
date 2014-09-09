@@ -59,9 +59,6 @@
 	        <div><input class='btn-primary' type="button" id="add-new-offer-button" name="add-new-offer-button"  value="הצע" onClick= "newOfferClicked()"/></div>
        </form>
        
-       <div>
-       <button type="button" onclick="test()">Test!</button>
-       </div>
     </div>
                         </div>                                       
                     </div> 

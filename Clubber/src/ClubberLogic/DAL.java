@@ -343,9 +343,10 @@ public class DAL {
 		return data;
 	}
 
-	public static NewOfferData getAllNewOfferData(String i_PRid) {
+	public static NewOfferData getAllNewOfferData(Integer i_PRid) {
 		connectToDBServer();
 		NewOfferData data = new NewOfferData();
+		List<IdWithName> lines = new LinkedList<IdWithName>();
 		String query;
 
 		query = "Select * from line L where L.PR_id = '" + i_PRid + "'";
@@ -356,11 +357,28 @@ public class DAL {
 
 		query = "Select * from Sitts_Type;";
 		data.setSittsType(GetIdAndNameData(query));
-
-		disconnectFromDBServer();
-
-		return data;
+	
+		/* load submitted prs: */
+		ResultSet rs;
+		try {
+			rs = stmt.executeQuery("select * from line_prs lp, line where line.id= p.line_id  and lp.Pr_id= '" + i_PRid + "'");
+			while (rs.next()) {
+				lines.add(new IdWithName(rs.getInt("line.id"), rs.getString("line.Name")));
+			}
+			
+			data.setLines(lines);
+			return data;
+		} 
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+			disconnectFromDBServer();
+		}
 	}
+		
 
 	public static LinkedList<IdWithName> GetIdAndNameData(String query) {
 

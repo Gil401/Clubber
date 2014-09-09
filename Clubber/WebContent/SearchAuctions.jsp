@@ -264,12 +264,12 @@
 				}
 			}
 	
-			$(' <div id=' +data[item].id+' class="my-auction-container" style="margin-top: 20px; padding-top: 0; border-radius: 25px; background: #6D1F10; padding:10px; margin-top: 10px;"> <div class="my-auction-title">'+data[item].eventType.Name+ ' ב'+ data[item].area.Name +' <div style="float: left; margin-left: 15px;"> '+date.getDate() +"/" + month +"/" + date.getFullYear() +' </div></div>'
+			$(' <div id=' +data[item].id+' class="my-auction-container" style="margin-top: 30px !important; padding-top: 0; border-radius: 25px; background: #6D1F10; padding:10px; margin-top: 10px;"> <div class="my-auction-title">'+data[item].eventType.Name+ ' ב'+ data[item].area.Name +' <div style="float: left; margin-left: 15px;"> '+date.getDate() +"/" + month +"/" + date.getFullYear() +' </div></div>'
 					+ '<div class="my-auction-description">'+description+'</div>'
 					+ '<div class="my-auction-description">'+'כמות מוזמנים: '+data[item].guestesQuantiny+'</div>'
 					+ '<div class="my-auction-description">'+'סגנון מוזיקה: ' +musicStyles+'</div>'
 					+ '<div class="my-auction-description">'+'חריגים: ' +exceptions+'</div>'
-					+ '<br/><dic class="my-auction-description" style="font-weight:bold;" >'+'סטטוס:'+data[item].auctionStatus.Name+'</div>'
+					+ '<br/><div class="my-auction-description" style="font-weight:bold;" >'+'סטטוס:'+data[item].auctionStatus.Name
 					+'<div style="float: left; "><button  onclick="auctionClicked('+data[item].id + ');") style="border-radius: 20px; font-size:13px;">פרטים נוספים</button></div>'+
 					+'</div>').appendTo($(areaName)) ;
 		}

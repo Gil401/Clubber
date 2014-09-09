@@ -61,6 +61,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		Integer auctionId= SessionUtils.getCurrentAuctionToDisplay(request.getSession());
 		Integer offerID= SessionUtils.getCurrentOfferToDisplay(request.getSession());
 		String userEmail= SessionUtils.getUserEmail(request);
+		Integer loggedOnUserID = SessionUtils.getLoggedOnUserID(request.getSession());
 		Integer userIdToDisplay = SessionUtils.getUserIdToDisplay(request.getSession());
 		ArrayList<AuctionData> auctionsList = new ArrayList<>();
 		
@@ -214,28 +215,27 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             else if(requestType.equals(Constants.DB_DATA_NEW_OFFER))
             {
             	//ArrayList<OfferData> offerList = new ArrayList<>();
-            	data = DAL.getAllNewOfferData("3");
+            	
+            	data = DAL.getAllNewOfferData(loggedOnUserID);
             	json = gson.toJson(data);
             	
             }
             else if (requestType.equals(Constants.DB_DATA_LINE_PROFILE))
             {
-            	if (userEmail == null) {
-            		json = gson.toJson(Constants.USER_NOT_LOGGED_ON); 
-            	}
-            	else {
             	Integer lineId= Integer.parseInt(request.getParameter("lineId").toString());
             	data= DAL.getLineProfileData(lineId);
             	json = gson.toJson(data);
             }
-            }
 
             else if(requestType.equals(Constants.DB_DATA_AUCTION_REVIEW))
             {
-            	String sessionAttribute= request.getParameter(Constants.CURR_AUCTION_ID);
-            	Integer reviewedAuc= ( (sessionAttribute != null) ? Integer.parseInt(sessionAttribute) : null );
-            	data = DAL.getReviewedAuctionData(reviewedAuc);
-            	json = gson.toJson(data);
+            	if (userEmail == null) {
+            		json = gson.toJson(Constants.USER_NOT_LOGGED_ON);
+            	}
+            	else {
+	            	data = DAL.getReviewedAuctionData(auctionId);
+	            	json = gson.toJson(data);
+            	}
             }
             else if (requestType.equals(Constants.DB_DATA_BUSINESS_LST))
             {
