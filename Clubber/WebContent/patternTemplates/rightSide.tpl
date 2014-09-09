@@ -5,6 +5,12 @@
                             בחר תאריכים: 
                            <div class="datepicker" ></div>
                            <br/>
+                           <%if(whoAmI!= null && whoAmI == "PR") { %>
+                        <input type="button" class="btn" style="float:left" value="יצירת ליין חדש" onclick="document.location = 'AddNewLine.jsp'">
+                        <% }else { %>
+                        <input type="button" class="btn" style="float:left" value="יצירת אירוע חדש" onclick="document.location = 'NewAuction.jsp'">
+                        <% } %>
+                        <br /><br />
                         </div>
                         <!-- <div class="single-event">
                             <h2 class="heading">listing <strong>Music</strong></h2>
@@ -24,6 +30,5 @@
                                 <li><a href="images/home/event1.jpg" data-gallery="prettyPhoto"><img src="images/home/gal1.jpg" alt=""></a></li>
                             </ul>    
                         </div> */ %>
-                        <input type="button" value="יצירת ליין חדש" onclick="document.location = 'Login.jsp'">
-                        <input type="button" value="יצירת ליין חדש" onclick="document.location = 'Login.jsp'">
+                        
                     </div>
