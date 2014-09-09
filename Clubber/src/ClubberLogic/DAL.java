@@ -41,7 +41,7 @@ public class DAL {
 			conn = DriverManager
 					.getConnection(
 							"jdbc:mysql://localhost:3306/clubber_db?useUnicode=true&characterEncoding=UTF8",
-							"root", "qwe123");
+							"root", "a");
 			stmt = conn.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -396,7 +396,7 @@ public class DAL {
 							(auction.getUserDetailsExposeInt()),
 							auction.isSmoking(),
 							getValidID(auction.getAuctionStatus()),
-							auction.getCreatedBy(), null);
+							getValidID(auction.getCreatedBy()), null);
 
 			stmt.executeUpdate(sqlAuctionInsertion,
 					Statement.RETURN_GENERATED_KEYS);
