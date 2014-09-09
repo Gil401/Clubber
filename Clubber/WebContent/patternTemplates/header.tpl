@@ -79,7 +79,7 @@
                             <% } %>
                             <% if (whoAmI == "Client"){ %>
                             <li><a href="MyAuctions.jsp">המכרזים שלי</a></li>
-                            <li><a href="newAuction.jsp">יצירת מכרז</a></li>
+                            <li><a href="NewAuction.jsp">יצירת מכרז</a></li>
                             <% } 
 								if(whoAmI == "PR") { %>
                             <li><a href="MyOffers.jsp">ההצעות שלי</a></li>
