@@ -60,6 +60,9 @@ function getMainLinesFromDB(userId) {
 			  $.each(returnedData, function(index, val){
 				  $('#temp_container').html(lineTemplate);
 				  var temp_template = $('#temp_container');
+				  
+				  temp_template.find(".img-responsive").attr('src', $(this)[0]['linePhotoURL']);
+				  
 				  temp_template.find('.event-details').attr("id",$(this)[0]['id']);
 				  temp_template.find('.line_box_place').html($(this)[0]['m_BusinessData']['m_StreetId']['Name']+' '+$(this)[0]['m_BusinessData']['m_HouseNumber']+', '+$(this)[0]['m_BusinessData']['m_CityId']['Name'] );
 				  temp_template.find('.line_box_hour').html($(this)[0]['openingHour']);
@@ -68,7 +71,7 @@ function getMainLinesFromDB(userId) {
 				  temp_template.find('.line_box_name').html($(this)[0]['m_LineName']);
 				  temp_template.find('.line_box_number_day').html(dayConvertor($(this)[0]['m_DayInWeek']));
 				  temp_template.find('.line_box_music_style').html(	printDataFromArray($(this)[0]['musicStyles']));
-				  $(".img-responsive").attr('src', $(this)[0]['linePhotoURL']);
+				  
 				  $('#temp_container').find('.latest-event').hide();
 				  $('#lines_container').append($('#temp_container').html());
 				  console.log($(this)[0].m_Name)
@@ -80,49 +83,8 @@ function getMainLinesFromDB(userId) {
 		  
 		});
 	
-	
-	
-	
-	/*dataRequest.done(function(data) {
-			console.log(data);
-			if (data != null) {
-				console.log("Loading data from DB");
-				console.log(fullDate);
-				//PrintWelcomeLinesTable(data);
-			}
-		},
-		error : function(data) {
-
-			console.log("error");
-		}
-	});*/
 $('#loader_image').remove();
 }
-/*function PrintWelcomeLinesTable(data) {
-	var $Lines = $('#Lines_Div');
-	var currDate = 0;
-	$Lines.html("");
-	if (data.length > 0) {
-		for (var i = 0; i < data.length; i++) {
-			if (currDate != data[i].m_Lines[0].startDate) {
-				$Lines.append('<div class = "hebrewDate">'
-						+ dateConvertor(data[i].m_Lines[0].startDate)
-						+ '</div></br>');
-			}
-			$Lines.append('<div class = "line_title">'
-					+ data[i].m_Lines[0].m_LineName + ' ' + data[i].m_Name	+ '</div>');
-			$Lines.append('<div class = "PicCell">' + ' Pic ' + '</div>');
-			$Lines.append('<div class = "AgeCell">' + data[i].m_Lines[0].minAge	+ '</div>');
-			$Lines.append('<div class = "DetailsCell">'	+ data[i].m_Lines[0].description + '</div>');
-			$Lines.append('</div>');
-
-			currDate = data[i].m_Lines[0].startDate;
-		}
-	} else {
-		$Lines.append('<h1>אין אירועים זמינים</h1>');
-	}
-	$Lines.append('</div>');
-}*/
 
 function ajaxAuctionFormDBData() {
 	$.ajax({

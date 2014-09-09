@@ -24,4 +24,6 @@
                                 <li><a href="images/home/event1.jpg" data-gallery="prettyPhoto"><img src="images/home/gal1.jpg" alt=""></a></li>
                             </ul>    
                         </div> */ %>
+                        <input type="button" value="יצירת ליין חדש" onclick="document.location = 'Login.jsp'">
+                        <input type="button" value="יצירת ליין חדש" onclick="document.location = 'Login.jsp'">
                     </div>
