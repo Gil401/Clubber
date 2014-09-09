@@ -42,7 +42,7 @@ public class GetDBData extends HttpServlet {
     public GetDBData() throws SQLException {
         super();
     }
-
+ 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -86,7 +86,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             }
             else if (requestType.equals(Constants.DB_DATA_MY_AUCTIONS))
             {
-            	data= DAL.getAllMyAuctionsData();
+            	
+            	data= DAL.getAllMyAuctionsData(loggedOnUserID);
             	json = gson.toJson(data);
             }
             else if (requestType.equals(Constants.DB_DATA_AUCTION_MANAGEMENT))
@@ -122,7 +123,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
        		} 
             else if(requestType.equals(Constants.DB_DATA_USER_PROFILE))
             {
-            	if (userEmail == null) {
+            	if (loggedOnUserID == null) {
             		json = gson.toJson(Constants.USER_NOT_LOGGED_ON);
             	}
             	else {
@@ -214,10 +215,13 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             }
             else if(requestType.equals(Constants.DB_DATA_NEW_OFFER))
             {
-            	//ArrayList<OfferData> offerList = new ArrayList<>();
-            	
-            	data = DAL.getAllNewOfferData(loggedOnUserID);
-            	json = gson.toJson(data);
+            	if (loggedOnUserID == null) {
+            		json = gson.toJson(Constants.USER_NOT_LOGGED_ON);
+            	}
+            	else {
+	            	data = DAL.getAllNewOfferData(loggedOnUserID);
+	            	json = gson.toJson(data);
+            	}
             	
             }
             else if (requestType.equals(Constants.DB_DATA_LINE_PROFILE))
@@ -229,7 +233,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 
             else if(requestType.equals(Constants.DB_DATA_AUCTION_REVIEW))
             {
-            	if (userEmail == null) {
+            	if (loggedOnUserID == null) {
             		json = gson.toJson(Constants.USER_NOT_LOGGED_ON);
             	}
             	else {

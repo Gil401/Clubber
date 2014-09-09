@@ -1,17 +1,20 @@
 package ClubberServlets;
 
 import Utlis.*;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import ClubberLogic.AuctionData;
 import ClubberLogic.DAL;
 
@@ -46,7 +49,7 @@ public class NewAuction extends HttpServlet {
 		
 		response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
+        Integer loggedOnUserID = SessionUtils.getLoggedOnUserID(request.getSession());
 		PrintWriter out = response.getWriter();
 		AuctionData auction= new AuctionData();
 		try
@@ -63,7 +66,7 @@ public class NewAuction extends HttpServlet {
 			auction.setExceptionsDescription(request.getParameter(Constants.EXCEPTION_DESCRIPTION));
 			auction.setMinAge(Integer.parseInt(request.getParameter(Constants.MIN_AGE)));
 			auction.setArea(new IdWithName(Integer.parseInt(request.getParameter(Constants.AREA)),null));
-			
+			auction.setCreatedBy(new IdWithName(loggedOnUserID, null));
 			if ((request.getParameter(Constants.CERTAIN_BUSINESS) != null) && (request.getParameter(Constants.CERTAIN_BUSINESS) !=""))
 			{
 				auction.setCertainBusiness(new IdWithName(Integer.parseInt(request.getParameter(Constants.CERTAIN_BUSINESS)),null));
