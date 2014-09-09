@@ -1574,7 +1574,7 @@ public class DAL {
 
 				auctionData.setSmoking(rs.getBoolean("A.Smoking"));
 				auctionData.setAuctionStatus(new IdWithName(rs.getInt("S.id"),
-						rs.getString("S.Name")));
+						rs.getString("S.displayName")));
 
 				auctionList.add(auctionData);
 			}

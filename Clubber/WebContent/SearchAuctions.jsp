@@ -114,7 +114,7 @@
 	        dataType: 'json',
 	        data: {RequestType: "searchByMyLines"},
 	        success: function(data) {
-				  showAuctions(data);
+	        	loadAuctionsFromDB(data,".all-auctions-container");
 	        },
 	        error: function(data){
 	            	console.log("error");}
@@ -155,7 +155,7 @@
 		        data:{ClickedItemType: "AuctionItemClicked", ItemID:auctionID},
 		        success: function(data) {
 		        	 console.log("redirect to auction management page");
-		             window.location.href = 'AuctionManagement.jsp';
+		             window.location.href = 'AuctionReview.jsp';
 		            },
 		        error: function(data){
 		            	console.log("error");}
@@ -169,7 +169,7 @@
 	        dataType: 'json',
 	        data: {RequestType: "DBDataAllAuctions"},
 	        success: function(data) {
-				  showAuctions(data);
+	        	loadAuctionsFromDB(data,".all-auctions-container");
 	        },
 	        error: function(data){
 	            	console.log("error");}
@@ -219,12 +219,60 @@
 		        dataType: 'json',
 		        data: {RequestType: "DBDataFilteredAuctions", EventTypeId: eventTypeId, GuestesQuantiny: guestesQuantiny, AreaId: areaId},
 		        success: function(data) {
-					  showAuctions(data);
+		        	loadAuctionsFromDB(data,".all-auctions-container");
 		        },
 		        error: function(data){
 		            	console.log("error");}
 		    });
 		
+	}
+	
+	function loadAuctionsFromDB(data, areaName)
+	{
+		var description;
+		console.log("adding current auction to "+ areaName);
+		$(areaName).html("");
+		for (var item in data) {
+			if (data[item].description== null)
+			{
+				description="";
+			}
+			else
+			{
+				description= data[item].description;
+			}
+	
+			var exceptions = 'אין';
+			
+			if (data[item].exceptionsDescription) {
+				exceptions = data[item].exceptionsDescription;
+			}
+			
+			var date = new Date(data[item].eventDate);
+			var month = date.getMonth() + 1;
+			
+			var musicStyles = "לא נבחר";
+			if (data[item].musicStyle.length > 0) {
+				musicStyles = "";
+				for (var item2 in data[item].musicStyle) 
+				{
+					musicStyles += data[item].musicStyle[item2].Name + " ,";
+				}
+				
+				if (musicStyles.length > 1) {
+					musicStyles = musicStyles.substring(0,musicStyles.length - 2);
+				}
+			}
+	
+			$(' <div id=' +data[item].id+' class="my-auction-container" style="margin-top: 20px; padding-top: 0; border-radius: 25px; background: #6D1F10; padding:10px; margin-top: 10px;"> <div class="my-auction-title">'+data[item].eventType.Name+ ' ב'+ data[item].area.Name +' <div style="float: left; margin-left: 15px;"> '+date.getDate() +"/" + month +"/" + date.getFullYear() +' </div></div>'
+					+ '<div class="my-auction-description">'+description+'</div>'
+					+ '<div class="my-auction-description">'+'כמות מוזמנים: '+data[item].guestesQuantiny+'</div>'
+					+ '<div class="my-auction-description">'+'סגנון מוזיקה: ' +musicStyles+'</div>'
+					+ '<div class="my-auction-description">'+'חריגים: ' +exceptions+'</div>'
+					+ '<br/><dic class="my-auction-description" style="font-weight:bold;" >'+'סטטוס:'+data[item].auctionStatus.Name+'</div>'
+					+'<div style="float: left; "><button  onclick="auctionClicked('+data[item].id + ');") style="border-radius: 20px; font-size:13px;">פרטים נוספים</button></div>'+
+					+'</div>').appendTo($(areaName)) ;
+		}
 	}
 	
 	</script>	
