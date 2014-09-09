@@ -62,7 +62,7 @@ public class DAL {
 		}
 	}
 
-	public static List<AuctionData> getAllMyAuctionsData()
+	public static List<AuctionData> getAllMyAuctionsData(Integer loggedOnUserID)
 			throws ParseException {
 		List<AuctionData> data = new LinkedList<AuctionData>();
 
@@ -72,7 +72,7 @@ public class DAL {
 
 			ResultSet rs = stmt
 					.executeQuery("select auc.*, event_type.Name as event_type_name, COALESCE(counter,0) as counter from event_type,"
-							+ " auction auc left join (Select auction_id, count(id) as counter from  offers) offers1 on offers1.auction_id = auc.id where auc.Event_Type = event_type.id order by auc.Event_Date");
+							+ " auction auc left join (Select auction_id, count(id) as counter from  offers) offers1 on offers1.auction_id = auc.id where auc.Event_Type = event_type.id and auc.Created_By="+loggedOnUserID+" order by auc.Event_Date");
 
 			while (rs.next()) {
 				AuctionData auction = new AuctionData();
@@ -83,6 +83,7 @@ public class DAL {
 								.getString("event_type_name")));
 				auction.setId(rs.getInt("id"));
 				auction.setOfferNumber(rs.getInt("counter"));
+				auction.setCreatedBy(new IdWithName(rs.getInt("auc.Created_By"), null));
 				data.add(auction);
 			}
 		} catch (SQLException e) {

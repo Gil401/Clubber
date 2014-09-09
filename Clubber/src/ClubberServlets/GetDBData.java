@@ -86,7 +86,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             }
             else if (requestType.equals(Constants.DB_DATA_MY_AUCTIONS))
             {
-            	data= DAL.getAllMyAuctionsData();
+            	
+            	data= DAL.getAllMyAuctionsData(loggedOnUserID);
             	json = gson.toJson(data);
             }
             else if (requestType.equals(Constants.DB_DATA_AUCTION_MANAGEMENT))
