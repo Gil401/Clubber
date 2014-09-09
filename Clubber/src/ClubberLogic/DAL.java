@@ -75,7 +75,7 @@ public class DAL {
 							+ " auction auc left join (Select auction_id, count(id) as counter from  offers) offers1 on offers1.auction_id = auc.id where auc.Event_Type = event_type.id and auc.Created_By="+loggedOnUserID+" order by auc.Event_Date");
 
 			while (rs.next()) {
-				AuctionData auction = new AuctionData();
+				AuctionData auction = new AuctionData(); 
 				auction.setEventDate(rs.getLong("Event_Date"));
 				auction.setDescription(rs.getString("Description"));
 				auction.setEventType(new IdWithName(

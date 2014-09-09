@@ -42,7 +42,7 @@ public class GetDBData extends HttpServlet {
     public GetDBData() throws SQLException {
         super();
     }
-
+ 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
