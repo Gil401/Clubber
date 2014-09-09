@@ -34,7 +34,7 @@ input{
 				<div id="latest-event-content" class="col-sm-7 col-md-8">
 <div class="bg">
 
-<h2 id="prTitle">פרטי משתמש</h2>
+<h2 id="prTitle">פרטי משתמש</h2><br>
 	<div class="user-details">
 			<form class="user-details-form" id="userDetails"
 				name="userDetails" method="post" action="UpdateUserDetails" enctype="multipart/form-data">
@@ -114,7 +114,6 @@ input{
 				<br>
 	  			<button id="updateUserDel" type="submit">שמור</button>
   			</div>
-  			<br>
 	<div class="user-rating">
 		<label id="generalLabel">כללי</label>
 		<br>

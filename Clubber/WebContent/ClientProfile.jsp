@@ -40,10 +40,9 @@ input{
 				<div id="latest-event-content" class="col-sm-7 col-md-8">
 				<div class="bg">
 
-					<h2 id="clientTitle">פרטי משתמש</h2>
+					<h2 id="clientTitle">פרטי משתמש</h2><br>
 					<div class="user-details">
-						<form class="user-details-form" id="userDetails"
-							name="userDetails" method="post" action="UpdateUserDetails" enctype="multipart/form-data">
+						<form class="user-details-form" id="userDetails" name="userDetails" method="post" action="UpdateUserDetails" enctype="multipart/form-data">
 							<div class="pic-area">
 								<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">
 							</div>
@@ -108,12 +107,8 @@ input{
 							<br>
 					  			<button id="updateUserDel" type="submit">שמור</button>
   							</div>							
-						</form>
-						<br> 
+						</form> 
 					</div>
-					<div class="recomendedLines">
-					</div>
-					
 					<div class="user-rating">
 						<label id="generalLabel">כללי</label> <br>
 						<div class="generalStars">
@@ -142,6 +137,8 @@ input{
 							<div class="star"></div>
 						</div>
 						<br>
+					</div><br><br>
+					<div class="recomendedLines">
 					</div>
 				</div></div>
 			</div>
