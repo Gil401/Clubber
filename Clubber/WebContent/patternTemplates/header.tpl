@@ -36,6 +36,9 @@
     label{
     	width: 200px;
     }
+    .nav>li>a{
+    	padding: 10px 8px;
+    }
     </style>
 </head><!--/head-->
 <body>
