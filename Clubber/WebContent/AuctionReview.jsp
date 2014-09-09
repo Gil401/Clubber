@@ -35,73 +35,43 @@
     <div class="container">
             <div class="event-inner">                
                 <div class="row">   
-    <div class='main-container bg '>  
-       	<br>
-       	<br>
-				<div class="reviewed-auction">
-		       		<div id="auction-event-date">
-						<label class="title-label">תאריך האירוע</label>
-					</div>
-					<div id="auction-event-type">
-						<label class="title-label">סוג האירוע</label>
-					</div>
-					<div id="auction-music-style">
-						<label class="title-label">סגנון המוזיקה</label>
-					</div>
-					<div id="auction-area">
-						<label class="title-label">אזור</label>
-					</div>
-					<div id="auction-guests-quantiny">
-						<label class="title-label">כמות האורחים</label>
-					</div>
-					<div id="auction-exceptions">
-						<label class="title-label">תיאור חריגים</label>
-					</div>
-					<div id="auction-business-type">
-						<label class="title-label">סוג בית עסק</label>
-					</div>
-					<div id="auction-certain-business">
-						<label class="title-label">מקום בילוי מסויים</label>
-					</div>
-					<div id="auction-sitts-type">
-						<label class="title-label">סוג מקומות ישיבה</label>
-					</div>
-					<div id="auction-description">
-						<label class="title-label">תיאור כללי</label>
-					</div>
-				</div>
-				<input class='btn-primary' type="button" id="make-offer-button" name="make-offer-button"  value="תן הצעה" onClick= "makeOfferClicked()"/>
-				</br>
-				<div class="user-rating">
-						<label id="generalLabel">כללי</label> <br>
-						<div class="generalStars">
-							<div class="star"></div>
-							<div class="star"></div>
-							<div class="star"></div>
-							<div class="star"></div>
-							<div class="star"></div>
+	    <div class='main-container bg '>  
+	       	<br>
+	       	<br>
+					<div class="reviewed-auction">
+			       		<div id="auction-event-date">
+							<label class="title-label">תאריך האירוע</label>
 						</div>
-						<br>
-						<br> <label id="punctualityLabel">דיקנות</label> <br>
-						<div class="punctualityStars">
-							<div class="star"></div>
-							<div class="star"></div>
-							<div class="star"></div>
-							<div class="star"></div>
-							<div class="star"></div>
+						<div id="auction-event-type">
+							<label class="title-label">סוג האירוע</label>
 						</div>
-						<br>
-						<br> <label id="reliabilityLabel">אמינות</label><br>
-						<div class="reliabilityStars">
-							<div class="star"></div>
-							<div class="star"></div>
-							<div class="star"></div>
-							<div class="star"></div>
-							<div class="star"></div>
+						<div id="auction-music-style">
+							<label class="title-label">סגנון המוזיקה</label>
 						</div>
-						<br>
+						<div id="auction-area">
+							<label class="title-label">אזור</label>
+						</div>
+						<div id="auction-guests-quantiny">
+							<label class="title-label">כמות האורחים</label>
+						</div>
+						<div id="auction-exceptions">
+							<label class="title-label">תיאור חריגים</label>
+						</div>
+						<div id="auction-business-type">
+							<label class="title-label">סוג בית עסק</label>
+						</div>
+						<div id="auction-certain-business">
+							<label class="title-label">מקום בילוי מסויים</label>
+						</div>
+						<div id="auction-sitts-type">
+							<label class="title-label">סוג מקומות ישיבה</label>
+						</div>
+						<div id="auction-description">
+							<label class="title-label">תיאור כללי</label>
+						</div>
 					</div>
-			</div>
+					<input class='btn-primary' type="button" id="make-offer-button" name="make-offer-button"  value="תן הצעה" onClick= "makeOfferClicked()"/>
+			</div>		
 		</div>
        
 	    <div class='recomended-lines-container'></div>        

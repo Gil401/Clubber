@@ -12,17 +12,19 @@
             <div class="event-inner">                
                 <div class="row">                       
                     <div id="latest-event-content" class="col-sm-7 col-md-8"> 
-    <div class='main-container'>  
-       <div class= 'current-auction-container'>
-       </div>
-       <div class='all-Offers-container'>         
-	    </div>       
-	    <div class='recomended-lines-container'>         
-	    </div>        
-    </div>
-    </div>
-    </div>
-    </div></div>
+					    <div class='main-container'>  
+					       <div class= 'current-auction-container'>
+					       </div>
+					       <div class='all-Offers-container'>         
+						    </div>       
+						    <div class='recomended-lines-container'>         
+						    </div>        
+   						 </div>
+  					  </div>
+ 			   </div>
+  		  </div>
+   	 	</div>
+   	 </div>
     <%@  include file="patternTemplates/footer.tpl" %>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -38,6 +40,3 @@
     <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 	<script src="Script/AuctionManagement.js"  type="text/javascript" charset="utf-8" ></script>
 	<script src="Script/Utils.js"  type="text/javascript" charset="utf-8" ></script>
-
-    </body>
-</html>
