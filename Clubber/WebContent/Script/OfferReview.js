@@ -103,6 +103,11 @@ function loadOfferFromDB(data)
 		{
 			$("#offer-treats").append("<div class='offer-treat-div'><img src='/Clubber/images/Check_Image.png' class='offer-item-treat-image'><label class='offer-multi-value-label'>"+data.offerTreats[item].Name+"</label></div>");
 		}
+		
+		if(userType == CLIENT)
+		{
+			("$edit-offer-button").hide();
+		}
 	}
 
 	function moveToPrProfile(prId){
@@ -239,7 +244,7 @@ function loadOfferFromDB(data)
 	
 	function addClientDetailsToScreen(detailsCode, userDetails)
 	{
-		if (detailsCode != null)
+		if (detailsCode != DISPLAY_NONE)
 		{
 			$('.auction-item-description').append('<div id="user-contact-details"><br/><label class="offer-title-label">פרטי התקשרות: <label></div>');
 			$('#user-contact-details').append('<br/><label class="offer-title-label">'+userDetails.firstName+' ' +userDetails.lastName+'<label>');
