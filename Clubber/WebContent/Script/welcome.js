@@ -91,6 +91,7 @@ function getMainLinesFromDB(fullDate) {
 																.html(
 																		lineTemplate);
 														var temp_template = $('#temp_container');
+														temp_template.find(".img-responsive").attr('src', $(this)[0]['m_Lines'][0]['linePhotoURL']);
 														temp_template.find('.event-details').attr("id",$(this)[0]['m_Lines'][0]['id']);
 														temp_template
 																.find(
@@ -132,7 +133,6 @@ function getMainLinesFromDB(fullDate) {
 																.html(
 																		$(this)[0]['m_Name']);
 														var a = $(this)[0]['m_Lines'][0]['id'];
-														$(".img-responsive").attr('src', $(this)[0]['m_Lines'][0]['linePhotoURL']);
 														
 														$('#temp_container').find('.latest-event').hide();
 														

@@ -41,7 +41,7 @@ public class DAL {
 			conn = DriverManager
 					.getConnection(
 							"jdbc:mysql://localhost:3306/clubber_db?useUnicode=true&characterEncoding=UTF8",
-							"root", "qwe123");
+							"root", "a");
 			stmt = conn.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1605,8 +1605,8 @@ public class DAL {
 
 				// get all auction_id businesses type
 				ResultSet rs2 = stmt.executeQuery("SELECT * "
-						+ "FROM auction A, business_type BT "
-						+ "WHERE A.Business_Type = BT.id and " + "A.id = "
+						+ "business_type BT, auction_business_type ABT"
+						+ "WHERE ABT.Business_Type_Id = BT.id and " + "ABT.Auction_id = "
 						+ auctionList.get(i).getId());
 
 				List<IdWithName> businessesType = new LinkedList<>();
