@@ -88,8 +88,9 @@
                             <li><a href="AddNewLine.jsp">הוספת ליין</a></li>
                             <% } %>
                             
-                                 
+                                <li><a href="AllBusinesses.jsp">בתי עסק</a></li> 
                                 <li><a href="index.jsp">ראשי</a></li>
+                                
                             </ul>
 							</div>
 							
