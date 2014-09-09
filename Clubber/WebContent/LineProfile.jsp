@@ -93,7 +93,7 @@
 								<br>
 								
 								<label id="lineNameLbl" style="font-size:30px;"> </label>
-								<br>
+								<br><br>
 								
 								<label id="linebusinessNameLable">מקום הליין</label> 
 								<label  id="businessIdLbl"> </label>

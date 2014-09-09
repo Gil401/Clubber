@@ -90,7 +90,7 @@ public class UploadLineImageServlet  extends HttpServlet {
 		            file = new File(filePath) ;
 		            fi.write(file);
 		            System.out.println(filePath);
-		            i_LineData.setLinePhotoURL(rel_Path+"\\" + fileName);
+		            i_LineData.setLinePhotoURL(rel_Path + fileName);
 		         }
 		         else
 		         {
