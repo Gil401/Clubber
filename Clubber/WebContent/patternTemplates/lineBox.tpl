@@ -1,9 +1,10 @@
 <article class="latest-event">
-    <div class="tab-image">
+    <div class="tab-image" style = "">
         <img class="img-responsive" src="images/latest-events/event1.jpg" alt="">
     </div>
     <div id="" style="border-radius: 10px" class="tab-content event-details" onclick="openDetails(this.id);" >
         <div class="tab-pane active date-tab1">
+        
             <h3 class="media-heading line_box_name">שירה וחמין של בוקר אצל רוחמה</h3>
             <ul class="event-content">
             	<li><span class="heading-side">תאור:</span><span class="info-side line_box_line">בחצר של רוחמל'ה</span></li><br>
