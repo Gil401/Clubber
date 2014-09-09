@@ -11,10 +11,14 @@ var DENIED_OFFER_STATUS_ID=3;
 var NOT_RELEVANT_OFFER_STATUS_ID= 4;
 
 //user details expose:
+var DISPLAY_NONE=0;
 var DISPLAY_EMAIL=1;
 var DISPLAY_PHONE_NUMBER=2;
 var DISPLAY_EMAIL_AND_PHONE= 3;
 
+//user type:
+var PR=0;
+var CLIENT=1;
 /***********************/
 
 

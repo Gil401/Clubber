@@ -3,6 +3,8 @@ package Utlis;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import ClubberLogic.UserType;
+
 public class SessionUtils {
 	
 	
@@ -57,6 +59,12 @@ public class SessionUtils {
     {
     	Object sessionAttribute =request.getAttribute(Constants.USER_TO_RETRIVE);
     	return ( (sessionAttribute != null) ? (Integer)sessionAttribute : null );
+    }
+    
+    public static UserType getWhoAmI(HttpSession request)
+    {
+    	Object sessionAttribute =request.getAttribute(Constants.WHO_AM_I);
+    	return ( (sessionAttribute != null) ? (UserType)sessionAttribute : null );
     }
 
 }
