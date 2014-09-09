@@ -2336,9 +2336,8 @@ public static boolean updateAuctionStatus(Integer auctionId, Integer auctionStat
 
 	public static List<AuctionData> getAuctionFilteredByEventType(
 			Integer eventTypeId, Integer guestesQuantiny, Integer areaId) {
-		List<AuctionData> data = new LinkedList<AuctionData>();
+		List<AuctionData> auctionList = new LinkedList<AuctionData>();
 		connectToDBServer();
-		AuctionData auction = new AuctionData();
 		String sqlQuery;
 		String guestesFilter = " auc.Guestes_Quantiny < " + guestesQuantiny;
 		String areaFilter = " auc.area=" + areaId;
@@ -2353,21 +2352,21 @@ public static boolean updateAuctionStatus(Integer auctionId, Integer auctionStat
 				+ "where ";
 
 		if (eventTypeId != null) {
-			sqlQuery.concat(eventTypeFilter);
+			sqlQuery = sqlQuery.concat(eventTypeFilter);
 			// add "and" if needed:
 			if (guestesQuantiny != null || areaId != null) {
-				sqlQuery.concat(" and ");
+				sqlQuery = sqlQuery.concat(" and ");
 			}
 		}
 		if (areaId != null) {
-			sqlQuery.concat(areaFilter);
+			sqlQuery = sqlQuery.concat(areaFilter);
 			// add "and" if needed:
 			if (guestesQuantiny != null) {
-				sqlQuery.concat(" and ");
+				sqlQuery = sqlQuery.concat(" and ");
 			}
 		}
 		if (guestesQuantiny != null) {
-			sqlQuery.concat(guestesFilter);
+			sqlQuery = sqlQuery.concat(guestesFilter);
 		}
 
 		// no where in query- get all auctions
@@ -2384,6 +2383,7 @@ public static boolean updateAuctionStatus(Integer auctionId, Integer auctionStat
 			ResultSet rs = stmt.executeQuery(sqlQuery);
 
 			while (rs.next()) {
+				AuctionData auction = new AuctionData();
 				auction.setEventDate(rs.getLong("Event_Date"));
 				auction.setDescription(rs.getString("Description"));
 				auction.setEventType(new IdWithName(
@@ -2410,26 +2410,31 @@ public static boolean updateAuctionStatus(Integer auctionId, Integer auctionStat
 				auction.setMinAge(rs.getInt("Minimum_Age"));
 				auction.setArea(new IdWithName(rs.getInt("auc.area"), rs
 						.getString("areas.Name")));
+				
+				auctionList.add(auction);
 			}
 
-			auction.setMusicStyle(GetIdAndNameData("Select music_style.* from auction_music_style,music_style where auction_music_style.auction_id = "
-					+ auction.getId()
-					+ " and music_style.id = auction_music_style.music_style_id;"));
-			auction.setBusinessType(GetIdAndNameData("Select * from auction_business_type,business_type where auction_business_type.auction_id = "
-					+ auction.getId()
-					+ " and business_type.id = auction_business_type.business_type_id;"));
-			auction.setSittsType(GetIdAndNameData("Select sitts_type.* from auction_sits_type,sitts_type where auction_sits_type.auction_id = "
-					+ auction.getId()
-					+ "  and sitts_type.id = auction_sits_type.sits_id;"));
+			for (int i = 0; i < auctionList.size(); i++) {
+				auctionList.get(i).setMusicStyle(GetIdAndNameData("Select music_style.* from auction_music_style,music_style where auction_music_style.auction_id = "
+						+ auctionList.get(i).getId()
+						+ " and music_style.id = auction_music_style.music_style_id;"));
+				auctionList.get(i).setBusinessType(GetIdAndNameData("Select * from auction_business_type,business_type where auction_business_type.auction_id = "
+						+ auctionList.get(i).getId()
+						+ " and business_type.id = auction_business_type.business_type_id;"));
+				auctionList.get(i).setSittsType(GetIdAndNameData("Select sitts_type.* from auction_sits_type,sitts_type where auction_sits_type.auction_id = "
+						+ auctionList.get(i).getId()
+						+ "  and sitts_type.id = auction_sits_type.sits_id;"));
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconnectFromDBServer();
 		}
 
-		return data;
+		return auctionList;
 	}
-
+	
 	public static LinkedList<IdWithName> getOfferStatus() {
 		connectToDBServer();
 		LinkedList<IdWithName> data = new LinkedList<IdWithName>();

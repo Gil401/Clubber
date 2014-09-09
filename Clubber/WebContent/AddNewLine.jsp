@@ -157,8 +157,6 @@
 	        	
 	        	//delete former data 
 	        	musicStyleDiv.html("");
-
-	        	musicStyleDiv.append($('<label><input type="checkbox" id="musicStyle" onClick="toggle(this)" checked>הכל </label>'));
 	        	
 	        	for(var i=0; i < musicStyleList.length; i++){
 	        		
