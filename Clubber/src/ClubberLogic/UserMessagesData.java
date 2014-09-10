@@ -2,11 +2,13 @@ package ClubberLogic;
 
 import java.util.Date;
 
+import Utlis.IdWithName;
+
 
 
 public class UserMessagesData {
 	private Integer id;
-	private Integer fromUserId;
+	private IdWithName fromUserId;
 	private Integer toUserId;
 	private Integer auctionId;
 	private Integer lineId;
@@ -29,13 +31,6 @@ public class UserMessagesData {
 		this.id = id;
 	}
 	
-	public Integer getFromUserId() {
-		return fromUserId;
-	}
-	
-	public void setFromUserId(Integer fromUserId) {
-		this.fromUserId = fromUserId;
-	}
 	
 	public Integer getToUserId() {
 		return toUserId;
@@ -67,6 +62,14 @@ public class UserMessagesData {
 
 	public void setLineId(Integer lineId) {
 		this.lineId = lineId;
+	}
+
+	public IdWithName getFromUserId() {
+		return fromUserId;
+	}
+
+	public void setFromUserId(IdWithName fromUserId) {
+		this.fromUserId = fromUserId;
 	}
 
 }

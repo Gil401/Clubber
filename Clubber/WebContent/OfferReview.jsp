@@ -24,8 +24,9 @@
        		<div class= "offer-item-reviewed-content">
        			<div id="ViewOfferData" class="offer-reviewed-item-description">
 		       		<div id="offer-description">
-						<label class="offer-title-label">תיאור</label>
+						<label class="offer-title-label" style="font-weight: bold; font-size:22px;">תיאור</label>
 					</div>
+					<br/>
 					<div id="offered-line">
 						<label class="offer-title-label">ליין מוצע</label>
 					</div>
@@ -106,12 +107,13 @@
 					<div id="auction-description">
 						<label class="offer-title-label">תיאור כללי</label>
 					</div>				
+					<div id="user-contact-details"></div>			
 				</div>
 				</div>
 			</div>
 		</div>
 		<br/><input class='btn-primary' type="button" id="accept-offer-button" name="accept-offer-button"  value="קבל הצעה זו" onClick= "approveBtnClicked()"/>
-		<input class='btn-primary' type="button" id="expose-user-details-button" name="expose-user-details-button"  value="חשוף פרטי התקשרות" onClick= "approveBtnClicked()"/>
+		<input class='btn-primary' type="button" id="expose-user-details-button" name="expose-user-details-button"  value="חשוף פרטי התקשרות" onClick= "ajaxExposeeCurrentUserDetails()"/>
 		<input id="exposedDetails" type="text" hidden="true" value="1"/>
        <div class='all-messages-container'>
 	       	<div class="old-messages"></div>

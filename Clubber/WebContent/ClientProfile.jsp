@@ -47,7 +47,7 @@ input{
 								<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">
 							</div>
 							<div id="viewMode">
-							  	<br>
+							  	<br/><br/><br/><br/>
 							  	<label id="viewEmailLabel">כתובת מייל</label>
 							  	<label id="viewEmail"></label>			
 							  	<br>

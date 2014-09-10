@@ -56,7 +56,7 @@ function loadOffersFromDB(data, areaName)
 
 	function notRelevantOffer(offerId)
 	{
-		jConfirm('אתה בטוח?', 'שינוי סטטוס', 
+		jConfirm('האם הינך בטוח שההצעה לא רלוונטית?', 'שינוי סטטוס', 
 				function(res) {
 					if (res) {
 						 $.ajax({
@@ -77,7 +77,7 @@ function loadOffersFromDB(data, areaName)
 	
 	function notRelevantAuction(auctionId)
 	{
-		jConfirm('אתה בטוח?', 'שינוי סטטוס', 
+		jConfirm('האם הינך בטוח שהאירוע לא רלוונטי?', 'שינוי סטטוס', 
 				function(res) {
 					if (res) {
 						$.ajax({
@@ -103,7 +103,7 @@ function loadOffersFromDB(data, areaName)
 	
 	function activateAuction(auctionId)
 	{
-		jConfirm('אתה בטוח?', 'שינוי סטטוס', 
+		jConfirm('האם הינך בטוח שברצונך לפתוח מחדש את האירוע?', 'שינוי סטטוס', 
 				function(res) {
 					if (res) {
 						$.ajax({
@@ -162,14 +162,14 @@ function loadOffersFromDB(data, areaName)
 			}
 		}
 
-		$(' <div id=' +data.id+' class="my-auction-container" style="padding-top: 0; border-radius: 25px; background: #6D1F10; padding:10px; margin-top: 10px;"> <div class="my-auction-title">'+data.eventType.Name+ ' ב'+ data.area.Name +' <div style="float: left; margin-left: 15px;"> '+date.getDate() +"/" + month +"/" + date.getFullYear() +' </div></div>'
-				+ '<div class="my-auction-description">'+description+'</div>'
+		$(' <div id=' +data.id+' class="my-auction-container" style="padding-top: 0; border-radius: 25px; background: #CC3333; padding:10px; margin-top: 10px;"> <div class="my-auction-title title-container">'+data.eventType.Name+ ' ב'+ data.area.Name +' <div style="float: left; margin-left: 15px; font-size:20px;"> '+date.getDate() +"/" + month +"/" + date.getFullYear() +' </div></div>'
+				+ '<div class="my-auction-description auction-description-field-container">'+description+'</div><br/>'
 				+ '<div class="my-auction-description">'+'כמות מוזמנים: '+data.guestesQuantiny+'</div>'
 				+ '<div class="my-auction-description">'+'סגנון מוזיקה: ' +musicStyles+'</div>'
-				+ '<div class="my-auction-description">'+'חריגים: ' +exceptions+'</div>'
-				+ '<br/><dic class="my-auction-description" style="font-weight:bold;" >'+'סטטוס:'+data.auctionStatus.Name+'</div>'
-				+'<br /><br /><div style="float: left; "><button id= "NotRelevantAuction" style="background-color: gray; border-radius: 20px; font-size:13px;" onClick="notRelevantAuction('+ data.id +');">סמן כלא רלוונטי</button><button id="ActivateAuction" style="background-color: gray; border-radius: 20px; font-size:13px;" onClick="activateAuction('+ data.id +');">הפוך לפעיל</button></div>'+
-				+'</div>').appendTo($(areaName)) ;
+				+ '<div class="my-auction-description">'+' תיאור מוזמנים חריגים: ' +exceptions+'</div>'
+				+ '<br/><dic class="my-auction-description" style="font-weight:bold;" >'+'סטטוס:'+data.auctionStatus.Name
+				+'<div style="float: left; "><button id= "NotRelevantAuction" style="background-color: gray; border-radius: 20px; font-size:13px;" onClick="notRelevantAuction('+ data.id +');">סמן כלא רלוונטי</button><button id="ActivateAuction" style="background-color: gray; border-radius: 20px; font-size:13px;" onClick="activateAuction('+ data.id +');">הפוך לפעיל</button></div>'+
+				+'</div></div>').appendTo($(areaName)) ;
 	}
 
 	

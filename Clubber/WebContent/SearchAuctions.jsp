@@ -55,6 +55,7 @@
 	     <div class='new-auction-field'> 
 	         <label class='new-auction-field-title'> כמות אורחים </label>
 	         <select class='new-auction-field-input' id= 'guestsQuantity' name= guestsQuantity>
+	         	<option value="0"> ללא </option>
 	         	<option value="10">עד 10 </option>
 	         	<option value="20">עד 20</option>
 	         	<option value="30">עד 30</option>
@@ -62,6 +63,7 @@
 	     </div> 
 	     
 	    <button id="SearchAuctions" onClick="getFilteredAuctions();" type="button" >חפש</button>	    
+	     <button id="ClearSearch" onClick="clearSearchFields();" type="button" >נקה</button>	  
 		<br/><br/>
 			    
       	<div class='all-auctions-container'>
@@ -198,6 +200,10 @@
 	        data:{RequestType: "GetDBData-NewAuction"},
 	        success: function(data) {
 	            if (data != null) { 
+	            	$('#event-type').html("");
+	            	$('#area').html("");
+	            	$('#event-type').append('<option value="0"> ללא </option>');
+	            	$('#area').append('<option value="0"> ללא </option>');
 	                loadListDataFromDB(data.eventTypes, '#event-type' );
 	                loadListDataFromDB(data.area, '#area' );
 	            }
@@ -205,6 +211,11 @@
 	        error: function(data){
 	            	console.log("error");}
 	    });
+	}
+	
+	function clearSearchFields()
+	{
+		ajaxFieldsDataFormDBData();
 	}
 	
 	function getFilteredAuctions()
@@ -264,14 +275,15 @@
 				}
 			}
 	
-			$(' <div id=' +data[item].id+' class="my-auction-container" style="margin-top: 30px !important; padding-top: 0; border-radius: 25px; background: #6D1F10; padding:10px; margin-top: 10px;"> <div class="my-auction-title">'+data[item].eventType.Name+ ' ב'+ data[item].area.Name +' <div style="float: left; margin-left: 15px;"> '+date.getDate() +"/" + month +"/" + date.getFullYear() +' </div></div>'
-					+ '<div class="my-auction-description">'+description+'</div>'
+			$(' <div id=' +data[item].id+' class="my-auction-container" style="padding-top: 0; border-radius: 25px; background: #CC3333; padding:10px; margin-top: 10px;"> <div class="my-auction-title title-container">'+data[item].eventType.Name+ ' ב'+ data[item].area.Name +' <div style="float: left; margin-left: 15px; font-size:20px;"> '+date.getDate() +"/" + month +"/" + date.getFullYear() +' </div></div>'
+					+ '<div class="my-auction-description auction-description-field-container">'+description+'</div><br/>'
 					+ '<div class="my-auction-description">'+'כמות מוזמנים: '+data[item].guestesQuantiny+'</div>'
 					+ '<div class="my-auction-description">'+'סגנון מוזיקה: ' +musicStyles+'</div>'
-					+ '<div class="my-auction-description">'+'חריגים: ' +exceptions+'</div>'
-					+ '<br/><div class="my-auction-description" style="font-weight:bold;" >'+'סטטוס:'+data[item].auctionStatus.Name
-					+'<div style="float: left; "><button  onclick="auctionClicked('+data[item].id + ');") style="border-radius: 20px; font-size:13px;">פרטים נוספים</button></div>'+
-					+'</div>').appendTo($(areaName)) ;
+					+ '<div class="my-auction-description">'+' תיאור מוזמנים חריגים: ' +exceptions+'</div>'
+					+ '<br/><dic class="my-auction-description" style="font-weight:bold;" >'+'סטטוס:'+data[item].auctionStatus.Name
+					+'<div style="float: left; "><button id="ActivateAuction" style="background-color: gray; border-radius: 20px; font-size:13px;" onClick="auctionClicked('+data[item].id + ');">הפוך לפעיל</button></div>'+
+					+'</div></div>').appendTo($(areaName)) ;
+			
 		}
 	}
 	

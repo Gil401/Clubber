@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.mysql.jdbc.Constants;
 
 import ClubberLogic.DAL;
+import ClubberLogic.UserType;
 import Utlis.*;
 /**
  * Servlet implementation class SessionActions
@@ -57,7 +58,7 @@ public class SessionActions extends HttpServlet {
             	SessionUtils.setUserIdToDisplay(request.getSession(), userId);
             }
             
-            if (requestType.equals(Utlis.Constants.SESSION_ACTIONS_GET_USER_DATA))
+            else if (requestType.equals(Utlis.Constants.SESSION_ACTIONS_GET_USER_DATA))
             {
             	Integer userId= Integer.parseInt(request.getParameter("UserId"));
             	
@@ -69,6 +70,16 @@ public class SessionActions extends HttpServlet {
             	
             	SessionUtils.setCurrentLineToDisplay(request.getSession(), lineId);
             	
+            }
+            else if (requestType.equals(Utlis.Constants.SESSION_ACTIONS_GET_WHO_AM_I))
+            {
+            	UserType type = SessionUtils.getWhoAmI(request.getSession());
+            	json = gson.toJson(type);
+            }
+            else if (requestType.equals(Utlis.Constants.SESSION_ACTIONS_GET_LOGGED_ON_USER_ID))
+            {
+            	Integer loggedOnUser = SessionUtils.getLoggedOnUserID(request.getSession());
+            	json = gson.toJson(loggedOnUser);
             }
             
             System.out.println(json);

@@ -15,7 +15,7 @@ public class BusinessData {
 	private Integer m_HouseNumber;
 	private String m_PhoneNumber;
 	private String m_Description;
-	private File m_Photo;
+	private String m_Photo;
 	private IdWithName m_BusinessTypeId;
 	private String imageUrl;	
 	private ArrayList<LineData> m_Lines = new ArrayList<LineData>();
@@ -63,12 +63,6 @@ public class BusinessData {
 	public void setM_Description(String m_Description) {
 		this.m_Description = m_Description;
 	}
-	public File getM_Photo() {
-		return m_Photo;
-	}
-	public void setM_Photo(File m_Photo) {
-		this.m_Photo = m_Photo;
-	}
 	public IdWithName getM_BusinessTypeId() {
 		return m_BusinessTypeId;
 	}
@@ -96,5 +90,11 @@ public class BusinessData {
 	}
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+	public String getM_Photo() {
+		return m_Photo;
+	}
+	public void setM_Photo(String m_Photo) {
+		this.m_Photo = m_Photo;
 	}
 }

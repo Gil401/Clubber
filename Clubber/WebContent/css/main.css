@@ -663,7 +663,7 @@ ul.sub-menu{
 .event-content 
 .heading-side {
   float: right;
-  width: 25%;
+  width: 45%;
   font-weight:400;
   display: block;
 }
@@ -2323,6 +2323,30 @@ ul.sub-menu{
 	display:  table-row;
     width:auto;
 }
+
+.message-from{
+	font-size:14px;
+	color:grey;
+}
+
+.message-date{
+	font-size:14px;
+	color:grey;
+	margin-right:250px;
+}
+
+.incoming-message{
+	width:400px;
+	word-wrap:break-word;
+	font-style: italic;
+}
+
+.user-contact-details{
+	border-bottom: 1px solid #ddd;
+	background-color: FFFFCC;
+	line-height: 25px;
+}
+
 /***********************
 ****Auction Review******
 ***********************/
@@ -2333,8 +2357,19 @@ ul.sub-menu{
 /******************************
 *******Auction management******
 *******************************/
+.auction-description-field-container{
+	font-weight: bold;
+	font-size:23px;
+}
 
+.popup_container{
+	background-color: grey;	
+}
 
+.title-container{
+	font-size:36px;
+	font-weight: bold;
+}
 
 
 

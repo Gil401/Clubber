@@ -3,6 +3,10 @@ var currOffId;
 var msgIntervalId;
 var currOffPrNAME;
 var createdById;
+var currLoggedUser;
+var currPrId;
+var currClientId;
+var whoAmI;
 
 var refreshRate = 2000; //miliseconds
 
@@ -76,6 +80,7 @@ function loadOfferFromDB(data)
 		var expirationMonth = expirationDate.getMonth() + 1;
 		
 		currOffPrNAME= data.prId.Name;
+		currPrId= data.prId.id;
 		
 		/*$(".offer-item-reviewed-title").html("");
 		$(".offer-item-reviewed-title").append("<div class= 'offer-item-right-title' onClick='moveToPrProfile("+data.prId.id+");' >"+data.prId.Name+"</div> <div class='offer-item-left-title' >" +submitDate.getDate() +"/"+ submitMonth +"/" + submitDate.getFullYear() +"</div>");
@@ -84,7 +89,7 @@ function loadOfferFromDB(data)
 		$("#offer-description").append("<label class='offer-value-label'>"+description+"</label>");
 		
 		$("#offered-line").html($("#offered-line").find(".offer-title-label"));
-		$("#offered-line").append("<label class='offer-value-label'>"+data.lineId.Name+"</label>");/*should be a link to line*/
+		$("#offered-line").append("<label class='offer-value-label' style='cursor: pointer; color:cornflowerblue' onClick='openDetails("+data.lineId.id+");'>"+data.lineId.Name+"</label>");/*should be a link to line*/
 		
 		$("#offered-line-business").html($("#offered-line-business").find(".offer-title-label"));
 		$("#offered-line-business").append("<label class='offer-value-label'>"+data.lineBusinessId.Name+"</label>");
@@ -103,10 +108,14 @@ function loadOfferFromDB(data)
 		{
 			$("#offer-treats").append("<div class='offer-treat-div'><img src='/Clubber/images/Check_Image.png' class='offer-item-treat-image'><label class='offer-multi-value-label'>"+data.offerTreats[item].Name+"</label></div>");
 		}
-		/*
-		if(userType == CLIENT)
+		if(whoAmI == "Client")
 		{
-			("$edit-offer-button").hide();
+			$("#edit-offer-button").hide();
+		}
+		else
+		{
+			$("#accept-offer-button").hide();
+			$("#expose-user-details-button").hide();
 		}
 	}
 
@@ -136,6 +145,7 @@ function loadOfferFromDB(data)
 		$("#auction-exceptions").append("<label class='offer-value-label'>"+data.exceptionsDescription+"</label>");
 		$("#auction-certain-business").append("<label class='offer-value-label'>"+(data.certainBusiness ? data.certainBusiness.Name : "")+"</label>");
 		
+		currClientId= data.createdBy.id
 		createdById=data.createdBy.id;
 		
 		if (data.musicStyle.length > 0) {
@@ -232,8 +242,6 @@ function loadOfferFromDB(data)
 						        success: function(data) {
 						                console.log("Offer accepted"); 
 						                location.reload();
-						                //ajaxGetUserDetails(createdById,userExposeCode);
-						                //msgIntervalId= setInterval(ajaxMessagesFormDBData, refreshRate);
 						            },
 						        error: function(data){
 						            	console.log("error");} 
@@ -242,29 +250,50 @@ function loadOfferFromDB(data)
 			});
 	}
 	
+	function ajaxExposeeCurrentUserDetails() {
+		jConfirm(' בחר את פרטי ההקשרות שברצונך לחשוף: <br><br>  <select name="userDetailsExpose" id="userDetailsExpose" required onchange="exposedChanged(this)"><option value="1">אימייל</option><option value="2">טלפון</option><option value="3">אימייל וטלפון</option></select>', 'קבלת הצעה ', 
+				function(res) {
+					if (res) {
+						var userExposeCode = $('#exposedDetails').val();
+						$('#exposedDetails').val("1");
+						clearInterval(msgIntervalId);
+						$.ajax({
+						        url: "AuctionManagementActions",
+						        type: "post",
+						        dataType: 'json',
+						        data:{RequestType: "AuctionManagementExposeUserDetails", OfferId:currOffId, DisplayCode: userExposeCode, AcceptedAuctionID : currAucId },
+						        success: function(data) {
+						                console.log("Offer accepted"); 
+						                location.reload();
+						            },
+						        error: function(data){
+						            	console.log("error");} 
+						    });
+					}
+			});
+	}
 	function addClientDetailsToScreen(detailsCode, userDetails)
 	{
 		if (detailsCode != DISPLAY_NONE)
 		{
-			$('.auction-item-description').append('<div id="user-contact-details"><br/><label class="offer-title-label">פרטי התקשרות: <label></div>');
-			$('#user-contact-details').append('<br/><label class="offer-title-label">'+userDetails.firstName+' ' +userDetails.lastName+'<label>');
+			$('#user-contact-details').append('<div class="user-contact-details"><label class="offer-title-label" style="float:right;">'+userDetails.firstName+' ' +userDetails.lastName+'<label></div>');
 			
 			if (detailsCode == DISPLAY_EMAIL)
 			{
-				$('#user-contact-details').append('<div id="auction-user-email"><label class="offer-title-label">דוא"ל <label></div>');
-				$('#auction-user-email').append("<label class='offer-value-label'>"+userDetails.email+"</label>");
+				$('#user-contact-details').append('<div id="auction-user-email"><a href="mailto:'+userDetails.email+'"><img  style="float:right; height:21px; width:21px; margin-left:10px;" src="/Clubber/images/EmailIcon.png" ></div>');
+				$('#auction-user-email').append("<label class='offer-value-label'>"+userDetails.email+"</label></a>");
 			}
 			else if(detailsCode == DISPLAY_PHONE_NUMBER)
 			{
-				$('#user-contact-details').append('<div id="auction-user-phone"><label class="offer-title-label">טלפון סלולרי <label></div>');
+				$('#user-contact-details').append('<div id="auction-user-phone"><img src="/Clubber/images/phone_icon.png" style="float:right; height:19px; width:19px; margin-left:10px;"></div>');
 				$('#auction-user-phone').append("<label class='offer-value-label'>"+userDetails.phoneNumber+"</label>");
 			}
 			else if(detailsCode == DISPLAY_EMAIL_AND_PHONE)
 			{
-				$('#user-contact-details').append('<div id="auction-user-email"><label class="offer-title-label">דוא"ל <label></div>');
-				$('#auction-user-email').append("<label class='offer-value-label'>"+userDetails.email+"</label>");
+				$('#user-contact-details').append('<div id="auction-user-email"><a href="mailto:'+userDetails.email+'"><img  style="float:right; height:21px; width:21px; margin-left:10px;" src="/Clubber/images/EmailIcon.png" ></div>');
+				$('#auction-user-email').append("<label class='offer-value-label'>"+userDetails.email+"</label></a>");
 				
-				$('#user-contact-details').append('<div id="auction-user-phone"><label class="offer-title-label">טלפון סלולרי <label></div>');
+				$('#user-contact-details').append('<div id="auction-user-phone"><img src="/Clubber/images/phone_icon.png" style="height:19px; width:19px; margin-left:10px;"" ></div>');
 				$('#auction-user-phone').append("<label class='offer-value-label'>"+userDetails.phoneNumber+"</label>");
 			}
 		}
@@ -301,8 +330,8 @@ function loadOfferFromDB(data)
 	        success: function(data) {
 	            if (data != null) { 
 	            	addClientDetailsToScreen(displayCode, data);
-	            }}
-	        ,
+	            }
+            },
 	        error: function(data){
 	            	console.log("error- user details");}
 	        
@@ -311,14 +340,30 @@ function loadOfferFromDB(data)
 	
 	function ajaxSendMessage(){
 		var description= $('#outgoing-message-text')[0].value;
+		var fromID;
+		var toID;
+		
+		if (whoAmI == "Client")
+		{
+			toID=currPrId;
+			fromID=currClientId;
+		}
+		else
+		{
+			toID=currClientId;
+			fromID=currPrId;
+		}
+		
+		clearInterval(msgIntervalId);
 		 $.ajax({
 		        url: "GetDBData",
 		        type: "post",
 		        dataType: 'json',
-		        data: {RequestType: "GetDBData-AddMessage",OutGoingMessageDescription:description},
+		        data: {RequestType: "GetDBData-AddMessage",OutGoingMessageDescription:description,FromID:fromID, ToID: toID},
 		        success: function(data){
 		        	console.log("message creation succedded");
 		        	$('#outgoing-message-text')[0].value="";
+		        	msgIntervalId= setInterval(ajaxMessagesFormDBData, refreshRate);
 		        },
 		        error: function(data){
 	            	console.log("error- adding message");}
@@ -329,7 +374,18 @@ function loadOfferFromDB(data)
 	{
 		 $(".old-messages").empty(); 
 		for (var i = 0; i < data.length; i++) {
-			$(".old-messages").append("<hr style='width:50%' align='right'><div class='incoming-message'> <label>"+data[i].description+"</label></br> <label class='message-date'>"+convertTimeStampFormat(data[i].createdOn)+"</label></div>");
+			
+			var classForMsg;
+			if (currLoggedUser == data[i].fromUserId)
+			{
+				classForMsg="msgFrom";
+			}
+			else
+			{
+				classForMsg="msgTo";
+			}
+				
+			$(".old-messages").append("<hr style='width:50%' align='right'><div class='incoming-message'> <label>"+data[i].description+"</label></br> <label class='message-from'>"+data[i].fromUserId.Name+'     ' +convertTimeStampFormat(data[i].createdOn)+'    ' +"</label></div>");
 		}
 	}
 	
@@ -396,7 +452,8 @@ function loadOfferFromDB(data)
 	}
 	
 	$(function() {
-		
+		getCurrentUserType();
+		getCurrentLoggedOnUser();
 		var successCallback = function(data) {
             if (data != null) {
         		var now= new Date();
@@ -437,6 +494,37 @@ function loadOfferFromDB(data)
 		  return str.replace(new RegExp(find, 'g'), replace);
 	}
 
+	function getCurrentLoggedOnUser() {
+		$.ajax({
+	        url: "SessionActions",
+	        type: "post",
+	        dataType: 'json',
+	        data:{RequestType: "SessionActions-GetLoggedOnUserId"},
+	        success: function(data) {
+	            console.log("SessionActions-GetLoggedOnUserId"); 
+	            currLoggedUser=data;
+	        },
+	        error: function(data){
+	        	console.log("error");
+	    	}
+	    });
+	}
+	
+	function getCurrentUserType() {
+		$.ajax({
+	        url: "SessionActions",
+	        type: "post",
+	        dataType: 'json',
+	        data:{RequestType: "SessionActions-GetWhoAmI"},
+	        success: function(data) {
+	            console.log("SessionActions-GetWhoAmI"); 
+	            whoAmI=data;
+	        },
+	        error: function(data){
+	        	console.log("error");
+	    	}
+	    });
+	}
 	
 	function ajaxOfferDtailesUpdate()
 	{	

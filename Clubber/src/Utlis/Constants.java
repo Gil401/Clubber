@@ -101,6 +101,8 @@ public class Constants {
 	 
 	 //outgoing message fields
 	 public static String OUTGOING_MESSAGE_DESCRIPITON= "OutGoingMessageDescription";
+	 public static String OUTGOING_MESSAGE_FROM= "FromID";
+	 public static String OUTGOING_MESSAGE_TO= "ToID";
 	 
 	 //search Auction fields
 	 public static String SEARCH_BY_MY_LINES= "searchByMyLines";
@@ -172,6 +174,8 @@ public class Constants {
 	 public static final String SESSION_ACTIONS_GET_USER_DATA= "DBDataGetUserData";
 	 public static final String SESSION_ACTIONS_SET_CURR_LINE="SessionActions-SetCurrentLine";
 	 public static final String SESSION_ACTIONS_GET_CURR_LINE="SessionActions-GetCurrentLine";
+	 public static final String SESSION_ACTIONS_GET_WHO_AM_I = "SessionActions-GetWhoAmI";
+	 public static final String SESSION_ACTIONS_GET_LOGGED_ON_USER_ID = "SessionActions-GetLoggedOnUserId";
 	 
 	 //search auctions parameters:
 	 public static final String AUCTION_SEARCH_EVENT_TYPE="EventTypeId";
@@ -180,5 +184,6 @@ public class Constants {
 
 	//User not Logged on
 	 public static final String USER_NOT_LOGGED_ON="UserNotLoggedOn";
+	
 }
 

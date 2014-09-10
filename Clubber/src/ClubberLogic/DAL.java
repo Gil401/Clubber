@@ -221,14 +221,14 @@ public class DAL {
 		try {
 			
 			/*load messages*/
-			ResultSet rs = stmt.executeQuery("select * from messages where Auction_id="+currAuctionID);
+			ResultSet rs = stmt.executeQuery("select * from messages, users where messages.From_User_id=users.id and Auction_id="+currAuctionID);
 			while (rs.next())
 			{
 				UserMessagesData message= new UserMessagesData();
 				message.setAuctionId(currAuctionID);
 				message.setCreatedOn(rs.getTimestamp("Created_On"));
 				message.setDescription(rs.getString("Description"));
-				message.setFromUserId(rs.getInt("From_User_id"));
+				message.setFromUserId(new IdWithName(rs.getInt("From_User_id"),rs.getString("users.First_Name")+" "+rs.getString("users.Last_Name")));
 				message.setId(rs.getInt("id"));
 				message.setToUserId(rs.getInt("To_User_id"));
 				
@@ -246,7 +246,7 @@ public class DAL {
 		return messages;
 		
 	}
-	public static boolean addNewMessage(String description, Integer auctionId) throws Exception
+	public static boolean addNewMessage(String description, Integer auctionId, Integer fromId, Integer toId) throws Exception
 	{
 		connectToDBServer();
 		
@@ -257,7 +257,7 @@ public class DAL {
 			
 			//create new message in db:
 			String sqlMessageInsertion= String.format("insert into messages values(%d,%d,%d,%d,'%s','%s')",
-					null,1,2,auctionId,currentTimestamp,description);
+					null,fromId,toId,auctionId,currentTimestamp,description);
 			
 			stmt.executeUpdate(sqlMessageInsertion);
 			return true;
@@ -1171,6 +1171,7 @@ public class DAL {
 						.getString("c.Name")));
 				businessData.setM_AreaId(new IdWithName(rs.getInt("b.area"), rs
 						.getString("a.Name")));
+				businessData.setM_Photo(rs.getString("b.Photo"));
 			}
 
 			ResultSet rs1 = stmt.executeQuery("SELECT * "
@@ -1255,6 +1256,7 @@ public class DAL {
 				businessData.setM_HouseNumber(rs.getInt("structure_number"));
 				businessData.setM_PhoneNumber(rs
 						.getString("Business_Phone_Number"));
+				businessData.setM_Photo(rs.getString("b.Photo"));
 				businessData.setM_Description(rs.getString("Description"));
 				businessData.setM_BusinessTypeId(new IdWithName(rs
 						.getInt("b.Business_Type"), rs.getString("t.name")));
@@ -1610,8 +1612,8 @@ public class DAL {
 
 				// get all auction_id businesses type
 				ResultSet rs2 = stmt.executeQuery("SELECT * "
-						+ "business_type BT, auction_business_type ABT"
-						+ "WHERE ABT.Business_Type_Id = BT.id and " + "ABT.Auction_id = "
+						+ "FROM auction A, business_type BT "
+						+ "WHERE A.Business_Type = BT.id and " + "A.id = "
 						+ auctionList.get(i).getId());
 
 				List<IdWithName> businessesType = new LinkedList<>();
@@ -1758,6 +1760,11 @@ public class DAL {
 
 			ResultSet rs = stmt
 					.executeQuery("SELECT MAX( id ) AS MAX from streets");
+			String BusinessImgUrl="/Clubber/images/BusinessImg.jpg";
+			if (!businessData.getImageUrl().isEmpty() || businessData.getImageUrl() != null)
+			{
+				BusinessImgUrl=businessData.getImageUrl();
+			}
 
 			if (rs.next()) {
 				Integer streetId = rs.getInt("MAX");
@@ -1780,7 +1787,7 @@ public class DAL {
 						+ "','"
 						+ businessData.getM_AreaId().getId()
 						+ "','"
-						+ businessData.getImageUrl() + "')";
+						+ BusinessImgUrl + "')";
 
 				stmt.executeUpdate(sql);
 			}
@@ -1853,7 +1860,7 @@ public class DAL {
 			while (rs.next()) {
 				UserMessagesData messagesData = new UserMessagesData();
 				messagesData.setId(rs.getInt("M.id"));
-				messagesData.setFromUserId(rs.getInt("M.From_User_id"));
+				messagesData.setFromUserId(new IdWithName(rs.getInt("M.From_User_id"),null));
 				messagesData.setToUserId(rs.getInt("M.To_User_id"));
 				messagesData.setLineId(rs.getInt("M.Line_id"));
 				messagesData.setCreatedOn(rs.getDate("M.Created_On"));
@@ -2356,27 +2363,27 @@ public static boolean updateAuctionStatus(Integer auctionId, Integer auctionStat
 				+ "LEFT JOIN auction_status ON auction_status.id = auc.Auction_Status "
 				+ "where ";
 
-		if (eventTypeId != null) {
+		if (eventTypeId != 0) {
 			sqlQuery = sqlQuery.concat(eventTypeFilter);
 			// add "and" if needed:
-			if (guestesQuantiny != null || areaId != null) {
+			if (guestesQuantiny != 0 || areaId != 0) {
 				sqlQuery = sqlQuery.concat(" and ");
 			}
 		}
-		if (areaId != null) {
+		if (areaId != 0) {
 			sqlQuery = sqlQuery.concat(areaFilter);
 			// add "and" if needed:
-			if (guestesQuantiny != null) {
+			if (guestesQuantiny != 0) {
 				sqlQuery = sqlQuery.concat(" and ");
 			}
 		}
-		if (guestesQuantiny != null) {
+		if (guestesQuantiny != 0) {
 			sqlQuery = sqlQuery.concat(guestesFilter);
 		}
 
 		// no where in query- get all auctions
-		if ((guestesQuantiny == null) && (areaId == null)
-				&& (eventTypeId == null)) {
+		if ((guestesQuantiny == 0) && (areaId == 0)
+				&& (eventTypeId == 0)) {
 			sqlQuery = "select auc.*, event_type.Name as event_type_name, auction_status.displayName,areas.Name,businesses.Name "
 					+ "from auction auc LEFT JOIN businesses ON businesses.id = auc.Certain_Business "
 					+ "LEFT JOIN event_type ON event_type.id = auc.Event_Type "

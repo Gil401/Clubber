@@ -3,7 +3,7 @@
 	font-size: 11px;
 	min-width: 250px; /* Dialog will be no smaller than this */
 	max-width: 580px; /* Dialog will wrap after this width */
-	background: #FFF;
+	background: #282828 ;
 	border: solid 5px #999;
 	color: #000;
 	-moz-border-radius: 5px;
@@ -12,11 +12,12 @@
 }
 
 #popup_title {
-	font-size: 14px;
+	font-size: 17px;
 	font-weight: bold;
 	text-align: center;
 	line-height: 1.75em;
-	color: #666;
+	color: #E00000;
+	font-weight:bold;
 	border: solid 1px #FFF;
 	border-bottom: solid 1px #999;
 	cursor: default;
@@ -43,6 +44,8 @@
 
 #popup_message {
 	padding-left: 48px;
+	font-size: 15px;
+	font-weight: bold;;
 }
 
 #popup_panel {

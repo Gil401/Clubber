@@ -108,7 +108,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             else if (requestType.equals(Constants.DB_DATA_ADD_MESSAGE))
             {
             	String description= request.getParameter(Constants.OUTGOING_MESSAGE_DESCRIPITON);
-            	data= DAL.addNewMessage(description, auctionId);
+            	Integer fromId= Integer.parseInt(request.getParameter(Constants.OUTGOING_MESSAGE_FROM));
+            	Integer toId= Integer.parseInt(request.getParameter(Constants.OUTGOING_MESSAGE_TO));
+            	data= DAL.addNewMessage(description, auctionId,fromId, toId);
             	json = gson.toJson(data);
             }
             else if (requestType.equals(Constants.DB_DATA_MAIN_LINES))
