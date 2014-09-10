@@ -102,7 +102,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             }
             else if (requestType.equals(Constants.DB_DATA_MESSAGES))
             {
-            	data=DAL.getAllMassages(auctionId);
+            	Integer prId= Integer.parseInt(request.getParameter("PrId"));
+            	data=DAL.getAllMassages(auctionId, prId);
             	json = gson.toJson(data);
             }
             else if (requestType.equals(Constants.DB_DATA_ADD_MESSAGE))

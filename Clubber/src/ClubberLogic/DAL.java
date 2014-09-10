@@ -213,7 +213,7 @@ public class DAL {
 		return offer;
 	}
 
-	public static List <UserMessagesData> getAllMassages(Integer currAuctionID)
+	public static List <UserMessagesData> getAllMassages(Integer currAuctionID, Integer prID)
 	{
 		List <UserMessagesData> messages= new LinkedList<UserMessagesData>();
 		connectToDBServer();
@@ -221,7 +221,7 @@ public class DAL {
 		try {
 			
 			/*load messages*/
-			ResultSet rs = stmt.executeQuery("select * from messages, users where messages.From_User_id=users.id and Auction_id="+currAuctionID);
+			ResultSet rs = stmt.executeQuery("select * from messages, users where messages.From_User_id=users.id and Auction_id="+currAuctionID+" and ('"+prID+"' = messages.From_User_id or messages.To_User_id= '"+prID+"') order by Created_On desc;");
 			while (rs.next())
 			{
 				UserMessagesData message= new UserMessagesData();

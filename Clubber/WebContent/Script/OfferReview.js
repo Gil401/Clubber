@@ -394,7 +394,7 @@ function loadOfferFromDB(data)
 	        url: "GetDBData",
 	        type: "post",
 	        dataType: 'json',
-	        data:{RequestType: "GetDBData-Messages"},
+	        data:{RequestType: "GetDBData-Messages", PrId:currPrId},
 	        success: function(data) {
 	            if (data != null) {
 	                console.log("GetDBData-Messages");  
