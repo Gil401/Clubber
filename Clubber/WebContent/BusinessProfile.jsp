@@ -21,6 +21,9 @@
 			<input type="file" name="pic"id="pic" style="max-width:30%; max-height:30%; float: left;">
 		  	
 		  	<div id="viewMode">
+				<label name="viewdescription" class="descriptionLbl" id="viewdescription"></label>
+	  			<br>
+	  			
 		  		<label id="viewbusinessNameLabel">סוג עסק</label>
 			  	<label name="viewBusinessTypeName" id="viewBusinessTypeName"></label>
 			  	<br>
@@ -44,10 +47,6 @@
 			  	<label id="viewphoneNumberLabel">טלפון</label>
 			  	<label name="viewphoneNumber" id="viewphoneNumber"></label>			
 			  	<br>
-				
-				<label id="viewdescriptionLabel">תיאור</label>
-				<label name="viewdescription" id="viewdescription"></label>
-	  			<br>
 		  	
 		  		<button id="editBusinessDel" type="button" >ערוך</button>
 		  	</div>
@@ -85,8 +84,8 @@
 		  	<br>
 			
 			<label id="descriptionLabel">תיאור</label>
-				<input name="description" id="description"/>
-  			<br>
+				<textarea class='new-auction-field-input' id="description" name="description"  rows="4" cols="50" style= "width:500px;resize: none;"> </textarea>
+  			<br><br>
 	  			<button id="updateBusinessDel" type="submit">שמור</button>
 			</div>
 		</form>		

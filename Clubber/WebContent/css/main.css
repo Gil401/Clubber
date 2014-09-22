@@ -2291,6 +2291,11 @@ ul.sub-menu{
 .offer-title-label{
 	vertical-align: top;
 }
+
+.descriptionLbl{
+	width:100%;
+}
+
 .Auction-area-title{
 	font-size: 25px;
 	padding-right:33px;

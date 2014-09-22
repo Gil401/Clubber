@@ -134,7 +134,7 @@ function getLineProfile() {
 			
 			for (var item in data.musicStyles) 
 			{
-				$("#musicStyleContainer").append("<div class='music-style'><img src='/Clubber/images/Check_Image.png' class='offer-item-treat-image'><label class='offer-multi-value-label'>"+data.musicStyles[item].Name+"</label></div><br>");
+				$("#musicStyleContainer").append("<div class='music-style offer-treat-div'><img src='/Clubber/images/HeadPhones.png' class='offer-item-treat-image'>&nbsp&nbsp&nbsp<label class='offer-multi-value-label'>"+data.musicStyles[item].Name+"</label></div>");
 			}
 			
 			$("#prsContainer").html("");
@@ -250,9 +250,6 @@ $('#startDate').datepicker({
 	minDate: date,
 	changeMonth: true,
   	changeYear: true,
-  	showOn: "button",
-    buttonImage: "images/calendar.gif",
-    buttonImageOnly: true
  });
 
 $("#startDate").change(function(){
@@ -265,9 +262,6 @@ $("#startDate").change(function(){
 		minDate: startDate,
 		changeMonth: true,
       	changeYear: true,
-      	showOn: "button",
-        buttonImage: "images/calendar.gif",
-        buttonImageOnly: true
 	});
 });
 

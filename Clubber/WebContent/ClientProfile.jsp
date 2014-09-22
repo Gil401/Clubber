@@ -47,7 +47,7 @@ input{
 								<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">
 							</div>
 							<div id="viewMode">
-							  	<br/><br/><br/><br/>
+							  	<br/><br/><br/><br/><br/><br/>
 							  	<label id="viewEmailLabel">כתובת מייל</label>
 							  	<label id="viewEmail"></label>			
 							  	<br>
@@ -91,7 +91,7 @@ input{
 							<br> 
 							
 							<label id="birthdateLabel">תאריך לידה</label>
-								<input type = "datetime" name="birthdate" id="birthdate" size="17" required readonly>
+								<input type = "datetime" name="birthdate" id="birthdate" required readonly>
 	  						<br>
 														
 							<label id="phonenumberLabel">טלפון</label> 
@@ -174,10 +174,7 @@ input{
 			maxDate: date,
 			changeMonth: true,
 	      	changeYear: true,
-	      	showOn: "button",
-	      	disabled: true,
-	        buttonImage: "images/calendar.gif",
-	        buttonImageOnly: true});	      	
+});	      	
 	});
 
 	// Set error messages  

@@ -281,7 +281,7 @@
 					+ '<div class="my-auction-description">'+'סגנון מוזיקה: ' +musicStyles+'</div>'
 					+ '<div class="my-auction-description">'+' תיאור מוזמנים חריגים: ' +exceptions+'</div>'
 					+ '<br/><dic class="my-auction-description" style="font-weight:bold;" >'+'סטטוס:'+data[item].auctionStatus.Name
-					+'<div style="float: left; "><button id="ActivateAuction" style="background-color: gray; border-radius: 20px; font-size:13px;" onClick="auctionClicked('+data[item].id + ');">הפוך לפעיל</button></div>'+
+					+'<div style="float: left; "><button id="ActivateAuction" style="background-color: gray; border-radius: 20px; font-size:13px;" onClick="auctionClicked('+data[item].id + ');">פרטים נוספים</button></div>'+
 					+'</div></div>').appendTo($(areaName)) ;
 			
 		}

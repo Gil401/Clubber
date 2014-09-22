@@ -78,7 +78,6 @@
 			else {
 				lines.append('<h1>אין אירועים זמינים</h1>');
 			}
-			
 		}
 		
 		function dateConvertor(i_Date) {

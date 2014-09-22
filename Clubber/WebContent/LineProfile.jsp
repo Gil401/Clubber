@@ -19,22 +19,23 @@
 								
 								<h2>פרטי הליין</h2>
 								
+								<label id="imgLabel">תמונה של הליין</label>
 								<div class="pic-area">
 									<input type="file" name="pic" id="pic" style="max-width:30%; max-height:30%;">
 								</div>
 								
 								<input type="text" name="id" id="id" hidden=true>
 								 
-								<br>
+								<br><br/>
 								
 								<label id="lineNameLable">שם הליין</label> 
 								<input type="text" name="name" id="name" required >
-								<br>
+								<br><br/>
 								
 								<label id="linebusinessNameLable">מקום הליין</label> 
 								<input type="text" name="businessId" id="businessId" required hidden> 
 								<select type="text" name="businessName" id="businessName" required></select>
-								<br>
+								<br><br/>
 								
 								<label id="lineDayLabel">יום בשבוע</label> 
 								<select type="text" name="dayInWeek" id="dayInWeek" required>
@@ -46,34 +47,31 @@
 									<option value='6'>ו</option>
 									<option value='7'>ש</option>
 								</select>
-								<br>
+								<br><br/>
 								
 								<label id="lineStartDateLabel">תאריך פתיחה של הליין</label> 
 								<input type="text" name="startDate" id='startDate' readonly required>
-								<br>
+								<br> <br/>
 								
 								<label id="lineEndDateLabel">תאריך סגירה של הליין</label> 
 								<input type="text" name="endDate" id='endDate'  readonly required>
-								<br>
+								<br><br/>
 								
 								<label id="minAgeLabel">גיל מינימלי</label> 
 								<input type="text" name="minAge" id="minAge" required > 
-								<br>
-								
-								<label id="imgLabel">תמונה של הליין</label> 
-								<br>
+								<br><br/>
 								
 								<label id="lineDescriptionLabel">תיאור</label> 
 								<textarea rows="5" cols="20" type="text" name="description" id="description" required ></textarea>
-								<br>
+								<br><br/>
 								
 								<label id="lineEtranceFeeLabel">כניסה בתשלום</label> 
 								<input type="text" name="etranceFee" id="etranceFee"  > 
-								<br>
+								<br><br/>
 								
 								<label id="lineDJLabel">דיג'יי</label> 
 								<input type="text" name="DJ" id="DJ" > 
-								<br>
+								<br><br/>
 								
 								
 								<div style="height:120px"> 
@@ -90,9 +88,11 @@
 							<div id='viewLineData'>
 								
 								<Img src="" id="lineImg"> 
+																
+								<label id="lineNameLbl" style="font-size:30px;"> </label>
 								<br>
 								
-								<label id="lineNameLbl" style="font-size:30px;"> </label>
+								<label id="descriptionLbl" class="descriptionLbl"></label>
 								<br><br>
 								
 								<label id="linebusinessNameLable">מקום הליין</label> 
@@ -114,11 +114,7 @@
 								<label id="minAgeLabel">גיל מינימלי</label> 
 								<label  id="minAgeLbl" > </label>
 								<br>
-								
-								<label id="lineDescriptionLabel">תיאור</label> 
-								<label id="descriptionLbl"></label>
-								<br>
-								
+																
 								<label id="lineEtranceFeeLabel">כניסה בתשלום</label> 
 								<label id="etranceFeeLbl" > </label>
 								<br>
