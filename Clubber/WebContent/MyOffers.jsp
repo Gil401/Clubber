@@ -46,4 +46,5 @@
     <script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
     <script type="text/javascript" src="js/switcher.js"></script>
     <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    <script type="text/javascript" src="Script/Utils.js"></script>
     <script type="text/javascript" src="Script/myOffers.js"></script>

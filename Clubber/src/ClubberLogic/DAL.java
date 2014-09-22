@@ -2137,31 +2137,31 @@ public class DAL {
 		String query = "";
 		try {
 			if (i_Status.equals("0") && i_LineID.equals("0"))  {
-				query = "SELECT * FROM auction A, businesses B, line L, offers O"
-								+ " WHERE O.Pr_id = "+ i_UserID	+ " AND O.Line_id=L.id AND "
+				query = "SELECT * FROM auction A, businesses B, line L, offers O, offer_status OS, Users U"
+								+ " WHERE O.Pr_id = "+ i_UserID	+ " AND U.id = O.Pr_id AND O.Offer_Status = OS.id AND O.Line_id=L.id AND "
 								+ "L.Business_id = B.id AND O.Auction_id = A.id";
 			} else if (i_Status.equals("0")) {
-				query = "SELECT * FROM auction A, businesses B, line L, offers O"
+				query = "SELECT * FROM auction A, businesses B, line L, offers O, offer_status OS, Users U"
 								+ " WHERE O.Pr_id = "
 								+ i_UserID
-								+ " AND O.Line_id = "+i_LineID+" AND O.Line_id=L.id AND "
+								+ " AND U.id = O.Pr_id AND O.Offer_Status = OS.id AND O.Line_id = "+i_LineID+" AND O.Line_id=L.id AND "
 								+ "l.Business_id = B.id AND O.Auction_id = A.id";
 			}
 			else if(i_LineID.equals("0"))
 			{
-				query = "SELECT * FROM auction A, businesses B, line L, offers O"
+				query = "SELECT * FROM auction A, businesses B, line L, offers O, offer_status OS, Users U"
 								+ " WHERE O.Pr_id = "
 								+ i_UserID
-								+ " AND O.Line_id=L.id AND "
+								+ " AND U.id = O.Pr_id AND O.Offer_Status = OS.id AND O.Line_id=L.id AND "
 								+ "l.Business_id = B.id AND O.Auction_id = A.id"
 								+ " AND O.Offer_Status = " + i_Status;
 			}
 			
 		 else { //all params are not 0
-			query = "SELECT * FROM auction A, businesses B, line L, offers O"
+			query = "SELECT * FROM auction A, businesses B, line L, offers O, offer_status OS, Users U"
 							+ " WHERE O.Pr_id = "
 							+ i_UserID
-							+ " AND O.Line_id = "+i_LineID+" AND O.Line_id=L.id AND "
+							+ " AND U.id = O.Pr_id AND O.Offer_Status = OS.id AND O.Line_id = "+i_LineID+" AND O.Line_id=L.id AND "
 							+ "l.Business_id = B.id AND O.Auction_id = A.id"
 							+" AND O.Offer_Status = " + i_Status;
 		 }
@@ -2170,24 +2170,22 @@ public class DAL {
 			while (rs.next()) 
 			{
 				OfferPerAuction currentOfferPerAuction = new OfferPerAuction();
-				currentOfferPerAuction.getM_OfferData().setDescription(rs.getString("A.Description"));
 				currentOfferPerAuction.getM_Auction().setId(rs.getInt("A.id"));
 				currentOfferPerAuction.getM_Auction().setMinAge(rs.getInt("A.Minimum_Age"));
 				currentOfferPerAuction.getM_Auction().setExceptionsDescription(rs.getString("A.Exceptions_Description"));
-				currentOfferPerAuction.getM_Auction().setGuestesQuantiny(rs.getInt("A.Guests_Quantity"));
-				//currentOfferPerAuction.getM_Auction().setEventType(rs.getString("A.Event_Type"));
+				currentOfferPerAuction.getM_Auction().setGuestesQuantiny(rs.getInt("A.Guestes_Quantiny"));
 				currentOfferPerAuction.getM_Auction().setEventDate(rs.getLong("A.Event_Date"));
 				currentOfferPerAuction.getM_Auction().setDateFlexible(rs.getBoolean("A.Is_Date_Flexible"));
-				//currentOfferPerAuction.getM_Auction().setCertainBusiness();
-				//currentOfferPerAuction.getM_Auction().setArea(/area);
-				//currentOfferPerAuction.getM_Auction().setBusinessType(businessType);
-				//currentOfferPerAuction.getM_Auction().setCreatedBy(createdBy);
-				
-				
+						
 				currentOfferPerAuction.getM_OfferData().setId(rs.getInt("O.id"));
+				currentOfferPerAuction.getM_OfferData().setAuctionId(rs.getInt("O.Auction_id"));
 				currentOfferPerAuction.getM_OfferData().setDescription(rs.getString("O.Description"));
-				//currentOfferPerAuction.getM_OfferData().line
+				currentOfferPerAuction.getM_OfferData().setLineId(new IdWithName(rs.getInt("O.line_Id"), rs.getString("L.Name")));
+				currentOfferPerAuction.getM_OfferData().setLinePhotoURL(rs.getString("L.line_photo"));
+				currentOfferPerAuction.getM_OfferData().setPrId(new IdWithName(rs.getInt("O.Pr_Id"), rs.getString("U.First_Name") + rs.getString("U.Last_Name")));
+				currentOfferPerAuction.getM_OfferData().setOfferStatusId(new IdWithName(rs.getInt("O.Offer_Status"), rs.getString("OS.displayName")));
 				
+				data.add(currentOfferPerAuction);
 			}
 
 		} 
