@@ -88,10 +88,9 @@
                             <li><a href="MyOffers.jsp">ההצעות שלי</a></li>
                             <li><a href="MyLines.jsp">הליינים שלי</a></li>
                             <li><a href="SearchAuctions.jsp">חפש מכרזים</a></li>
-                            <li><a href="AddNewLine.jsp">הוספת ליין</a></li>
                             <% } %>
                             
-                                <li><a href="AllBusinesses.jsp">בתי עסק</a></li> 
+                                <li><a href="AllBusinesses.jsp">מקומות בילוי</a></li> 
                                 <li><a href="index.jsp">ראשי</a></li>
                                 
                             </ul>

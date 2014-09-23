@@ -6,9 +6,10 @@
 		$("#editBusinessDel").click(function() {
 			$('#viewMode').hide();
 			$('#editMode').show();
-			$('#pictureLabel').hide();
-			$('#pic_container').append('<br><br><br><input type="file" name="pic" id="pic" style="float:right;padding:0; margin:0;max-width:30%; max-height:30%;">');
-			
+			$('#businessTitle').html("פרטי מקום בילוי");
+			$('#businessTitle')[0].style.float = "none";
+			$('#businessTitle')[0].style["margin-bottom"] = "50px";
+			//$('#pic').onchange = function() {alert('bla')};
 		});
 		
 		function getBusinessData(id){
@@ -39,11 +40,11 @@
 		        	$("#homeNumber").val(data.m_HouseNumber);
 		        	$("#phoneNumber").val(data.m_PhoneNumber);
 		        	$("#description").val(data.m_Description);
-		        	if (!data.imageUrl) {
-		        		$("#pic")[0].style.display = "none";
+		        	if (!data.m_Photo) {
+		        		$('#viewpic').replaceWith('<img src="images/BusinessImg.jpg" id="viewpic" style="max-width:100px; max-height:100px; float:right;margin-left:30px;float:right">');
 		        	}
 		        	else {
-		        		$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">');
+		        		$('#viewpic').replaceWith('<img src="'+data.m_Photo+'" id="viewpic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">');
 		        	}
 		        	
 		        	var areaId = data.m_AreaId.id;

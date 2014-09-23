@@ -13,14 +13,18 @@ function getAllBusinesses(){
 						if (businesses[i].m_Photo) {
 							photo = '<img src="'+businesses[i].m_Photo+'" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">';
 						}
+						else {
+							photo = '<img src="images/BusinessImg.jpg" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">';
+						}
 						
 						var business = '<div id="businesse'+businesses[i].m_Id +'" class="businesses bg">' +
 						'<div class = "businesse-photo">' + photo + '</div>'+
-						'<div class = "businesse-name">'+'שם: '+ businesses[i].m_Name + '</div>'+
+						'<div class = "businesse-name"><h2>'+ businesses[i].m_Name + '</h2></div><br>'+
+						'<div class = "businesse-description">' + businesses[i].m_Description + '</div><br>'+
 						'<div class = "businesse-type">' +'סוג: '+ businesses[i].m_BusinessTypeId.Name + '</div>'+
 						'<div class = "businesse-range-ages">' +'איזור: '+ businesses[i].m_AreaId.Name	+ '</div>'+
 						'<div class = "businesse-description">'	+'עיר: '+ businesses[i].m_CityId.Name + '</div>'+
-						'<div class = "businesse-button"><button onClick="goToBusinessProfile('+businesses[i].m_Id +');" style="border-radius: 20px; font-size:13px;float:left">ערוך בית עסק</button></div>'+
+						'<div class = "businesse-button"><button onClick="goToBusinessProfile('+businesses[i].m_Id +');" style="border-radius: 20px; font-size:13px;float:left">פרטים נוספים</button></div>'+
 						'</div>';
 						
 						$('.all-businesses').append($(business));
