@@ -15,7 +15,6 @@ function initiateFormBtns(){
 	});
 	
 	$("#updateLineDel").click(function() {
-		//ajaxLineDtailesUpdate();
 	});
 }
 
@@ -141,7 +140,7 @@ function getLineProfile() {
 			
 			for (var item in data.prs) 
 			{
-				$("#prsContainer").append("<div class='pr-item'><img src='/Clubber/images/Check_Image.png' class='offer-item-treat-image'><label class='offer-multi-value-label'>"+data.prs[item].Name+"</label></div><br>");
+				$("#prsContainer").append("<div class='pr-item offer-treat-div pr-linked-title' onclick='loadPrProfile(" + data.prs[item].id+ ")'><img src='/Clubber/images/PR_Icon.png' class='offer-item-treat-image'>&nbsp&nbsp&nbsp<label class='offer-multi-value-label'>"+data.prs[item].Name+"</label></div><br>");
 			}
 		
 		},
@@ -149,6 +148,22 @@ function getLineProfile() {
 			console.log("error");
 		}
 	});
+}
+
+function loadPrProfile(prId) {
+	$.ajax({
+        url: "SessionActions",
+        type: "post",
+        dataType: 'json',
+        data:{UserId: prId, RequestType: "SessionActions-SetUserInSession"},
+        success: function(data) {
+            console.log("SessionActions-SetUserInSession");  
+            window.location.href = "PrProfile.jsp";
+        },
+        error: function(data){
+        	console.log("error");
+    	}
+    });
 }
 
 function convertNumToDay(dayInInt)

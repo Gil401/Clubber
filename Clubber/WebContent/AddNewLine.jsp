@@ -124,10 +124,7 @@
 			dateFormat: "dd/mm/yy",
 			minDate: date,
 			changeMonth: true,
-	      	changeYear: true,
-	      	showOn: "button",
-	        buttonImage: "images/calendar.gif",
-	        buttonImageOnly: true});
+	      	changeYear: true,});
 	});
 
 	$("#startDate").change(function(){
@@ -139,10 +136,7 @@
 			dateFormat: "dd/mm/yy",
 			minDate: startDate,
 			changeMonth: true,
-	      	changeYear: true,
-	      	showOn: "button",
-	        buttonImage: "images/calendar.gif",
-	        buttonImageOnly: true});		
+	      	changeYear: true,});		
 	});
 		
 	
@@ -160,7 +154,7 @@
 	        	
 	        	for(var i=0; i < musicStyleList.length; i++){
 	        		
-	        		var element = '<label><input type="checkbox" name="musicStyle" checked>' +musicStyleList[i].Name+ '</label>' ;
+	        		var element = '<label><input type="checkbox" name="musicStyle" unchecked>' +musicStyleList[i].Name+ '</label>' ;
 	        		musicStyleDiv.append($(element));
 	        	}	        	
 	        },

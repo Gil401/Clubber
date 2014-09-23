@@ -2294,6 +2294,15 @@ ul.sub-menu{
 
 .descriptionLbl{
 	width:100%;
+	margin-top: 25px;
+	margin-bottom: 15px;
+}
+
+businesse-photo{
+	float: right;
+}
+businesse-name{
+	float: right;
 }
 
 .Auction-area-title{
@@ -2359,6 +2368,20 @@ ul.sub-menu{
 	float:right;
 }
 
+.make-offer{
+	
+	cursor: pointer;
+	margin-top:90px;
+ 	font-style: italic;
+	font-size:40px;
+	font-weight:bold;
+	color: #CCCC66;
+	line-height: 90%;
+	margin: .2em 0 .4em 0;
+	letter-spacing: -2px;
+	margin-right:120px;
+}
+
 /******************************
 *******Auction management******
 *******************************/
@@ -2376,8 +2399,15 @@ ul.sub-menu{
 	font-weight: bold;
 }
 
-
-
 textarea{
 	resize: none;
 }
+
+/**********General************
+*****************************/
+.pr-linked-title{
+	float: right;
+	cursor: pointer;
+	color:cornflowerblue;
+}
+

@@ -15,6 +15,7 @@
     <div class='main-container'>  
     <div class= "page-description bg">
     	
+    	<h2 id="prTitle">צפה בהצעות שהזנת במערכת:</h2>
     	<div id= "lineContainer" style="width: 100%">
     		<div style="width: 50%; float:right">
     		<div style="width: 30%;float:right;margin:10px;">בחר ליין</div>

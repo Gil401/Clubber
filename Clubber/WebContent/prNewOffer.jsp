@@ -8,21 +8,25 @@
                 <div class="row">                       
                     <div id="latest-event-content" class="col-sm-7 col-md-8"> 
                         <div class="bg">
+                        <div class='errors-container'>
+	                           <div id="general-description-error" class="error-label-hidden">הזן תיאור כללי על האירוע</div><br>
+	                           <div id="event-time-error" class="error-label-hidden">יש למלא שעת הגעה</div>
+	                           <div id="event-date-error" class="error-label-hidden">יש למלא את התאריך בו ההצעה פגה</div><br>
+                           </div>
                            <div class='main-container'>  
                            <h2><B>תן הצעה!</B></h2>
+                           
     		<form id="new_offer_form">     
 	        
-	        <div  class="large-text-label page-description">בחלק זה אתה מוזמן לתת הצעה לדורש </div>  
+	        <div  class="large-text-label page-description">בחלק זה אתה מוזמן לתת הצעה לחוגג </div>  
 	         <br /><br />
 	         
-	         <label class="new-offer-field-title">תוקף ההצעה</label>
+	         <label class="new-offer-field-title">תוקף ההצעה *</label>
 	         <input type="text" id="closing-date" name="closing-date" readonly="true" required/>
-	         <div id="event-date-error" class="error-label-hidden">יש למלא את התאריך בו ההצעה פגה</div>
 	         <br/><br/>
 	         
-	         <label class="new-offer-field-title">שעת הגעה</label>
+	         <label class="new-offer-field-title">שעת הגעה *</label>
 	         <input id ="max-arrival-time" type="time" name="max-arrival-time" />
-	         <div id="event-time-error" class="error-label-hidden">יש למלא שעת הגעה</div>
 	         <br/><br/>
 	         
 	         <div class = "new-offer-field" class='new-offer-field'> 
@@ -38,10 +42,10 @@
 			</div>  
 	         <br/>
 	         <div class='new-offer-field' >
-	         <label class='new-offer-field-title'>* תיאור כללי</label>
-	         <label class='new-offer-field-title' style="font-size:small;width:100%">כאן זה המקום לתאר את מקום הבילוי, את האווירה, סוגי מקומות הישיבה הקיימים והחוויה הכוללת שמוצעת לחוגג.</label>
+	         <label class='new-offer-field-title'> תיאור כללי *</label>
+	         <label class='new-offer-field-title note-label' style="font-size:small;width:100%">כאן זה המקום לתאר את מקום הבילוי, את האווירה, סוגי מקומות הישיבה הקיימים והחוויה הכוללת שמוצעת לחוגג</label>
 	         <textarea class='new-offer-field-input' id="general-description" name="general-description"  rows="4" cols="50" style= "width:500px;resize: none;"> </textarea>
-	         <div id="general-description-error" class="error-label-hidden">הזן תיאור כללי על האירוע</div><br />
+	         <br />
 	         <br/> <br />
 	          
 	         </div>

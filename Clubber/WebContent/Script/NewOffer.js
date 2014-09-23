@@ -7,9 +7,6 @@
 			minDate: date,
 			changeMonth: true,
 		  	changeYear: true,
-		  	showOn: "button",
-		    buttonImage: "images/calendar.gif",
-		    buttonImageOnly: true
 		 });
 
 		$("#closing-date").change(function(){
@@ -22,9 +19,6 @@
 				minDate: startDate,
 				changeMonth: true,
 		      	changeYear: true,
-		      	showOn: "button",
-		        buttonImage: "images/calendar.gif",
-		        buttonImageOnly: true
 			});
 		});
 	});	

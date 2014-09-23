@@ -69,8 +69,9 @@
 						<div id="auction-description">
 							<label class="title-label">תיאור כללי</label>
 						</div>
+						<div class='make-offer' id="make-offer-button" onClick= "makeOfferClicked()">תן הצעה</div>
 					</div>
-					<input class='btn-primary' type="button" id="make-offer-button" name="make-offer-button"  value="תן הצעה" onClick= "makeOfferClicked()"/>
+					
 			</div>		
 		</div>
        
