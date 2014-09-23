@@ -17,11 +17,11 @@
 		<form class="business-details-form" id="businessDetails" name="businessDetails" method="post" action="UpdateBusinessDetails" enctype="multipart/form-data">
 		  	
 		  	<input type="text" name="id" id="id"  hidden/>
-			<h2 id="businessTitle">פרטי משתמש</h2>		  	
-			<input type="file" name="pic"id="pic" style="max-width:30%; max-height:30%; float: left;">
+			<input type="file" name="viewpic" id="viewpic" style="max-width:30%; max-height:30%; float: right;"/>
+			<h2 id="businessTitle" style="float:right"></h2>		  	
 		  	
 		  	<div id="viewMode">
-				<label name="viewdescription" class="descriptionLbl" id="viewdescription"></label>
+				<br><br><label name="viewdescription" class="descriptionLbl" id="viewdescription"></label>
 	  			<br>
 	  			
 		  		<label id="viewbusinessNameLabel">סוג עסק</label>
@@ -51,6 +51,7 @@
 		  		<button id="editBusinessDel" type="button" >ערוך</button>
 		  	</div>
 		  	<div id="editMode" style="display:none">
+		  	<input type="file" name="pic"id="pic" style="max-width:30%; max-height:30%; float: left"/>
 		  	<label id="businessNameLabel">שם</label>
 			  	<input type="text" name="name" id="name" required/>
 		  	<br>
