@@ -65,17 +65,20 @@ public class AddNewLine extends HttpServlet {
 			e.printStackTrace();
 		}
         
+        String navPage = "";
         if(isSucceed == true)
         {
         	message = "הליין התווסף בהצלחה";
+        	navPage = "/MyLines.jsp";
         }
         else
         {
         	message = "הוספת הליין למערכת נכשלה";
+        	navPage = "/AddNewLine.jsp";
         }
         
         request.setAttribute(Constants.MESSAGE_TEXT, message);
-        getServletContext().getRequestDispatcher("/AddNewLine.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher(navPage).forward(request, response);
 		
 		
 	}
