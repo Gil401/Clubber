@@ -25,14 +25,14 @@
 			  	<input type="radio" name="whoAmI" value="PR" checked>
 				יחצן
 				<input type="radio" name="whoAmI" value="Client">
-				Clubber
+				קלאבר
 				<br><br>
 			  	
-			  	<div class="lable" id="firstnameLabel">שם פרטי</div>
+			  	<div class="lable" id="firstnameLabel"> שם פרטי *</div>
 			  	<input type="text" name="firstName" id="firstName" required>
 			  	<br>
 			  	
-			  	<div class="lable" id="lastnameLabel">שם משפחה</div>
+			  	<div class="lable" id="lastnameLabel">שם משפחה *</div>
 			  	<input type="text" name="lastName" id="lastName" required>			
 			  	<br>
 			  	<br>
@@ -43,16 +43,16 @@
 				נקבה
 				<br><br>
 				
-				<div class="lable" id="birthdateLabel">תאריך לידה</div>
+				<div class="lable" id="birthdateLabel">תאריך לידה *</div>
 				<input type = "datetime" name="birthdate" id="birthdate" required readonly>
 	  			<br>
 	  							
-				<div class="lable" id="phonenumberLabel">טלפון</div>
+				<div class="lable" id="phonenumberLabel">טלפון *</div>
 				<input type="text" name="phoneNumber" id="phoneNumber" required>
 				<br>
 
 				
-				<div class="lable" id="emailLabel">דוא"ל</div>
+				<div class="lable" id="emailLabel">דוא"ל *</div>
 				<input type="text" name="email" size="40" id="email" required>
 	  			<br>
 
@@ -60,18 +60,11 @@
 <!-- 				<input type="password" name="password" id="password"> -->
 <!-- 	  			<br> -->
 				 
-<!-- 				<div class="lable" id="verifyPasswordLabel">אימות סיסמה</div> -->
+<!-- 				<div class="lable" id="verifyPasswordLabel">אימות סיסמה *</div> -->
 <!-- 				<input type="password" name="verifyPassword" id="verifyPassword" required> -->
 <!-- 	  			<br><br> -->
 	  			
-	  			<div class="captcha-area">
-			       <%
-			         ReCaptcha c = ReCaptchaFactory.newReCaptcha("YOUR_PUBLIC_KEY", "YOUR_PRIVATE_KEY", false);
-			         out.print(c.createRecaptchaHtml(null, null));
-			       %>
-
-	  			</div>
-	  			
+	  			<br><br><br>
 	  			<button type="submit" >הירשם</button>
 	  			<input type=reset value="נקה"><br>
 			</form>
@@ -112,10 +105,7 @@
 				minDate: new Date(currentYear - 120, 1, 1),
 				maxDate: date,
 				changeMonth: true,
-		      	changeYear: true,
-		      	showOn: "button",
-		        buttonImage: "images/calendar.gif",
-		        buttonImageOnly: true});	      	
+		      	changeYear: true,});	      	
 		});
 	
 		

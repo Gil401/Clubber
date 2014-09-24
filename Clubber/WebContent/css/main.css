@@ -1303,6 +1303,11 @@ ul.sub-menu{
   color: #3a3a3a
 }
 
+#latest-event-content {
+	float:none;
+	margin-right:auto;
+	margin-left:auto;
+}
 
 .latest-event .media-heading {
   color: #FFFFFF;
