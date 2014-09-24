@@ -225,7 +225,7 @@ input{
 				$("#password").val(data.password);
 
 				if (!data.imageUrl) {
-	        		$("#pic")[0].style.display = "none";
+					$('#pic').replaceWith('<img src="images/UserImg.jpg" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">');
 	        	}
 	        	else {
 	        		$('#pic').replaceWith('<img src="'+data.imageUrl+'" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">');

@@ -121,8 +121,9 @@ function getLineProfile() {
 			$("#DayLabel").text(convertNumToDay(data.m_DayInWeek));
 
 			if (!data.linePhotoURL) {
-        		$("#pic")[0].style.display = "none";
-        		$("#lineImg")[0].style.display = "none";
+				
+				$('#pic').replaceWith('<img src="images/LineImg.jpg" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">');
+				$("#lineImg").replaceWith('<img src="images/LineImg.jpg" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">');
         	}
         	else {
         		$('#pic').replaceWith('<img src="'+data.linePhotoURL+'" id="pic" style="max-width:100px; max-height:100px; float:right;margin-left:30px">');

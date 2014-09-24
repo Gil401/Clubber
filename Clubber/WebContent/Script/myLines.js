@@ -61,7 +61,13 @@ function getMainLinesFromDB(userId) {
 				  $('#temp_container').html(lineTemplate);
 				  var temp_template = $('#temp_container');
 				  
-				  temp_template.find(".img-responsive").attr('src', $(this)[0]['linePhotoURL']);
+				  var linePhotoURL = $(this)[0]['linePhotoURL'];
+				  
+				  if (!linePhotoURL) {
+					  linePhotoURL = "images/LineImg.jpg";
+				  }
+				  
+				  temp_template.find(".img-responsive").attr('src', linePhotoURL);
 				  
 				  temp_template.find('.event-details').attr("id",$(this)[0]['id']);
 				  temp_template.find('.line_box_place').html($(this)[0]['m_BusinessData']['m_StreetId']['Name']+' '+$(this)[0]['m_BusinessData']['m_HouseNumber']+', '+$(this)[0]['m_BusinessData']['m_CityId']['Name'] );
