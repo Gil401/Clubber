@@ -111,7 +111,12 @@ function getLineProfile() {
 			var endMonth = endDate.getMonth() + 1;
 
 			$("#lineNameLbl").text(data.m_LineName);
-			$("#businessIdLbl").text(data.business.Name);
+			//$("#businessIdLbl").text(data.business.Name);
+			$("#businessIdLbl").click(function() {
+					goToBusinessProfile(data.business.id);
+				});
+			$("#businessIdLbl").html(data.business.Name);
+			//$("#businessIdLbl").html('<label onclick="goToBusinessProfile(' + data.business.id+ ')" >'+data.business.Name+" "+' </label>');
 			$("#startDateLbl").text(startDate.getDate() + "/" + startMonth + "/" + startDate.getFullYear());
 			$("#endDateLbl").text(endDate.getDate() + "/" + endMonth + "/" + endDate.getFullYear());
 			$("#minAgeLbl").text(data.minAge);
@@ -294,3 +299,9 @@ $(function() {
 
 	});	
 });
+
+function goToBusinessProfile(businessId)
+{
+	sessionStorage.setItem("businessId", businessId);
+	window.location.href = "BusinessProfile.jsp";
+}

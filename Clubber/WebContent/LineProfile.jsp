@@ -96,7 +96,7 @@
 								<br><br>
 								
 								<label id="linebusinessNameLable">מקום הליין</label> 
-								<label  id="businessIdLbl"> </label>
+								<label id="businessIdLbl" class="offer-item-right-title pr-linked-title" style="float:none"> </label>
 								<br>
 								
 								<label id="lineDayLabel">יום בשבוע</label> 

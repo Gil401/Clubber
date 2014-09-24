@@ -50,7 +50,7 @@
 		        	var areaId = data.m_AreaId.id;
 		        	getAllCitiesByArea(areaId);
 
-		        	showAllBusinessLines(data.m_Lines);	 
+		        	//showAllBusinessLines(data.m_Lines);	 
 		        	uploadAreasFromDB();
 		        },
 		        error: function(data){

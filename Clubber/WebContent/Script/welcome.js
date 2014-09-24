@@ -91,57 +91,33 @@ function getMainLinesFromDB(fullDate) {
 																.html(
 																		lineTemplate);
 														var temp_template = $('#temp_container');
-														temp_template.find(".img-responsive").attr('src', $(this)[0]['m_Lines'][0]['linePhotoURL']);
+														
+														var linePhoto = $(this)[0]['m_Lines'][0]['linePhotoURL'];
+														if (!linePhoto) {
+															linePhoto = "images/LineImg.jpg";
+														}
+														
+														var musicStyles = $(this)[0]['m_Lines'][0]['musicStyles'];
+														if (!musicStyles || musicStyles.length == 0) {
+															musicStyles = null;
+														}
+														
+														temp_template.find(".img-responsive").attr('src', linePhoto);
 														temp_template.find('.event-details').attr("id",$(this)[0]['m_Lines'][0]['id']);
-														temp_template
-																.find(
-																		'.line_box_place')
-																.html(
-																		$(this)[0]['m_StreetId']['Name']
-																				+ ' '
-																				+ $(this)[0]['m_HouseNumber']
-																				+ ', '
-																				+ $(this)[0]['m_CityId']['Name']);
-														temp_template
-																.find(
-																		'.line_box_music_style')
-																.html(
-																		printDataFromArray($(this)[0]['m_Lines'][0]['musicStyles']));
-														temp_template
-																.find(
-																		'.line_box_hour')
-																.html(
-																		$(this)[0]['m_Lines'][0]['openingHour']);
-														temp_template
-																.find(
-																		'.line_box_line')
-																.html(
-																		$(this)[0]['m_Lines'][0]['description']);
-														temp_template
-																.find(
-																		'.line_box_entrance_fee')
-																.html(
-																		$(this)[0]['m_Lines'][0]['entranceFee']);
-														temp_template
-																.find(
-																		'.line_box_number_day')
-																.html(
-																		dayConvertor($(this)[0]['m_Lines'][0]['m_DayInWeek']));
-														temp_template
-																.find(
-																		'.line_box_name')
-																.html(
-																		$(this)[0]['m_Name']);
+														temp_template.find('.line_box_place').html($(this)[0]['m_StreetId']['Name']+ ' ' + $(this)[0]['m_HouseNumber'] + ', ' + $(this)[0]['m_CityId']['Name']);
+														temp_template.find('.line_box_music_style').html(!musicStyles ? 'לא צויין' : printDataFromArray(musicStyles));
+														temp_template.find('.line_box_business').html($(this)[0].m_Name);														
+														temp_template.find('.line_box_hour').html($(this)[0]['m_Lines'][0]['openingHour']);
+														temp_template.find('.line_box_line').html($(this)[0]['m_Lines'][0]['description']);
+														temp_template.find('.line_box_entrance_fee').html($(this)[0]['m_Lines'][0]['entranceFee']);
+														temp_template.find('.line_box_number_day').html(dayConvertor($(this)[0]['m_Lines'][0]['m_DayInWeek']));
+														temp_template.find('.line_box_name').html($(this)[0].m_Lines[0].m_LineName);
 														var a = $(this)[0]['m_Lines'][0]['id'];
 														
 														$('#temp_container').find('.latest-event').hide();
 														
-														$('#lines_container')
-																.append(
-																		$(
-																				'#temp_container')
-																				.html());
-														console.log($(this)[0].m_Name)
+														$('#lines_container').append($('#temp_container').html());
+														console.log($(this)[0].m_Name);
 													});
 									$('#temp_container').html('');
 									page(1);
@@ -267,4 +243,10 @@ function parseDate(str) {
 	var D = new Date(y, m, d);
 	return (D.getFullYear() == y && D.getMonth() == m && D.getDate() == d) ? D
 			: 'invalid date';
+}
+
+function goToBusinessProfile(businessId)
+{
+	sessionStorage.setItem("businessId", businessId);
+	window.location.href = "BusinessProfile.jsp";
 }

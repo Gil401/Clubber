@@ -24,7 +24,7 @@
         <div class="container">
             <div class="event-inner">                
                 <div class="row">                       
-                    <div id="latest-event-content" class="col-sm-7 col-md-8"> 
+                    <div id="latest-event-content" class="col-sm-7 col-md-8" style="float:left"> 
                         <div class="bg">
                             <h2 class="heading"> אירועים <strong>קרובים</strong> </h2 >       
                             <div id="temp_container"></div>                    
