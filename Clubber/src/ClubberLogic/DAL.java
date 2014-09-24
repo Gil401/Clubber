@@ -221,7 +221,7 @@ public class DAL {
 		try {
 			
 			/*load messages*/
-			ResultSet rs = stmt.executeQuery("select * from messages, users where messages.From_User_id=users.id and Auction_id="+currAuctionID+" and ('"+prID+"' = messages.From_User_id or messages.To_User_id= '"+prID+"') order by Created_On desc;");
+			ResultSet rs = stmt.executeQuery("select * from messages, users where messages.From_User_id=users.id and Auction_id="+currAuctionID+" and ('"+prID+"' = messages.From_User_id or messages.To_User_id= '"+prID+"') order by Created_On;");
 			while (rs.next())
 			{
 				UserMessagesData message= new UserMessagesData();
@@ -355,7 +355,8 @@ public class DAL {
 		List<IdWithName> lines = new LinkedList<IdWithName>();
 		String query;
 
-		query = "Select * from line where id in (select line_id from line_prs Lp where Lp.PR_id = " + i_PRid + ")";
+		query = "Select * from line where (id in (select line_id from line_prs Lp where Lp.PR_id = " + i_PRid + ")) OR (Pr_id=" + i_PRid + ")";
+		
 		data.setLines(GetIdAndNameData(query));
 
 		query = "Select * from treats;";
@@ -1023,8 +1024,8 @@ public class DAL {
 			ResultSet rs = stmt
 					.executeQuery("select * "
 							+ "from line L, businesses B, areas a, city c, streets s, business_type t "
-							+ "where L.Business_id = B.id AND L.PR_id ='"
-							+ i_userID + "' AND" + " B.Area = a.id and "
+							+ "where L.Business_id = B.id AND ((L.PR_id ='"
+							+ i_userID + "') OR (L.id in (select line_id from line_prs Lp where Lp.PR_id = " + i_userID + "))) AND" + " B.Area = a.id and "
 							+ "B.city = c.id and " + "B.street = s.id and "
 							+ "B.Business_Type = t.id");
 
@@ -1745,6 +1746,39 @@ public class DAL {
 		}
 		return auctionData;
 	}
+	
+	public static AuctionData getAuctionBaseDetailsById(Integer i_AuctionId) {
+
+		AuctionData auctionData = new AuctionData();
+		connectToDBServer();
+
+		try {
+			ResultSet rs = stmt
+					.executeQuery("SELECT *"
+							+ " FROM auction A, users U"
+							+ " WHERE A.id = " + i_AuctionId
+							+ " AND U.id = A.Created_By");
+			while (rs.next()) {
+				auctionData.setId(rs.getInt("A.id"));
+				auctionData.setMinAge(rs.getInt("A.Minimum_Age"));
+				auctionData.setExceptionsDescription(rs.getString("A.Exceptions_Description"));
+				auctionData.setGuestesQuantiny(rs.getInt("A.Guestes_Quantiny"));
+				auctionData.setEventDate(rs.getLong("A.Event_Date"));
+				auctionData.setDateFlexible(rs.getBoolean("A.Is_Date_Flexible"));
+				auctionData.setArea(new IdWithName(rs.getInt("A.Area"), null));
+				auctionData.setCertainBusiness(new IdWithName(rs.getInt("A.Certain_Business"), null));
+				auctionData.setDescription(rs.getString("A.Description"));
+				auctionData.setSmoking(rs.getBoolean("A.Smoking"));
+				auctionData.setCreatedBy(new IdWithName(rs.getInt("A.Created_By"), rs.getString("U.First_Name") + " " + rs.getString("U.Last_Name")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			disconnectFromDBServer();
+		}
+		return auctionData;
+	}
 
 	public static boolean addNewBusiness(BusinessData businessData) {
 		boolean isSucceed = true;
@@ -2116,11 +2150,11 @@ public class DAL {
 		return data;
 	}
 
-	public static MyLinesData getMyLinesData(String pr_ID) {
+	public static MyLinesData getMyLinesData(String i_PRid) {
 		MyLinesData data = new MyLinesData();
 		connectToDBServer();
 		try {
-			String query = "Select * from line where PR_id = '" + pr_ID + "'";
+			String query = "Select * from line where (id in (select line_id from line_prs Lp where Lp.PR_id = " + i_PRid + ")) OR (Pr_id=" + i_PRid + ")";
 			data.setLines(GetIdAndNameData(query));
 		} finally {
 			disconnectFromDBServer();
@@ -2499,5 +2533,40 @@ public static boolean updateAuctionStatus(Integer auctionId, Integer auctionStat
 		} finally {
 			disconnectFromDBServer();
 		}
+	}
+
+	public static UserData getOfferPR(Integer i_OfferId) {
+		ClubberLogic.UserData userData = null;
+		String userType;
+
+		connectToDBServer();
+
+		try {
+			ResultSet rs = stmt.executeQuery("SELECT * " + "FROM users U "
+					+ "WHERE " + "U.id in (select Pr_id from offers where id='" + i_OfferId + "')");
+			while (rs.next()) {
+				userType = rs.getString("User_Type");
+				if (userType.equals("PR"))
+					userData = new PR();
+				else
+					userData = new Client();
+
+				userData.setFirstName(rs.getString("first_Name"));
+				userData.setBirthDate(rs.getLong("Birth_Date"));
+				userData.setLastName(rs.getString("Last_Name"));
+				userData.setGender((rs.getString("Gender")));
+				userData.setUserType(rs.getString("User_Type"));
+				userData.setEmail(rs.getString("Email"));
+				userData.setId(rs.getInt("id"));
+				userData.setImageUrl(rs.getString("User_Image"));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			disconnectFromDBServer();
+		}
+		return userData;
 	}
 }

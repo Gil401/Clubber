@@ -150,11 +150,11 @@ public class SignUp extends HttpServlet {
 	public boolean sentMail(String name, String password, String email)
 	{
 		boolean isSucceed = true;
-		String title = "Clubber - Registration to website";
-		String message = "Hello " + name + "!"
-				+ "\n\nYour password is : " + password 
-				+ "\nWe recommended you to change your password for safety reasons. "
-				+ "\n\nThanks Clubber Team";
+		String title = "קלאבר - הרשמה לאתר";
+		String message = "שלום " + name + "!"
+				+ "\n\nסיסמתך החדשה היא : " + password 
+				+ "\nאנו ממליצים לך לשנות את הסיסמא הראשונים מטעמי אבטחה. "
+				+ "\n\nתודה, צוות קלאבר";
 				
 		try {
 			GoogleMail.Send(Constants.CLUBBER_USER_NAME, Constants.CLUBBER_USER_PASSWORD, email, title, message);

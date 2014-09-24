@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -69,6 +70,8 @@ public class NewOffer extends HttpServlet {
 			offer.setAuctionId(SessionUtils.getCurrentAuctionToDisplay(request.getSession()));
 			Integer offerId = DAL.addNewOffer(offer);
 			SessionUtils.setCurrentOfferToDisplay(request.getSession(), offerId);
+			
+			sendMailToUser(offer);
 			System.out.println(true);
             out.print(true);
             out.flush();
@@ -82,6 +85,26 @@ public class NewOffer extends HttpServlet {
         }
 	}
 	
+	private void sendMailToUser(OfferData i_Offer)
+	{
+		AuctionData auction = DAL.getAuctionBaseDetailsById(i_Offer.getAuctionId());
+		String email = DAL.getUserEmailByID(auction.getCreatedBy().getId());
+		
+		String title = "קלאבר - הצעה חדשה";
+		String message = "שלום " + auction.getCreatedBy().getName() + "!"
+				+ "\n\nקיבלת הצעה חדשה"  
+				+ "\n. באפשרותך לראות את פרטי ההצעה באתר"
+				+ "\n\nתודה, צוות קלאבר";
+				
+		try {
+			GoogleMail.Send(Constants.CLUBBER_USER_NAME, Constants.CLUBBER_USER_PASSWORD, email, title, message);
+			
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
 	protected void addAlTreats(HttpServletRequest request, OfferData offer)
 	{
 		String treates[]= request.getParameter(Constants.TREATS_OFFER_EDT).split("&");

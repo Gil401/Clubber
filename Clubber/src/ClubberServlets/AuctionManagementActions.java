@@ -3,6 +3,7 @@ package ClubberServlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.mysql.jdbc.Constants;
 
+import ClubberLogic.AuctionData;
 import ClubberLogic.DAL;
+import ClubberLogic.OfferData;
+import ClubberLogic.UserData;
 import Utlis.*;
 /**
  * Servlet implementation class AuctionManagementActions
@@ -80,7 +84,7 @@ public class AuctionManagementActions extends HttpServlet {
             	Boolean res= DAL.updateAuctionStatus(auctionId, AuctionStatusIds.InActive.getValue());
             	res= res && DAL.updateOfferStatus(offerId, OfferStatusIds.Accepted.getValue());
             	res=res && (DAL.updateUserDetailsCode(displayCode,auctionId));
-            	
+            	sendMailForApprovedOffer(offerId, auctionId);
             	json = gson.toJson(res);
             }
             
@@ -105,6 +109,26 @@ public class AuctionManagementActions extends HttpServlet {
         {
             out.close();
         }
+	}
+	
+	private void sendMailForApprovedOffer(Integer i_OfferId, Integer i_AuctionId)
+	{
+		UserData PR = DAL.getOfferPR(i_OfferId);
+		
+		String title = "קלאבר - הצעה חדשה";
+		String message = "שלום " + PR.getFirstName() + " " + PR.getLastName() + "!"
+				+ "\n\nקיבלת הצעה חדשה"  
+				+ "\n.באפשרותך לראות את פרטי ההצעה באתר"
+				+ "\n\nתודה, צוות קלאבר";
+				
+		try {
+			GoogleMail.Send(Utlis.Constants.CLUBBER_USER_NAME, Utlis.Constants.CLUBBER_USER_PASSWORD, PR.getEmail(), title, message);
+			
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }

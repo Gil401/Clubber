@@ -62,7 +62,7 @@ function loadOffersFromDB(data, areaName)
 		
 		var date = new Date(data[item].m_OfferData.submitDate);
 		var month = date.getMonth() + 1;
-		var line_img= "/Clubber/images/Line_Default.jpg";
+		var line_img= "/Clubber/images/LineImg.jpg";
 		
 		if ((data[item].m_OfferData.linePhotoURL != "" ) && (data[item].m_OfferData.linePhotoURL != null ))
 		{
@@ -177,14 +177,6 @@ function ajaxOfferStatusFormDBData() {
             	console.log("error");}
     });
 }
-
-
-
-/*
- * ​$("datepicker").datepicker({ beforeShowDay: function(date) { return
- * [date.getDay() == 5];
- * 
- */
 
 function loadOffers(line, date, status) {
 	$.get("patternTemplates/offerBox.tpl", function(data) {
